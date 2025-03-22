@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+// Main app routing
+/* 
+  Welcome page ->:
+    - CSV Unloader
+    - Trade Tool
+    - Layer Value Chart
+*/
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WelcomePage from './pages/WelcomePage';
+import CSVUnloader from './pages/CSVUnloader';
+
+function Placeholder1() {
+    return <h2>Placeholder Page 1</h2>;
+}
+
+function Placeholder2() {
+    return <h2>Placeholder Page 2</h2>;
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router basename="/zenithstradingtool">
+            <Routes>
+                <Route path="/" element={<WelcomePage />} />
+                <Route path="/csvunloader" element={<CSVUnloader />} />
+                <Route path="/placeholder1" element={<Placeholder1 />} />
+                <Route path="/placeholder2" element={<Placeholder2 />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
