@@ -1,5 +1,5 @@
 // Array of every ore name, alphabetically sorted
-export const oreNames = [
+export const OreNames = [
     "Abyssal Sludge", "Adamantite", "Adrenilar", "Aetherice", "Ailmentin", 
     "Alkanite", "Aluminum", "Amber", "Ambrosine", "Amethyst", "Amnesite", 
     "Andrium", "Anetrium", "Antimatter", "Antireal", "Apiastrine", "Aquamarine", 

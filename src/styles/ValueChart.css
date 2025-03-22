@@ -1,0 +1,135 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: -235px;
+}
+
+.quick-summary {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.quick-summary h2 {
+    margin-bottom: 10px;
+}
+
+.quick-summary p {
+    margin: 5px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.value-buttons, .mode-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tables-container {
+    display: flex; /* Use Flexbox for horizontal alignment */
+    gap: 25px; /* Add spacing between tables */
+    justify-content: space-between; /* Distribute space evenly */
+    width: 100%; /* Ensure the container takes full width */
+}
+
+.table-wrapper {
+    flex: 1; /* Each table takes equal space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+button {
+    align-items: left;
+    background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+    border: 15;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: flex;
+    font-size: 25px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 10px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:active,
+button:hover {
+    outline: 0;
+}
+
+button span {
+    padding: 16px 24px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: 300ms;
+}
+
+button:hover span {
+    background: none;
+}
+
+button:active {
+    transform: scale(0.9);
+}

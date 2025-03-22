@@ -2,19 +2,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function WelcomePage() {
+function ValueChart() {
     return (
         <div>
-            <h1>Welcome to Zenith's Trading Tool</h1>
+            <h1>Trade Tool Placeholder Page</h1>
             <nav>
                 <ul>
-                    <li><Link to="/csvunloader">CSV Unloader & Ore List</Link></li>
+                    <li><Link to="/welcomepage">Back to Home Page</Link></li>
                     <li><Link to="/valuechart">Value Chart</Link></li>
-                    <li><Link to="/tradetool">Trade Tool</Link></li>
+                    <li><Link to="/csvunloader">CSV Unloader</Link></li>
                 </ul>
             </nav>
         </div>
     );
 }
 
-export default WelcomePage;
+export default ValueChart;
