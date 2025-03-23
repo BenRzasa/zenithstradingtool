@@ -8,7 +8,7 @@ function ValueChart() {
             <h1>Trade Tool Placeholder Page</h1>
             <nav>
                 <ul>
-                    <li><Link to="/welcomepage">Back to Home Page</Link></li>
+                    <li><Link to="/">Back to Home Page</Link></li>
                     <li><Link to="/valuechart">Value Chart</Link></li>
                     <li><Link to="/csvloader">CSV Loader</Link></li>
                 </ul>

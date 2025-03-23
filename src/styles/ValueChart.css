@@ -1,4 +1,5 @@
 .container {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,11 +23,20 @@
 }
 
 .quick-summary h2 {
+    margin-top: -15px;
     margin-bottom: 10px;
 }
 
 .quick-summary p {
     margin: 5px 0;
+}
+
+nav {
+  position: fixed; /* Stays at the top even when scrolling */
+  top: 0;
+  right: 0;
+  padding: 25px;
+  z-index: 1000;
 }
 
 nav ul {
@@ -59,31 +69,55 @@ nav ul li a:hover {
 }
 
 .tables-container {
-    display: flex; /* Use Flexbox for horizontal alignment */
-    gap: 25px; /* Add spacing between tables */
-    justify-content: space-between; /* Distribute space evenly */
-    width: 100%; /* Ensure the container takes full width */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 25px;
+}
+/*
+@media (max-width: 1200px) {
+    .tables-container {
+        gap: 30px;
+    }
 }
 
+@media (max-width: 768px) {
+    .tables-container {
+        gap: 20px;
+    }
+}
+*/
 .table-wrapper {
-    flex: 1; /* Each table takes equal space */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex: 1 1 calc(33.333% -0px);
+    min-width: 500px;
+    overflow-x: auto;
+    border: 2px solid #000000;
+    border-radius: 25px;
+    box-shadow: 0 6px 7px rgba(0, 0, 0, 0.47);
+    padding: 15px;
+    display: inline;
+    height: fit-content;
+}
+
+.table-wrapper h2 {
+    text-align: center;
+    padding: 5px;
+    margin: 0;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-top: 0px;
     font-size: 17px;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 2px;
     text-align: center;
+    height: auto;
 }
 
 th {
@@ -95,7 +129,7 @@ button {
     background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
     border: 15;
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 15px 30px -5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 7px 6px 6px;
     box-sizing: border-box;
     color: #ffffff;
     display: flex;

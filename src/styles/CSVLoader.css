@@ -5,38 +5,37 @@ body {
     position: relative;
 }
 
-/* Nav Bar */
-.nav-bar {
-    position: absolute;
+nav {
+    position: fixed; /* Stays at the top even when scrolling */
     top: 0;
     right: 0;
-    padding: 10px;
-    background-color: white; /* Ensure the nav bar has a background */
-    z-index: 10; /* Ensure it appears above other content */
+    padding: 25px;
+    z-index: 1000;
 }
-
-.nav-bar ul {
+  
+nav ul {
     list-style: none;
-    display: inline-block;
+    display: flex;
+    gap: 25px;
+    font-size: 20px;
     margin: 0;
     padding: 0;
 }
-
-.nav-bar ul li {
+  
+nav ul li {
     display: inline;
-    margin-left: 15px;
 }
-
-.nav-bar ul li a {
+  
+nav ul li a {
     text-decoration: none;
     color: #007bff;
     font-weight: bold;
 }
-
-.nav-bar ul li a:hover {
+  
+nav ul li a:hover {
     text-decoration: underline;
 }
-
+  
 /* Ore List Table */
 .ore-list {
     float: left;

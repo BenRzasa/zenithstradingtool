@@ -21,12 +21,11 @@ function ValueChart() {
   // Clean up so that it can loop through an array of layer names and
   // get the data from the John and NAN dicts
 
-  const compounds = isJohnValues 
-                  ? johnValsDict["Compounds"] 
-                  : nanValsDict["Compounds"];
-  const surfaceshallow = isJohnValues 
-                       ? johnValsDict["SurfaceShallow"] 
-                       : nanValsDict["SurfaceShallow"]
+  // Create a single data object for all layers
+  const data = Object.keys(johnValsDict).reduce((acc, layer) => {
+    acc[layer] = isJohnValues ? johnValsDict[layer] : nanValsDict[layer];
+    return acc;
+  }, {});
 
   return (
     <div className="container">
@@ -34,41 +33,44 @@ function ValueChart() {
       <header className="header">
         <div className="quick-summary">
           <h2>Quick Summary</h2>
-          <p>Total Ores: {csvData.reduce((acc, val) => acc + val, 0)}</p>
           <p>
-            {currentMode === 1
-              ? "Rare NVs"
-              : currentMode === 2
-              ? "Rare UVs"
-              : "Rare SVs"}: Placeholder
+            Total Ores:{" "}
+            {Object.values(csvData).reduce((acc, val) => acc + val, 0)}
           </p>
           <p>
-            {currentMode === 1
-              ? "Unique NVs"
-              : currentMode === 2
-              ? "Unique UVs"
-              : "Unique SVs"}: Placeholder
+            {currentMode === 1 ? "Rare NVs"
+           : currentMode === 2 ? "Rare UVs"
+           : currentMode === 3 ? "Rare TVs"
+           : "Rare SVs"}
+           : Placeholder
           </p>
           <p>
-            {currentMode === 1
-              ? "Layer NVs"
-              : currentMode === 2
-              ? "Layer UVs"
-              : "Layer SVs"}: Placeholder
+            {currentMode === 1 ? "Unique NVs"
+           : currentMode === 2 ? "Unique UVs"
+           : currentMode === 3 ? "Rare TV"
+           : "Unique SVs"}
+           : Placeholder
           </p>
           <p>
-            {currentMode === 1
-              ? "Grand Total NV"
-              : currentMode === 2
-              ? "Grand Total UV"
-              : "Grand Total SV"}: Placeholder
+            {currentMode === 1 ? "Layer NVs"
+           : currentMode === 2 ? "Layer UVs"
+           : currentMode === 3 ? "Layer TVs"
+           : "Layer SVs"}
+           : Placeholder
           </p>
           <p>
-            {currentMode === 1
-              ? "Total NV Completion %"
-              : currentMode === 2 
-              ? "Total UV Completion %"
-              : "Total SV Completion %"}: Placeholder
+            {currentMode === 1 ? "Grand Total NV"
+           : currentMode === 2 ? "Grand Total UV"
+           : currentMode === 3 ? "Grand Total TV"
+           : "Grand Total SV"}
+           : Placeholder
+          </p>
+          <p>
+            {currentMode === 1 ? "Total NV Completion %"
+           : currentMode === 2 ? "Total UV Completion %"
+           : currentMode === 3 ? "Total TV Completion %"
+           : "Total SV Completion %"}
+           : Placeholder
           </p>
         </div>
         <nav>
@@ -80,7 +82,7 @@ function ValueChart() {
               <Link to="/tradetool">Trade Tool</Link>
             </li>
             <li>
-              <Link to="/csvunloader">CSV Unloader</Link>
+              <Link to="/csvloader">CSV Loader</Link>
             </li>
           </ul>
         </nav>
@@ -88,18 +90,30 @@ function ValueChart() {
 
       {/* Display current mode*/}
       <h1>Current Values: {isJohnValues ? "John's Values" : "NAN's Values"}</h1>
-      <h2>Current Mode: {currentMode === 1 ? "NV" : currentMode === 2 ? "UV" : "SV"}</h2>
+      <h2>
+        Current Mode:{" "}
+        {currentMode === 1 ? "NV" 
+       : currentMode === 2 ? "UV" 
+       : currentMode === 3 ? "TV"
+       : "SV"}
+      </h2>
 
       {/* Buttons Section */}
       <div className="value-buttons">
         <button
-          style={{ backgroundImage: 'linear-gradient(144deg, #00ddeb, #5b42f3 50%, #af40ff)' }}
+          style={{
+            backgroundImage:
+              "linear-gradient(144deg, #00ddeb, #5b42f3 50%, #af40ff)",
+          }}
           onClick={() => setIsJohnValues(true)}
-        > 
-        <span>John Values</span>
+        >
+          <span>John Values</span>
         </button>
         <button
-          style={{ backgroundImage: 'linear-gradient(144deg,rgb(155, 44, 214),rgb(205, 85, 238) 50%,rgb(224, 123, 244))' }}
+          style={{
+            backgroundImage:
+              "linear-gradient(144deg,rgb(155, 44, 214),rgb(205, 85, 238) 50%,rgb(224, 123, 244))",
+          }}
           onClick={() => setIsJohnValues(false)}
         >
           <span>NAN Values</span>
@@ -108,20 +122,38 @@ function ValueChart() {
 
       <div className="mode-buttons">
         <button
-          style={{ backgroundImage: 'linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb)' }}
+          style={{
+            backgroundImage:
+              "linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb)",
+          }}
           onClick={() => setCurrentMode(2)}
         >
           <span>UV Mode</span>
         </button>
         <button
-          style={{ backgroundImage: 'linear-gradient(144deg, #ff8c42, #ff3c42 50%, #ffd700)' }}
+          style={{
+            backgroundImage:
+              "linear-gradient(144deg, #ff8c42, #ff3c42 50%, #ffd700)",
+          }}
           onClick={() => setCurrentMode(1)}
         >
           <span>NV Mode</span>
         </button>
         <button
-          style={{ backgroundImage: 'linear-gradient(144deg, #ffffff, #ff7e5f 50%, #feb47b)' }}
+          style={{
+            backgroundImage:
+              "linear-gradient(144deg,rgb(118, 136, 223),rgb(164, 164, 164) 50%,rgb(123, 129, 254))",
+          }}
           onClick={() => setCurrentMode(3)}
+        >
+          <span>TV Mode</span>
+        </button>
+        <button
+          style={{
+            backgroundImage:
+              "linear-gradient(144deg, #ffffff, #ff7e5f 50%, #feb47b)",
+          }}
+          onClick={() => setCurrentMode(4)}
         >
           <span>SV Mode</span>
         </button>
@@ -129,32 +161,17 @@ function ValueChart() {
 
       {/* Tables Section */}
       <div className="tables-container">
-        {/* Rares Table */}
-        <TableComponent
-          // data={rareOres}
-          title="Rares"
-          currentMode={currentMode}
-          csvData={csvData}
-          isJohnValues={isJohnValues}
-        />
-
-        {/* Uniques Table */}
-        <TableComponent
-          // data={uniqueOres}
-          title="Uniques"
-          currentMode={currentMode}
-          csvData={csvData}
-          isJohnValues={isJohnValues}
-        />
-
-        {/* Compounds Table */}
-        <TableComponent
-          data={compounds}
-          title="Compounds"
-          currentMode={currentMode}
-          csvData={csvData}
-          isJohnValues={isJohnValues}
-        />
+        {/* Dynamically create tables for each layer */}
+        {Object.keys(data).map((layer) => (
+          <TableComponent
+            key={layer}
+            data={data[layer]}
+            title={layer}
+            currentMode={currentMode}
+            csvData={csvData}
+            isJohnValues={isJohnValues}
+          />
+        ))}
       </div>
     </div>
   );
