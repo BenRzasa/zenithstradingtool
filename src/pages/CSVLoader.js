@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { OreNames } from "../components/OreNames";
-import "../styles/CSVUnloader.css";
+import "../styles/CSVLoader.css";
 import { Link } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext"; // Import the context
 
-function CSVUnloader() {
+function CSVLoader() {
   const { csvData, setCSVData } = useContext(CSVContext); // Access the context
 
   const updateOreAmounts = () => {
@@ -71,4 +71,4 @@ function CSVUnloader() {
   );
 }
 
-export default CSVUnloader;
+export default CSVLoader;

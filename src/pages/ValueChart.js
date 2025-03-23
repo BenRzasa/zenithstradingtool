@@ -5,47 +5,24 @@
 */
 
 import React, { useState, useContext } from 'react';
-import { CSVContext } from '../context/CSVContext'; // Import the context
-import '../styles/ValueChart.css'; // Import the CSS file
+import { CSVContext } from '../context/CSVContext';
+import '../styles/ValueChart.css';
 import { Link } from 'react-router-dom';
 import TableComponent from '../components/TableComponent';
 
 function ValueChart() {
-  const { csvData } = useContext(CSVContext); // Access the CSV data from context
+  const { csvData } = useContext(CSVContext);
   const [currentMode, setCurrentMode] = useState(1); // 1: NV, 2: UV, 3: SV
   const [isJohnValues, setIsJohnValues] = useState(true);
-  
-  // Function to calculate the value based on the current mode
-  const calculateValue = (baseValue) => {
-    if (currentMode === 1) return baseValue * 100; // NV
-    if (currentMode === 2) return baseValue * 10; // UV
-    if (currentMode === 3) return baseValue * 1000; // SV
-    return baseValue;
-  };
 
-  // Function to calculate the percentage
-  const calculatePercentage = (baseValue, inventory) => {
-    if (currentMode === 1) {
-      return ((inventory / (baseValue * 100)) * 100).toFixed(1);
-    } else if (currentMode === 2) {
-      return ((inventory / (baseValue * 10)) * 100).toFixed(1);
-    } else if (currentMode === 3) {
-      return ((inventory / (baseValue * 1000)) * 100).toFixed(1);
-    }
-    return 0;
-  };
-
-  // Dictionaries for John and NAN values
-  const johnValsDict = {
-    Compounds: [4.5, 2.5, 2.5, 1],
-    // Add other layers
-  };
-
-  const nanValsDict = {
-    Compounds: [2.5, 2, 2, 1],
-    // Add other layers
-  };
-
+  const layerNames = [
+      "SurfaceShallow", "CavernsDusk", "Volatile", "MysticInbetween", 
+      "IgneousMantle", "IrradiatedCaustic", "Mirage", "Gloom", "Void", "Grayscale", 
+      "AchroWhitespace", "Frigid", "Marine", "Cosmic", "Molten", "Serenity", 
+      "PlasmaField", "Quantum", "Stability", "Planck", "UpperInstability", 
+      "LowerInstability", "Murk", "EventHorizon", "Abyss", "InnerHorizon", 
+      "Quintessence", "Interstice", "Empyrean"
+  ]
   // Rare ore table data
   const rareOres = [
     { name: "Ambrosine", baseValue: 1.0 },
@@ -83,10 +60,72 @@ function ValueChart() {
     { name: "Onyx", baseValue: 2.5 },
   ];
 
+  // Dictionaries for John and NAN values
+  const johnValsDict = {
+    Compounds: [
+      { name: "Equilibrium", baseValue: 4.5 },
+      { name: "Quark Matter", baseValue: 2.5 },
+      { name: "Periglise", baseValue: 2.5 },
+      { name: "Isoronil", baseValue: 1 },
+    ],
+
+    SurfaceShallow: [
+      { name: "Stone", baseValue: 2000 },
+      { name: "Coal",  baseValue: 1 },
+      { name: "Moonstone", baseValue: 1 },
+      { name: "Kyanite", baseValue: 1 },
+      { name: "Topaz", baseValue: 1 },
+      { name: "Opal", baseValue: 1 },
+      { name: "Aluminum", baseValue: 1 },
+      { name: "Copper", baseValue: 1 },
+      { name: "Iron", baseValue: 1 },
+      { name: "Sulfur", baseValue: 1 },
+      { name: "Silver", baseValue: 1 },
+      { name: "Zinc", baseValue: 1 },
+      { name: "Gold", baseValue: 1 },
+      { name: "Chlorophyte", baseValue: 1 },
+      { name: "Sapphire", baseValue: 1 }
+    ],
+    // Add other layers
+  };
+
+  const nanValsDict = {
+    Compounds: [
+      { name: "Equilibrium", baseValue: 2.5 },
+      { name: "Quark Matter", baseValue: 2 },
+      { name: "Periglise", baseValue: 2 },
+      { name: "Isoronil", baseValue: 1 },
+    ],
+
+    SurfaceShallow: [
+      { name: "Stone", baseValue: 2000 },
+      { name: "Coal",  baseValue: 1 },
+      { name: "Moonstone", baseValue: 1 },
+      { name: "Kyanite", baseValue: 1 },
+      { name: "Topaz", baseValue: 1 },
+      { name: "Opal", baseValue: 1 },
+      { name: "Aluminum", baseValue: 1 },
+      { name: "Copper", baseValue: 1 },
+      { name: "Iron", baseValue: 1 },
+      { name: "Sulfur", baseValue: 1 },
+      { name: "Silver", baseValue: 1 },
+      { name: "Zinc", baseValue: 1 },
+      { name: "Gold", baseValue: 1 },
+      { name: "Chlorophyte", baseValue: 1 },
+      { name: "Sapphire", baseValue: 1 }
+    ],
+    // Add other layers
+  };
+
+
   // Compounds data (fetched from the dictionary)
-  const compounds = isJohnValues
-    ? johnValsDict["Compounds"].map((baseValue) => ({ baseValue }))
-    : nanValsDict["Compounds"].map((baseValue) => ({ baseValue }));
+  // Clean up so that it can loop through an array of layer names
+  const compounds = isJohnValues 
+                  ? johnValsDict["Compounds"] 
+                  : nanValsDict["Compounds"];
+  const surfaceshallow = isJohnValues 
+                       ? johnValsDict["SurfaceShallow"] 
+                       : nanValsDict["SurfaceShallow"]
 
   return (
     <div className="container">
@@ -126,7 +165,7 @@ function ValueChart() {
           <p>
             {currentMode === 1
               ? "Total NV Completion %"
-              : currentMode === 2
+              : currentMode === 2 
               ? "Total UV Completion %"
               : "Total SV Completion %"}: Placeholder
           </p>
@@ -145,15 +184,17 @@ function ValueChart() {
           </ul>
         </nav>
       </header>
+      {/* Display current mode*/}
       <h1>Current Values: {isJohnValues ? "John's Values" : "NAN's Values"}</h1>
       <h2>Current Mode: {currentMode === 1 ? "NV" : currentMode === 2 ? "UV" : "SV"}</h2>
+
       {/* Buttons Section */}
       <div className="value-buttons">
         <button
           style={{ backgroundImage: 'linear-gradient(144deg, #00ddeb, #5b42f3 50%, #af40ff)' }}
           onClick={() => setIsJohnValues(true)}
-        >
-          <span>John Values</span>
+        > 
+        <span>John Values</span>
         </button>
         <button
           style={{ backgroundImage: 'linear-gradient(144deg, #ffd700, #ff3c42 50%, #ff8c42)' }}
@@ -187,66 +228,22 @@ function ValueChart() {
       {/* Tables Section */}
       <div className="tables-container">
         {/* Rares Table */}
-        <div className="table-wrapper">
-          <h2>Rares</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>{currentMode === 1 ? "1 NV%" : currentMode === 2 ? "1 UV%" : "1 SV%"}</th>
-                <th>Inventory</th>
-                <th>Ore Per AV</th>
-                <th>{currentMode === 1 ? "Ore Per NV" : currentMode === 2 ? "Ore Per UV" : "Ore Per SV"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rareOres.map((ore, index) => {
-                const inventory = csvData.find((item) => item.name === ore.name)?.amount || 0;
-                const percentage = calculatePercentage(ore.baseValue, inventory);
-                return (
-                  <tr key={ore.name}>
-                    <td>{ore.name}</td>
-                    <td>{Math.min(100, percentage)}%</td>
-                    <td>{inventory}</td>
-                    <td>{ore.baseValue.toFixed(1)}</td>
-                    <td>{calculateValue(ore.baseValue).toFixed(0)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <TableComponent
+          data={rareOres}
+          title="Rares"
+          currentMode={currentMode}
+          csvData={csvData}
+          isJohnValues={isJohnValues}
+        />
 
         {/* Uniques Table */}
-        <div className="table-wrapper">
-          <h2>Uniques</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>{currentMode === 1 ? "1 NV%" : currentMode === 2 ? "1 UV%" : "1 SV%"}</th>
-                <th>Inventory</th>
-                <th>Ore Per AV</th>
-                <th>{currentMode === 1 ? "Ore Per NV" : currentMode === 2 ? "Ore Per UV" : "Ore Per SV"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {uniqueOres.map((ore, index) => {
-                const inventory = csvData.find((item) => item.name === ore.name)?.amount || 0;
-                const percentage = calculatePercentage(ore.baseValue, inventory);
-                return (
-                  <tr key={ore.name}>
-                    <td>{ore.name}</td>
-                    <td>{Math.min(100, percentage)}%</td>
-                    <td>{inventory}</td>
-                    <td>{ore.baseValue.toFixed(1)}</td>
-                    <td>{calculateValue(ore.baseValue).toFixed(0)}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <TableComponent
+          data={uniqueOres}
+          title="Uniques"
+          currentMode={currentMode}
+          csvData={csvData}
+          isJohnValues={isJohnValues}
+        />
 
         {/* Compounds Table */}
         <TableComponent
@@ -261,4 +258,4 @@ function ValueChart() {
   );
 }
 
-export default ValueChart
+export default ValueChart;

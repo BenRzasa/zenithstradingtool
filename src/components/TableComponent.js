@@ -1,3 +1,6 @@
+// Modular table component that works with any dictionary of values
+// given the layer name, ore names, and a base value.
+
 import React from 'react';
 
 const TableComponent = ({ data, title, currentMode, csvData, isJohnValues }) => {
@@ -30,21 +33,26 @@ const TableComponent = ({ data, title, currentMode, csvData, isJohnValues }) => 
             <th>Name</th>
             <th>{currentMode === 1 ? "1 NV%" : currentMode === 2 ? "1 UV%" : "1 SV%"}</th>
             <th>Inventory</th>
+            <th>{currentMode === 1 ? "# NV" : currentMode === 2 ? "# UV" : "# SV"}</th>
             <th>Ore Per AV</th>
-            <th>{currentMode === 1 ? "Ore Per NV" : currentMode === 2 ? "Ore Per UV" : "Ore Per SV"}</th>
+            <th>{currentMode === 1 ? "Per NV" : currentMode === 2 ? "Per UV" : "Per SV"}</th>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => {
+            // Fetch the inventory value for the current ore using the index
             const inventory = csvData[index] || 0;
             const percentage = calculatePercentage(item.baseValue, inventory);
+            const perValue = calculateValue(item.baseValue).toFixed(1);
+            const numV = (inventory / perValue).toFixed(1);
             return (
-              <tr key={`compound-${index}`}>
-                <td>Compound {index + 1}</td>
+              <tr key={index}>
+                <td>{item.name}</td>
                 <td>{Math.min(100, percentage)}%</td>
                 <td>{inventory}</td>
+                <td>{numV}</td>
                 <td>{item.baseValue.toFixed(1)}</td>
-                <td>{calculateValue(item.baseValue).toFixed(0)}</td>
+                <td>{perValue}</td>
               </tr>
             );
           })}
@@ -54,4 +62,4 @@ const TableComponent = ({ data, title, currentMode, csvData, isJohnValues }) => 
   );
 };
 
-export default TableComponent; // Ensure this is the default export
+export default TableComponent;

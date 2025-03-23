@@ -8,7 +8,7 @@ function WelcomePage() {
             <h1>Welcome to Zenith's Trading Tool</h1>
             <nav>
                 <ul>
-                    <li><Link to="/csvunloader">CSV Unloader & Ore List</Link></li>
+                    <li><Link to="/csvloader">CSV Loader & Ore List</Link></li>
                     <li><Link to="/valuechart">Value Chart</Link></li>
                     <li><Link to="/tradetool">Trade Tool</Link></li>
                 </ul>

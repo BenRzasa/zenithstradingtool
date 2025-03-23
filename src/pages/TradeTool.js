@@ -10,7 +10,7 @@ function ValueChart() {
                 <ul>
                     <li><Link to="/welcomepage">Back to Home Page</Link></li>
                     <li><Link to="/valuechart">Value Chart</Link></li>
-                    <li><Link to="/csvunloader">CSV Unloader</Link></li>
+                    <li><Link to="/csvloader">CSV Loader</Link></li>
                 </ul>
             </nav>
         </div>

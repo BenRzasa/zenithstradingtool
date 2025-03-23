@@ -9,7 +9,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
-import CSVUnloader from './pages/CSVUnloader';
+import CSVLoader from './pages/CSVLoader';
 import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
 import { CSVProvider } from './context/CSVContext';
@@ -22,7 +22,7 @@ function App() {
             <Router basename="/zenithstradingtool">
                 <Routes>
                     <Route path="/" element={<WelcomePage />} />
-                    <Route path="/csvunloader" element={<CSVUnloader />} />
+                    <Route path="/csvloader" element={<CSVLoader />} />
                     <Route path="/valuechart" element={<ValueChart />} />
                     <Route path="/tradetool" element={<TradeTool />} />
                 </Routes>
