@@ -19,7 +19,7 @@ export const OreNames = [
     "Geometrium", "Glowstone", "Gluonium", "Gold", "Graphene", "Graviton", "Gray Matter", 
     "Grimstone", "Gyrivarium", "Hadronil", "Havicron", "Hellstone", "Hematite", "Hexflame", 
     "Hollevite", "Horrorstone", "Hydrolyth", "Hyperium", "Ichor", "Impervium", "Infernilus", 
-    "Infrarian", "Inversium", "Iridium", "Iron", "Isoronil", "Jade", "Jalabono", "Jasper", 
+    "Infrarian", "Inversium", "Iridium", "Iron", "Isoronil", "Jade", "Jalaboño", "Jasper", 
     "Kafsium", "Korenil", "Korundum", "Krazmite", "Kryposilus", "Kyanite", "Lapis", "Lead", 
     "Leptonyte", "Liquid Gold", "Lithium", "Lumenyl", "Macusmite", "Magmium", "Magnesium", 
     "Magnetite", "Malachite", "Malbrane", "Mantle Fragment", "Mauraline", "Mavrikine", 
@@ -43,7 +43,7 @@ export const OreNames = [
     "Tetraquark", "Thallium", "Thermisine", "Thorium", "Thulinyl", "Titanium", 
     "Top Quark", "Topaz", "Torn Fabric", "Toxirock", "Trinasine", "Tritium", 
     "Truth Quark", "Tungsten", "Ubriniale", "Ultranium", "Universal Barrier", 
-    "Universallium", "Unobtanium", "Up Quark", "Uranium", "Vanadium", "Vantaslate", 
+    "Universallium", "Unobtainium", "Up Quark", "Uranium", "Vanadium", "Vantaslate", 
     "Verglazium", "Vermillium", "Vicious Shard", "Void Orb", "Vorazylith", "Vrimsten", 
     "Vythusilyte", "Wish Alloy", "Xerutherum", "Yilantibris", "Yunium", "Zeronian", 
     "Zetaslime", "Zilithorus", "Zinc", "Zynulvinite"

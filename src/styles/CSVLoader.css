@@ -35,22 +35,30 @@ nav ul li a {
 nav ul li a:hover {
     text-decoration: underline;
 }
-  
+
+h1 {
+    margin-left: 25px;
+    margin-top: 75px;
+}
+
 /* Ore List Table */
 .ore-list {
     float: left;
-    width: 25%; /* Take up half the width */
-    margin-right: 100px; /* Add spacing between the table and CSV input */
+    width: 25%;
+    margin-top: 0px;
+    margin-left: 50px;
+    margin-right: 100px;
 }
 
 table {
     width: 100%;
     font-size: 25px;
     border-collapse: collapse;
+    background-color: transparent;
 }
 
-th, td {
-    border: 1px solid #ddd;
+td {
+    border: 1px solid #000000;
     padding: 8px;
     text-align: left;
 }
@@ -62,18 +70,19 @@ th {
 /* CSV Input Section */
 .csv-input {
     float: left;
-    width: calc(50% - 200px); /* Take up the remaining width minus margin */
+    width: calc(50% - 200px);
 }
 
 .csv-input h2 {
-    margin-top: 0;
+    margin-top: 0px;
 }
 
 textarea {
     width: 100%;
     height: 500px;
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical;
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 button {

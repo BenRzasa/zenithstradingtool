@@ -20,7 +20,7 @@ export const johnValsDict = {
     { name: "Rhylazil", baseValue: 0.02, className: "color-template-rhylazil" },
     { name: "Ubriniale", baseValue: 0.01, className: "color-template-ubriniale" },
     { name: "Nyrvinoris", baseValue: 1.0, className: "color-template-nyrvinoris" },
-    { name: "Unobtanium", baseValue: 1.0, className: "color-template-unobtanium" }
+    { name: "Unobtainium", baseValue: 1.0, className: "color-template-unobtainium" }
   ],
 
   Uniques: [
@@ -369,7 +369,7 @@ export const johnValsDict = {
 
   Empyrean: [
     { name: "Evrasalt", baseValue: 100, className: "color-template-evrasalt" },
-    { name: "Qylicrist", baseValue: 5, className: "color-template-qylicrist" },
+    { name: "Qylicryst", baseValue: 5, className: "color-template-qylicryst" },
     { name: "Kafsium", baseValue: 16, className: "color-template-kafsium" },
     { name: "Zetaslime", baseValue: 15.5, className: "color-template-zetaslime" },
     { name: "Ochistrite", baseValue: 19.5, className: "color-template-ochistrite" },

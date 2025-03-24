@@ -19,7 +19,7 @@ export const nanValsDict = {
     { name: "Rhylazil", baseValue: 0.02, className: "color-template-rhylazil" },
     { name: "Ubriniale", baseValue: 0.01, className: "color-template-ubriniale" },
     { name: "Nyrvinoris", baseValue: 1.0, className: "color-template-nyrvinoris" },
-    { name: "Unobtanium", baseValue: 1.0, className: "color-template-unobtanium" }
+    { name: "Unobtainium", baseValue: 1.0, className: "color-template-unobtainium" }
   ],
 
   Uniques: [
@@ -367,7 +367,7 @@ export const nanValsDict = {
 
   Empyrean: [
     { name: "Evrasalt", baseValue: 100, className: "color-template-evrasalt" },
-    { name: "Qylicrist", baseValue: 3, className: "color-template-qylicrist" },
+    { name: "Qylicryst", baseValue: 3, className: "color-template-qylicryst" },
     { name: "Kafsium", baseValue: 12, className: "color-template-kafsium" },
     { name: "Zetaslime", baseValue: 12, className: "color-template-zetaslime" },
     { name: "Ochistrite", baseValue: 15, className: "color-template-ochistrite" },

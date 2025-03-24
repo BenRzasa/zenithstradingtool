@@ -1,0 +1,37 @@
+.percent-0 { background-color: #ff0000; }
+.percent-20 { background-color: #ff4000; }
+.percent-40 { background-color: #ff8000; }
+.percent-60 { background-color: #ffbf00; }
+.percent-80 { background-color: #71c700; }
+.percent-100 { background-color: #00b800; }
+
+.table-footer {
+    padding: 10px 15px;
+    border-top: 1px solid var(--table-outline);
+    margin-top: 0px;
+}
+  
+.info-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+}
+  
+.info-list li {
+    padding: 5px 0;
+}
+  
+.placeholder {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+  
+/* Add to your theme variables */
+:root {
+    --accent-color: #5b42f3; /* Purple to match your button gradient */
+}
+  
+[data-theme="dark"] {
+    --accent-color: #00ddeb; /* Teal for dark mode */
+}

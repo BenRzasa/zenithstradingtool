@@ -2,6 +2,8 @@
 // given the layer name, ore names, and a base value.
 import '../styles/AllGradients.css';
 import '../styles/ValueChart.css';
+import '../styles/TableComponent.css';
+
 import React from "react";
 
 const TableComponent = ({
@@ -42,6 +44,43 @@ const TableComponent = ({
     return decimalPart ? decimalPart.length : 0;
   };
 
+  // 1. Calculate completion percentage (matches Excel MIN(1,Inventory/OrePerUnit) logic
+  const getAverageCompletion = () => {
+    const totalCompletion = data.reduce((sum, item) => {
+      const inventory = csvData[item.name] || 0;
+      const orePerUnit = calculateValue(item.baseValue); // NV/UV/TV/SV per ore
+      const completion = Math.min(1, inventory / orePerUnit); // Cap at 100%
+      return sum + completion;
+    }, 0);
+    
+    return ((totalCompletion / data.length) * 100).toFixed(1); // Convert to percentage
+  };
+
+  // 2. Calculate total NVs/UVs/TVs/SVs
+  const getTotalValue = () => {
+    return data.reduce((sum, item) => {
+      const inventory = csvData[item.name] || 0;
+      const perValue = calculateValue(item.baseValue).toFixed(getPrecision(item.baseValue) - 1.0);
+      return sum + parseFloat((inventory / perValue).toFixed(1));
+    }, 0).toLocaleString();
+  };
+
+  // 3. Find highest value ore
+  const getHighestValue = () => {
+    const highestItem = data.reduce((max, item) => {
+      const inventory = csvData[item.name] || 0;
+      const perValue = calculateValue(item.baseValue).toFixed(getPrecision(item.baseValue) - 1.0);
+      const numV = parseFloat((inventory / perValue).toFixed(1));
+      return numV > max.value ? {name: item.name, value: numV} : max;
+    }, {name: '', value: 0});
+    
+    const unit = currentMode === 1 ? "NV" :
+                 currentMode === 2 ? "UV" :
+                 currentMode === 3 ? "TV" : "SV";
+    
+    return `${highestItem.name} (${highestItem.value.toLocaleString()} ${unit})`;
+  };
+
   // If data is undefined, render a fallback
   if (!data) {
     return (
@@ -60,24 +99,24 @@ const TableComponent = ({
           <tr>
             <th>Name</th>
             <th>
-              {currentMode === 1 ? "1 NV%"
-             : currentMode === 2 ? "1 UV%"
-             : currentMode === 3 ? "1 TV%"
-             : "1 SV%"}
+              {currentMode === 1 ? "NV%"
+             : currentMode === 2 ? "UV%"
+             : currentMode === 3 ? "TV%"
+             : "SV%"}
             </th>
-            <th>Inventory</th>
+            <th>Amount</th>
             <th>
-              {currentMode === 1 ? "# NV" 
-             : currentMode === 2 ? "# UV" 
-             : currentMode === 3 ? "# TV" 
-             : "# SV"}
+              {currentMode === 1 ? "NVs" 
+             : currentMode === 2 ? "UVs" 
+             : currentMode === 3 ? "TVs" 
+             : "SVs"}
             </th>
-            <th># Per AV</th>
+            <th>Per AV</th>
             <th>
-              {currentMode === 1 ? "# Per NV"
-             : currentMode === 2 ? "# Per UV"
-             : currentMode === 3 ? "# Per TV"
-             : "# Per SV"}
+              {currentMode === 1 ? "Per NV"
+             : currentMode === 2 ? "Per UV"
+             : currentMode === 3 ? "Per TV"
+             : "Per SV"}
             </th>
           </tr>
         </thead>
@@ -87,7 +126,7 @@ const TableComponent = ({
             const inventory = csvData[item.name] || 0;
             const value = item.baseValue;
             // Calculate perValue with dynamic precision
-            const percentage = calculatePercentage(value, inventory);
+            const percentage = Math.min(100, calculatePercentage(value, inventory));
             const precision = getPrecision(value);
             const perPres = precision - 1.0;
             const perValue = calculateValue(value).toFixed(perPres);
@@ -97,7 +136,9 @@ const TableComponent = ({
                 <td className={`name-column ${item.className || ""}`} data-text={item.name}>
                   {item.name}
                 </td>
-                <td>{Math.min(100, percentage)}%</td>
+                <td className={`percent-${Math.floor(percentage/20)*20}`}>
+                  {percentage}%
+                </td>
                 <td>{inventory}</td>
                 <td>{numV}</td>
                 <td>{value.toFixed(precision)}</td>
@@ -107,6 +148,24 @@ const TableComponent = ({
           })}
         </tbody>
       </table>
+        {/* Information section */}
+        <div className="table-footer">
+        <ul className="info-list">
+          <li>• Completion: <span className="placeholder">
+            {getAverageCompletion()}%
+          </span></li>
+
+          <li>• Total Value: <span className="placeholder">
+            {getTotalValue()} {currentMode === 1 ? "NV" :
+                               currentMode === 2 ? "UV" :
+                               currentMode === 3 ? "TV" : "SV"}
+          </span></li>
+
+          <li>• Highest Value: <span className="placeholder">
+            {getHighestValue()}
+          </span></li>
+        </ul>
+      </div>
     </div>
   );
 };
