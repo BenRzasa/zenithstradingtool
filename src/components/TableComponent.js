@@ -1,6 +1,7 @@
 // Modular table component that works with any dictionary of values
 // given the layer name, ore names, and a base value.
-
+import '../styles/AllGradients.css';
+import '../styles/ValueChart.css';
 import React from "react";
 
 const TableComponent = ({
@@ -93,7 +94,7 @@ const TableComponent = ({
             const numV = (inventory / perValue).toFixed(1);
             return (
               <tr key={index}>
-                <td className={ item.className || "" }>
+                <td className={`name-column ${item.className || ""}`} data-text={item.name}>
                   {item.name}
                 </td>
                 <td>{Math.min(100, percentage)}%</td>

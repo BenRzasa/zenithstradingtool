@@ -1,141 +1,141 @@
 .color-template-stone {
-    color: #a7a7a7;
+    background: #a7a7a7;
 }
 
 .color-template-coal {
-    color: #59595a;
+    background: #59595a;
 }
 
 .color-template-moonstone {
-    color: #cee2e5;
+    background: #cee2e5;
 }
 
 .color-template-kyanite {
-    color: #608aa8;
+    background: #608aa8;
 }
 
 .color-template-topaz {
-    color: #ffa435;
+    background: #ffa435;
 }
 
 .color-template-opal {
-    color: #fad0ed;
+    background: #fad0ed;
 }
 
 .color-template-aluminum {
-    color: #9ea6a6;
+    background: #9ea6a6;
 }
 
 .color-template-copper {
-    color: #cb7347;
+    background: #cb7347;
 }
 
 .color-template-iron {
-    color: #a5958b;
+    background: #a5958b;
 }
 
 .color-template-sulfur {
-    color: #ecb939;
+    background: #ecb939;
 }
 
 .color-template-silver {
-    color: #dfdfdf;
+    background: #dfdfdf;
 }
 
 .color-template-zinc {
-    color: #7e8f9d;
+    background: #7e8f9d;
 }
 
 .color-template-gold {
-    color: #eba535;
+    background: #eba535;
 }
 
 .color-template-sapphire {
-    color: #147aff;
+    background: #147aff;
 }
 
 .color-template-ruby {
-    color: #d82424;
+    background: #d82424;
 }
 
 .color-template-emerald {
-    color: #49c11e;
+    background: #49c11e;
 }
 
 .color-template-chlorophyte {
-    color: #43ca25;
+    background: #43ca25;
 }
 
 .color-template-peridot {
-    color: #89e34d;
+    background: #89e34d;
 }
 
 .color-template-amethyst {
-    color: #b172ff;
+    background: #b172ff;
 }
 
 .color-template-thallium {
-    color: #484654;
+    background: #484654;
 }
 
 .color-template-tungsten {
-    color: #a0cc9c;
+    background: #a0cc9c;
 }
 
 .color-template-diamond {
-    color: #a5d1e2;
+    background: #a5d1e2;
 }
 
 .color-template-garnet {
-    color: #a51111;
+    background: #a51111;
 }
 
 .color-template-platinum {
-    color: #919191;
+    background: #919191;
 }
 
 .color-template-malachite {
-    color: #26bf6b;
+    background: #26bf6b;
 }
 
 .color-template-lithium {
-    color: #82818f;
+    background: #82818f;
 }
 
 .color-template-boron {
-    color: #999999;
+    background: #999999;
 }
 
 .color-template-boomite {
-    color: #ff6017;
+    background: #ff6017;
 }
 
 .color-template-red-diamond {
-    color: #b92e30;
+    background: #b92e30;
 }
 
 .color-template-titanium {
-    color: #9eadbf;
+    background: #9eadbf;
 }
 
 .color-template-plutonium {
-    color: #faa339;
+    background: #faa339;
 }
 
 .color-template-technetium {
-    color: #4c4f5a;
+    background: #4c4f5a;
 }
 
 .color-template-uranium {
-    color: #53ff38;
+    background: #53ff38;
 }
 
 .color-template-caesium {
-    color: #8c8753;
+    background: #8c8753;
 }
 
 .color-template-metallic-hydrogen {
-    color: #484241;
+    background: #484241;
 }
 
 .color-template-osmium {
@@ -143,15 +143,15 @@
 }
 
 .color-template-einsteinium {
-    color: #4e9cad;
+    background: #4e9cad;
 }
 
 .color-template-hematite {
-    color: #607a88;
+    background: #607a88;
 }
 
 .color-template-rose-quartz {
-    color: #d87cb0;
+    background: #d87cb0;
 }
 
 .color-template-rainbonite {
@@ -159,27 +159,27 @@
 }
 
 .color-template-barium {
-    color: #4f625a;
+    background: #4f625a;
 }
 
 .color-template-chrysoprase {
-    color: #4bffc9;
+    background: #4bffc9;
 }
 
 .color-template-soul-crystal {
-    color: #d7e0ff;
+    background: #d7e0ff;
 }
 
 .color-template-cobalt {
-    color: #3a5fd8;
+    background: #3a5fd8;
 }
 
 .color-template-azure {
-    color: #7729ff;
+    background: #7729ff;
 }
 
 .color-template-lapis {
-    color: #6978ff;
+    background: #6978ff;
 }
 
 .color-template-bismuth {
@@ -187,11 +187,11 @@
 }
 
 .color-template-demonite {
-    color: #705fb4;
+    background: #705fb4;
 }
 
 .color-template-mithril {
-    color: #76dff8;
+    background: #76dff8;
 }
 
 .color-template-vanadium {
@@ -203,99 +203,99 @@
 }
 
 .color-template-dragonglass {
-    color: #7a21b9;
+    background: #7a21b9;
 }
 
 .color-template-painite {
-    color: #870000;
+    background: #870000;
 }
 
 .color-template-carnelian {
-    color: #8b2f1f;
+    background: #8b2f1f;
 }
 
 .color-template-magmium {
-    color: #ec6600;
+    background: #ec6600;
 }
 
 .color-template-firecrystal {
-    color: #ff8921;
+    background: #ff8921;
 }
 
 .color-template-hellstone {
-    color: #a11515;
+    background: #a11515;
 }
 
 .color-template-jasper {
-    color: #902e25;
+    background: #902e25;
 }
 
 .color-template-mantle-fragment {
-    color: #b33024;
+    background: #b33024;
 }
 
 .color-template-magnesium {
-    color: #845b6a;
+    background: #845b6a;
 }
 
 .color-template-gargantium {
-    color: #8a0000;
+    background: #8a0000;
 }
 
 .color-template-toxirock {
-    color: #1f3e1b;
+    background: #1f3e1b;
 }
 
 .color-template-promethium {
-    color: #2deb18;
+    background: #2deb18;
 }
 
 .color-template-radium {
-    color: #29d863;
+    background: #29d863;
 }
 
 .color-template-tellurium {
-    color: #4c4766;
+    background: #4c4766;
 }
 
 .color-template-newtonium {
-    color: #b4f945;
+    background: #b4f945;
 }
 
 .color-template-yunium {
-    color: #fff563;
+    background: #fff563;
 }
 
 .color-template-thorium {
-    color: #2fb9e8;
+    background: #2fb9e8;
 }
 
 .color-template-lead {
-    color: #6b7687;
+    background: #6b7687;
 }
 
 .color-template-blastium {
-    color: #93b5ff;
+    background: #93b5ff;
 }
 
 .color-template-coronium {
-    color: #c72b2e;
+    background: #c72b2e;
 }
 
 .color-template-tritium {
-    color: #acf7fa;
+    background: #acf7fa;
 }
 
 .color-template-polonium {
-    color: #626262;
+    background: #626262;
 }
 
 .color-template-frightstone {
-    color: #a21b6c;
+    background: #a21b6c;
 }
 
 .color-template-stellarite {
-    color: #75d3ff;
+    background: #75d3ff;
 }
 
 .color-template-prismaline {
@@ -307,102 +307,102 @@
 }
 
 .color-template-constellatium {
-    color: #b64ad4;
+    background: #b64ad4;
 }
 
 .color-template-stratocrit {
-    color: #691544;
+    background: #691544;
 }
 
 .color-template-dark-matter {
-    color: #662fbd;
+    background: #662fbd;
 }
 
 .color-template-crimstone {
-    color: #c10000;
+    background: #c10000;
 }
 
 .color-template-horrorstone {
-    color: #ab2f35;
+    background: #ab2f35;
 }
 
 .color-template-strange-matter {
-    color: #0af367;
+    background: #0af367;
 }
 
 .color-template-vermillium {
-    color: #810002;
+    background: #810002;
 }
 
 .color-template-magnetite {
-    color: #8773b5;
+    background: #8773b5;
 }
 
 .color-template-iridium {
-    color: #576068;
+    background: #576068;
 }
 
 .color-template-surrenderock {
-    color: #981719;
+    background: #981719;
 }
 
 .color-template-vantaslate {
-    color: #282828;
+    background: #282828;
 }
 
 .color-template-cometite {
-    color: #5badec;
+    background: #5badec;
 }
 
 .color-template-adamantite {
-    color: #c6285f;
+    background: #c6285f;
 }
 
 .color-template-eclipsium {
-    color: #000000;
+    background: #000000;
     background: linear-gradient(90deg, #bb3306 0%, #f8ab25 30%, #ffcc14 50%, #f8ab25 70%, #bb3306 100%);
 }
 
 .color-template-ebonakite {
-    color: #cb4177;
+    background: #cb4177;
 }
 
 .color-template-palladium {
-    color: #ff4213;
+    background: #ff4213;
 }
 
 .color-template-neptunium {
-    color: #2744ff;
+    background: #2744ff;
 }
 
 .color-template-void-orb {
-    color: #e22f74;
+    background: #e22f74;
 }
 
 .color-template-nilidust {
-    color: #000000;
+    background: #000000;
     background: linear-gradient(90deg, #626497 0%, #792fa4 25%, #e253e0 50%, #d02e8c 75%, #d81111 100%);
 }
 
 .color-template-asthenocrit {
-    color: #66c2bc;
+    background: #66c2bc;
 }
 
 .color-template-gallium {
-    color: #757575;
+    background: #757575;
 }
 
 .color-template-amnesite {
-    color: #888888;
+    background: #888888;
 }
 
 .color-template-shadow-quartz {
-    color: #000000;
+    background: #000000;
     background: linear-gradient(90deg, #eeeeee, #eeeeee);
 }
 
 .color-template-glowstone {
-    color: #9e9e9e;
+    background: #9e9e9e;
 }
 
 .color-template-graphene {
@@ -414,11 +414,11 @@
 }
 
 .color-template-gray-matter {
-    color: #555555;
+    background: #555555;
 }
 
 .color-template-cadmium {
-    color: #948383;
+    background: #948383;
 }
 
 .color-template-chromium {
@@ -434,20 +434,20 @@
 }
 
 .color-template-noise {
-    color: #b8b8b8;
+    background: #b8b8b8;
 }
 
 .color-template-inversium {
-    color: #383c44;
+    background: #383c44;
 }
 
 .color-template-navitalc {
-    color: #000000;
+    background: #000000;
     background: linear-gradient(115deg, #29c6ff 0%, #e6f9ff 50%, #29c6ff 100%);
 }
 
 .color-template-myriroule {
-    color: #000000;
+    background: #000000;
     background: linear-gradient(115deg, #c640ff 0%, #f8deff 50%, #c640ff 100%);
 }
 
@@ -456,15 +456,15 @@
 }
 
 .color-template-perilium {
-    color: #d5d5d5;
+    background: #d5d5d5;
 }
 
 .color-template-blue-ice {
-    color: #2a87de;
+    background: #2a87de;
 }
 
 .color-template-frostarium {
-    color: #b4eee5;
+    background: #b4eee5;
 }
 
 .color-template-anetrium {
@@ -484,11 +484,11 @@
 }
 
 .color-template-nerolin {
-    color: #316c84;
+    background: #316c84;
 }
 
 .color-template-tenebris {
-    color: #415968;
+    background: #415968;
 }
 
 .color-template-yilantibris {
@@ -496,32 +496,32 @@
 }
 
 .color-template-aquamarine {
-    color: #58c8b0;
+    background: #58c8b0;
 }
 
 .color-template-hydrolyth {
-    color: #42adff;
+    background: #42adff;
 }
 
 .color-template-naquadah {
-    color: #849df5;
+    background: #849df5;
 }
 
 .color-template-pearl {
-    color: #ffdebd;
+    background: #ffdebd;
 }
 
 .color-template-eidoliphyll {
-    color: #2F5244;
+    background: #2F5244;
     background: linear-gradient(90deg, #B0D0F1, #B0D0F1);
 }
 
 .color-template-cosmic-glass {
-    color: #ecd0fd;
+    background: #ecd0fd;
 }
 
 .color-template-cosmaline {
-    color: #ffbf7e;
+    background: #ffbf7e;
 }
 
 .color-template-astratine {
@@ -529,27 +529,27 @@
 }
 
 .color-template-starsteel {
-    color: #2ba5fd;
+    background: #2ba5fd;
 }
 
 .color-template-stardust {
-    color: #caf5ff;
+    background: #caf5ff;
 }
 
 .color-template-endotravine {
-    color: #86ffcd;
+    background: #86ffcd;
 }
 
 .color-template-luminite {
-    color: #94586f;
+    background: #94586f;
 }
 
 .color-template-nickel {
-    color: #8d8d8d;
+    background: #8d8d8d;
 }
 
 .color-template-molten-iron {
-    color: #ff9e3d;
+    background: #ff9e3d;
 }
 
 .color-template-corium {
@@ -557,11 +557,11 @@
 }
 
 .color-template-cinnabar {
-    color: #a22c1d;
+    background: #a22c1d;
 }
 
 .color-template-liquid-gold {
-    color: #ffbe4c;
+    background: #ffbe4c;
 }
 
 .color-template-pyroscorium {
@@ -569,19 +569,19 @@
 }
 
 .color-template-samarium {
-    color: #ffc386;
+    background: #ffc386;
 }
 
 .color-template-bedrock {
-    color: #112e29;
+    background: #112e29;
 }
 
 .color-template-jade {
-    color: #008b56;
+    background: #008b56;
 }
 
 .color-template-redsteel {
-    color: #c63851;
+    background: #c63851;
 }
 
 .color-template-celesteel {
@@ -589,19 +589,19 @@
 }
 
 .color-template-terraplasm {
-    color: #4219c7;
+    background: #4219c7;
 }
 
 .color-template-cryoplasm {
-    color: #b07bc7;
+    background: #b07bc7;
 }
 
 .color-template-andrium {
-    color: #19d9a9;
+    background: #19d9a9;
 }
 
 .color-template-neutronium {
-    color: #c1ffff;
+    background: #c1ffff;
 }
 
 .color-template-shadowspec {
@@ -609,47 +609,47 @@
 }
 
 .color-template-spiralium {
-    color: #9c12c2;
+    background: #9c12c2;
 }
 
 .color-template-frozen-nitrogen {
-    color: #90b5c8;
+    background: #90b5c8;
 }
 
 .color-template-orichalican {
-    color: #cb315b;
+    background: #cb315b;
 }
 
 .color-template-scorched-bedrock {
-    color: #dd8232;
+    background: #dd8232;
 }
 
 .color-template-plasma {
-    color: #f2e8a3;
+    background: #f2e8a3;
 }
 
 .color-template-crystalline-plasma {
-    color: #d86fdc;
+    background: #d86fdc;
 }
 
 .color-template-electrium {
-    color: #ffd53a;
+    background: #ffd53a;
 }
 
 .color-template-pyroplasm {
-    color: #ffba7e;
+    background: #ffba7e;
 }
 
 .color-template-convectine {
-    color: #ff276b;
+    background: #ff276b;
 }
 
 .color-template-infernilus {
-    color: #ffd773;
+    background: #ffd773;
 }
 
 .color-template-protonium {
-    color: #9c240c;
+    background: #9c240c;
 }
 
 .color-template-galvanium {
@@ -657,11 +657,11 @@
 }
 
 .color-template-ferozium {
-    color: #91bce2;
+    background: #91bce2;
 }
 
 .color-template-gluonium {
-    color: #eba4ff;
+    background: #eba4ff;
 }
 
 .color-template-up-quark {
@@ -709,7 +709,7 @@
 }
 
 .color-template-universal-barrier {
-    color: #ffffff;
+    background: #ffffff;
 }
 
 .color-template-rifted-barrier {
@@ -717,11 +717,11 @@
 }
 
 .color-template-fabric {
-    color: #494949;
+    background: #494949;
 }
 
 .color-template-mavrikine {
-    color: #cfdce6;
+    background: #cfdce6;
 }
 
 .color-template-string {
@@ -737,7 +737,7 @@
 }
 
 .color-template-axion {
-    color: #ffda45;
+    background: #ffda45;
 }
 
 .color-template-mesonyte {
@@ -745,7 +745,7 @@
 }
 
 .color-template-tachyon {
-    color: #181818;
+    background: #181818;
     background: linear-gradient(94deg, #ffffd1 0%, #a0ff67 25%, #5ddc40 40%, #3e9e23 49.1%, #4aac90 60.9%, #343880 90%, #2e265a 100%);
 }
 
@@ -754,7 +754,7 @@
 }
 
 .color-template-ailmentin {
-    color: #7f2020;
+    background: #7f2020;
 }
 
 .color-template-territane {
@@ -766,7 +766,7 @@
 }
 
 .color-template-sinfurmium {
-    color: #ac0000;
+    background: #ac0000;
 }
 
 .color-template-krazmite {
@@ -774,11 +774,11 @@
 }
 
 .color-template-tendrock {
-    color: #580711;
+    background: #580711;
 }
 
 .color-template-dark-energy {
-    color: #e53bfb;
+    background: #e53bfb;
 }
 
 .color-template-corrodoil {
@@ -802,35 +802,35 @@
 }
 
 .color-template-grimstone {
-    color: #4b1a21;
+    background: #4b1a21;
 }
 
 .color-template-alkanite {
-    color: #9d6137;
+    background: #9d6137;
 }
 
 .color-template-phosphyll {
-    color: #9c2c3c;
+    background: #9c2c3c;
 }
 
 .color-template-vrimsten {
-    color: #b30424;
+    background: #b30424;
 }
 
 .color-template-zilithorus {
-    color: #fca001;
+    background: #fca001;
 }
 
 .color-template-rimrock {
-    color: #4c4d61;
+    background: #4c4d61;
 }
 
 .color-template-korundum {
-    color: #fc417a;
+    background: #fc417a;
 }
 
 .color-template-cytosol {
-    color: #6c1c1c;
+    background: #6c1c1c;
 }
 
 .color-template-ichor {
@@ -858,7 +858,7 @@
 }
 
 .color-template-taynalum {
-    color: #ffa85b;
+    background: #ffa85b;
 }
 
 .color-template-thulinyl {
@@ -866,7 +866,7 @@
 }
 
 .color-template-mezihyrium {
-    color: #ff46ed;
+    background: #ff46ed;
 }
 
 .color-template-leptonyte {
@@ -894,7 +894,7 @@
 }
 
 .color-template-aureum {
-    color: #ff54fd;
+    background: #ff54fd;
 }
 
 .color-template-aurorum {
@@ -922,7 +922,7 @@
 }
 
 .color-template-cosmodium {
-    color: #272374;
+    background: #272374;
     background: linear-gradient(0deg, #f67bfc, #f67bfc);
 }
 
@@ -935,15 +935,15 @@
 }
 
 .color-template-mauraline {
-    color: #5a3ea1;
+    background: #5a3ea1;
 }
 
 .color-template-nyrvinoris {
-    color: #e575c7;
+    background: #e575c7;
 }
 
 .color-template-nihinoris {
-    color: #5bcec4;
+    background: #5bcec4;
 }
 
 .color-template-infrarian {
@@ -951,7 +951,7 @@
 }
 
 .color-template-ultranium {
-    color: #76f194;
+    background: #76f194;
 }
 
 .color-template-auricallium {
@@ -987,7 +987,7 @@
 }
 
 .color-template-impervium {
-    color: #455f71;
+    background: #455f71;
 }
 
 .color-template-kryposilus {
@@ -1027,7 +1027,7 @@
 }
 
 .color-template-kafsium {
-    color: #a6d1ff;
+    background: #a6d1ff;
 }
 
 .color-template-zetaslime {
@@ -1063,7 +1063,7 @@
 }
 
 .color-template-ogleum {
-    color: #b3ffb4;
+    background: #b3ffb4;
 }
 
 .color-template-protireal {
@@ -1151,7 +1151,7 @@
 }
 
 .color-template-meteorite {
-    color: #85665c;
+    background: #85665c;
 }
 
 .color-template-panolethrium {
@@ -1163,15 +1163,15 @@
 }
 
 .color-template-sunstone {
-    color: #ffb458;
+    background: #ffb458;
 }
 
 .color-template-chalcedony {
-    color: #618bff;
+    background: #618bff;
 }
 
 .color-template-amber {
-    color: #c35700;
+    background: #c35700;
 }
 
 .color-template-onyx {
@@ -1179,7 +1179,7 @@
 }
 
 .color-template-jalaboño {
-    color: #ff4040;
+    background: #ff4040;
 }
 
 .color-template-egg {
@@ -1187,11 +1187,11 @@
 }
 
 .color-template-fishium {
-    color: #99a6e6;
+    background: #99a6e6;
 }
 
 .color-template-hollevite {
-    color: #ffba2f;
+    background: #ffba2f;
 }
 
 .color-template-vicious-shard {
@@ -1199,5 +1199,5 @@
 }
 
 .color-template-verglazium {
-    color: #547888;
+    background: #547888;
 }

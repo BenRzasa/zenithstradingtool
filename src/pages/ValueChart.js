@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import TableComponent from '../components/TableComponent';
 import { johnValsDict } from '../components/JohnVals';
 import { nanValsDict } from '../components/NANVals';
+import '../styles/AllGradients.css'
 
 function ValueChart() {
   const { csvData } = useContext(CSVContext);
@@ -18,9 +19,6 @@ function ValueChart() {
   const [isJohnValues, setIsJohnValues] = useState(true);
 
   // Compounds data (fetched from the dictionary)
-  // Clean up so that it can loop through an array of layer names and
-  // get the data from the John and NAN dicts
-
   // Create a single data object for all layers
   const data = Object.keys(johnValsDict).reduce((acc, layer) => {
     acc[layer] = isJohnValues ? johnValsDict[layer] : nanValsDict[layer];
@@ -47,7 +45,7 @@ function ValueChart() {
           <p>
             {currentMode === 1 ? "Unique NVs"
            : currentMode === 2 ? "Unique UVs"
-           : currentMode === 3 ? "Rare TV"
+           : currentMode === 3 ? "Unique TVs"
            : "Unique SVs"}
            : Placeholder
           </p>
@@ -95,19 +93,13 @@ function ValueChart() {
       {/* Buttons Section */}
       <div className="value-buttons">
         <button
-          style={{
-            backgroundImage:
-              "linear-gradient(144deg, #00ddeb, #5b42f3 50%, #af40ff)",
-          }}
+          className="color-template-rhylazil"
           onClick={() => setIsJohnValues(true)}
         >
           <span>John Values</span>
         </button>
         <button
-          style={{
-            backgroundImage:
-              "linear-gradient(144deg,rgb(155, 44, 214),rgb(205, 85, 238) 50%,rgb(224, 123, 244))",
-          }}
+          className="color-template-diamond"
           onClick={() => setIsJohnValues(false)}
         >
           <span>NAN Values</span>
@@ -116,38 +108,26 @@ function ValueChart() {
 
       <div className="mode-buttons">
         <button
-          style={{
-            backgroundImage:
-              "linear-gradient(124deg,#fdf3fc 0%, #f38cf9 23.4%, #f072f8 43.9%, #cb32d5 58%, #9133d2 77.3%, #5216b0 100%)",
-          }}
+          className="color-template-universallium"
           onClick={() => setCurrentMode(2)}
         >
           <span>UV Mode</span>
         </button>
         <button
-          style={{
-            backgroundImage: 
-              "linear-gradient(135deg, #fffcce 0%, #ffe873 24.4%, #ff8000 51.4%, #ff0000 70.2%, #9b0f0f 86.7%, #633f3f 100%)"
-          }}
+          className="color-template-neutrine"
           onClick={() => setCurrentMode(1)}
         >
           <span>NV Mode</span>
         </button>
         <button
-          style={{
-            backgroundImage:
-              "linear-gradient(123deg, #feffff 0%, #ccffff 13.8%, #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%, #a17cc3 64.4%, #403e68 84.3%,#171c41 100%)",
-          }}
-          onClick={() => setCurrentMode(4)}
+          className="color-template-torn-fabric"
+          onClick={() => setCurrentMode(3)}
         >
           <span>TV Mode</span>
         </button>
         <button
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%, #edebd6 70%, #ecf9df 80%, #b7dce1 100%)",
-          }}
-          onClick={() => setCurrentMode(3)}
+          className="color-template-singularity"
+          onClick={() => setCurrentMode(4)}
         >
           <span>SV Mode</span>
         </button>
