@@ -75,15 +75,9 @@ function ValueChart() {
         </div>
         <nav>
           <ul>
-            <li>
-              <Link to="/">Back to Home Page</Link>
-            </li>
-            <li>
-              <Link to="/tradetool">Trade Tool</Link>
-            </li>
-            <li>
-              <Link to="/csvloader">CSV Loader</Link>
-            </li>
+            <li><Link to="/">Back to Home Page</Link></li>
+            <li><Link to="/tradetool">Trade Tool</Link></li>
+            <li><Link to="/csvloader">CSV Loader</Link></li>
           </ul>
         </nav>
       </header>
@@ -124,7 +118,7 @@ function ValueChart() {
         <button
           style={{
             backgroundImage:
-              "linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb)",
+              "linear-gradient(124deg,#fdf3fc 0%, #f38cf9 23.4%, #f072f8 43.9%, #cb32d5 58%, #9133d2 77.3%, #5216b0 100%)",
           }}
           onClick={() => setCurrentMode(2)}
         >
@@ -132,8 +126,8 @@ function ValueChart() {
         </button>
         <button
           style={{
-            backgroundImage:
-              "linear-gradient(144deg, #ff8c42, #ff3c42 50%, #ffd700)",
+            backgroundImage: 
+              "linear-gradient(135deg, #fffcce 0%, #ffe873 24.4%, #ff8000 51.4%, #ff0000 70.2%, #9b0f0f 86.7%, #633f3f 100%)"
           }}
           onClick={() => setCurrentMode(1)}
         >
@@ -142,18 +136,18 @@ function ValueChart() {
         <button
           style={{
             backgroundImage:
-              "linear-gradient(144deg,rgb(118, 136, 223),rgb(164, 164, 164) 50%,rgb(123, 129, 254))",
+              "linear-gradient(123deg, #feffff 0%, #ccffff 13.8%, #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%, #a17cc3 64.4%, #403e68 84.3%,#171c41 100%)",
           }}
-          onClick={() => setCurrentMode(3)}
+          onClick={() => setCurrentMode(4)}
         >
           <span>TV Mode</span>
         </button>
         <button
           style={{
             backgroundImage:
-              "linear-gradient(144deg, #ffffff, #ff7e5f 50%, #feb47b)",
+              "linear-gradient(135deg, #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%, #edebd6 70%, #ecf9df 80%, #b7dce1 100%)",
           }}
-          onClick={() => setCurrentMode(4)}
+          onClick={() => setCurrentMode(3)}
         >
           <span>SV Mode</span>
         </button>

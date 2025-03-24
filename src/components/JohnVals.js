@@ -1,11 +1,21 @@
+import '../styles/AllGradients.css';
+
 // Dictionaries for John and NAN values
 export const johnValsDict = {
   Rares: [
     { name: "Ambrosine", baseValue: 1.0 },
-    { name: "Universallium", baseValue: 0.1 },
-    { name: "Neutrine", baseValue: 0.01 },
-    { name: "Torn Fabric", baseValue: 0.002 },
-    { name: "Singularity", baseValue: 0.001 },
+    { name: "Universallium", baseValue: 0.1, 
+      className: "color-template-universallium"
+    },
+    { name: "Neutrine", baseValue: 0.01, 
+      className: "color-template-neutrine"
+    },
+    { name: "Torn Fabric", baseValue: 0.002, 
+      className: "color-template-tornfabric"
+    },
+    { name: "Singularity", baseValue: 0.001,
+      className: "color-template-singularity"
+    },
     { name: "Egg", baseValue: 0.02 },
     { name: "Cindrasil", baseValue: 0.25 },
     { name: "Zynulvinite", baseValue: 1.0 },

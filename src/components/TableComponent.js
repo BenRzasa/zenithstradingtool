@@ -93,7 +93,9 @@ const TableComponent = ({
             const numV = (inventory / perValue).toFixed(1);
             return (
               <tr key={index}>
-                <td>{item.name}</td>
+                <td className={ item.className || "" }>
+                  {item.name}
+                </td>
                 <td>{Math.min(100, percentage)}%</td>
                 <td>{inventory}</td>
                 <td>{numV}</td>
