@@ -45,9 +45,9 @@ export const LayerGradients = {
       background: 'linear-gradient(180deg, #000000 0%,rgb(255, 255, 255) 50%,rgb(0, 0, 0) 100%)'
     },
     'Planck': {
-      background: 'linear-gradient(45deg, rgb(0, 0, 0) 0%,rgb(30, 255, 41) 50%,rgb(0, 0, 0) 100%)'
+      background: 'linear-gradient(45deg, rgb(0, 0, 0) 25%,rgb(30, 255, 41) 50%,rgb(0, 0, 0) 75%)'
     },
-    'Conversion / Disarray / Breakage / Criticality': {
+    'Conversion/Disarray/Breakage/Criticality': {
         background: 'linear-gradient(45deg,  #ff0000 0%, #460000 25%,rgb(79, 11, 6) 50%,rgb(37, 4, 1) 100%)'
     },
     'Grim 1 / Hive / Grim 2': { 
@@ -63,7 +63,7 @@ export const LayerGradients = {
       background: 'linear-gradient(90deg, #deebf8 0%,rgb(83, 94, 218) 72%, #deebf8 100%)'
     },
     'Inner Horizon': {
-      background: 'linear-gradient(90deg, #d3c3ff, #836ba7, #d3c3ff, #836ba7, #d3c3ff)'
+      background: 'linear-gradient(90deg, #d3c3ff,rgb(104, 83, 134), #d3c3ff,rgb(105, 84, 135), #d3c3ff)'
     },
     'Quintessence': {
       background: 'linear-gradient(90deg, #ff5cf7, #81b8ff, #6430ff, #ff73b2)'

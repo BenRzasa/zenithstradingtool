@@ -15,6 +15,10 @@
     border: 5px var(--table-outline);
 }
 
+.container h1 {
+    margin-top: 125px;
+}
+
 .quick-summary {
     position: absolute;
     margin-left: 100px;
@@ -41,43 +45,7 @@
 .quick-summary p {
     margin: 4px 0;
 }
-
-nav {
-  position: fixed;
-  top: -15px;
-  right: -10px;
-  padding: 25px;
-  padding-top: 35px;
-  z-index: 1000;
-  background-color: rgb(221, 221, 221);
-  border-radius: 15px;
-  box-shadow: inset 0px 10px 10px #141414;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
   
-/* Back to Top button */
 .back-to-top {
     position: fixed;
     padding: 8px 15px;
@@ -106,12 +74,6 @@ nav ul li a:hover {
 [data-theme="dark"] .back-to-top {
     border-color: #555;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.value-buttons, .mode-buttons {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
 }
 
 [data-theme="light"] {
@@ -175,7 +137,7 @@ nav ul li a:hover {
 .tables-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
     margin: 0 auto;
     padding: 0px;
     max-width: 100%;
@@ -183,7 +145,7 @@ nav ul li a:hover {
 }
 
 .table-wrapper {
-    flex: 1 1 calc(33.333% -20px);
+    flex: 1 1 calc(33.333% -10px);
     min-width: 650px;
     max-width: 650px;
     overflow-x: auto;
@@ -202,7 +164,7 @@ nav ul li a:hover {
 .table-wrapper h2 {
     text-align: center;
     vertical-align: middle;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bolder;
     padding: 10px;
     width: 100%;
@@ -224,7 +186,7 @@ nav ul li a:hover {
     width: 100%; 
     z-index: -1;
     color: black;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bolder;
     -webkit-text-stroke: 6px black; 
     -webkit-font-smoothing: antialiased;
@@ -259,51 +221,4 @@ td {
     text-align: center;
     line-height: 1.6;
 
-}
-
-button {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    align-items: left;
-    background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
-    border: 3px solid black;
-    border-radius: 25px;
-    box-shadow: 4px 3px 6px rgba(0, 0, 0, 0.3);
-    box-sizing: content-box;
-    color: rgb(0, 0, 0);
-    display: flex;
-    font-size: 25px;
-    justify-content: center;
-    line-height: 1em;
-    max-width: 100%;
-    min-width: 100px;
-    padding: 10px;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-button:active,
-button:hover {
-    outline: 0;
-}
-
-button span {
-    padding: 16px 24px;
-    border-radius: 6px;
-    width: 100%;
-    height: 100%;
-    transition: 300ms;
-}
-
-button:hover span {
-    background: none;
-}
-
-button:active {
-    transform: scale(0.9);
 }

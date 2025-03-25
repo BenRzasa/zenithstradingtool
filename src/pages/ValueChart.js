@@ -172,67 +172,61 @@ function ValueChart() {
       </header>
 
       {/* Display current mode*/}
-      <h1>Current Values: {isJohnValues ? "John's Values" : "NAN's Values"}</h1>
+      <h1>Current Values: <span className='placeholder'>{isJohnValues ? "John's Values" : "NAN's Values"}</span></h1>
       <h2>
-        Current Mode:{" "}
+        Current Mode:<span className='placeholder'>{" "}
         {currentMode === 1 ? "NV" 
          : currentMode === 2 ? "UV" 
          : currentMode === 3 ? "TV"
          : "SV"}
+         </span>
       </h2>
 
       {/* Value buttons */}
-      <div className="value-buttons">
-        <button
-          className="color-template-rhylazil"
-          onClick={() => setIsJohnValues(true)}
-        >
-          <span>John Values</span>
-        </button>
-        <button
-          className="color-template-diamond"
-          onClick={() => setIsJohnValues(false)}
-        >
-          <span>NAN Values</span>
-        </button>
+      <div className="button-container">
+        <div className="box-button">
+          <button onClick={() => setIsJohnValues(true)}>
+            <span>John Values</span>
+          </button>
+        </div>
+        <div className="box-button">
+          <button onClick={() => setIsJohnValues(false)}>
+            <span>NAN Values</span>
+          </button>
+        </div>
       </div>
+
       {/* Mode switching buttons */}
-      <div className="mode-buttons">
-        <button
-          className="color-template-universallium"
-          onClick={() => setCurrentMode(2)}
-        >
-          <span>UV Mode</span>
-        </button>
-        <button
-          className="color-template-neutrine"
-          onClick={() => setCurrentMode(1)}
-        >
-          <span>NV Mode</span>
-        </button>
-        <button
-          className="color-template-torn-fabric"
-          onClick={() => setCurrentMode(3)}
-        >
-          <span>TV Mode</span>
-        </button>
-        <button
-          className="color-template-singularity"
-          onClick={() => setCurrentMode(4)}
-        >
-          <span>SV Mode</span>
-        </button>
+      <div className="button-container" style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        <div className="box-button">
+          <button onClick={() => setCurrentMode(2)}>
+            <span>UV Mode</span>
+          </button>
+        </div>
+        <div className="box-button">
+          <button onClick={() => setCurrentMode(1)}>
+            <span>NV Mode</span>
+          </button>
+        </div>
+        <div className="box-button">
+          <button onClick={() => setCurrentMode(3)}>
+            <span>TV Mode</span>
+          </button>
+        </div>
+        <div className="box-button">
+          <button onClick={() => setCurrentMode(4)}>
+            <span>SV Mode</span>
+          </button>
+        </div>
       </div>
 
       {/* Back to Top button */}
       {showBackToTop && (
-        <button 
-          className="back-to-top"
-          onClick={scrollToTop}
-          aria-label="Back to top"
-        >
-          ↑ Back to Top
-        </button>
+        <div className="box-button" style={{position: 'fixed', bottom: '20px', right: '20px'}}>
+          <button onClick={scrollToTop}>
+            <span>↑ Back to Top</span>
+          </button>
+        </div>
       )}
 
       {/* Dropdown navigation */}

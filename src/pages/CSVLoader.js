@@ -25,7 +25,12 @@ function CSVLoader() {
 
   return (
     <div className="main-container">
-      <h1>Copy & Paste your CSV string from Settings ➜ Other in the box below.</h1>
+      <h1>CSV Loader Usage:</h1>
+      <l>
+        <ul>1. Copy & Paste your CSV string from Settings ➜ Other in the box below.</ul>
+        <ul>2. Click "Update Amounts" button to load your CSV data into the website.</ul>
+        <ul>3. Navigate to the Value Chart by clicking on the link in the top right corner.</ul>
+      </l>
       
       {/* Nav Bar - remains fixed at top */}
       <nav className="nav">
@@ -71,9 +76,11 @@ function CSVLoader() {
             id="csvInput"
             placeholder="Enter comma-separated numbers..."
           />
-          <button onClick={updateOreAmounts} className="color-template-torn-fabric">
-            Update Amounts
-          </button>
+          <div className="box-button">
+            <button onClick={updateOreAmounts}>
+              <span>Update Amounts</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

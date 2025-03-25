@@ -1,3 +1,21 @@
+/* Add this at the very top of your CSS */
+body > .switch {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 2147483647 !important;
+  transform: translateZ(1000px) !important;
+  will-change: transform !important;
+  pointer-events: auto !important;
+}
+
+/* Prevent welcome page from creating stacking context */
+.welcome-page {
+  position: static !important;
+  isolation: auto !important;
+  transform: none !important;
+}
+
 /* Theme Switch */
 /* The switch - the box around the slider */
 
@@ -12,7 +30,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   top: 20px;
   left: 20px;
-  z-index: 1000;
+  z-index: 2147483647 !important;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* Hide default HTML checkbox */
@@ -99,6 +119,41 @@
   opacity: 1;
 }
 
+nav {
+  position: fixed;
+  top: -15px;
+  right: -10px;
+  padding: 25px;
+  padding-top: 35px;
+  z-index: 1000;
+  background-color: rgb(221, 221, 221);
+  border-radius: 15px;
+  box-shadow: inset 0px 10px 10px #141414;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
 /* Global Styles */
 body {
   font-family: 'Comfortaa';
@@ -122,6 +177,61 @@ body {
   --switch-outline: #ffffff;
   --background-color: #121212;
   --text-color: #ffffff;
+}
+
+/* Global Button Styles */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.box-button {
+  cursor: pointer;
+  border: 4px solid black;
+  background-color: gray;
+  padding-bottom: 10px;
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+  text-align: center;
+  position: relative;
+  margin-bottom: 0;
+  min-width: 250px;
+  min-height: 50px;
+}
+
+.box-button button {
+  background-color: #dddddd;
+  border: 4px solid #fff;
+  padding: 12px 24px;
+  display: block;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: inherit;
+  color: black;
+  font-family: inherit;
+}
+
+.box-button:active,
+.box-button.active {
+  padding-bottom: 0;
+  margin-bottom: 10px;
+  transform: translateY(10px);
+}
+
+.box-button {
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+.box-button:active {
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
 }
 
 /* Table Header Styles */

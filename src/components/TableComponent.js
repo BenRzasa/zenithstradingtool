@@ -100,7 +100,7 @@ const TableComponent = ({
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Ore Name</th>
             <th>
               {currentMode === 1 ? "NV%"
              : currentMode === 2 ? "UV%"

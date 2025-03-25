@@ -281,7 +281,7 @@ export const johnValsDict = {
     { name: "Desmentinum", baseValue: 10, className: "color-template-desmentinum" }
   ],
 
-  "Conversion / Disarray / Breakage / Criticality": [
+  "Conversion/Disarray/Breakage/Criticality": [
     { name: "Ailmentin", baseValue: 750, className: "color-template-ailmentin" },
     { name: "Territane", baseValue: 15, className: "color-template-territane" },
     { name: "Sinfurmium", baseValue: 10, className: "color-template-sinfurmium" },

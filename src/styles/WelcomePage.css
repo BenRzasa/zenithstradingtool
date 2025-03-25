@@ -1,0 +1,182 @@
+/*
+    CSS3 Page Transition (Welcome Page Only)
+    --------------------------------------------------
+    Scoped with .welcome-page to prevent style leakage
+*/
+
+.welcome-page * {
+  box-sizing: border-box;
+}
+
+.welcome-page .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.welcome-page .hide {
+  display: none;
+}
+
+/*--------------------------------------------------
+  Scaffolding
+--------------------------------------------------*/
+.welcome-page {
+  background-color: transparent;
+  margin: 0;
+  color: #212121;
+  transition: background-color 1s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+/*--------------------------------------------------
+  Square
+--------------------------------------------------*/
+.welcome-page .square {
+  padding: 120px;
+  width: 100%; 
+  height: 100%;
+  transform: translate3d(-50%,-50%,0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Torn
+  background: linear-gradient(123deg, 
+      #feffff 0%, #ccffff 13.8%, 
+      #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%, 
+      #a17cc3 64.4%, #403e68 84.3%, #171c41 100%);
+  */
+  background: linear-gradient(135deg, 
+  #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, 
+  #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%,
+   #edebd6 70%, #ecf9df 80%, #b7dce1 100%);
+  background-clip: content-box;
+  background-size: 800% 800%;
+  border-color: currentColor; 
+  animation: partytime 20s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
+  transition: 
+      padding 1s cubic-bezier(0.215, 0.61, 0.355, 1),
+      background-position 0.8s cubic-bezier(0.39, 0.58, 0.57, 1);
+  will-change: transform, background-position;
+  z-index: 1 !important;
+}
+
+@keyframes partytime { 
+  0% { background-position: 0% 50% }
+  25% { background-position: 50% 100% }
+  50% { background-position: 100% 50% }
+  75% { background-position: 50% 0% }
+  100% { background-position: 0% 50% }
+}
+
+.welcome-page .card {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  transition: transform 1.25s cubic-bezier(0.215, 0.61, 0.355, 1), 
+              box-shadow 1.25s cubic-bezier(0.215, 0.61, 0.355, 1), 
+              filter 1.25s cubic-bezier(0.215, 0.61, 0.355, 1), 
+              opacity 1.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform: perspective(1600px) translate3d(0, 0, 0) scale(0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
+}
+
+/*--------------------------------------------------
+  Button Container & Buttons 
+--------------------------------------------------*/
+.welcome-page .button-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  z-index: 9999;
+}
+
+/*--------------------------------------------------
+  Type
+--------------------------------------------------*/
+.welcome-page .title {
+  margin-top: 200px;
+  font-size: 120px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 900;
+  overflow: hidden;
+  color: black;
+  mix-blend-mode: overlay;
+}
+
+.welcome-page .name,
+.welcome-page .copyright {
+  text-transform: uppercase;
+  color: var(--welcome-text);
+  position: absolute;
+  left: 50%;
+  margin: 0; 
+  padding: 0;
+  transition: all .5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+  transform: translate3d(-50%,0,0);
+  font-weight: 800; 
+  overflow: hidden;
+  font-size: 20px;
+  letter-spacing: 0.2em;
+}
+
+:root {
+  --welcome-text: #000000;
+}
+
+[data-theme="dark"] {
+  --welcome-text: #ffffff;
+}
+
+.welcome-page .name {
+  top: 53px;
+}
+
+.welcome-page .copy-wrap {
+  font-family: 'Montserrat';
+  display: block;
+  text-align: center;
+  margin-top: 0px;
+  transition: all 0.7s 0s ease-in-out;
+  position: relative;
+}
+
+.welcome-page .copyright {
+  bottom: 20px;
+  overflow: hidden;
+  height: 72px;
+  line-height: 60px;
+  position: fixed;
+}
+
+.welcome-page .copyright .copy-wrap:before {
+  content: "";
+  width: 15px;
+  height: 2px;
+  background-color: currentColor;
+  position: absolute;
+  left: 50%; 
+  top: 50%;
+  transform: translate3d(-50%,-50%,0);
+}

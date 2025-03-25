@@ -1,6 +1,17 @@
+.trade-tool-container h1 {
+    font-size: 40px;
+    margin-top: 25px;
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+ul {
+    font-size: 20px;
+}
+
 /* Trade Tool Specific Styles */
 .trade-tool-container {
-    margin: 100px;
+    margin: 150px;
     position: relative;
 }
 
@@ -11,20 +22,20 @@
     gap: 50px;
     margin: auto;
     width: calc(100% - 50px);
-    max-width: 1400px;
+    max-width: 1500px;
 }
 
 .trade-search-section, 
 .trade-table-section {
+    margin-top: 10px;
     flex: 1;
     min-width: 500;
-    max-width: calc(50% - 90px);
+    max-width: calc(60% - 90px);
 }
 
 /* Search Container */
 .search-container {
-    align-self: center;
-    position: relative;
+    position: absolute;
     width: 100%;
 }
 
@@ -78,21 +89,21 @@
     cursor: pointer;
     transition: background-color 0.2s;
     border-radius: 15px;
-    max-width: fit-content;
+    max-width: auto;
 }
 
 .search-result-item:hover {
     background-color: #e58eff;
     color: black;
     border-radius: 15px;
-    max-width: fit-content;
+    max-width: auto;
 }
 
 .search-result-item.selected {
     background-color: var(--accent-color);
     color: white;
     border-radius: 15px;
-    max-width: fit-content;
+    max-width: auto;
 }
 
 /* Trade Table Styles */
@@ -107,7 +118,7 @@
 .trade-table th {
     font-size: 25px;
     border: 2px solid var(--csv-outline);
-    padding: 8px;
+    padding: 16px;
     text-align: center;
 }
 
@@ -132,8 +143,8 @@
 
 /* Totals Section */
 .trade-totals {
-    margin-top: 20px;
-    font-size: 20px;
+    margin-top: auto;
+    font-size: 25px;
     font-weight: bold;
 }
 

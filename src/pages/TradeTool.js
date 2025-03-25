@@ -101,21 +101,28 @@ function TradeTool() {
     // Calculate AV for an ore
     const calculateAV = (oreName) => {
         const oreData = allOresWithLayers.find(ore => ore.name === oreName);
-        return oreData ? (quantities[oreName] / oreData.baseValue).toFixed(2) : 0;
+        return oreData ? Math.round((quantities[oreName] / oreData.baseValue).toFixed(2)) : 0;
     };
 
     // Calculate totals
     const totalOres = selectedOres.reduce((sum, ore) => sum + (quantities[ore] || 0), 0);
     const totalAV = selectedOres.reduce((sum, ore) => {
         const oreData = allOresWithLayers.find(o => o.name === ore);
-        return sum + (quantities[ore] || 0) / (oreData?.baseValue || 1);
-    }, 0).toFixed(2);
+        return Math.round(sum + (quantities[ore] || 0) / (oreData?.baseValue || 1));
+    }, 0).toFixed(0);
+
+    // Clear the entire table
+    const clearTable = () => {
+        setSelectedOres([]);
+        setQuantities({});
+    };
 
     return (
         <div className="trade-tool-container">
+ 
+            <h1>Welcome to the Trade Tool!</h1>
             {/* Page Title */}
-            <h1>Trade Tool</h1>
-            <h2>Usage:</h2>
+            <h1>Usage:</h1>
             <l>
                 <ul>1. Start typing an ore or layer name in the search box on the left.</ul>
                 <ul>2. Either click on the ore or hit enter to add it to the list.
@@ -123,6 +130,10 @@ function TradeTool() {
                 </ul>
                 <ul>3. Enter the quantity of each ore you wish to trade in the text boxes on the right side.</ul>
             </l>
+            {/* Display current mode */}
+            <h1>➜ Current Values: <span className="placeholder">
+                {isJohnValues ? "John's Values" : "NAN's Values"}
+            </span></h1>
             {/* Navigation Bar */}
             <nav>
                 <ul>
@@ -131,26 +142,24 @@ function TradeTool() {
                     <li><Link to="/csvloader">CSV Loader</Link></li>
                 </ul>
             </nav>
-    
-            {/* Value Source Toggle Buttons (John/NAN) */}
-            <div className="value-buttons">
-                <button
-                    className='color-template-rhylazil'
-                    onClick={() => setIsJohnValues(true)}
-                >
-                    <span>John Values</span>
-                </button>
-                <button
-                    className='color-template-diamond'
-                    onClick={() => setIsJohnValues(false)}
-                >
-                    <span>NAN Values</span>
-                </button>
-            </div>
+
     
             {/* Main Content Area - Flex Layout */}
             <div className="trade-main-content">
-                {/* Left Section - Ore Search */}
+                {/* Left - Value Source Toggle Buttons (John/NAN) */}
+                <div className="button-container">
+                <div className="box-button">
+                    <button onClick={() => setIsJohnValues(true)}>
+                    <span>John Values</span>
+                    </button>
+                </div>
+                <div className="box-button">
+                    <button onClick={() => setIsJohnValues(false)}>
+                    <span>NAN Values</span>
+                    </button>
+                </div>
+                </div>
+                {/* Middle Section - Ore Search */}
                 <div className="trade-search-section">
                     <h2>Add Ores to Trade | Ore & Layer Search</h2>
                     <div className="search-container">
@@ -187,6 +196,21 @@ function TradeTool() {
                 {/* Right Section - Trade Table */}
                 <div className="trade-table-section">
                     <h2>Trade List</h2>
+                        
+                    {/* Totals Display with Clear Button */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                        <div className="trade-totals">
+                            <p>Total # Ores: <span>{totalOres}</span></p>
+                            <p>Total AV: <span>{totalAV}</span></p>
+                        </div>
+                        
+                        {/* Clear Table Button */}
+                        <div className="box-button" onClick={clearTable} style={{ marginLeft: '20px' }}>
+                            <button style={{ width: '100%', height: '100%' }}>
+                                <span className="button">Clear Table</span>
+                            </button>
+                        </div>
+                    </div>
                     
                     {/* Trade Table */}
                     <table className="trade-table">
@@ -216,12 +240,6 @@ function TradeTool() {
                             ))}
                         </tbody>
                     </table>
-    
-                    {/* Totals Display */}
-                    <div className="trade-totals">
-                        <p>Total # Ores: <span>{totalOres}</span></p>
-                        <p>Total AV: <span>{totalAV}</span></p>
-                    </div>
                 </div>
             </div>
         </div>
