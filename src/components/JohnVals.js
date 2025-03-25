@@ -179,7 +179,7 @@ export const johnValsDict = {
     { name: "Noise", baseValue: 4, className: "color-template-noise" },
     { name: "Inversium", baseValue: 3.5, className: "color-template-inversium" },
     { name: "Navitalc", baseValue: 8, className: "color-template-navitalc" },
-    { name: "Myriroule ", baseValue: 5.5, className: "color-template-myriroule" },
+    { name: "Myriroule", baseValue: 5.5, className: "color-template-myriroule" },
     { name: "Argibar", baseValue: 4.5, className: "color-template-argibar" },
     { name: "Perilium", baseValue: 2, className: "color-template-perilium" }
   ],

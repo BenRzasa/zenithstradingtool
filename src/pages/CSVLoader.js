@@ -24,9 +24,10 @@ function CSVLoader() {
   };
 
   return (
-    <div>
-      <h1>Copy & Paste your CSV string from Settings→Other in the box below.</h1>
-      {/* Nav Bar */}
+    <div className="main-container">
+      <h1>Copy & Paste your CSV string from Settings ➜ Other in the box below.</h1>
+      
+      {/* Nav Bar - remains fixed at top */}
       <nav className="nav">
         <ul>
           <li>
@@ -41,34 +42,39 @@ function CSVLoader() {
         </ul>
       </nav>
 
-      {/* Ore List Table */}
-      <div className="ore-list">
-        <table>
-          <thead>
-            <tr>
-              <th>Ore</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {OreNames.map((ore, index) => (
-              <tr key={ore}>
-                <td>{ore}</td>
-                <td>{csvData[ore]}</td>
+      {/* Main content area with flex layout */}
+      <div className="main-content">
+        {/* Ore List Table - now part of flex layout */}
+        <div className="ore-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Ore</th>
+                <th>Amount</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {OreNames.map((ore, index) => (
+                <tr key={ore}>
+                  <td>{ore}</td>
+                  <td>{csvData[ore]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      {/* CSV Input Section */}
-      <div className="csv-input">
-        <h2>Enter CSV Values</h2>
-        <textarea
-          id="csvInput"
-          placeholder="Enter comma-separated numbers..."
-        />
-        <button onClick={updateOreAmounts}>Update Amounts</button>
+        {/* CSV Input Section - now part of flex layout */}
+        <div className="csv-input">
+          <h2>Enter CSV Values</h2>
+          <textarea
+            id="csvInput"
+            placeholder="Enter comma-separated numbers..."
+          />
+          <button onClick={updateOreAmounts} className="color-template-torn-fabric">
+            Update Amounts
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@
 .percent-40 { background-color: #ff8000; }
 .percent-60 { background-color: #ffbf00; }
 .percent-80 { background-color: #71c700; }
-.percent-100 { background-color: #00b800; }
+.percent-100 { background-color: #04d204; }
 
 .table-footer {
     padding: 10px 15px;
@@ -33,5 +33,5 @@
 }
   
 [data-theme="dark"] {
-    --accent-color: #00ddeb; /* Teal for dark mode */
+    --accent-color: #33add6; /* Teal for dark mode */
 }

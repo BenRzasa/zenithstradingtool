@@ -4,13 +4,14 @@
     - Switch between John and NAN's values (based off the dictionaries)
 */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { CSVContext } from '../context/CSVContext';
 import '../styles/ValueChart.css';
 import { Link } from 'react-router-dom';
 import TableComponent from '../components/TableComponent';
 import { johnValsDict } from '../components/JohnVals';
 import { nanValsDict } from '../components/NANVals';
+import { LayerGradients } from '../components/LayerGradients';
 import '../styles/AllGradients.css';
 import '../styles/TableComponent.css';
 
@@ -18,6 +19,8 @@ function ValueChart() {
   const { csvData } = useContext(CSVContext);
   const [currentMode, setCurrentMode] = useState(1); // 1: NV, 2: UV, 3: TV, 4: SV
   const [isJohnValues, setIsJohnValues] = useState(true);
+  // List of table names for the dropdown
+  const tableNames = Object.keys(isJohnValues ? johnValsDict : nanValsDict);
 
   // Helper functions for calculations
   const calculateValue = (baseValue) => {
@@ -88,6 +91,36 @@ function ValueChart() {
     };
   };
 
+  // Function to handle dropdown selection
+  const handleTableSelect = (e) => {
+    const tableId = e.target.value;
+    if (tableId) {
+      const element = document.getElementById(tableId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  // Back to Top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Handle back-to-top displaying
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch the total values object
   const totals = calculateGrandTotals();
 
   return (
@@ -97,33 +130,33 @@ function ValueChart() {
         {/* Quick Summary of global info */}
         <div className="quick-summary">
           <h2>Quick Summary</h2>
-          <p>Total Ores: <span className="placeholder">{totals.totalOres.toLocaleString()}</span></p>
+          <p>❑ Total Ores: <span className="placeholder">{totals.totalOres.toLocaleString()}</span></p>
           <p>
-            {currentMode === 1 ? "Rare NVs" :
+            ❑ {currentMode === 1 ? "Rare NVs" :
             currentMode === 2 ? "Rare UVs" :
             currentMode === 3 ? "Rare TVs" : "Rare SVs"}
             : <span className="placeholder">{totals.rareTotal.toLocaleString()}</span>
           </p>
           <p>
-            {currentMode === 1 ? "Unique NVs" :
+            ❑ {currentMode === 1 ? "Unique NVs" :
             currentMode === 2 ? "Unique UVs" :
             currentMode === 3 ? "Unique TVs" : "Unique SVs"}
             : <span className="placeholder">{totals.uniqueTotal.toLocaleString()}</span>
           </p>
           <p>
-            {currentMode === 1 ? "Layer NVs" :
+            ❑ {currentMode === 1 ? "Layer NVs" :
             currentMode === 2 ? "Layer UVs" :
             currentMode === 3 ? "Layer TVs" : "Layer SVs"}
             : <span className="placeholder">{totals.layerTotal.toLocaleString()}</span>
           </p>
           <p>
-            {currentMode === 1 ? "Grand Total NV" :
+            ❑ {currentMode === 1 ? "Grand Total NV" :
             currentMode === 2 ? "Grand Total UV" :
             currentMode === 3 ? "Grand Total TV" : "Grand Total SV"}
             : <span className="placeholder">{totals.grandTotal.toLocaleString()}</span>
           </p>
           <p>
-            {currentMode === 1 ? "Total NV Completion" :
+            ❑ {currentMode === 1 ? "Total NV Completion" :
             currentMode === 2 ? "Total UV Completion" :
             currentMode === 3 ? "Total TV Completion" : "Total SV Completion"}
             : <span className="placeholder">{totals.avgCompletion}%</span>
@@ -148,7 +181,7 @@ function ValueChart() {
          : "SV"}
       </h2>
 
-      {/* Buttons Section */}
+      {/* Value buttons */}
       <div className="value-buttons">
         <button
           className="color-template-rhylazil"
@@ -163,7 +196,7 @@ function ValueChart() {
           <span>NAN Values</span>
         </button>
       </div>
-
+      {/* Mode switching buttons */}
       <div className="mode-buttons">
         <button
           className="color-template-universallium"
@@ -191,17 +224,54 @@ function ValueChart() {
         </button>
       </div>
 
-      {/* Tables Section */}
+      {/* Back to Top button */}
+      {showBackToTop && (
+        <button 
+          className="back-to-top"
+          onClick={scrollToTop}
+          aria-label="Back to top"
+        >
+          ↑ Top
+        </button>
+      )}
+
+      {/* Dropdown navigation */}
+      <div className="table-navigation">
+        <label htmlFor="table-select">Jump to Table: </label>
+        <select 
+          id="table-select" 
+          onChange={handleTableSelect}
+          defaultValue=""
+        >
+          <option value="" disabled>Select a table...</option>
+          {tableNames.map(name => (
+            <option key={name} value={name.replace(/\s+/g, '-')}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Tables Section - modified to include IDs */}
       <div className="tables-container">
-        {Object.entries(isJohnValues ? johnValsDict : nanValsDict).map(([layerName, layerData]) => (
-          <TableComponent
-            key={layerName}
-            data={layerData}
-            title={layerName}
-            currentMode={currentMode}
-            csvData={csvData}
-          />
-        ))}
+        {Object.entries(isJohnValues ? johnValsDict : nanValsDict).map(([layerName, layerData]) => {
+          const gradientKey = Object.keys(LayerGradients).find(key => layerName.includes(key));
+          const gradientStyle = gradientKey 
+            ? LayerGradients[gradientKey].background 
+            : 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)';
+
+          return (
+            <div id={layerName.replace(/\s+/g, '-')} key={layerName}>
+              <TableComponent
+                data={layerData}
+                title={layerName}
+                currentMode={currentMode}
+                csvData={csvData}
+                gradient={gradientStyle}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

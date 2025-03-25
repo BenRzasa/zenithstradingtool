@@ -11,6 +11,7 @@ const TableComponent = ({
   title,
   currentMode,
   csvData,
+  gradient,
 }) => {
   // Function to calculate the value based on the current mode
   const calculateValue = (baseValue) => {
@@ -93,7 +94,18 @@ const TableComponent = ({
 
   return (
     <div className="table-wrapper">
-      <h2>{title}</h2>
+      <h2 style={{ 
+        background: gradient,
+        color: 'white',
+        padding: '10px 15px',
+        margin: '0 0 10px 0',
+        borderRadius: '0px',
+        textAlign: 'center',
+        width: '100%',
+        boxSizing: 'border-box'
+      }}>
+        {title}
+      </h2>
       <table>
         <thead>
           <tr>
@@ -151,17 +163,17 @@ const TableComponent = ({
         {/* Information section */}
         <div className="table-footer">
         <ul className="info-list">
-          <li>• Completion: <span className="placeholder">
+          <li>➜ Completion: <span className="placeholder">
             {getAverageCompletion()}%
           </span></li>
 
-          <li>• Total Value: <span className="placeholder">
+          <li>➜ Total Value: <span className="placeholder">
             {getTotalValue()} {currentMode === 1 ? "NV" :
                                currentMode === 2 ? "UV" :
                                currentMode === 3 ? "TV" : "SV"}
           </span></li>
 
-          <li>• Highest Value: <span className="placeholder">
+          <li>➜ Highest Value: <span className="placeholder">
             {getHighestValue()}
           </span></li>
         </ul>

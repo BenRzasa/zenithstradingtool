@@ -145,3 +145,15 @@ th {
   --header-text: #ffffff;
   --border-color: #444;
 }
+
+/* Add smooth scrolling to the entire site */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Support older browsers */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
