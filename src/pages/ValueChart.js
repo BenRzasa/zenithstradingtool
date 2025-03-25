@@ -231,7 +231,7 @@ function ValueChart() {
           onClick={scrollToTop}
           aria-label="Back to top"
         >
-          ↑ Top
+          ↑ Back to Top
         </button>
       )}
 

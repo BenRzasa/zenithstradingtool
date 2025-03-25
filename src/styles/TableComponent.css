@@ -35,3 +35,31 @@
 [data-theme="dark"] {
     --accent-color: #33add6; /* Teal for dark mode */
 }
+
+.name-column {
+    position: relative;
+    text-align: left;
+    padding-left: 35px;
+    width: 185px;
+    white-space: nowrap;
+    border: 2px solid var(--table-outline);
+    font-size: 19px;
+    font-weight: 900;
+    color: white;
+    z-index: 1;
+}
+  
+.name-column::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 35px;
+    top: -2;
+    z-index: -1;
+    color: black;
+    font-weight: 900;
+    font-size: 19px;
+    -webkit-text-stroke: 5px black;
+    -webkit-font-smoothing: antialiased;
+    paint-order: stroke fill;
+    text-rendering: optimizeLegibility;
+}

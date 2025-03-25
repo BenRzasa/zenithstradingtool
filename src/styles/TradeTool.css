@@ -1,0 +1,167 @@
+/* Trade Tool Specific Styles */
+.trade-tool-container {
+    margin: 100px;
+    position: relative;
+}
+
+.trade-main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    margin: auto;
+    width: calc(100% - 50px);
+    max-width: 1400px;
+}
+
+.trade-search-section, 
+.trade-table-section {
+    flex: 1;
+    min-width: 500;
+    max-width: calc(50% - 90px);
+}
+
+/* Search Container */
+.search-container {
+    align-self: center;
+    position: relative;
+    width: 100%;
+}
+
+/* Input Field */
+.search-input {
+    font-family: 'Comfortaa';
+    max-width: 100%;
+    padding: 12px 20px;
+    font-size: 20px;
+    border: 2px solid var(--csv-outline);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    box-sizing: border-box;
+}
+
+/* Show bottom border radius only when dropdown isn't visible */
+.search-input:not(:focus) {
+    border-radius: 8px;
+}
+
+/* Dropdown Wrapper */
+.search-results-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    border: 2px solid var(--csv-outline);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    background-color: var(--background-color);
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Results List */
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1000px;
+    max-width: 275px;
+    overflow-y: auto;
+}
+
+/* Individual Result Items */
+.search-result-item {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-radius: 15px;
+    max-width: fit-content;
+}
+
+.search-result-item:hover {
+    background-color: #e58eff;
+    color: black;
+    border-radius: 15px;
+    max-width: fit-content;
+}
+
+.search-result-item.selected {
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 15px;
+    max-width: fit-content;
+}
+
+/* Trade Table Styles */
+.trade-table {
+    width: 100%;
+    font-size: 20px;
+    border-collapse: collapse;
+    background-color: transparent;
+    margin-top: 20px;
+}
+
+.trade-table th {
+    font-size: 25px;
+    border: 2px solid var(--csv-outline);
+    padding: 8px;
+    text-align: center;
+}
+
+.trade-table td {
+    background-color: var(--background-color);
+    padding: 4px;
+    font-size: 20px;
+    mix-blend-mode: difference;
+}
+
+.quantity-input {
+    width: 125px;
+    padding: 8px;
+    font-size: 20px;
+    font-family: 'Comfortaa';
+    text-align: center;
+    border: 1px solid var(--csv-outline);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Totals Section */
+.trade-totals {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.trade-totals span {
+    color: var(--accent-color);
+}
+
+/* Value Buttons */
+.value-buttons {
+    display: flex;
+    gap: 20px;
+    scale: 1.25;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .trade-main-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        margin: 100px 50px 0 50px;
+    }
+    
+    .trade-search-section, 
+    .trade-table-section {
+        width: 100%;
+        max-width: 100%;
+    }
+}

@@ -94,16 +94,7 @@ const TableComponent = ({
 
   return (
     <div className="table-wrapper">
-      <h2 style={{ 
-        background: gradient,
-        color: 'white',
-        padding: '10px 15px',
-        margin: '0 0 10px 0',
-        borderRadius: '0px',
-        textAlign: 'center',
-        width: '100%',
-        boxSizing: 'border-box'
-      }}>
+      <h2 className="table-wrapper h2" style={{ background: gradient }} data-text={title}>
         {title}
       </h2>
       <table>
@@ -166,13 +157,11 @@ const TableComponent = ({
           <li>➜ Completion: <span className="placeholder">
             {getAverageCompletion()}%
           </span></li>
-
           <li>➜ Total Value: <span className="placeholder">
             {getTotalValue()} {currentMode === 1 ? "NV" :
                                currentMode === 2 ? "UV" :
                                currentMode === 3 ? "TV" : "SV"}
           </span></li>
-
           <li>➜ Highest Value: <span className="placeholder">
             {getHighestValue()}
           </span></li>
