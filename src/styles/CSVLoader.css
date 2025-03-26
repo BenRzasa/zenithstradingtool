@@ -2,10 +2,10 @@
 
 .main-content {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: flex-start;
-    gap: 100px;
-    margin: 100px 100px 0px 200px;
+    gap: 25px;
+    margin: 50px 0px 0px 100px;
     width: calc(100% - 400px);
     max-width: 1600px;
 }
@@ -15,26 +15,46 @@
     margin-left: 100px;
 }
 
+.main-container {
+    margin-left: 75px;
+}
+
 .main-container ul {
-    margin-left: 60px;
+    margin-left: 75px;
 }
 
 /* Equal width for both sections */
-.ore-list, 
+.ore-list {
+    flex: 1;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 500px;
+    max-height: 500px;
+}
+
 .csv-input {
     flex: 1;
-    min-width: 0;
-    max-width: calc(50% - 50px);
+    min-width: 500px;
+    min-height: 500px;
+    max-width: 500px;
+    max-height: 500px;
 }
 
-/* Headings */
-.CSVLoader > h1 {
-    margin-left: 25px;
-    margin-top: 75px;
+/* To make table scrollable */
+.ore-table-parent {
+    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 500px;
+    padding: 25px 25px 25px 25px;
+    margin-right: 5px;
+    box-shadow: inset 3px 5px 10px #000000;
 }
 
-/* Table Styles - Original preserved */
+/* Table Styles */
 .ore-list table {
+    margin-top: 5px;
+    min-width: 500px;
     width: 100%;
     font-size: 30px;
     border-collapse: collapse;
@@ -44,8 +64,8 @@
 .ore-list td, 
 .ore-list th {
     border: 2px solid var(--csv-outline);
-    padding: 8px;
-    text-align: left;
+    padding: 0px;
+    text-align: center;
 }
 
 .ore-list th {
@@ -65,9 +85,9 @@
 /* CSV Input - Original preserved */
 .csv-input textarea {
     width: 100%;
-    height: 500px;
+    height: 520px;
     resize: vertical, horizontal;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     font-size: 18px;
     border: 2px solid #000000;
     padding: 8px;

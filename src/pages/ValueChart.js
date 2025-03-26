@@ -185,12 +185,18 @@ function ValueChart() {
       {/* Value buttons */}
       <div className="button-container">
         <div className="box-button">
-          <button onClick={() => setIsJohnValues(true)}>
+          <button 
+            onClick={() => setIsJohnValues(true)}
+            className={isJohnValues ? "color-template-rhylazil" : ""}
+          >
             <span>John Values</span>
           </button>
         </div>
         <div className="box-button">
-          <button onClick={() => setIsJohnValues(false)}>
+          <button 
+            onClick={() => setIsJohnValues(false)}
+            className={isJohnValues === false ? "color-template-diamond" : ""}
+          >
             <span>NAN Values</span>
           </button>
         </div>
@@ -199,30 +205,46 @@ function ValueChart() {
       {/* Mode switching buttons */}
       <div className="button-container" style={{flexDirection: 'row', flexWrap: 'wrap'}}>
         <div className="box-button">
-          <button onClick={() => setCurrentMode(2)}>
+          <button 
+            onClick={() => setCurrentMode(2)}
+            className={currentMode === 2 ? "color-template-universallium" : ""}
+          >
             <span>UV Mode</span>
           </button>
         </div>
         <div className="box-button">
-          <button onClick={() => setCurrentMode(1)}>
+          <button 
+            onClick={() => setCurrentMode(1)}
+            className={currentMode === 1 ? "color-template-neutrine" : ""}
+          >
             <span>NV Mode</span>
           </button>
         </div>
         <div className="box-button">
-          <button onClick={() => setCurrentMode(3)}>
+          <button 
+            onClick={() => setCurrentMode(3)}
+            className={currentMode === 3 ? "color-template-torn-fabric" : ""}
+          >
             <span>TV Mode</span>
           </button>
         </div>
         <div className="box-button">
-          <button onClick={() => setCurrentMode(4)}>
+          <button 
+            onClick={() => setCurrentMode(4)}
+            className={currentMode === 4 ? "color-template-singularity" : ""}
+          >
             <span>SV Mode</span>
           </button>
         </div>
       </div>
-
       {/* Back to Top button */}
       {showBackToTop && (
-        <div className="box-button" style={{position: 'fixed', bottom: '20px', right: '20px'}}>
+        <div className="box-button" style={{
+          position: 'fixed',
+          bottom: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)'
+        }}>
           <button onClick={scrollToTop}>
             <span>↑ Back to Top</span>
           </button>
@@ -246,7 +268,7 @@ function ValueChart() {
         </select>
       </div>
 
-      {/* Tables Section - modified to include IDs */}
+      {/* Tables Section */}
       <div className="tables-container">
         {Object.entries(isJohnValues ? johnValsDict : nanValsDict).map(([layerName, layerData]) => {
           const gradientKey = Object.keys(LayerGradients).find(key => layerName.includes(key));

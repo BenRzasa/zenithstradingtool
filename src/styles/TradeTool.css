@@ -1,3 +1,9 @@
+/* Trade Tool Specific Styles */
+.trade-tool-container {
+    margin: 100px;
+    position: relative;
+}
+
 .trade-tool-container h1 {
     font-size: 40px;
     margin-top: 25px;
@@ -9,110 +15,54 @@ ul {
     font-size: 20px;
 }
 
-/* Trade Tool Specific Styles */
-.trade-tool-container {
-    margin: 150px;
-    position: relative;
+.t-button-container {
+    flex-direction: row;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    gap: 25px;
+    margin-top: 25px;
+    margin-left: 25px;
 }
 
 .trade-main-content {
+    transform: scale(1.25);
+    position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: flex-start;
-    gap: 50px;
-    margin: auto;
-    width: calc(100% - 50px);
-    max-width: 1500px;
-}
-
-.trade-search-section, 
-.trade-table-section {
-    margin-top: 10px;
-    flex: 1;
-    min-width: 500;
-    max-width: calc(60% - 90px);
-}
-
-/* Search Container */
-.search-container {
-    position: absolute;
+    gap: 1px;
+    margin-top: 135px;
+    margin-left: 175px;
     width: 100%;
+    max-width: 1200px;
 }
 
-/* Input Field */
-.search-input {
-    font-family: 'Comfortaa';
-    max-width: 100%;
-    padding: 12px 20px;
-    font-size: 20px;
-    border: 2px solid var(--csv-outline);
-    border-radius: 8px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    box-sizing: border-box;
-}
-
-/* Show bottom border radius only when dropdown isn't visible */
-.search-input:not(:focus) {
-    border-radius: 8px;
-}
-
-/* Dropdown Wrapper */
-.search-results-wrapper {
-    position: absolute;
-    width: 100%;
-    top: 100%;
-    left: 0;
-    border: 2px solid var(--csv-outline);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    background-color: var(--background-color);
-    z-index: 100;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Results List */
-.search-results {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 1000px;
-    max-width: 275px;
-    overflow-y: auto;
-}
-
-/* Individual Result Items */
-.search-result-item {
-    padding: 10px 20px;
+/* Left Column - Discount and Search */
+.trade-controls-column {
     display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    border-radius: 15px;
-    max-width: auto;
+    flex-direction: column;
+    gap: 1px;
+    width: 30%;
 }
 
-.search-result-item:hover {
-    background-color: #e58eff;
-    color: black;
-    border-radius: 15px;
-    max-width: auto;
+/* Middle Column - Table */
+.trade-table-section {
+    flex: 1;
+    width: 40%;
+    min-width: 500px;
+    max-width: 600px;
+    margin-top: 0;
 }
 
-.search-result-item.selected {
-    background-color: var(--accent-color);
-    color: white;
-    border-radius: 15px;
-    max-width: auto;
-}
-
-/* Trade Table Styles */
+/* Table Styles */
 .trade-table {
     width: 100%;
     font-size: 20px;
     border-collapse: collapse;
     background-color: transparent;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .trade-table th {
@@ -124,9 +74,121 @@ ul {
 
 .trade-table td {
     background-color: var(--background-color);
-    padding: 4px;
     font-size: 20px;
     mix-blend-mode: difference;
+}
+
+/* First column cells */
+.trade-table td:first-child {
+    text-align: left;
+    vertical-align: middle;
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Totals Section */
+.trade-totals {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.trade-totals span {
+    color: var(--accent-color);
+}
+
+/* Discount Section */
+.discount-container {
+    width: 100%;
+}
+
+.discount-input {
+    font-family: 'Comfortaa';
+    width: 25%;
+    padding: 12px 20px;
+    font-size: 20px;
+    border: 2px solid var(--csv-outline);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    box-sizing: border-box;
+    margin-top: -15px;
+}
+
+/* Search Section */
+.search-container {
+    width: 100%;
+    position: relative;
+}
+
+.search-input {
+    padding: 12px 20px;
+    font-size: 20px;
+    border: 2px solid var(--csv-outline);
+    border-radius: 8px 8px 0 0 !important;
+    background-color: transparent;
+    width: 275px;
+    box-sizing: border-box;
+    color: var(--text-color);
+    margin-top: -15px;
+}
+
+.search-results {
+    position: absolute; /* Aligns under input */
+    top: 100%; /* Positions directly below */
+    margin-top: -1px;
+    left: 0;
+    width: 275px;
+    border-top: none;
+    list-style: none;
+    padding: 0;
+    border: 2px solid var(--csv-outline);
+    border-radius: 0 0 8px 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+}
+
+.search-result-item {
+    padding: 3px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #e58eff;
+    color: black;
+}
+
+.search-result-item.selected {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Delete button styles */
+.delete-ore-button {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin: 0;
+    margin-left: 5px;
+    flex-shrink: 0;
+}
+
+.delete-ore-button:hover {
+    background-color: #cc0000;
 }
 
 .quantity-input {
@@ -141,38 +203,16 @@ ul {
     color: var(--text-color);
 }
 
-/* Totals Section */
-.trade-totals {
-    margin-top: auto;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.trade-totals span {
-    color: var(--accent-color);
-}
-
-/* Value Buttons */
-.value-buttons {
-    display: flex;
-    gap: 20px;
-    scale: 1.25;
-    justify-content: center;
-    margin: 30px 0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 1200px) {
     .trade-main-content {
         flex-direction: column;
-        align-items: center;
         gap: 50px;
-        margin: 100px 50px 0 50px;
     }
     
-    .trade-search-section, 
+    .trade-controls-column,
     .trade-table-section {
         width: 100%;
-        max-width: 100%;
+        min-width: auto;
     }
 }

@@ -83,7 +83,7 @@
 }
 
 .color-template-diamond {
-    background: #a5d1e2;
+    background: linear-gradient(135deg, #a5d1e3 0%, #a5d1e2 100%)
 }
 
 .color-template-garnet {

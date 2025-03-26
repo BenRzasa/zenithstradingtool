@@ -46,30 +46,6 @@
     margin: 4px 0;
 }
   
-.back-to-top {
-    position: fixed;
-    padding: 8px 15px;
-    margin-top: 10px;
-    font-size: 25px;
-    border-radius: 25px;
-    border: 3px solid black;
-    background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: bold;
-    z-index: 1000;
-}
-  
-.back-to-top:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-  
-.back-to-top:active {
-    transform: translateY(0);
-}
-  
 /* Dark mode support */
 [data-theme="dark"] .back-to-top {
     border-color: #555;

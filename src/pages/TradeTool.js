@@ -12,6 +12,7 @@ function TradeTool() {
     const [selectedOres, setSelectedOres] = useState([]);
     const [quantities, setQuantities] = useState({});
     const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [discount, setDiscount] = useState(0);
     const searchInputRef = useRef(null);
     const resultsRef = useRef(null);
 
@@ -50,6 +51,14 @@ function TradeTool() {
         setSearchTerm('');
         setSelectedIndex(-1);
         searchInputRef.current?.focus();
+    };
+
+    // Handle removing a specific ore
+    const handleRemoveOre = (oreName) => {
+        setSelectedOres(selectedOres.filter(ore => ore !== oreName));
+        const newQuantities = {...quantities};
+        delete newQuantities[oreName];
+        setQuantities(newQuantities);
     };
 
     // Define handleQuantityChange function
@@ -97,6 +106,22 @@ function TradeTool() {
     useEffect(() => {
         searchInputRef.current?.focus();
     }, []);
+    
+    // Scroll down the list when the keyboard navigates to the end of iti
+    useEffect(() => {
+        if (selectedIndex >= 0 && resultsRef.current) {
+            const resultsList = resultsRef.current;
+            const selectedItem = resultsList.children[selectedIndex];
+            
+            if (selectedItem) {
+                // Scroll the item into view if needed
+                selectedItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }
+        }
+    }, [selectedIndex]);
 
     // Calculate AV for an ore
     const calculateAV = (oreName) => {
@@ -111,6 +136,14 @@ function TradeTool() {
         return Math.round(sum + (quantities[ore] || 0) / (oreData?.baseValue || 1));
     }, 0).toFixed(0);
 
+    // Handle discount change
+    const handleDiscountChange = (e) => {
+        const value = parseFloat(e.target.value) || 0;
+        setDiscount(Math.min(100, Math.max(0, value))); // Clamp between 0-100
+    };
+    // Get the discounted AV value after getting from the input
+    const discountedAV = totalAV * (1 - discount / 100);
+    
     // Clear the entire table
     const clearTable = () => {
         setSelectedOres([]);
@@ -119,9 +152,7 @@ function TradeTool() {
 
     return (
         <div className="trade-tool-container">
- 
             <h1>Welcome to the Trade Tool!</h1>
-            {/* Page Title */}
             <h1>Usage:</h1>
             <l>
                 <ul>1. Start typing an ore or layer name in the search box on the left.</ul>
@@ -129,12 +160,11 @@ function TradeTool() {
                     You can also use arrow keys to navigate up and down the list!
                 </ul>
                 <ul>3. Enter the quantity of each ore you wish to trade in the text boxes on the right side.</ul>
+                <ul>4. To add a discount to large orders, type the percent in the "Discount %" box.</ul>
             </l>
-            {/* Display current mode */}
             <h1>➜ Current Values: <span className="placeholder">
                 {isJohnValues ? "John's Values" : "NAN's Values"}
             </span></h1>
-            {/* Navigation Bar */}
             <nav>
                 <ul>
                     <li><Link to="/">Back to Home Page</Link></li>
@@ -142,12 +172,7 @@ function TradeTool() {
                     <li><Link to="/csvloader">CSV Loader</Link></li>
                 </ul>
             </nav>
-
-    
-            {/* Main Content Area - Flex Layout */}
-            <div className="trade-main-content">
-                {/* Left - Value Source Toggle Buttons (John/NAN) */}
-                <div className="button-container">
+            <div className="t-button-container">
                 <div className="box-button">
                     <button onClick={() => setIsJohnValues(true)}>
                     <span>John Values</span>
@@ -158,12 +183,28 @@ function TradeTool() {
                     <span>NAN Values</span>
                     </button>
                 </div>
-                </div>
-                {/* Middle Section - Ore Search */}
-                <div className="trade-search-section">
-                    <h2>Add Ores to Trade | Ore & Layer Search</h2>
+            </div>
+    
+            {/* Main Content Area */}
+            <div className="trade-main-content">
+                {/* Left Column - Discount and Search */}
+                <div className="trade-controls-column">
+                    <div className="discount-container">
+                        <h2>Discount %</h2>
+                        <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="1"
+                            value={discount}
+                            onChange={handleDiscountChange}
+                            className="discount-input"
+                            placeholder="Enter discount percentage"
+                        />
+                    </div>
+                    
                     <div className="search-container">
-                        {/* Search Input Field */}
+                        <h2>Add Ores to Trade ⤵</h2>
                         <input
                             ref={searchInputRef}
                             type="text"
@@ -173,8 +214,6 @@ function TradeTool() {
                             onKeyDown={handleKeyDown}
                             className="search-input"
                         />
-                        
-                        {/* Wrap results in a container that will share the border */}
                         {searchTerm && (
                             <div className="search-results-container">
                                 <ul className="search-results" ref={resultsRef}>
@@ -193,26 +232,24 @@ function TradeTool() {
                     </div>
                 </div>
     
-                {/* Right Section - Trade Table */}
+                {/* Right Column - Table */}
                 <div className="trade-table-section">
-                    <h2>Trade List</h2>
-                        
-                    {/* Totals Display with Clear Button */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                    <div className="totals-and-clear-container">
                         <div className="trade-totals">
-                            <p>Total # Ores: <span>{totalOres}</span></p>
-                            <p>Total AV: <span>{totalAV}</span></p>
+                            <p>➜ Total # Ores: <span>{totalOres}</span></p>
+                            <p>➜ Total AV: <span>{totalAV}</span></p>
+                            <p>➜ Discounted AV ({discount}%): <span>{Math.round(discountedAV)}</span></p>
                         </div>
                         
-                        {/* Clear Table Button */}
-                        <div className="box-button" onClick={clearTable} style={{ marginLeft: '20px' }}>
-                            <button style={{ width: '100%', height: '100%' }}>
-                                <span className="button">Clear Table</span>
-                            </button>
+                        <div className="clear-button-container">
+                            <div className="box-button" onClick={clearTable}>
+                                <button>
+                                    <span className="button">Clear Table</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    
-                    {/* Trade Table */}
+    
                     <table className="trade-table">
                         <thead>
                             <tr>
@@ -224,9 +261,16 @@ function TradeTool() {
                         <tbody>
                             {selectedOres.map(ore => (
                                 <tr key={ore}>
-                                    <td>{ore}</td>
+                                    <td className="ore-name-cell">
+                                        <button 
+                                            className="delete-ore-button"
+                                            onClick={() => handleRemoveOre(ore)}
+                                        >
+                                            ✖
+                                        </button>
+                                        {ore}
+                                    </td>
                                     <td>
-                                        {/* Quantity Input Field */}
                                         <input
                                             type="number"
                                             min="1"
