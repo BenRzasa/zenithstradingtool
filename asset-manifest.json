@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.d4a1cb13.css",
-    "main.js": "/zenithstradingtool/static/js/main.ca45a2bc.js",
+    "main.css": "/zenithstradingtool/static/css/main.3fccb29b.css",
+    "main.js": "/zenithstradingtool/static/js/main.ba4841ec.js",
     "index.html": "/zenithstradingtool/index.html",
-    "main.d4a1cb13.css.map": "/zenithstradingtool/static/css/main.d4a1cb13.css.map",
-    "main.ca45a2bc.js.map": "/zenithstradingtool/static/js/main.ca45a2bc.js.map"
+    "main.3fccb29b.css.map": "/zenithstradingtool/static/css/main.3fccb29b.css.map",
+    "main.ba4841ec.js.map": "/zenithstradingtool/static/js/main.ba4841ec.js.map"
   },
   "entrypoints": [
-    "static/css/main.d4a1cb13.css",
-    "static/js/main.ca45a2bc.js"
+    "static/css/main.3fccb29b.css",
+    "static/js/main.ba4841ec.js"
   ]
 }
