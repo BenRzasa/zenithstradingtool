@@ -24,7 +24,7 @@ export const johnValsDict = {
   ],
 
   Uniques: [
-    { name: "Vicious Shard", baseValue: 0.004, className: "color-template-vicious-shard" },
+    { name: "Vicious Shard", baseValue: 0.006, className: "color-template-vicious-shard" },
     { name: "Jalaboño", baseValue: 1.0, className: "color-template-jalaboño" },
     { name: "Hollevite", baseValue: 1.0, className: "color-template-hollevite" },
     { name: "Verglazium", baseValue: 2.0, className: "color-template-verglazium" },

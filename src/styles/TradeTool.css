@@ -46,12 +46,13 @@ ul {
     width: 30%;
 }
 
-/* Middle Column - Table */
+/* Right Column - Table */
 .trade-table-section {
     flex: 1;
     width: 40%;
     min-width: 500px;
     max-width: 600px;
+    height: 1000px;
     margin-top: 0;
 }
 

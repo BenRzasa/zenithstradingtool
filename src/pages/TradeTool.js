@@ -7,7 +7,7 @@ import '../styles/AllGradients.css';
 import '../styles/TradeTool.css';
 
 function TradeTool() {
-    const [isJohnValues, setIsJohnValues] = useState(true);
+    const [isJohnValues, setIsJohnValues] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedOres, setSelectedOres] = useState([]);
     const [quantities, setQuantities] = useState({});
@@ -46,7 +46,7 @@ function TradeTool() {
     const handleAddOre = (oreName) => {
         if (!selectedOres.includes(oreName)) {
             setSelectedOres([...selectedOres, oreName]);
-            setQuantities({...quantities, [oreName]: 1});
+            setQuantities({...quantities, [oreName]: 0});
         }
         setSearchTerm('');
         setSelectedIndex(-1);
@@ -61,13 +61,13 @@ function TradeTool() {
         setQuantities(newQuantities);
     };
 
-    // Define handleQuantityChange function
+    // Handle ore quantity changes in trade table
     const handleQuantityChange = (oreName, value) => {
         setQuantities({
-            ...quantities,
-            [oreName]: Math.max(1, parseInt(value) || 1)
+          ...quantities,
+          [oreName]: value === "" ? "" : Math.max(1, parseInt(value) || 1)
         });
-    };
+      };
 
     // Handle keyboard navigation
     const handleKeyDown = (e) => {
@@ -126,7 +126,8 @@ function TradeTool() {
     // Calculate AV for an ore
     const calculateAV = (oreName) => {
         const oreData = allOresWithLayers.find(ore => ore.name === oreName);
-        return oreData ? Math.round((quantities[oreName] / oreData.baseValue).toFixed(2)) : 0;
+        // return oreData ? Math.round((quantities[oreName] / oreData.baseValue).toFixed(2)) : 0;
+        return oreData ? (quantities[oreName] / oreData.baseValue).toFixed(2) : 0;
     };
 
     // Calculate totals
@@ -174,13 +175,19 @@ function TradeTool() {
             </nav>
             <div className="t-button-container">
                 <div className="box-button">
-                    <button onClick={() => setIsJohnValues(true)}>
-                    <span>John Values</span>
+                    <button 
+                        onClick={() => setIsJohnValues(true)}
+                        className={isJohnValues ? "color-template-rhylazil" : ""}
+                    >
+                        <span>John Values</span>
                     </button>
                 </div>
                 <div className="box-button">
-                    <button onClick={() => setIsJohnValues(false)}>
-                    <span>NAN Values</span>
+                    <button 
+                        onClick={() => setIsJohnValues(false)}
+                        className={isJohnValues === false ? "color-template-diamond" : ""}
+                    >
+                        <span>NAN Values</span>
                     </button>
                 </div>
             </div>
@@ -272,11 +279,14 @@ function TradeTool() {
                                     </td>
                                     <td>
                                         <input
-                                            type="number"
-                                            min="1"
-                                            value={quantities[ore] || 1}
-                                            onChange={(e) => handleQuantityChange(ore, e.target.value)}
-                                            className="quantity-input"
+                                        type="number"
+                                        value={quantities[ore] ?? ""}
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+                                            handleQuantityChange(ore, value); // Pass raw value (could be "")
+                                        }}
+                                        className="quantity-input"
+                                        min="0" // Optional (for browser validation)
                                         />
                                     </td>
                                     <td>{calculateAV(ore)}</td>

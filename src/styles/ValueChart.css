@@ -1,4 +1,16 @@
+.outer-frame {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .container {
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,14 +27,11 @@
     border: 5px var(--table-outline);
 }
 
-.container h1 {
-    margin-top: 125px;
-}
-
 .quick-summary {
-    position: absolute;
-    margin-left: 100px;
-    margin-top: 500px;
+    transform: scale(0.8);
+    position: fixed;
+    margin-left: 50px;
+    margin-top: -10px;
     text-align: left;
     font-size: 25px;
     font-weight: bold;
@@ -31,19 +40,55 @@
     border-radius: 15px;
     z-index: 1000;
     box-shadow: inset 0px 5px 5px #141414;
+    width: 400px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: none;
 }
 
-[data-theme="dark"] .quick-summary {
-    color: rgb(0, 0, 0);
+.summary-header {
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
 }
 
-.quick-summary h2 {
-    margin-top: 0px;
-    margin-bottom: 0px;
+.summary-header:active {
+    cursor: grabbing;
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.summary-content {
+    position: absolute;
+    margin-top: 15px;
+    padding: 10px;
+    border: 2px solid var(--table-outline);
+    background: var(--background-color);
+    transition: transform ease-in-out cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
 .quick-summary p {
-    margin: 4px 0;
+    margin: 8px 0;
+    font-size: 0.9em;
+}
+
+[data-theme="dark"] .quick-summary {
+    color: rgb(255, 255, 255);
+    background-color: #2a2a2a;
+}
+
+[data-theme="dark"] .summary-content {
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
   
 /* Dark mode support */
@@ -67,13 +112,13 @@
     margin: 20px 0;
     text-align: center;
 }
-  
+
 .table-navigation label {
     font-size: 25px;
     font-weight: 900;
     margin-right: 10px;
 }
-  
+
 .table-navigation select {
     padding: 15px 15px;
     margin-bottom: 15px;
@@ -86,34 +131,17 @@
     color: inherit;
     cursor: pointer;
 }
-  
+
 .table-navigation select:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
 }
 
-.name-column {
-    position: relative;
-    color: white;
-    text-align: left;
-    padding-left: 35px;
-    width: 185px;
-    white-space: wrap;
-    border: 2px solid var(--table-outline);
-    font-size: 19px;
-    font-weight: 900;
-    text-shadow: 
-        0 0 5px rgba(0,0,0,1),
-        0 0 4px rgba(0,0,0,1),
-        0 0 3px #000;
-    z-index: 1;
-}
-
 .tables-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 25px;
     margin: 0 auto;
     padding: 0px;
     max-width: 100%;
@@ -122,10 +150,9 @@
 
 .table-wrapper {
     flex: 1 1 calc(33.333% -10px);
-    min-width: 650px;
-    max-width: 650px;
+    width: 550px;
     overflow-x: auto;
-    border: 5px solid var(--table-outline);
+    border: 4px solid var(--table-outline);
     border-radius: 25px;
     padding-top: 6px;
     height: fit-content;
@@ -140,17 +167,17 @@
 .table-wrapper h2 {
     text-align: center;
     vertical-align: middle;
-    font-size: 23px;
+    font-size: 21px;
     font-weight: bolder;
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    scale: 1.25;
+    scale: 1.3;
     background: var(--gradient-fallback, linear-gradient(90deg, #667eea 0%, #764ba2 100%));
     color: white;
     position: relative;
     border: none;
-    z-index: -1;
+    z-index: 1;
 }
 
 .table-wrapper h2::before {
@@ -162,9 +189,9 @@
     width: 100%; 
     z-index: -1;
     color: black;
-    font-size: 23px;
+    font-size: 21px;
     font-weight: bolder;
-    -webkit-text-stroke: 6px black; 
+    -webkit-text-stroke: 3px black; 
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeLegibility;
@@ -186,7 +213,7 @@ th {
     border: 2px solid var(--table-outline) !important;
     vertical-align: middle;
     text-align: center;
-    line-height: 0.75;
+    line-height: 1;
 
 }
 
@@ -195,6 +222,6 @@ td {
     border: 2px solid var(--table-outline) !important;
     vertical-align: middle;
     text-align: center;
-    line-height: 1.6;
+    line-height: 1.5;
 
 }
