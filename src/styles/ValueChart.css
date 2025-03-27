@@ -28,7 +28,6 @@
 }
 
 .quick-summary {
-    transform: scale(0.8);
     position: fixed;
     margin-left: 50px;
     margin-top: -10px;
@@ -40,18 +39,20 @@
     border-radius: 15px;
     z-index: 1000;
     box-shadow: inset 0px 5px 5px #141414;
-    width: 400px; 
+    width: 400px;
     cursor: pointer;
-    transition: all 0.3s ease;
     touch-action: none;
-}
-
-.summary-header {
+    will-change: transform;
+    user-select: none;
+  }
+  
+  .summary-header {
     display: flex;
     height: 50px;
     justify-content: space-between;
     align-items: center;
     cursor: grab;
+    user-select: none;
 }
 
 .summary-header:active {
@@ -59,7 +60,7 @@
 }
 
 .dropdown-arrow {
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease-out;
     font-size: 0.8em;
     margin-left: 10px;
 }
@@ -69,14 +70,31 @@
 }
 
 .summary-content {
-    position: absolute;
-    margin-top: 15px;
-    padding: 10px;
-    border: 2px solid var(--table-outline);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 10px;
+    padding: 0 10px;
+    border: 2px solid transparent;
     background: var(--background-color);
-    transition: transform ease-in-out cubic-bezier(0.075, 0.82, 0.165, 1)
+    border-radius: 0 0 10px 10px;
+    transform: translateY(-10px);
+    transition: 
+        max-height 0.3s ease-out,
+        opacity 0.2s ease-out 0.1s,
+        transform 0.2s ease-out,
+        border-color 0.3s ease-out,
+        padding 0.3s ease-out;
 }
 
+.quick-summary.open .summary-content {
+    max-height: 1000px;
+    opacity: 1;
+    padding: 10px;
+    transform: translateY(0);
+    border-color: var(--table-outline);
+    margin-top: 15px;
+}
 .quick-summary p {
     margin: 8px 0;
     font-size: 0.9em;

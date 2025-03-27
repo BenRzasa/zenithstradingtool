@@ -4,7 +4,7 @@
     - Switch between John and NAN's values (based off the dictionaries)
 */
 
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { CSVContext } from '../context/CSVContext';
 import '../styles/ValueChart.css';
 import { Link } from 'react-router-dom';
@@ -38,20 +38,19 @@ function ValueChart() {
     });
   };
 
-  const handleMouseUp = () => {
+  const handleMouseMove = useCallback((e) => {
+    if (!isDragging) return;
+    setPosition({
+      x: e.clientX - dragOffset.x,
+      y: e.clientY - dragOffset.y
+    });
+  }, [isDragging, dragOffset]);
+
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   useEffect(() => {
-
-    const handleMouseMove = (e) => {
-      if (!isDragging) return;
-      setPosition({
-        x: e.clientX - dragOffset.x,
-        y: e.clientY - dragOffset.y
-      });
-    };
-
     if (isDragging) {
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleMouseUp);
@@ -60,7 +59,7 @@ function ValueChart() {
         window.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging, dragOffset]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   // List of table names for the dropdown
   const tableNames = Object.keys(isJohnValues ? johnValsDict : nanValsDict);
@@ -244,18 +243,14 @@ function ValueChart() {
     <div className="outer-frame">
       {/* Quick Summary Dropdown */}
       <div 
-        className="quick-summary"
-        style={{
-          transform: `scale(0.75)`,
-          position: 'fixed',
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          cursor: isDragging ? 'grabbing' : 'grab',
-          userSelect: 'none',
-          zIndex: '10000'
-        }}
-        onMouseDown={handleMouseDown}
-      >
+      className={`quick-summary ${isSummaryOpen ? 'open' : ''}`}
+      style={{
+        transform: `scale(0.8) translate(${position.x}px, ${position.y}px)`,
+        left: '50px',
+        top: '-10px'
+      }}
+      onMouseDown={handleMouseDown}
+    >
       <div 
           className="summary-header"
           onClick={() => setIsSummaryOpen(!isSummaryOpen)}
