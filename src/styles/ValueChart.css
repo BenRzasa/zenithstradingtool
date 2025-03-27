@@ -168,7 +168,7 @@
 
 .table-wrapper {
     flex: 1 1 calc(33.333% -10px);
-    width: 550px;
+    width: 575px;
     overflow-x: auto;
     border: 4px solid var(--table-outline);
     border-radius: 25px;

@@ -9,22 +9,18 @@ function CSVLoader() {
 
   const updateOreAmounts = () => {
     const csvInput = document.getElementById("csvInput").value;
-      // Return early if input is empty
-    if (!csvInput) {
-      return;
-    }
-
+    if (!csvInput) return;
+  
     const newAmounts = csvInput.split(",").map(Number);
-
-    // Create a new object to map ore names to their corresponding inventory values
+    
+    // Create an object with ore names as keys
     const updatedData = OreNames.reduce((acc, ore, index) => {
       acc[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
         ? newAmounts[index]
         : 0;
       return acc;
     }, {});
-
-    // Update the CSV data state
+  
     setCSVData(updatedData);
   };
 

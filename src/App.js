@@ -13,11 +13,13 @@ import CSVLoader from './pages/CSVLoader';
 import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
 import { CSVProvider } from './context/CSVContext';
+import { TradeProvider } from './context/TradeContext';
 
 
 
 function App() {
     return (
+        <TradeProvider>
         <CSVProvider>
             <Router basename="/zenithstradingtool">
                 <Routes>
@@ -28,6 +30,7 @@ function App() {
                 </Routes>
             </Router>
         </CSVProvider>
+        </TradeProvider>
     );
 }
 

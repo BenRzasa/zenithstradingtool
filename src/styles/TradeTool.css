@@ -6,13 +6,13 @@
 
 .trade-tool-container h1 {
     font-size: 40px;
-    margin-top: 25px;
+    margin-top: 0px;
     text-align: left;
     margin-bottom: 0px;
 }
 
 ul {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .t-button-container {
@@ -93,7 +93,9 @@ ul {
 .trade-totals {
     font-size: 25px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: -80px;
+    margin-left: 25px;
+    margin-bottom: -15px
 }
 
 .trade-totals span {
@@ -115,7 +117,7 @@ ul {
     background-color: var(--background-color);
     color: var(--text-color);
     box-sizing: border-box;
-    margin-top: -15px;
+    margin-top: -20px;
 }
 
 /* Search Section */
@@ -133,12 +135,12 @@ ul {
     width: 275px;
     box-sizing: border-box;
     color: var(--text-color);
-    margin-top: -15px;
+    margin-top: -20px;
 }
 
 .search-results {
-    position: absolute; /* Aligns under input */
-    top: 100%; /* Positions directly below */
+    position: absolute;
+    top: 100%;
     margin-top: -1px;
     left: 0;
     width: 275px;
@@ -193,7 +195,7 @@ ul {
 }
 
 .quantity-input {
-    width: 125px;
+    width: 75px;
     padding: 8px;
     font-size: 20px;
     font-family: 'Comfortaa';
@@ -202,6 +204,85 @@ ul {
     border-radius: 4px;
     background-color: var(--background-color);
     color: var(--text-color);
+}
+/* Quantity cell styling */
+.quantity-cell-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.inventory-check {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.inventory-check.has-enough {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.inventory-check.not-enough {
+    background-color: #f44336;
+    color: white;
+}
+
+.inventory-count {
+    font-size: 0.9em;
+    color: #666;
+    min-width: 50px;
+    display: inline-block;
+}
+
+/* Global checkmark styling */
+.global-checkmark {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Missing ores warning styling */
+.missing-ores-warning {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    max-width: 400px;
+    padding: 8px 12px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+}
+
+.warning-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.missing-ores-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.missing-ore-item {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
 }
 
 /* Responsive adjustments */

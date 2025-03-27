@@ -49,15 +49,53 @@ const TableComponent = ({
     return fixed.replace(/\.?0+$/, '');
   };
 
-  // Preserve original precision exactly as in baseValue
+  // Preserve original precision exactly as in baseValue 
+  // Now, add a K at the end, truncating all leading zeroes,
+  // if the number is above 1000. Also, remove trailing zeroes
+  // if the number is, say, "2.000"
   const formatWithOriginalPrecision = (value, baseValue) => {
     if (!Number.isFinite(value)) return "0";
-    
-    // Count decimal places from baseValue
-    const decimalPart = baseValue.toString().split('.')[1];
-    const precision = decimalPart ? decimalPart.length : 0;
-    
-    return value.toFixed(precision);
+    // Count decimal places from baseValue and detect trailing zeros
+    const baseStr = baseValue.toString();
+    // eslint-disable-next-line
+    const [integerPart, decimalPart] = baseStr.split('.');
+    const hasDecimal = decimalPart !== undefined;
+    // Determine original precision (length of decimal part)
+    const originalPrecision = decimalPart ? decimalPart.length : 0;
+    // For numbers >= 1000, format with K notation
+    if (Math.abs(value) >= 1000) {
+      const divided = value / 1000;
+      // Count significant decimal places (ignore trailing zeros)
+      let significantDigits = originalPrecision;
+      if (decimalPart) {
+        // Count trailing zeros in original number
+        const trailingZerosMatch = decimalPart.match(/0+$/);
+        const trailingZeroCount = trailingZerosMatch ? trailingZerosMatch[0].length : 0;
+        significantDigits = Math.max(0, originalPrecision - trailingZeroCount);
+      }
+      // Format with significant digits, then clean up trailing . if needed
+      let formatted = divided.toFixed(significantDigits);
+      // Remove trailing .000 if present
+      if (formatted.includes('.')) {
+        formatted = formatted.replace(/\.?0+$/, '');
+        // If we ended with just a decimal point, remove it (e.g., "2." -> "2")
+        if (formatted.endsWith('.')) {
+          formatted = formatted.slice(0, -1);
+        }
+      }
+      return formatted + 'K';
+    }
+    // For small numbers, use original precision but trim trailing zeros
+    let smallFormatted = value.toFixed(originalPrecision);
+    // Remove trailing zeros and possible decimal point if not needed
+    if (hasDecimal && smallFormatted.includes('.')) {
+      smallFormatted = smallFormatted.replace(/\.?0+$/, '');
+      // Handle case where we removed all decimals (e.g., "2." -> "2")
+      if (smallFormatted.endsWith('.')) {
+        smallFormatted = smallFormatted.slice(0, -1);
+      }
+    }
+    return smallFormatted;
   };
 
   // Calculate completion percentage

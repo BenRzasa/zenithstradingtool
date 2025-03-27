@@ -1,20 +1,59 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CSVContext } from '../context/CSVContext';
+import { TradeContext } from '../context/TradeContext';
 import { johnValsDict } from '../components/JohnVals';
 import { nanValsDict } from '../components/NANVals';
 import '../styles/AllGradients.css';
 import '../styles/TradeTool.css';
 
 function TradeTool() {
-    const [isJohnValues, setIsJohnValues] = useState(false);
+    const { tradeData, setTradeData } = useContext(TradeContext);
+
+    const [isJohnValues, setIsJohnValues] = useState(tradeData.isJohnValues);
+    const [selectedOres, setSelectedOres] = useState(tradeData.selectedOres);
+    const [quantities, setQuantities] = useState(tradeData.quantities);
+    const [discount, setDiscount] = useState(tradeData.discount);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedOres, setSelectedOres] = useState([]);
-    const [quantities, setQuantities] = useState({});
     const [selectedIndex, setSelectedIndex] = useState(-1);
-    const [discount, setDiscount] = useState(0);
     const searchInputRef = useRef(null);
     const resultsRef = useRef(null);
+
+    // useEffect to sync changes back to context
+    useEffect(() => {
+        setTradeData({
+        selectedOres,
+        quantities,
+        discount,
+        isJohnValues
+        });
+    }, [selectedOres, quantities, discount, isJohnValues, setTradeData]);
+
+    // Reset selected index when search term changes
+    useEffect(() => {
+        setSelectedIndex(-1);
+    }, [searchTerm]);
+
+    // Focus the input when component mounts
+    useEffect(() => {
+        searchInputRef.current?.focus();
+    }, []);
+    
+    // Scroll down the list when the keyboard navigates to the end of iti
+    useEffect(() => {
+        if (selectedIndex >= 0 && resultsRef.current) {
+            const resultsList = resultsRef.current;
+            const selectedItem = resultsList.children[selectedIndex];
+            
+            if (selectedItem) {
+                // Scroll the item into view if needed
+                selectedItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }
+        }
+    }, [selectedIndex]);
 
     // Using csvData in a way that satisfies ESLint
     const { csvData } = useContext(CSVContext);
@@ -97,32 +136,6 @@ function TradeTool() {
         }
     };
 
-    // Reset selected index when search term changes
-    useEffect(() => {
-        setSelectedIndex(-1);
-    }, [searchTerm]);
-
-    // Focus the input when component mounts
-    useEffect(() => {
-        searchInputRef.current?.focus();
-    }, []);
-    
-    // Scroll down the list when the keyboard navigates to the end of iti
-    useEffect(() => {
-        if (selectedIndex >= 0 && resultsRef.current) {
-            const resultsList = resultsRef.current;
-            const selectedItem = resultsList.children[selectedIndex];
-            
-            if (selectedItem) {
-                // Scroll the item into view if needed
-                selectedItem.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                });
-            }
-        }
-    }, [selectedIndex]);
-
     // Calculate AV for an ore
     const calculateAV = (oreName) => {
         const oreData = allOresWithLayers.find(ore => ore.name === oreName);
@@ -142,9 +155,44 @@ function TradeTool() {
         const value = parseFloat(e.target.value) || 0;
         setDiscount(Math.min(100, Math.max(0, value))); // Clamp between 0-100
     };
+
     // Get the discounted AV value after getting from the input
     const discountedAV = totalAV * (1 - discount / 100);
     
+    // Helper function to check if user has enough of a specific ore
+    const hasEnoughOre = (oreName, requiredAmount) => {
+        if (!csvData || typeof csvData !== 'object') return false;
+        const inventoryAmount = csvData[oreName] || 0;
+        return inventoryAmount >= (requiredAmount || 0);
+    };
+    
+    // Helper function to get available amount of an ore
+    const getAvailableAmount = (oreName) => {
+        if (!csvData || typeof csvData !== 'object') return 0;
+        return csvData[oreName] || 0;
+    };
+    
+    // Check if all ores in the table are available
+    const allOresAvailable = selectedOres.length > 0 && selectedOres.every(ore => {
+        return hasEnoughOre(ore, quantities[ore]);
+    });
+
+    // Helper function to get missing ores with amounts
+    const getMissingOres = () => {
+        if (!csvData || typeof csvData !== 'object') return [];
+        
+        return selectedOres
+        .filter(ore => !hasEnoughOre(ore, quantities[ore]))
+        .map(ore => ({
+            name: ore,
+            missing: (quantities[ore] || 0) - (csvData[ore] || 0)
+        }));
+    };
+    
+    // Calculate missing ores
+    const missingOres = getMissingOres();
+    const hasMissingOres = missingOres.length > 0;
+
     // Clear the entire table
     const clearTable = () => {
         setSelectedOres([]);
@@ -247,7 +295,22 @@ function TradeTool() {
                             <p>➜ Total AV: <span>{totalAV}</span></p>
                             <p>➜ Discounted AV ({discount}%): <span>{Math.round(discountedAV)}</span></p>
                         </div>
-                        
+                        {allOresAvailable ? (
+                            <div className="global-checkmark">
+                                ✓ All ores available in inventory
+                            </div>
+                            ) : hasMissingOres && (
+                            <div className="missing-ores-warning">
+                                <div className="warning-header">✖ Missing:</div>
+                                <div className="missing-ores-list">
+                                {missingOres.map((ore, index) => (
+                                    <div key={index} className="missing-ore-item">
+                                    {ore.name}: {ore.missing > 0 ? ore.missing : 0}
+                                    </div>
+                                ))}
+                                </div>
+                            </div>
+                            )}
                         <div className="clear-button-container">
                             <div className="box-button" onClick={clearTable}>
                                 <button>
@@ -278,16 +341,29 @@ function TradeTool() {
                                         {ore}
                                     </td>
                                     <td>
+                                    <div className="quantity-cell-container">
+                                        {csvData && (
+                                        <>
+                                            <span 
+                                            className={`inventory-check ${
+                                                hasEnoughOre(ore, quantities[ore]) ? 'has-enough' : 'not-enough'
+                                            }`}
+                                            >
+                                            {hasEnoughOre(ore, quantities[ore]) ? '✓' : '✖'}
+                                            </span>
+                                            <span className="inventory-count">
+                                            {getAvailableAmount(ore)}/{quantities[ore] || 0}
+                                            </span>
+                                        </>
+                                        )}
                                         <input
                                         type="number"
                                         value={quantities[ore] ?? ""}
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-                                            handleQuantityChange(ore, value); // Pass raw value (could be "")
-                                        }}
+                                        onChange={(e) => handleQuantityChange(ore, e.target.value)}
                                         className="quantity-input"
-                                        min="0" // Optional (for browser validation)
+                                        min="1"
                                         />
+                                    </div>
                                     </td>
                                     <td>{calculateAV(ore)}</td>
                                 </tr>

@@ -19,7 +19,7 @@ function ValueChart() {
   // Import CSV data to ensure persistency
   const { csvData } = useContext(CSVContext);
   // Display mode state | 1:AV, 2:UV, 3:NV, 4:TV, 5:SV
-  const [currentMode, setCurrentMode] = useState(1); // 
+  const [currentMode, setCurrentMode] = useState(3); // 
   const [isJohnValues, setIsJohnValues] = useState(false);
   // UI control states
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
@@ -262,13 +262,13 @@ function ValueChart() {
         <div className="summary-content">
           <p>❑ Total Ores: <span className="placeholder">{totals.totalOres.toLocaleString()}
               </span></p>
-          <p>❑ Rare {modeStr}s: <span className="placeholder">{totals.rareTotal.toLocaleString()}
+          <p>❑ Rare {modeStr}: <span className="placeholder">{totals.rareTotal.toLocaleString()}
               </span></p>
-          <p>❑ Unique {modeStr}s: <span className="placeholder">{totals.uniqueTotal.toLocaleString()}
+          <p>❑ Unique {modeStr}: <span className="placeholder">{totals.uniqueTotal.toLocaleString()}
               </span></p>
-          <p>❑ Layer {modeStr}s: <span className="placeholder">{totals.layerTotal.toLocaleString()}
+          <p>❑ Layer {modeStr}: <span className="placeholder">{totals.layerTotal.toLocaleString()}
               </span></p>
-          <p>❑ Grand Total {modeStr}s: <span className="placeholder">{totals.grandTotal.toLocaleString()}
+          <p>❑ Grand Total {modeStr}: <span className="placeholder">{totals.grandTotal.toLocaleString()}
               </span></p>
           <p>❑ Total {modeStr} Completion: <span className="placeholder">{totals.avgCompletion}%
               </span></p>

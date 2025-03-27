@@ -67,7 +67,7 @@ export const nanValsDict = {
     { name: "Peridot", baseValue: 6, className: "color-template-peridot" },
     { name: "Amethyst", baseValue: 6, className: "color-template-amethyst" },
     { name: "Thallium", baseValue: 6, className: "color-template-thallium" },
-    { name: "Tungsten", baseValue: 6, className: "color-template-tungsten" },
+    { name: "Tungsten", baseValue: 8, className: "color-template-tungsten" },
     { name: "Diamond", baseValue: 10, className: "color-template-diamond" },
     { name: "Garnet", baseValue: 8, className: "color-template-garnet" },
     { name: "Platinum", baseValue: 12, className: "color-template-platinum" },
