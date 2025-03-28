@@ -11,7 +11,7 @@ import cornerImage4 from '../images/misc/Site-logo.webp';
 function WelcomePage() {
     const navigate = useNavigate();
     return (
-        <div class="welcome-page">
+        <div className="welcome-page">
             {/* Corner images container */}
             <div className="corner-images-container">
                 <img src={cornerImage1} alt="Top Left" className="corner-image top-left" />
@@ -20,14 +20,14 @@ function WelcomePage() {
                 <img src={cornerImage4} alt="Bottom Right" className="corner-image bottom-right" />
             </div>
             <div>
-                <h1 class="name">
-                    <span class="copy-wrap">
+                <h1 className="name">
+                    <span className="copy-wrap">
                         Created by ZenithFlare for The Celestial Caverns
                         </span>
                     </h1>
 
-                    <div class="square"></div>
-                    <div class="card">
+                    <div className="square"></div>
+                    <div className="card">
                         {/* TCC Logo */}
                         <img 
                             src={logo} 
@@ -41,14 +41,14 @@ function WelcomePage() {
                                 transform: 'scale(1.25)'
                             }}
                         />
-                        <div class="card-title-wrap">
-                            <h1 class="title">
-                                <span class="copy-wrap">
+                        <div className="card-title-wrap">
+                            <h1 className="title">
+                                <span className="copy-wrap">
                                     Welcome to Zenith's Trading Tool v1.0!
                                 </span>
                             </h1> 
                         </div>
-                    <div class="card-img"></div>
+                    <div className="card-img"></div>
                     </div>
                     {/* Buttons section */}
                     <div className="button-container">
@@ -68,8 +68,8 @@ function WelcomePage() {
                             </button>
                         </div>
                     </div>
-                    <h2 class="copyright">
-                    <span class="copy-wrap">
+                    <h2 className="copyright">
+                    <span className="copy-wrap">
                         20&nbsp;&nbsp;&nbsp;&nbsp;25
                     </span>
                     </h2>
