@@ -12,6 +12,9 @@
 /build
 
 # misc
+/public/icons
+/src/images
+
 .DS_Store
 .env.local
 .env.development.local

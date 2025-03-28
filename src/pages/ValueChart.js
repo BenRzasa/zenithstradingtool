@@ -317,7 +317,7 @@ function ValueChart() {
           <button 
             onClick={() => setMoreStats(!moreStats)}
             className={moreStats ? "color-template-dystranum active" : ""}
-            aria-pressed={moreStats}
+            aria-pressed={moreStats && isSummaryOpen}
           >
             <span>More Stats {moreStats ? '▲' : '▼'}</span>
           </button>

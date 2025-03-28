@@ -4,8 +4,8 @@ import { CSVContext } from '../context/CSVContext';
 import { TradeContext } from '../context/TradeContext';
 import { johnValsDict } from '../components/JohnVals';
 import { nanValsDict } from '../components/NANVals';
-import '../styles/AllGradients.css';
 import '../styles/TradeTool.css';
+import '../styles/AllGradients.css';
 
 function TradeTool() {
     const { tradeData, setTradeData } = useContext(TradeContext);
@@ -18,6 +18,9 @@ function TradeTool() {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const searchInputRef = useRef(null);
     const resultsRef = useRef(null);
+    const [globalQuantity, setGlobalQuantity] = useState(1);
+    // Using csvData in a way that satisfies ESLint
+    const { csvData } = useContext(CSVContext);
 
     // useEffect to sync changes back to context
     useEffect(() => {
@@ -55,9 +58,6 @@ function TradeTool() {
         }
     }, [selectedIndex]);
 
-    // Using csvData in a way that satisfies ESLint
-    const { csvData } = useContext(CSVContext);
-    console.log('CSV Data available:', csvData); // Example usage to prevent warning
 
     // Get all ores with their layer information
     const allOresWithLayers = Object.entries(isJohnValues ? johnValsDict : nanValsDict)
@@ -130,7 +130,7 @@ function TradeTool() {
             case 'Enter':
                 e.preventDefault();
                 if (selectedIndex >= 0 && selectedIndex < filteredOres.length) {
-                    handleAddOre(filteredOres[selectedIndex].name);
+                    handleAddOre(filteredOres[selectedIndex]);
                 }
                 break;
             default:
@@ -142,7 +142,7 @@ function TradeTool() {
     const calculateAV = (oreName) => {
         const oreData = allOresWithLayers.find(ore => ore.name === oreName);
         // return oreData ? Math.round((quantities[oreName] / oreData.baseValue).toFixed(2)) : 0;
-        return oreData ? (quantities[oreName] / oreData.baseValue).toFixed(2) : 0;
+        return oreData ? (quantities[oreName] / oreData.baseValue).toFixed(1) : 0;
     };
 
     // Calculate totals
@@ -204,6 +204,15 @@ function TradeTool() {
     const missingOres = getMissingOres();
     const hasMissingOres = missingOres.length > 0;
 
+    // User can apply a single quantity to all ores in the table
+    const applyGlobalQuantity = (quantity) => {
+        const newQuantities = {...quantities};
+        selectedOres.forEach(ore => {
+          newQuantities[ore.name] = quantity;
+        });
+        setQuantities(newQuantities);
+    };
+
     // Clear the entire table
     const clearTable = () => {
         setSelectedOres([]);
@@ -244,7 +253,7 @@ function TradeTool() {
                 <div className="box-button">
                     <button 
                         onClick={() => setIsJohnValues(false)}
-                        className={isJohnValues === false ? "color-template-diamond" : ""}
+                        className={!isJohnValues ? "color-template-diamond" : ""}
                     >
                         <span>NAN Values</span>
                     </button>
@@ -302,9 +311,9 @@ function TradeTool() {
                 <div className="trade-table-section">
                     <div className="totals-and-clear-container">
                         <div className="trade-totals">
-                            <p>➜ Total # Ores: <span>{totalOres}</span></p>
                             <p>➜ Total AV: <span>{totalAV}</span></p>
                             <p>➜ Discounted AV ({discount}%): <span>{Math.round(discountedAV)}</span></p>
+                            <p>➜ Total # Ores: <span>{totalOres}</span></p>
                         </div>
                         {allOresAvailable ? (
                             <div className="global-checkmark">
@@ -334,17 +343,34 @@ function TradeTool() {
                     <table className="trade-table">
                     <thead>
                         <tr>
-                        <th>Ore Name</th>
-                        <th># to Trade</th>
-                        <th>AV</th>
+                            <th>Ore Name</th>
+                            <th>
+                            <div className="quantity-cell-container">
+                                <span># to Trade</span>
+                                <input
+                                type="number"
+                                min="1"
+                                value={globalQuantity}
+                                onChange={(e) => {
+                                    const value = Math.max(1, parseInt(e.target.value) || 1);
+                                    setGlobalQuantity(value);
+                                    applyGlobalQuantity(value);
+                                }}
+                                className="quantity-input"
+                                />
+                            </div>
+                            </th>
+                            <th>AV</th>
                         </tr>
-                    </thead>
+                        </thead>
                     <tbody>
-                        {selectedOres.map(oreObj => (
-                            <tr key={oreObj.name}>
-                            <td className={`ore-name-cell ${oreObj.className || ''}`}
-                                data-text={oreObj.name}
-                            >
+                    {selectedOres.map(oreObj => {
+                        // Get the className from the ore object (works for both John's and NAN's values)
+                        const oreClassName = oreObj.className || '';
+                        
+                        return (
+                            <tr key={oreObj.name} className={oreClassName}>
+                            <td className={`ore-name-cell ${oreClassName}`} data-text={oreObj.name}>
                                 <button 
                                 className="delete-ore-button"
                                 onClick={() => handleRemoveOre(oreObj)}
@@ -374,7 +400,8 @@ function TradeTool() {
                             </td>
                             <td>{calculateAV(oreObj.name)}</td>
                             </tr>
-                        ))}
+                        );
+                        })}
                     </tbody>
                     </table>
                 </div>

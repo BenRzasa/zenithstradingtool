@@ -2,11 +2,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/WelcomePage.css';
-import logo from '../images/Site-logo.webp';
-import cornerImage1 from '../images/Site-logo.webp';
-import cornerImage2 from '../images/Site-logo.webp';
-import cornerImage3 from '../images/Site-logo.webp';
-import cornerImage4 from '../images/Site-logo.webp';
+import logo from '../images/misc/Site-logo.webp';
+import cornerImage1 from '../images/misc/Site-logo.webp';
+import cornerImage2 from '../images/misc/Site-logo.webp';
+import cornerImage3 from '../images/misc/Site-logo.webp';
+import cornerImage4 from '../images/misc/Site-logo.webp';
 
 function WelcomePage() {
     const navigate = useNavigate();

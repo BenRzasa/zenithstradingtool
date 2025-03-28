@@ -76,7 +76,6 @@ ul {
 .trade-table td {
     background-color: var(--background-color);
     font-size: 20px;
-    mix-blend-mode: difference;
 }
 
 /* Totals Section */
@@ -117,6 +116,7 @@ ul {
 }
 
 .search-input {
+    font-family: 'Comfortaa';
     padding: 12px 20px;
     font-size: 20px;
     border: 2px solid var(--csv-outline);
@@ -147,6 +147,7 @@ ul {
 }
 
 .search-result-item {
+    font-size: 20px;
     padding: 3px 20px;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -169,6 +170,7 @@ ul {
   
 /* Ore name cell with gradient background */
 .ore-name-cell {
+    font-family: 'Segoe UI';
     position: relative;
     text-align: left;
     padding: 12px 10px 12px 40px !important;
@@ -196,6 +198,13 @@ ul {
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeLegibility;
+}
+
+/* Remove the background from other cells */
+.trade-table td:not(.ore-name-cell) {
+    background: none !important;
+    /* Or use your default table cell color */
+    background-color: var(--background-color) !important;
 }
 
 /* Moved delete button to left */
