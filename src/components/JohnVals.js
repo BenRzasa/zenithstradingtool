@@ -8,7 +8,7 @@ export const johnValsDict = {
     { name: "Neutrine", baseValue: 0.01, className: "color-template-neutrine" },
     { name: "Torn Fabric", baseValue: 0.002, className: "color-template-torn-fabric" },
     { name: "Singularity", baseValue: 0.001, className: "color-template-singularity" },
-    { name: "Egg", baseValue: 0.02, className: "color-template-egg" },
+    { name: "Egg", baseValue: 1/30, className: "color-template-egg" },
     { name: "Cindrasil", baseValue: 0.25, className: "color-template-cindrasil" },
     { name: "Zynulvinite", baseValue: 1.0, className: "color-template-zynulvinite" },
     { name: "Element V", baseValue: 0.2, className: "color-template-element-v" },

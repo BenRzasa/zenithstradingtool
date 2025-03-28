@@ -64,14 +64,15 @@ function ValueChart() {
   // List of table names for the dropdown
   const tableNames = Object.keys(isJohnValues ? johnValsDict : nanValsDict);
 
-  // Helper functions for calculations
   const calculateValue = (baseValue) => {
-    if (currentMode === 1) return baseValue * 1;    // AV
-    if (currentMode === 2) return baseValue * 10;   // UV
-    if (currentMode === 3) return baseValue * 100;  // NV
-    if (currentMode === 4) return baseValue * 500;  // TV
-    if (currentMode === 5) return baseValue * 1000; // SV
-    return baseValue;
+    switch (currentMode) {
+      case 1: return baseValue * 1;    // AV
+      case 2: return baseValue * 10;   // UV
+      case 3: return baseValue * 100;  // NV
+      case 4: return baseValue * 500;  // TV
+      case 5: return baseValue * 1000; // SV
+      default: return baseValue;
+    }
   };
 
   // Get the correct precision dynamically

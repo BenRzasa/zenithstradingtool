@@ -380,7 +380,6 @@
 }
 
 .color-template-nilidust {
-    background: #000000;
     background: linear-gradient(90deg, #626497 0%, #792fa4 25%, #e253e0 50%, #d02e8c 75%, #d81111 100%);
 }
 
@@ -397,8 +396,7 @@
 }
 
 .color-template-shadow-quartz {
-    background: #000000;
-    background: linear-gradient(90deg, #eeeeee, #eeeeee);
+    background: linear-gradient(90deg, #000000, #eeeeee);
 }
 
 .color-template-glowstone {
@@ -442,12 +440,10 @@
 }
 
 .color-template-navitalc {
-    background: #000000;
     background: linear-gradient(115deg, #29c6ff 0%, #e6f9ff 50%, #29c6ff 100%);
 }
 
 .color-template-myriroule {
-    background: #000000;
     background: linear-gradient(115deg, #c640ff 0%, #f8deff 50%, #c640ff 100%);
 }
 
@@ -513,7 +509,7 @@
 
 .color-template-eidoliphyll {
     background: #2F5244;
-    background: linear-gradient(90deg, #B0D0F1, #B0D0F1);
+    background: linear-gradient(90deg,#243f34,#B0D0F1,#1f362d)
 }
 
 .color-template-cosmic-glass {

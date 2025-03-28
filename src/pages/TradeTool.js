@@ -81,24 +81,26 @@ function TradeTool() {
                );
     });
 
-    // Handle adding an ore to the trade table
-    const handleAddOre = (oreName) => {
-        if (!selectedOres.includes(oreName)) {
-            setSelectedOres([...selectedOres, oreName]);
-            setQuantities({...quantities, [oreName]: 0});
+    // Add a specific ore to the table map
+    const handleAddOre = (oreObj) => {
+        if (!selectedOres.some(ore => ore.name === oreObj.name)) {
+        setSelectedOres([...selectedOres, oreObj]);
+        setQuantities({...quantities, [oreObj.name]: 1}); // Default to 1 instead of 0
         }
         setSearchTerm('');
         setSelectedIndex(-1);
         searchInputRef.current?.focus();
     };
+  
 
     // Handle removing a specific ore
-    const handleRemoveOre = (oreName) => {
-        setSelectedOres(selectedOres.filter(ore => ore !== oreName));
+    const handleRemoveOre = (oreObj) => {
+        setSelectedOres(selectedOres.filter(ore => ore.name !== oreObj.name));
         const newQuantities = {...quantities};
-        delete newQuantities[oreName];
+        delete newQuantities[oreObj.name];
         setQuantities(newQuantities);
     };
+
 
     // Handle ore quantity changes in trade table
     const handleQuantityChange = (oreName, value) => {
@@ -106,7 +108,7 @@ function TradeTool() {
           ...quantities,
           [oreName]: value === "" ? "" : Math.max(1, parseInt(value) || 1)
         });
-      };
+    };
 
     // Handle keyboard navigation
     const handleKeyDown = (e) => {
@@ -144,11 +146,20 @@ function TradeTool() {
     };
 
     // Calculate totals
-    const totalOres = selectedOres.reduce((sum, ore) => sum + (quantities[ore] || 0), 0);
-    const totalAV = selectedOres.reduce((sum, ore) => {
-        const oreData = allOresWithLayers.find(o => o.name === ore);
-        return Math.round(sum + (quantities[ore] || 0) / (oreData?.baseValue || 1));
-    }, 0).toFixed(0);
+    const totalOres = selectedOres.reduce((sum, oreObj) => {
+        // Access quantity using oreObj.name as key
+        return sum + (quantities[oreObj.name] || 0);
+    }, 0);
+    
+    const allAV = selectedOres.reduce((sum, oreObj) => {
+        // Use oreObj.baseValue directly since we have the full object
+        const quantity = quantities[oreObj.name] || 0;
+        const valuePerAV = oreObj.baseValue || 1; // Fallback to 1 if undefined
+        return sum + (quantity / valuePerAV);
+    }, 0);
+  
+  // Round the final AV total and format as string
+  const totalAV = Math.round(allAV).toFixed(0);
 
     // Handle discount change
     const handleDiscountChange = (e) => {
@@ -158,37 +169,37 @@ function TradeTool() {
 
     // Get the discounted AV value after getting from the input
     const discountedAV = totalAV * (1 - discount / 100);
-    
-    // Helper function to check if user has enough of a specific ore
-    const hasEnoughOre = (oreName, requiredAmount) => {
-        if (!csvData || typeof csvData !== 'object') return false;
-        const inventoryAmount = csvData[oreName] || 0;
-        return inventoryAmount >= (requiredAmount || 0);
-    };
-    
-    // Helper function to get available amount of an ore
-    const getAvailableAmount = (oreName) => {
-        if (!csvData || typeof csvData !== 'object') return 0;
-        return csvData[oreName] || 0;
-    };
-    
-    // Check if all ores in the table are available
-    const allOresAvailable = selectedOres.length > 0 && selectedOres.every(ore => {
-        return hasEnoughOre(ore, quantities[ore]);
-    });
 
-    // Helper function to get missing ores with amounts
+    // Check if the user has enough ore
+    const hasEnoughOre = (oreObj) => {
+        if (!csvData || typeof csvData !== 'object') return false;
+        const requiredAmount = quantities[oreObj.name] || 0;
+        const inventoryAmount = csvData[oreObj.name] || 0;
+        return inventoryAmount >= requiredAmount;
+    };
+    // Get the available amount of ores the user has from storage
+    const getAvailableAmount = (oreObj) => {
+        if (!csvData || typeof csvData !== 'object') return 0;
+        return csvData[oreObj.name] || 0;
+    };
+    
+    // Calculate which and how many ores are missing
     const getMissingOres = () => {
         if (!csvData || typeof csvData !== 'object') return [];
         
         return selectedOres
-        .filter(ore => !hasEnoughOre(ore, quantities[ore]))
-        .map(ore => ({
-            name: ore,
-            missing: (quantities[ore] || 0) - (csvData[ore] || 0)
+        .filter(oreObj => !hasEnoughOre(oreObj))
+        .map(oreObj => ({
+            ...oreObj,
+            missing: Math.max(0, (quantities[oreObj.name] || 0) - (csvData[oreObj.name] || 0))
         }));
     };
-    
+
+    // Check if all ores in the table are available
+    const allOresAvailable = selectedOres.length > 0 && selectedOres.every(oreObj => {
+        return hasEnoughOre(oreObj, quantities[oreObj.name]);
+    });
+
     // Calculate missing ores
     const missingOres = getMissingOres();
     const hasMissingOres = missingOres.length > 0;
@@ -272,14 +283,14 @@ function TradeTool() {
                         {searchTerm && (
                             <div className="search-results-container">
                                 <ul className="search-results" ref={resultsRef}>
-                                    {filteredOres.map((ore, index) => (
-                                        <li 
-                                            key={`${ore.name}-${index}`}
-                                            onClick={() => handleAddOre(ore.name)}
-                                            className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`}
-                                        >
-                                            <div className="ore-name">{ore.name}</div>
-                                        </li>
+                                {filteredOres.map((ore, index) => (
+                                    <li 
+                                        key={`${ore.name}-${index}`}
+                                        onClick={() => handleAddOre(ore)} // Pass the full ore object
+                                        className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`}
+                                    >
+                                        {ore.name}
+                                    </li>
                                     ))}
                                 </ul>
                             </div>
@@ -299,18 +310,19 @@ function TradeTool() {
                             <div className="global-checkmark">
                                 ✓ All ores available in inventory
                             </div>
-                            ) : hasMissingOres && (
-                            <div className="missing-ores-warning">
-                                <div className="warning-header">✖ Missing:</div>
-                                <div className="missing-ores-list">
-                                {missingOres.map((ore, index) => (
-                                    <div key={index} className="missing-ore-item">
-                                    {ore.name}: {ore.missing > 0 ? ore.missing : 0}
+                                ) : hasMissingOres && (
+                                    <div className="missing-ores-warning">
+                                    <div className="warning-header">✖ Missing:</div>
+                                    <div className="missing-ores-list">
+                                        {missingOres.map((oreObj, index) => (
+                                        <div key={index} 
+                                             className="missing-ore-item">
+                                            {oreObj.name}: {oreObj.missing}
+                                        </div>
+                                        ))}
                                     </div>
-                                ))}
-                                </div>
-                            </div>
-                            )}
+                                    </div>
+                                )}
                         <div className="clear-button-container">
                             <div className="box-button" onClick={clearTable}>
                                 <button>
@@ -319,56 +331,51 @@ function TradeTool() {
                             </div>
                         </div>
                     </div>
-    
                     <table className="trade-table">
-                        <thead>
-                            <tr>
-                                <th>Ore Name</th>
-                                <th># to Trade</th>
-                                <th>AV</th>
+                    <thead>
+                        <tr>
+                        <th>Ore Name</th>
+                        <th># to Trade</th>
+                        <th>AV</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {selectedOres.map(oreObj => (
+                            <tr key={oreObj.name}>
+                            <td className={`ore-name-cell ${oreObj.className || ''}`}
+                                data-text={oreObj.name}
+                            >
+                                <button 
+                                className="delete-ore-button"
+                                onClick={() => handleRemoveOre(oreObj)}
+                                >
+                                ✖
+                                </button>
+                                {oreObj.name}
+                            </td>
+                            <td>
+                                <div className="quantity-cell-container">
+                                <div className={`inventory-check ${
+                                    hasEnoughOre(oreObj) ? 'has-enough' : 'not-enough'
+                                }`}>
+                                    {hasEnoughOre(oreObj) ? '✓' : '✖'}
+                                </div>
+                                <div className="inventory-count">
+                                    {getAvailableAmount(oreObj)}/{quantities[oreObj.name] || 0}
+                                </div>
+                                <input
+                                    type="number"
+                                    value={quantities[oreObj.name] ?? ""}
+                                    onChange={(e) => handleQuantityChange(oreObj.name, e.target.value)}
+                                    className="quantity-input"
+                                    min="1"
+                                />
+                                </div>
+                            </td>
+                            <td>{calculateAV(oreObj.name)}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {selectedOres.map(ore => (
-                                <tr key={ore}>
-                                    <td className="ore-name-cell">
-                                        <button 
-                                            className="delete-ore-button"
-                                            onClick={() => handleRemoveOre(ore)}
-                                        >
-                                            ✖
-                                        </button>
-                                        {ore}
-                                    </td>
-                                    <td>
-                                    <div className="quantity-cell-container">
-                                        {csvData && (
-                                        <>
-                                            <span 
-                                            className={`inventory-check ${
-                                                hasEnoughOre(ore, quantities[ore]) ? 'has-enough' : 'not-enough'
-                                            }`}
-                                            >
-                                            {hasEnoughOre(ore, quantities[ore]) ? '✓' : '✖'}
-                                            </span>
-                                            <span className="inventory-count">
-                                            {getAvailableAmount(ore)}/{quantities[ore] || 0}
-                                            </span>
-                                        </>
-                                        )}
-                                        <input
-                                        type="number"
-                                        value={quantities[ore] ?? ""}
-                                        onChange={(e) => handleQuantityChange(ore, e.target.value)}
-                                        className="quantity-input"
-                                        min="1"
-                                        />
-                                    </div>
-                                    </td>
-                                    <td>{calculateAV(ore)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
+                        ))}
+                    </tbody>
                     </table>
                 </div>
             </div>

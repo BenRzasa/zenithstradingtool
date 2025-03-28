@@ -21,12 +21,14 @@ const TableComponent = ({
 
   // Function to calculate the value based on the current mode
   const calculateValue = (baseValue) => {
-    if (currentMode === 1) return baseValue * 1;    // AV
-    if (currentMode === 2) return baseValue * 10;   // UV
-    if (currentMode === 3) return baseValue * 100;  // NV
-    if (currentMode === 4) return baseValue * 500;  // TV
-    if (currentMode === 5) return baseValue * 1000; // SV
-    return baseValue;
+    switch (currentMode) {
+      case 1: return baseValue * 1;    // AV
+      case 2: return baseValue * 10;   // UV
+      case 3: return baseValue * 100;  // NV
+      case 4: return baseValue * 500;  // TV
+      case 5: return baseValue * 1000; // SV
+      default: return baseValue;
+    }
   };
 
   // Function to calculate the percentage with bounds
@@ -37,65 +39,37 @@ const TableComponent = ({
       : 0;
   };
 
-  // Special formatter for numV column only
-  const formatNumV = (value) => {
-    if (!Number.isFinite(value)) return "0";
-    
-    // For whole numbers
-    if (value % 1 === 0) return value.toString();
-    
-    // For decimals, show up to 3 places without trailing zeros
-    const fixed = value.toFixed(3);
-    return fixed.replace(/\.?0+$/, '');
-  };
-
   // Preserve original precision exactly as in baseValue 
   // Now, add a K at the end, truncating all leading zeroes,
   // if the number is above 1000. Also, remove trailing zeroes
   // if the number is, say, "2.000"
-  const formatWithOriginalPrecision = (value, baseValue) => {
-    if (!Number.isFinite(value)) return "0";
-    // Count decimal places from baseValue and detect trailing zeros
-    const baseStr = baseValue.toString();
-    // eslint-disable-next-line
-    const [integerPart, decimalPart] = baseStr.split('.');
-    const hasDecimal = decimalPart !== undefined;
-    // Determine original precision (length of decimal part)
-    const originalPrecision = decimalPart ? decimalPart.length : 0;
-    // For numbers >= 1000, format with K notation
-    if (Math.abs(value) >= 1000) {
-      const divided = value / 1000;
-      // Count significant decimal places (ignore trailing zeros)
-      let significantDigits = originalPrecision;
-      if (decimalPart) {
-        // Count trailing zeros in original number
-        const trailingZerosMatch = decimalPart.match(/0+$/);
-        const trailingZeroCount = trailingZerosMatch ? trailingZerosMatch[0].length : 0;
-        significantDigits = Math.max(0, originalPrecision - trailingZeroCount);
-      }
-      // Format with significant digits, then clean up trailing . if needed
-      let formatted = divided.toFixed(significantDigits);
-      // Remove trailing .000 if present
-      if (formatted.includes('.')) {
-        formatted = formatted.replace(/\.?0+$/, '');
-        // If we ended with just a decimal point, remove it (e.g., "2." -> "2")
-        if (formatted.endsWith('.')) {
-          formatted = formatted.slice(0, -1);
-        }
-      }
+  const formatDecimal = (value, baseValue) => {
+    const num = Number(value);
+    if (!Number.isFinite(num)) return "0";
+    // Handle K notation ONLY for numbers >= 1000
+    if (Math.abs(num) >= 1000) {
+      const dividedValue = num / 1000;
+      const basePrecision = baseValue?.toString().split('.')[1]?.length || 0;
+      const precision = Math.min(basePrecision, 3);
+      // Truncate (not round) to desired precision
+      const factor = 10 ** precision;
+      const truncated = Math.floor(dividedValue * factor) / factor;
+      // Format without trailing zeros
+      let formatted = truncated.toString();
+      formatted = formatted.replace(/\.?0+$/, '').replace(/\.$/, '');
       return formatted + 'K';
     }
-    // For small numbers, use original precision but trim trailing zeros
-    let smallFormatted = value.toFixed(originalPrecision);
-    // Remove trailing zeros and possible decimal point if not needed
-    if (hasDecimal && smallFormatted.includes('.')) {
-      smallFormatted = smallFormatted.replace(/\.?0+$/, '');
-      // Handle case where we removed all decimals (e.g., "2." -> "2")
-      if (smallFormatted.endsWith('.')) {
-        smallFormatted = smallFormatted.slice(0, -1);
-      }
+    // For numbers < 1000, handle decimal places
+    const strValue = num.toString();
+    const decimalIndex = strValue.indexOf('.');
+    // If number has more than 3 decimal places
+    if (decimalIndex !== -1 && strValue.length - decimalIndex > 4) {
+      // Truncate to exactly 3 decimal places (no rounding)
+      const truncated = Math.floor(num * 1000) / 1000;
+      return truncated.toString().replace(/\.?0+$/, '').replace(/\.$/, '');
     }
-    return smallFormatted;
+    // Otherwise return original string representation
+    return strValue;
   };
 
   // Calculate completion percentage
@@ -163,24 +137,24 @@ const TableComponent = ({
             const inventory = csvData[item.name] || 0;
             const baseValue = item.baseValue;
             const orePerUnit = calculateValue(baseValue);
-            
+
             // Calculate all values with proper precision
             const percentage = calculatePercentage(baseValue, inventory);
             const numV = orePerUnit > 0 ? inventory / orePerUnit : 0;
             const perValue = calculateValue(baseValue);
-            
+
             return (
               <tr key={index}>
                 <td className={`name-column ${item.className || ""}`} data-text={item.name}>
                   {item.name}
                 </td>
-                <td className={`percent-${Math.floor(percentage/20)*20}`}>
+                <td className={`percent-${Math.floor(percentage / 20) * 20}`}>
                   {percentage.toFixed(1)}%
                 </td>
                 <td>{inventory}</td>
-                <td>{formatNumV(numV)}</td>
-                <td>{formatWithOriginalPrecision(baseValue, baseValue)}</td>
-                <td>{formatWithOriginalPrecision(perValue, baseValue)}</td>
+                <td>{formatDecimal(numV)}</td>
+                <td>{formatDecimal(baseValue)}</td>
+                <td>{formatDecimal(perValue, baseValue)}</td> 
               </tr>
             );
           })}
