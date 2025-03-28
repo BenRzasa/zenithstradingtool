@@ -7,7 +7,7 @@
 */
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
 import CSVLoader from './pages/CSVLoader';
 import TradeTool from './pages/TradeTool';
