@@ -11,7 +11,7 @@
 ### 3) DONE -- Trade Tool
  - Fix solid color gradients not working
 
-### 4) Main Page layout
+### 4)  DONE -- Main Page layout
  - Self explanatory
 
 - [ ] Checkbox?

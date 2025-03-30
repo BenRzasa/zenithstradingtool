@@ -10,6 +10,7 @@ import singularity from '../images/misc/Singularity.webp'
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/WelcomePage.css';
 
 
 function WelcomePage() {

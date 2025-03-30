@@ -15,6 +15,8 @@ import { LayerGradients } from '../components/LayerGradients';
 import '../styles/AllGradients.css';
 import '../styles/TableComponent.css';
 
+import searchFilters from '../components/SearchFilters';
+
 function ValueChart() {
   // Import CSV data to ensure persistency
   const { csvData, isJohnValues, setIsJohnValues } = useContext(CSVContext);
@@ -430,6 +432,7 @@ function ValueChart() {
                   currentMode={currentMode}
                   csvData={csvData}
                   gradient={gradientStyle}
+                  searchFilters={searchFilters}
                 />
               </div>
             );

@@ -1,177 +1,120 @@
 .misc-page {
-    padding: 20px;
+    padding: 200px;
     font-family: 'Comfortaa';
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
-.dropdowns-container {
+
+.cards-container {
+    transform: scale(1.25);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.card {
+    width: 850px;
+    height: 254px;
+    background-image: linear-gradient(90deg, #e3a21a 0%,#fff77e 21.1%,#d2ffc0 35%,#8bff95 45%,#45dc46 55.4%,#3ac8d0 75%,#094973 100%);
+    border-radius: 20px;
+    transition: all .3s;
+    padding: 2px;
+}
+
+.card2 {
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    border-radius: 17px;
+    transition: all .2s;
+    padding: 20px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    width: 100%;
-    max-width: 800px;
+    color: white;
 }
 
-.dropdown {
-    border: 1px solid #c1c2c5;
-    border-radius: 12px;
-    transition: all 300ms;
-    display: flex;
-    flex-direction: column;
-    min-height: 58px;
-    background-color: white;
-    overflow: hidden;
-    position: relative;
-    max-width: 500px;
-    min-width: 298px;
-    width: 100%;
+.card2:hover {
+    transform: scale(0.98);
+    border-radius: 20px;
 }
 
-.dropdown input:where(:checked) ~ .list {
-    opacity: 1;
-    transform: translateY(-3rem) scale(1);
-    transition: all 500ms ease;
-    margin-top: 32px;
-    padding-top: 4px;
-    margin-bottom: -32px;
+.card:hover {
+    box-shadow: 0px 0px 30px 1px linear-gradient(90deg, #e3a21a 0%,#fff77e 21.1%,#d2ffc0 35%,#8bff95 45%,#45dc46 55.4%,#3ac8d0 75%,#094973 100%);
 }
 
-.dropdown input:where(:not(:checked)) ~ .list {
-    opacity: 0;
-    transform: translateY(3rem);
-    margin-top: -100%;
-    user-select: none;
-    height: 0px;
-    max-height: 0px;
-    min-height: 0px;
-    pointer-events: none;
-    transition: all 500ms ease-out;
+.card2 h3 {
+    margin-top: 0;
+    color: #00ff75;
 }
 
-.trigger {
-    cursor: pointer;
-    list-style: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    font-weight: 600;
-    color: inherit;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-flow: row;
-    gap: 1rem;
-    padding: 1rem;
-    height: max-content;
-    position: relative;
-    z-index: 99;
-    border-radius: inherit;
-    background-color: white;
+.card2 p {
+    flex-grow: 1;
+    font-size: 14px;
 }
 
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-.dropdown input:where(:checked) + .trigger {
-    margin-bottom: 1rem;
-}
-
-.dropdown input:where(:checked) + .trigger:before {
-    rotate: 90deg;
-    transition-delay: 0ms;
-}
-
-.dropdown input:where(:checked) + .trigger::after {
-    content: "Close Dropdown";
-}
-
-.trigger:before,
-.trigger::after {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.trigger:before {
-    content: "›";
-    rotate: -90deg;
-    width: 17px;
-    height: 17px;
-    color: #262626;
-    border-radius: 2px;
-    font-size: 26px;
-    transition: all 100ms ease;
-    transition-delay: 25ms;
-}
-
-.trigger::after {
-    content: "Open Dropdown";
-    position: absolute;
-    right: 1rem;
-    font-size: 0.8rem;
-    font-weight: normal;
-    color: #666;
-}
-
-.list {
-    height: 100%;
-    max-height: 20rem;
-    width: calc(100% - calc(var(--w-scrollbar) / 2));
-    display: grid;
-    grid-auto-flow: row;
-    overflow: hidden auto;
-    gap: 1rem;
-    padding: 0 1rem;
-    margin-right: -8px;
-    --w-scrollbar: 8px;
-}
-
-.listitem {
-    height: 100%;
-    width: calc(100% + calc(calc(var(--w-scrollbar) / 2) + var(--w-scrollbar)));
-    list-style: none;
-}
-
-.article {
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: justify;
-    width: 100%;
-    border: 1px solid #c1c2c5;
+.card-link {
     display: inline-block;
-    background-color: white;
+    margin-top: 15px;
+    color: #00ff75;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s;
 }
 
-.webkit-scrollbar::-webkit-scrollbar {
-    width: var(--w-scrollbar);
-    height: var(--w-scrollbar);
-    border-radius: 9999px;
+.card-link:hover {
+    transform: translateX(5px);
 }
 
-.webkit-scrollbar::-webkit-scrollbar-track {
-    background: #0000;
+.search-filters {
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin: 10px 0;
+    font-size: 0.8em;
+    line-height: 1.4;
+}
+  
+.search-filters p {
+    margin: 0.3em 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.webkit-scrollbar::-webkit-scrollbar-thumb {
-    background: #0000;
-    border-radius: 9999px;
+.search-filters strong {
+    font-weight: bold;
+    color: #00ff75; /* Optional: makes the titles stand out more */
+}  
+
+/* Custom scrollbar */
+.search-filters::-webkit-scrollbar {
+    width: 12px;
+}
+  
+.search-filters::-webkit-scrollbar-thumb {
+    background: #00ff75;
+    border-radius: 2px;
 }
 
-.webkit-scrollbar:hover::-webkit-scrollbar-thumb {
-    background: #c1c2c5;
+.copy-btn {
+    background: none;
+    border: none;
+    color: #00ff75;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 2px 5px;
+    opacity: 0.5;
+    transform: scale(2);
+    transition: opacity 0.2s;
+}
+  
+.copy-btn:hover {
+    opacity: 1;
 }

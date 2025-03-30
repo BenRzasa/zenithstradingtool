@@ -1,9 +1,27 @@
-.percent-0 { background-color: #ff0000; }
-.percent-20 { background-color: #ff4000; }
-.percent-40 { background-color: #ff8000; }
-.percent-60 { background-color: #ffbf00; }
-.percent-80 { background-color: #71c700; }
-.percent-100 { background-color: #04d204; }
+.percent-0 {
+    background-color: #ff0000;
+}
+
+.percent-20 {
+    background-color: #ff4000;
+}
+
+.percent-40 {
+    background-color: #ff8000;
+}
+
+.percent-60 {
+    background-color: #ffbf00;
+}
+
+.percent-80 {
+    background-color: #71c700;
+}
+
+.percent-100 {
+    background-color: #04d204;
+}
+
 /* Percentage column adjustments */
 .percent-0,
 .percent-20,
@@ -11,12 +29,12 @@
 .percent-60,
 .percent-80,
 .percent-100 {
-  width: 60px !important;
-  color: black !important;
-  font-weight: bold;
-  padding: 1px 6px !important;
-  text-align: center;
-  border: 1px solid var(--table-outline);
+    width: 60px !important;
+    color: black !important;
+    font-weight: bold;
+    padding: 1px 6px !important;
+    text-align: center;
+    border: 1px solid var(--table-outline);
 }
 
 table {
@@ -58,35 +76,31 @@ td {
     padding: 2px 6px;
 }
 
-.table-footer {
-    padding: 10px 15px;
-    border-top: 1px solid var(--table-outline);
-    margin-top: 0px;
-}
-  
 .info-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
     font-size: 20px;
 }
-  
+
 .info-list li {
     padding: 5px 0;
 }
-  
+
 .placeholder {
     color: var(--accent-color);
     font-weight: bold;
 }
-  
+
 /* Add to your theme variables */
 :root {
-    --accent-color: #5b42f3; /* Purple to match your button gradient */
+    --accent-color: #5b42f3;
+    /* Purple to match your button gradient */
 }
-  
+
 [data-theme="dark"] {
-    --accent-color: #33add6; /* Teal for dark mode */
+    --accent-color: #33add6;
+    /* Teal for dark mode */
 }
 
 .name-column {
@@ -104,7 +118,7 @@ td {
     color: white;
     z-index: 1;
 }
-  
+
 .name-column::before {
     content: attr(data-text);
     position: absolute;
@@ -117,7 +131,7 @@ td {
     -webkit-text-stroke: 5px black;
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
-    text-rendering:optimizeSpeed;
+    text-rendering: optimizeSpeed;
 }
 
 /* Proper inventory cell styling */
@@ -155,19 +169,19 @@ td {
     -webkit-appearance: none;
     margin: 0;
 }
-  
+
 /* Focus state */
 .inventory-input:focus {
     outline: 3px solid (--accent-color);
     outline-offset: 0px;
     background-color: rgba(255, 255, 255, 0.1);
 }
-  
+
 /* Hover state */
 .inventory-input:hover:not(:focus) {
     background-color: rgba(255, 255, 255, 0.05);
 }
-  
+
 /* Ensure the input takes the exact same space as the cell would */
 .inventory-input {
     display: block;
@@ -177,3 +191,55 @@ td {
     right: 0;
     bottom: 0;
 }
+
+/* Copy button formatting */
+.table-footer {
+    padding: 10px 15px;
+    border-top: 1px solid var(--table-outline);
+    margin-top: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.copy-filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.copy-filter-btn {
+    background: none;
+    border: 1px solid #00ff75;
+    color: #00ff75;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.copy-filter-btn:hover {
+    background: rgba(0, 255, 117, 0.1);
+}
+
+.copy-filter-btn::before {
+    content: "⎘";
+    font-size: 1.1em;
+}
+
+.copy-confirmation {
+    color: #00ff75;
+    font-size: 0.8em;
+    margin-top: 5px;
+    animation: fadeIn 0.3s ease-in;
+}
+  
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+

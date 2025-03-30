@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { CSVContext } from '../context/CSVContext';
 import { TradeContext } from '../context/TradeContext';
@@ -6,41 +6,70 @@ import { johnValsDict } from '../components/JohnVals';
 import { nanValsDict } from '../components/NANVals';
 import "../styles/MiscPage.css";
 import "../styles/AllGradients.css";
+import searchFilters from '../components/SearchFilters';
 
 function MiscPage() {
-    const dropdowns = [
+
+    const copyFilter = (filterText) => {
+        navigator.clipboard.writeText(filterText)
+            .then(() => {
+
+                console.log('Filter copied:', filterText);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+            });
+    };
+
+    const cards = [
         {
-            id: "dropdown1",
-            title: "First Dropdown",
-            items: [
-                "This is the first item in the first dropdown",
-                "Second item content goes here",
-                "Third item with some sample text"
-            ]
+            id: "card1",
+            title: "Search Filters",
+            content: (
+                <div className="search-filters">
+                    {searchFilters.map((category, index) => {
+                        // Split at the first colon while preserving the arrow
+                        const colonIndex = category.indexOf(':') + 2;
+                        const arrowPart = category.substring(0, category.indexOf(' ') + 1); // Gets "➜ "
+                        const titlePart = category.substring(category.indexOf(' ') + 1, colonIndex);
+                        const itemsPart = category.substring(colonIndex);
+
+                        return (
+                            <p key={index}>
+                                {arrowPart}
+                                <button
+                                    className="copy-btn"
+                                    onClick={() => copyFilter(itemsPart)}
+                                    title="Copy filters"
+                                >
+                                    ⎘
+                                </button>
+                                <strong>{titlePart}</strong>
+                                {itemsPart}
+                            </p>
+                        );
+                    })}
+                </div>
+            ),
+            link: "/materials"
         },
         {
-            id: "dropdown2",
-            title: "Second Dropdown",
-            items: [
-                "Information for the second dropdown's first item",
-                "More details about this section",
-                "Additional content can go here"
-            ]
+            id: "card2",
+            title: "Second Card",
+            content: "Content for the second card goes here. Check out the gradient border.",
+            link: "/link2"
         },
         {
-            id: "dropdown3",
-            title: "Third Dropdown",
-            items: [
-                "Final dropdown's content starts here",
-                "Example text for demonstration",
-                "Last item in the dropdown list"
-            ]
+            id: "card3",
+            title: "Third Card",
+            content: "Final card content with the same stylish hover animations.",
+            link: "/link3"
         }
     ];
 
     return (
         <div className="misc-page">
-            <nav>
+            <nav className="misc-nav">
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/valuechart">Value Chart</Link></li>
@@ -49,31 +78,16 @@ function MiscPage() {
                 </ul>
             </nav>
 
-            <div className="dropdowns-container">
-                {dropdowns.map((dropdown) => (
-                    <div key={dropdown.id} className="dropdown">
-                        <input
-                            hidden=""
-                            className="sr-only"
-                            name={dropdown.id}
-                            id={dropdown.id}
-                            type="checkbox"
-                        />
-                        <label
-                            aria-label="dropdown scrollbar"
-                            htmlFor={dropdown.id}
-                            className="trigger"
-                        >
-                            {dropdown.title}
-                        </label>
-
-                        <ul className="list webkit-scrollbar" role="list" dir="auto">
-                            {dropdown.items.map((item, index) => (
-                                <li key={index} className="listitem" role="listitem">
-                                    <article className="article">{item}</article>
-                                </li>
-                            ))}
-                        </ul>
+            <div className="cards-container">
+                {cards.map((card) => (
+                    <div key={card.id} className="card">
+                        <div className="card2">
+                            <h3>{card.title}</h3>
+                            {card.content}
+                            <Link to={card.link} className="card-link">
+                                Learn More
+                            </Link>
+                        </div>
                     </div>
                 ))}
             </div>
