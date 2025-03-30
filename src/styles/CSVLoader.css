@@ -46,6 +46,7 @@
     overflow-x: scroll;
     overflow-y: scroll;
     height: 500px;
+    min-width: 500px;
     padding: 25px 25px 25px 25px;
     margin-right: 5px;
     box-shadow: inset 3px 5px 10px #000000;

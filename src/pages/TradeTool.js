@@ -223,22 +223,23 @@ function TradeTool() {
         <div className="trade-tool-container">
             <h1>Welcome to the Trade Tool!</h1>
             <h1>Usage:</h1>
-            <li>
+            <l>
                 <ul>1. Start typing an ore or layer name in the search box on the left.</ul>
                 <ul>2. Either click on the ore or hit enter to add it to the list.
                     You can also use arrow keys to navigate up and down the list!
                 </ul>
                 <ul>3. Enter the quantity of each ore you wish to trade in the text boxes on the right side.</ul>
                 <ul>4. To add a discount to large orders, type the percent in the "Discount %" box.</ul>
-            </li>
+            </l>
             <h1>➜ Current Values: <span className="placeholder">
                 {isJohnValues ? "John's Values" : "NAN's Values"}
             </span></h1>
             <nav>
                 <ul>
-                    <li><Link to="/">Back to Home Page</Link></li>
+                    <li><Link to="/">Home</Link></li>
                     <li><Link to="/valuechart">Value Chart</Link></li>
                     <li><Link to="/csvloader">CSV Loader</Link></li>
+                    <li><Link to="/misc">Miscellaneous</Link></li>
                 </ul>
             </nav>
             <div className="t-button-container">

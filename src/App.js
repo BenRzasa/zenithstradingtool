@@ -12,6 +12,7 @@ import WelcomePage from './pages/WelcomePage';
 import CSVLoader from './pages/CSVLoader';
 import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
+import MiscPage from './pages/MiscPage';
 import { CSVProvider } from './context/CSVContext';
 import { TradeProvider } from './context/TradeContext';
 
@@ -25,6 +26,7 @@ function App() {
                         <Route path="/csvloader" element={<CSVLoader />} />
                         <Route path="/valuechart" element={<ValueChart />} />
                         <Route path="/tradetool" element={<TradeTool />} />
+                        <Route path="/misc" element={<MiscPage />} />
                     </Routes>
                 </HashRouter>
             </CSVProvider>

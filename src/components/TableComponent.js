@@ -4,15 +4,17 @@ import '../styles/AllGradients.css';
 import '../styles/ValueChart.css';
 import '../styles/TableComponent.css';
 
-import React from 'react';
+import React, { useContext } from 'react';
+import { CSVContext } from '../context/CSVContext';
 
 const TableComponent = ({
   data,
   title,
   currentMode,
-  csvData,
   gradient,
 }) => {
+  const { csvData, setCSVData } = useContext(CSVContext);
+
   const modeStr = currentMode === 1 ? "AV" :
                 currentMode === 2 ? "UV" :
                 currentMode === 3 ? "NV" : 
@@ -43,35 +45,52 @@ const TableComponent = ({
   // Now, add a K at the end, truncating all leading zeroes,
   // if the number is above 1000. Also, remove trailing zeroes
   // if the number is, say, "2.000"
-  const formatDecimal = (value, baseValue) => {
+  const formatDecimal = (value, mode = 3) => {
     const num = Number(value);
     if (!Number.isFinite(num)) return "0";
-    // Handle K notation ONLY for numbers >= 1000
-    if (Math.abs(num) >= 1000) {
-      const dividedValue = num / 1000;
-      const basePrecision = baseValue?.toString().split('.')[1]?.length || 0;
-      const precision = Math.min(basePrecision, 3);
-      // Truncate (not round) to desired precision
-      const factor = 10 ** precision;
-      const truncated = Math.floor(dividedValue * factor) / factor;
-      // Format without trailing zeros
-      let formatted = truncated.toString();
-      formatted = formatted.replace(/\.?0+$/, '').replace(/\.$/, '');
-      return formatted + 'K';
+    // For /AV (mode 1) - return raw number exactly as provided
+    if (mode === 1) return num.toString();
+    // Calculate scaled value
+    const scaleFactor = mode === 2 ? 10 : mode === 3 ? 100 : 
+                       mode === 4 ? 500 : mode === 5 ? 1000 : 1;
+    const scaledValue = num * scaleFactor;
+    // Strict truncation function (no rounding)
+    const truncate = (n, decimals) => {
+      const factor = 10 ** decimals;
+      return Math.trunc(n * factor) / factor;
+    };
+    // Format with suffix
+    const formatWithSuffix = (val, suffix) => {
+      const truncated = truncate(val, 3);
+      let str = truncated.toString();
+      
+      // Remove trailing .000 if present
+      if (str.includes('.')) {
+        str = str.replace(/\.?0+$/, '');
+      }
+      
+      return str + suffix;
+    };
+    // Millions
+    if (Math.abs(scaledValue) >= 1000000) {
+      const divided = scaledValue / 1000000;
+      return formatWithSuffix(divided, 'M');
     }
-    // For numbers < 1000, handle decimal places
-    const strValue = num.toString();
-    const decimalIndex = strValue.indexOf('.');
-    // If number has more than 3 decimal places
-    if (decimalIndex !== -1 && strValue.length - decimalIndex > 4) {
-      // Truncate to exactly 3 decimal places (no rounding)
-      const truncated = Math.floor(num * 1000) / 1000;
-      return truncated.toString().replace(/\.?0+$/, '').replace(/\.$/, '');
+    // Thousands
+    if (Math.abs(scaledValue) >= 1000) {
+      const divided = scaledValue / 1000;
+      return formatWithSuffix(divided, 'K');
     }
-    // Otherwise return original string representation
-    return strValue;
+    // Regular numbers
+    const truncated = truncate(scaledValue, 3);
+    let str = truncated.toString();
+    if (str.includes('.')) {
+      str = str.replace(/\.?0+$/, '');
+    }
+    return str;
   };
 
+  
   // Calculate completion percentage
   const getAverageCompletion = () => {
     const totalCompletion = data.reduce((sum, item) => {
@@ -107,6 +126,18 @@ const TableComponent = ({
     return `${highestItem.name} (${highestItem.value.toFixed(1)} ${modeStr})`;
   };
 
+  
+  // Handle inventory changes
+  const handleInventoryChange = (itemName, newValue) => {
+    const numericValue = Math.max(0, isNaN(newValue) ? 0 : Number(newValue));
+    
+    // Update through context which will automatically persist to localStorage
+    setCSVData(prev => ({
+      ...prev,
+      [itemName]: numericValue
+    }));
+  };
+
   if (!data) {
     return (
       <div className="table-wrapper">
@@ -133,31 +164,70 @@ const TableComponent = ({
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => {
-            const inventory = csvData[item.name] || 0;
-            const baseValue = item.baseValue;
-            const orePerUnit = calculateValue(baseValue);
+        {data.map((item, index) => {
+          const inventory = csvData[item.name] || 0;
+          const baseValue = item.baseValue;
+          const percentage = calculatePercentage(baseValue, inventory);
+          const numV = calculateValue(baseValue) > 0 
+            ? (inventory / calculateValue(baseValue)).toFixed(2) // Round to 2 decimals here
+            : "0";
 
-            // Calculate all values with proper precision
-            const percentage = calculatePercentage(baseValue, inventory);
-            const numV = orePerUnit > 0 ? inventory / orePerUnit : 0;
-            const perValue = calculateValue(baseValue);
-
-            return (
-              <tr key={index}>
-                <td className={`name-column ${item.className || ""}`} data-text={item.name}>
-                  {item.name}
-                </td>
-                <td className={`percent-${Math.floor(percentage / 20) * 20}`}>
-                  {percentage.toFixed(1)}%
-                </td>
-                <td>{inventory}</td>
-                <td>{formatDecimal(numV)}</td>
-                <td>{formatDecimal(baseValue)}</td>
-                <td>{formatDecimal(perValue, baseValue)}</td> 
-              </tr>
-            );
-          })}
+          return (
+            <tr key={index}>
+              <td className={`name-column ${item.className || ""}`} data-text={item.name}>
+                {item.name}
+              </td>
+              <td className={`percent-${Math.floor(percentage / 20) * 20}`}>
+                {percentage.toFixed(1)}%
+              </td>
+              <td className="inventory-cell">
+                {/* Hidden span maintains natural cell sizing */}
+                <span className="value-display">
+                  {inventory.toLocaleString()}
+                </span>
+                
+                {/* Editable input */}
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={inventory}
+                  onChange={(e) => {
+                    // Allow empty value during editing
+                    if (e.target.value === '') return;
+                    const numericValue = Math.max(0, parseInt(e.target.value) || 0);
+                    handleInventoryChange(item.name, numericValue);
+                  }}
+                  className="inventory-input"
+                  onFocus={(e) => {
+                    e.target.select();
+                    e.target.dataset.prevValue = e.target.value;
+                  }}
+                  onBlur={(e) => {
+                    const newValue = e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value) || 0);
+                    if (newValue !== parseInt(e.target.dataset.prevValue || 0)) {
+                      handleInventoryChange(item.name, newValue);
+                    }
+                    if (e.target.value === '') e.target.value = 0;
+                  }}
+                  onKeyDown={(e) => {
+                    // Allow backspace/delete to clear
+                    if (e.key === 'Backspace' || e.key === 'Delete') {
+                      if (e.target.value.length === 1) {
+                        e.target.value = '';
+                      }
+                    }
+                    // Enter key to blur/submit
+                    if (e.key === 'Enter') e.target.blur();
+                  }}
+                />
+              </td>
+              <td>{numV}</td> {/* Already rounded to 2 decimals */}
+              <td>{formatDecimal(baseValue, 1)}</td>
+              <td>{formatDecimal(baseValue, currentMode)}</td>
+            </tr>
+          );
+})}
         </tbody>
       </table>
       <div className="table-footer">

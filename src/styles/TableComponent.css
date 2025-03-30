@@ -19,6 +19,35 @@
   border: 1px solid var(--table-outline);
 }
 
+table {
+    table-layout: auto;
+    width: 100%;
+    border: 2px var(--table-outline);
+    border-collapse: collapse;
+    font-size: 20px;
+    text-align: center;
+    margin-top: -25px;
+    position: relative;
+    z-index: 0;
+}
+
+/* Table header cells ONLY */
+th {
+    border: 2px solid var(--table-outline) !important;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1;
+
+}
+
+/* Other cell formatting */
+td {
+    border: 2px solid var(--table-outline) !important;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.5;
+}
+
 /* Table header adjustments */
 .table-comp th {
     padding: 6px 4px;
@@ -89,4 +118,62 @@
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering:optimizeSpeed;
+}
+
+/* Proper inventory cell styling */
+.inventory-cell {
+    position: relative;
+    padding: 2px 6px;
+}
+
+/* Proper input styling */
+.inventory-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    margin: 0;
+}
+
+/* Hidden span maintains cell sizing */
+.value-display {
+    visibility: hidden;
+    display: inline-block;
+    padding: inherit;
+}
+
+/* Hide number spinner in other browsers */
+.inventory-input::-webkit-outer-spin-button,
+.inventory-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+  
+/* Focus state */
+.inventory-input:focus {
+    outline: 3px solid (--accent-color);
+    outline-offset: 0px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+  
+/* Hover state */
+.inventory-input:hover:not(:focus) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+  
+/* Ensure the input takes the exact same space as the cell would */
+.inventory-input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

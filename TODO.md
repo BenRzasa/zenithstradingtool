@@ -1,20 +1,20 @@
 # Stuff to do
 
 ## FIX:
-### 1) First: fix github-pages deployment crashing
+### 1) DONE -- First: fix github-pages deployment crashing
  - Wacky fix of duplicating index.html to 404.html??
 
-### 2) Quick Summary
+### 2) DONE -- Quick Summary
  - Fix Quick Info button moving funkily - must be mapped to cursor globally
  - Dropdown should open when "More Stats" is clicked - should be simple enough
 
-### 3) Trade Tool
+### 3) DONE -- Trade Tool
  - Fix solid color gradients not working
 
 ### 4) Main Page layout
  - Self explanatory
 
-[-] Checkbox?
+- [ ] Checkbox?
 
 # TO ADD:
 ### 1) Ore Icons

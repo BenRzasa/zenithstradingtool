@@ -29,8 +29,6 @@
 
 .quick-summary {
     position: fixed;
-    margin-left: 50px;
-    margin-top: -10px;
     text-align: left;
     font-size: 25px;
     font-weight: bold;
@@ -44,14 +42,30 @@
     touch-action: none;
     will-change: transform;
     user-select: none;
+    transform-origin: top left;
+    transition: transform 0.2s ease
   }
-  
+
+  .quick-summary:not(.dragging) {
+    transition: transform 0.2s ease, 
+                box-shadow 0.2s ease, 
+                left 0.2s ease, 
+                top 0.2s ease;
+  }
+
+  .quick-summary.dragging {
+    cursor: pointer;
+    user-select: none;
+    transition: none !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Visual feedback */
+  }
+
   .summary-header {
     display: flex;
     height: 50px;
     justify-content: space-between;
     align-items: center;
-    cursor: grab;
+    cursor: pointer;
     user-select: none;
 }
 
@@ -216,33 +230,4 @@
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeLegibility;
-}
-
-table {
-    width: 100%;
-    border: 2px var(--table-outline);
-    border-collapse: collapse;
-    font-size: 20px;
-    text-align: center;
-    margin-top: -25px;
-    position: relative;
-    z-index: 0;
-}
-
-/* Table header cells ONLY */
-th {
-    border: 2px solid var(--table-outline) !important;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 1;
-
-}
-
-/* Other cell formatting */
-td {
-    border: 2px solid var(--table-outline) !important;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 1.5;
-
 }

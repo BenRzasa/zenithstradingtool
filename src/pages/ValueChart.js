@@ -17,49 +17,68 @@ import '../styles/TableComponent.css';
 
 function ValueChart() {
   // Import CSV data to ensure persistency
-  const { csvData } = useContext(CSVContext);
+  const { csvData, isJohnValues, setIsJohnValues } = useContext(CSVContext);
+  
   // Display mode state | 1:AV, 2:UV, 3:NV, 4:TV, 5:SV
   const [currentMode, setCurrentMode] = useState(3); // 
-  const [isJohnValues, setIsJohnValues] = useState(false);
+
+  const toggleJohnVals = (enableJohn) => {
+    setIsJohnValues(enableJohn); // true for John, false for NAN
+  };
+
   // UI control states
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
   const [moreStats, setMoreStats] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   // Draggable summary states
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-
+  // State and handlers
+  const [dragState, setDragState] = useState({
+    isDragging: false,
+    position: { x: 115, y: 20 },
+    clickOffset: { x: 0, y: 0 }
+  });
+  
+  // Implement the drag handlers
   const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setDragOffset({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y
+    const rect = e.currentTarget.getBoundingClientRect();
+    setDragState({
+      isDragging: true,
+      position: { x: rect.left, y: rect.top },
+      clickOffset: {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      }
     });
+    e.stopPropagation();
+    e.preventDefault();
   };
-
+  
   const handleMouseMove = useCallback((e) => {
-    if (!isDragging) return;
-    setPosition({
-      x: e.clientX - dragOffset.x,
-      y: e.clientY - dragOffset.y
-    });
-  }, [isDragging, dragOffset]);
-
+    if (!dragState.isDragging) return;
+    setDragState(prev => ({
+      ...prev,
+      position: {
+        x: e.clientX - prev.clickOffset.x,
+        y: e.clientY - prev.clickOffset.y
+      }
+    }));
+  }, [dragState.isDragging]);
+  
   const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
+    setDragState(prev => ({ ...prev, isDragging: false }));
   }, []);
-
+  
+  // Set up event listeners
   useEffect(() => {
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+    if (dragState.isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
       return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  }, [dragState.isDragging, handleMouseMove, handleMouseUp]);
 
   // List of table names for the dropdown
   const tableNames = Object.keys(isJohnValues ? johnValsDict : nanValsDict);
@@ -244,18 +263,18 @@ function ValueChart() {
     <div className="outer-frame">
       {/* Quick Summary Dropdown */}
       <div 
-      className={`quick-summary ${isSummaryOpen ? 'open' : ''}`}
-      style={{
-        transform: `scale(0.8) translate(${position.x}px, ${position.y}px)`,
-        left: '50px',
-        top: '-10px'
-      }}
-      onMouseDown={handleMouseDown}
-    >
-      <div 
+        className={`quick-summary ${isSummaryOpen ? 'open' : ''} ${dragState.isDragging ? 'dragging' : ''}`}
+        style={{
+          left: `${dragState.position.x}px`,
+          top: `${dragState.position.y}px`,
+          transform: `scale(${isSummaryOpen ? 1 : 0.8})`
+        }}
+        onMouseDown={handleMouseDown}
+      >
+        <div 
           className="summary-header"
-          onClick={() => setIsSummaryOpen(!isSummaryOpen)}
-        > 
+          onClick={() => setIsSummaryOpen(!isSummaryOpen)} // Click handler for toggle
+        >
           <h2>Quick Summary</h2>
           <span className={`dropdown-arrow ${isSummaryOpen ? 'open' : ''}`}>⛛</span>
       </div>
@@ -305,9 +324,10 @@ function ValueChart() {
         <header className="header">
           <nav>
             <ul>
-              <li><Link to="/">Back to Home Page</Link></li>
+              <li><Link to="/">Home</Link></li>
               <li><Link to="/tradetool">Trade Tool</Link></li>
               <li><Link to="/csvloader">CSV Loader</Link></li>
+              <li><Link to="/misc">Miscellaneous</Link></li>
             </ul>
           </nav>
         </header>
@@ -315,7 +335,11 @@ function ValueChart() {
         <div className="button-container" style={{flexDirection: 'row'}}>
         <div className="box-button">
           <button 
-            onClick={() => setMoreStats(!moreStats)}
+            onClick={() => {
+              const newState = !moreStats;
+              setMoreStats(newState);
+              setIsSummaryOpen(newState);
+            }}
             className={moreStats ? "color-template-dystranum active" : ""}
             aria-pressed={moreStats && isSummaryOpen}
           >
@@ -324,14 +348,14 @@ function ValueChart() {
         </div>
           <div className="box-button">
             <button 
-              onClick={() => setIsJohnValues(true)}
+              onClick={() => toggleJohnVals(true)}
               className={isJohnValues ? "color-template-rhylazil" : ""}
             ><span>John Values</span>
             </button>
           </div>
           <div className="box-button">
             <button 
-              onClick={() => setIsJohnValues(false)}
+              onClick={() => toggleJohnVals(false)}
               className={isJohnValues === false ? "color-template-diamond" : ""}
             ><span>NAN Values</span>
             </button>

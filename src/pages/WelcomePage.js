@@ -1,12 +1,16 @@
 // The page the user will see upon entering the site
+import logo from '../images/misc/Site-logo.webp';
+import ambro from '../images/misc/Ambrosine.webp';
+import universallium from '../images/misc/Universallium.webp';
+import havicron from '../images/misc/Havicron.webp'
+import neutrine from '../images/misc/Neutrine.webp';
+import ubriniale from '../images/misc/Ubriniale.webp'
+import tornfabric from '../images/misc/Torn_Fabric.webp';
+import singularity from '../images/misc/Singularity.webp'
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/WelcomePage.css';
-import logo from '../images/misc/Site-logo.webp';
-import cornerImage1 from '../images/misc/Site-logo.webp';
-import cornerImage2 from '../images/misc/Site-logo.webp';
-import cornerImage3 from '../images/misc/Site-logo.webp';
-import cornerImage4 from '../images/misc/Site-logo.webp';
+
 
 function WelcomePage() {
     const navigate = useNavigate();
@@ -14,10 +18,10 @@ function WelcomePage() {
         <div className="welcome-page">
             {/* Corner images container */}
             <div className="corner-images-container">
-                <img src={cornerImage1} alt="Top Left" className="corner-image top-left" />
-                <img src={cornerImage2} alt="Top Right" className="corner-image top-right" />
-                <img src={cornerImage3} alt="Bottom Left" className="corner-image bottom-left" />
-                <img src={cornerImage4} alt="Bottom Right" className="corner-image bottom-right" />
+                <img src={universallium} alt="Top Left" className="corner-image top-left" />
+                <img src={neutrine} alt="Top Right" className="corner-image top-right" />
+                <img src={tornfabric} alt="Bottom Left" className="corner-image bottom-left" />
+                <img src={singularity} alt="Bottom Right" className="corner-image bottom-right" />
             </div>
             <div>
                 <h1 className="name">
@@ -65,6 +69,11 @@ function WelcomePage() {
                         <div className="box-button">
                             <button onClick={() => navigate('/tradetool')}>
                             <span>Trade Tool</span>
+                            </button>
+                        </div>
+                        <div className="box-button">
+                            <button onClick={() => navigate('/misc')}>
+                            <span>Misc Info</span>
                             </button>
                         </div>
                     </div>

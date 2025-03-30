@@ -8,7 +8,7 @@ export const johnValsDict = {
     { name: "Neutrine", baseValue: 0.01, className: "color-template-neutrine" },
     { name: "Torn Fabric", baseValue: 0.002, className: "color-template-torn-fabric" },
     { name: "Singularity", baseValue: 0.001, className: "color-template-singularity" },
-    { name: "Egg", baseValue: 1/30, className: "color-template-egg" },
+    { name: "Egg", baseValue: 0.0333, className: "color-template-egg" },
     { name: "Cindrasil", baseValue: 0.25, className: "color-template-cindrasil" },
     { name: "Zynulvinite", baseValue: 1.0, className: "color-template-zynulvinite" },
     { name: "Element V", baseValue: 0.2, className: "color-template-element-v" },
@@ -85,7 +85,7 @@ export const johnValsDict = {
     { name: "Uranium", baseValue: 14, className: "color-template-uranium" },
     { name: "Caesium", baseValue: 9, className: "color-template-caesium" },
     { name: "Osmium", baseValue: 10, className: "color-template-osmium" },
-    { name: "Hematite", baseValue: 58.75, className: "color-template-hematite" }
+    { name: "Hematite", baseValue: 117.5, className: "color-template-hematite" }
   ],
 
   "Mystic / Inbetween": [
@@ -144,12 +144,12 @@ export const johnValsDict = {
     { name: "Strange Matter", baseValue: 6, className: "color-template-strange-matter" },
     { name: "Vermillium", baseValue: 9, className: "color-template-vermillium" },
     { name: "Magnetite", baseValue: 4, className: "color-template-magnetite" },
-    { name: "Iridium", baseValue: 1000, className: "color-template-iridium" },
-    { name: "Surrenderock", baseValue: 625, className: "color-template-surrenderock" }
+    { name: "Iridium", baseValue: 1600, className: "color-template-iridium" },
+    { name: "Surrenderock", baseValue: 1250, className: "color-template-surrenderock" }
   ],
 
   Void: [
-    { name: "Vantaslate", baseValue: 450, className: "color-template-vantaslate" },
+    { name: "Vantaslate", baseValue: 900, className: "color-template-vantaslate" },
     { name: "Cometite", baseValue: 7, className: "color-template-cometite" },
     { name: "Adamantite", baseValue: 3, className: "color-template-adamantite" },
     { name: "Eclipsium", baseValue: 6, className: "color-template-eclipsium" },
@@ -224,7 +224,7 @@ export const johnValsDict = {
   ],
 
   Serenity: [
-    { name: "Bedrock", baseValue: 1000, className: "color-template-bedrock" },
+    { name: "Bedrock", baseValue: 2000, className: "color-template-bedrock" },
     { name: "Jade", baseValue: 5, className: "color-template-jade" },
     { name: "Redsteel", baseValue: 5, className: "color-template-redsteel" },
     { name: "Celesteel", baseValue: 4, className: "color-template-celesteel" },
@@ -235,7 +235,7 @@ export const johnValsDict = {
     { name: "Spiralium", baseValue: 2.5, className: "color-template-spiralium" },
     { name: "Frozen Nitrogen", baseValue: 11, className: "color-template-frozen-nitrogen" },
     { name: "Orichalican", baseValue: 8, className: "color-template-orichalican" },
-    { name: "Scorched Bedrock", baseValue: 1000, className: "color-template-scorched-bedrock" }
+    { name: "Scorched Bedrock", baseValue: 2000, className: "color-template-scorched-bedrock" }
   ],
 
   "Plasma Field": [
@@ -247,7 +247,7 @@ export const johnValsDict = {
     { name: "Convectine", baseValue: 10, className: "color-template-convectine" },
     { name: "Protonium", baseValue: 9, className: "color-template-protonium" },
     { name: "Galvanium", baseValue: 6, className: "color-template-galvanium" },
-    { name: "Ferozium", baseValue: 1000, className: "color-template-ferozium" }
+    { name: "Ferozium", baseValue: 2000, className: "color-template-ferozium" }
   ],
 
   Quantum: [
@@ -265,7 +265,7 @@ export const johnValsDict = {
   ],
 
   Stability: [
-    { name: "Universal Barrier", baseValue: 1000, className: "color-template-universal-barrier" },
+    { name: "Universal Barrier", baseValue: 2000, className: "color-template-universal-barrier" },
     { name: "Rifted Barrier", baseValue: 6, className: "color-template-rifted-barrier" },
     { name: "Fabric", baseValue: 7, className: "color-template-fabric" },
     { name: "Mavrikine", baseValue: 6, className: "color-template-mavrikine" }
@@ -287,13 +287,13 @@ export const johnValsDict = {
     { name: "Sinfurmium", baseValue: 10, className: "color-template-sinfurmium" },
     { name: "Gyrivarium", baseValue: 8, className: "color-template-gyrivarium" },
     { name: "Krazmite", baseValue: 7, className: "color-template-krazmite" },
-    { name: "Tendrock", baseValue: 1000, className: "color-template-tendrock" },
+    { name: "Tendrock", baseValue: 2000, className: "color-template-tendrock" },
     { name: "Dark Energy", baseValue: 8, className: "color-template-dark-energy" },
     { name: "Corrodoil", baseValue: 30.5, className: "color-template-corrodoil" },
     { name: "Antireal", baseValue: 5, className: "color-template-antireal" },
     { name: "Hyperium", baseValue: 9, className: "color-template-hyperium" },
     { name: "Thermisine", baseValue: 14, className: "color-template-thermisine" },
-    { name: "Alkanite", baseValue: 1000, className: "color-template-alkanite" }
+    { name: "Alkanite", baseValue: 2000, className: "color-template-alkanite" }
   ],
 
   "Grim 1 / Hive / Grim 2": [
@@ -327,7 +327,7 @@ export const johnValsDict = {
     { name: "Chronon", baseValue: 11, className: "color-template-chronon" },
     { name: "Aurorum", baseValue: 24.5, className: "color-template-aurorum" },
     { name: "Korenil", baseValue: 12, className: "color-template-korenil" },
-    { name: "Stellar Sediment", baseValue: 1000, className: "color-template-stellar-sediment" },
+    { name: "Stellar Sediment", baseValue: 2000, className: "color-template-stellar-sediment" },
     { name: "Apiastrine", baseValue: 18, className: "color-template-apiastrine" }
   ],
 
@@ -360,7 +360,7 @@ export const johnValsDict = {
   ],
 
   Interstice: [
-    { name: "Nethrastine", baseValue: 100, className: "color-template-nethrastine" },
+    { name: "Nethrastine", baseValue: 200, className: "color-template-nethrastine" },
     { name: "Formicite", baseValue: 8, className: "color-template-formicite" },
     { name: "Raw Energy", baseValue: 15, className: "color-template-raw-energy" },
     { name: "Obliviril", baseValue: 5.5, className: "color-template-obliviril" },
@@ -368,7 +368,7 @@ export const johnValsDict = {
   ],
 
   Empyrean: [
-    { name: "Evrasalt", baseValue: 100, className: "color-template-evrasalt" },
+    { name: "Evrasalt", baseValue: 200, className: "color-template-evrasalt" },
     { name: "Qylicryst", baseValue: 5, className: "color-template-qylicryst" },
     { name: "Kafsium", baseValue: 16, className: "color-template-kafsium" },
     { name: "Zetaslime", baseValue: 15.5, className: "color-template-zetaslime" },
