@@ -32,7 +32,7 @@ function WelcomePage() {
                     </h1>
 
                     <div className="square"></div>
-                    <div className="card">
+                    <div className="wcard">
                         {/* TCC Logo */}
                         <img 
                             src={logo} 
