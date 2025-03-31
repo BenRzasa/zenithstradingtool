@@ -49,7 +49,7 @@ function WelcomePage() {
                         <div className="card-title-wrap">
                             <h1 className="title">
                                 <span className="copy-wrap">
-                                    Welcome to Zenith's Trading Tool v1.0!
+                                    Welcome to Zenith's Trading Tool 𝛂1.3!
                                 </span>
                             </h1> 
                         </div>
@@ -75,6 +75,11 @@ function WelcomePage() {
                         <div className="box-button">
                             <button onClick={() => navigate('/misc')}>
                             <span>Misc Info</span>
+                            </button>
+                        </div>
+                        <div className="box-button">
+                            <button onClick={() => window.open('https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki', '_blank')}>
+                                <span>TCC Wiki Page</span>
                             </button>
                         </div>
                     </div>

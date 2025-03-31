@@ -19,10 +19,9 @@ import searchFilters from '../components/SearchFilters';
 
 function ValueChart() {
   // Import CSV data to ensure persistency
-  const { csvData, isJohnValues, setIsJohnValues } = useContext(CSVContext);
+  const { csvData, currentMode, setCurrentMode, 
+          isJohnValues, setIsJohnValues } = useContext(CSVContext);
   
-  // Display mode state | 1:AV, 2:UV, 3:NV, 4:TV, 5:SV
-  const [currentMode, setCurrentMode] = useState(3); // 
 
   const toggleJohnVals = (enableJohn) => {
     setIsJohnValues(enableJohn); // true for John, false for NAN

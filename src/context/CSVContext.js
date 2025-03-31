@@ -5,6 +5,7 @@ export const CSVContext = createContext();
 export const CSVProvider = ({ children }) => {
   const [csvData, setCSVData] = useState({});
   const [isJohnValues, setIsJohnValues] = useState(false); // Default: false
+  const [currentMode, setCurrentMode] = useState(3); // Default: NV Mode
 
   // Load all persisted data on initial render
   useEffect(() => {
@@ -23,6 +24,12 @@ export const CSVProvider = ({ children }) => {
     if (savedJohnMode !== null) {
       setIsJohnValues(JSON.parse(savedJohnMode));
     }
+
+    const savedValueMode = localStorage.getItem('currentMode');
+    if (savedValueMode !== null) {
+      setCurrentMode(JSON.parse(savedValueMode));
+    }
+
   }, []);
 
   // Save CSV data whenever it changes
@@ -37,6 +44,11 @@ export const CSVProvider = ({ children }) => {
     localStorage.setItem('isJohnValues', JSON.stringify(isJohnValues));
   }, [isJohnValues]);
 
+  // Save Value mode state whenever it changes
+  useEffect(() => {
+    localStorage.setItem('currentMode', JSON.stringify(currentMode));
+  }, [currentMode]);
+
   return (
     <CSVContext.Provider
       value={{
@@ -44,6 +56,8 @@ export const CSVProvider = ({ children }) => {
         setCSVData,
         isJohnValues,
         setIsJohnValues,
+        currentMode,
+        setCurrentMode,
       }}
     >
       {children}
