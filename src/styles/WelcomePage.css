@@ -1,5 +1,5 @@
 /*
-    CSS3 Page Transition (Welcome Page Only)
+    Welcome Page Styling
     --------------------------------------------------
     Scoped with .welcome-page to prevent style leakage
 */
@@ -24,7 +24,7 @@
 }
 
 /*--------------------------------------------------
-  Scaffolding
+  Main Structure & Corner images
 --------------------------------------------------*/
 .welcome-page {
   background-color: transparent;
@@ -148,7 +148,7 @@
 }
 
 /*--------------------------------------------------
-  Type
+  Title/name/copyright
 --------------------------------------------------*/
 .welcome-page .title {
   margin-top: 100px;

@@ -1,3 +1,9 @@
+/* ZTT | NAN4736's value dictionary
+  - Categorized into layers
+  - Each layer contains all its ores
+  - Each ore contains its name, base value (ore per AV), and color template gradient
+*/
+
 import '../styles/AllGradients.css';
 
 export const nanValsDict = {

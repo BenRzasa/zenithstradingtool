@@ -1,6 +1,10 @@
 # Stuff to do
 
 ## FIX:
+
+### Misc: Update formatting, add verbosity, clean up code & css files
+   - Add header comment to each file, and more usage & details on what the functions do
+
 ### 1) DONE -- First: fix github-pages deployment crashing
  - Wacky fix of duplicating index.html to 404.html??
 

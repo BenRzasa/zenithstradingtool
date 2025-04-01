@@ -21,7 +21,7 @@
 .card {
     width: 850px;
     height: 300px;
-    background-image: linear-gradient(90deg, #e3a21a 0%,#fff77e 21.1%,#d2ffc0 35%,#8bff95 45%,#45dc46 55.4%,#3ac8d0 75%,#094973 100%);
+    background-image: linear-gradient(90deg, #e3a21a 0%, #fff77e 21.1%, #d2ffc0 35%, #8bff95 45%, #45dc46 55.4%, #3ac8d0 75%, #094973 100%);
     border-radius: 20px;
     transition: all .3s;
     padding: 2px;
@@ -44,7 +44,7 @@
     --background-color: #ffffff;
     --textCol: #2f2f2f;
 }
-  
+
 [data-theme="dark"] {
     --background-color: #121212;
     --textCol: #ffffff;
@@ -56,7 +56,7 @@
 }
 
 .card:hover {
-    box-shadow: 0px 0px 30px 1px linear-gradient(90deg, #e3a21a 0%,#fff77e 21.1%,#d2ffc0 35%,#8bff95 45%,#45dc46 55.4%,#3ac8d0 75%,#094973 100%);
+    box-shadow: 0px 0px 30px 1px linear-gradient(90deg, #e3a21a 0%, #fff77e 21.1%, #d2ffc0 35%, #8bff95 45%, #45dc46 55.4%, #3ac8d0 75%, #094973 100%);
 }
 
 .card2 h3 {
@@ -82,7 +82,8 @@
     transform: translateX(5px);
 }
 
-.search-filters, .numNV {
+.search-filters,
+.numNV {
     max-height: 250px;
     overflow-y: auto;
     padding-right: 8px;
@@ -91,7 +92,7 @@
     font-size: 0.8em;
     line-height: 1.4;
 }
-  
+
 .search-filters p {
     margin: 0.3em 0;
     white-space: nowrap;
@@ -101,14 +102,15 @@
 
 .search-filters strong {
     font-weight: bold;
-    color: #00ff75; /* Optional: makes the titles stand out more */
-}  
+    color: #00ff75;
+    /* Optional: makes the titles stand out more */
+}
 
 /* Custom scrollbar */
 .search-filters::-webkit-scrollbar {
     width: 12px;
 }
-  
+
 .search-filters::-webkit-scrollbar-thumb {
     background: #00ff75;
     border-radius: 2px;
@@ -125,7 +127,7 @@
     transform: scale(2);
     transition: opacity 0.2s;
 }
-  
+
 .copy-btn:hover {
     opacity: 1;
 }
@@ -134,11 +136,12 @@
 .numNV::-webkit-scrollbar {
     width: 12px;
 }
-  
+
 .numNV::-webkit-scrollbar-thumb {
     background: #00ff75;
     border-radius: 2px;
 }
+
 .mode-selector {
     margin-left: -100px;
     transform: scale(0.75);
@@ -152,7 +155,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
 }
-  
+
 .ore-item {
     width: 230px;
     justify-content: space-between;
@@ -161,11 +164,11 @@
     background: var(--background-color);
     border-radius: 12px;
 }
-  
+
 .ore-name {
     color: var(--accent-color);
 }
-  
+
 .ore-value {
     color: var(--textCol);
 }

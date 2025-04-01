@@ -1,26 +1,35 @@
+/* ZTT | CSV Loader Page
+  - 
+*/
+
 import React, { useContext } from "react";
-import { OreNames } from "../components/OreNames";
-import "../styles/CSVLoader.css";
 import { Link } from "react-router-dom";
-import { CSVContext } from "../context/CSVContext"; // Import the context
+import { OreNames } from "../components/OreNames";
+import { CSVContext } from "../context/CSVContext";
+
+import "../styles/CSVLoader.css";
 
 function CSVLoader() {
-  const { csvData, setCSVData } = useContext(CSVContext); // Access the context
+  // Fetch the current data and the set function from context
+  const { 
+    csvData, 
+    setCSVData 
+  } = useContext(CSVContext);
 
   const updateOreAmounts = () => {
+    // Check for existing CSV Input already
     const csvInput = document.getElementById("csvInput").value;
     if (!csvInput) return;
-  
-    const newAmounts = csvInput.split(",").map(Number);
-    
-    // Create an object with ore names as keys
+    // Split the string (comma delimited) and map the amounts as numbers
+    const newAmounts = csvInput.split(",").map(Number);  
+    // Create an updated object with ore names as keys
     const updatedData = OreNames.reduce((acc, ore, index) => {
       acc[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
         ? newAmounts[index]
         : 0;
       return acc;
     }, {});
-  
+    // Once the data is updated, set it using the CSV context
     setCSVData(updatedData);
   };
 
@@ -41,6 +50,7 @@ function CSVLoader() {
       </ul>
     </nav>
     <div className="main-container">
+      {/* Usage instructions for the user */}
       <h1>CSV Loader Usage:</h1>
       <l>
         <ul>1. Copy & Paste your CSV string from Settings ➜ Other (in TCC) in the box below.</ul>
@@ -60,6 +70,8 @@ function CSVLoader() {
                 </tr>
               </thead>
               <tbody>
+                {/* Map all ores from OreNames, with the corresponding 
+                    amount from the user's inventory CSV string */}
                 {OreNames.map((ore, index) => (
                   <tr key={ore}>
                     <td>{ore}</td>
@@ -78,6 +90,7 @@ function CSVLoader() {
             </button>
         </div>
         <div className="csv-input">
+          {/* CSV Input Box */}
           <textarea
             id="csvInput"
             placeholder="Enter comma-separated numbers..."

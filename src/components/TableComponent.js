@@ -1,13 +1,17 @@
-// Modular table component that works with any dictionary of values
-// given the layer name, ore names, and a base value. And the gradient!
-import '../styles/AllGradients.css';
-import '../styles/ValueChart.css';
-import '../styles/TableComponent.css';
+/* ZTT | Table component - adapts for any layer information
+  - Modular table component that works with any dictionary of values
+  given the layer name, ore names, and a base value. And the gradient!
+*/
 
 import React, { useContext, useState } from 'react';
 import { CSVContext } from '../context/CSVContext';
 
+import '../styles/AllGradients.css';
+import '../styles/ValueChart.css';
+import '../styles/TableComponent.css';
+
 const TableComponent = ({
+  // Table's data fields/components
   data,
   title,
   currentMode,
@@ -16,6 +20,7 @@ const TableComponent = ({
 }) => {
   const { csvData, setCSVData } = useContext(CSVContext);
 
+  // Pick the string based on the value mode
   const modeStr = currentMode === 1 ? "AV" :
     currentMode === 2 ? "UV" :
       currentMode === 3 ? "NV" :
@@ -46,7 +51,7 @@ const TableComponent = ({
   // Now, add a K at the end, truncating all leading zeroes,
   // if the number is above 1000. Also, remove trailing zeroes
   // if the number is, say, "2.000"
-  const formatDecimal = (value, mode = 3) => {
+  const formatValue = (value, mode = 3) => {
     const num = Number(value);
     if (!Number.isFinite(num)) return "0";
     // For /AV (mode 1) - return raw number exactly as provided
@@ -98,7 +103,7 @@ const TableComponent = ({
       const completion = orePerUnit > 0 ? Math.min(1, inventory / orePerUnit) : 0;
       return sum + completion;
     }, 0);
-
+    // Divide the total percentage by number of ores in the table and fix to .1
     return ((totalCompletion / data.length) * 100).toFixed(1);
   };
 
@@ -109,7 +114,7 @@ const TableComponent = ({
       const orePerUnit = calculateValue(item.baseValue);
       return orePerUnit > 0 ? sum + (inventory / orePerUnit) : sum;
     }, 0);
-
+    // Format string with the parsed total NV value, and mode string
     return `${parseFloat(total.toFixed(1))} ${modeStr}`;
   };
 
@@ -119,17 +124,18 @@ const TableComponent = ({
       const inventory = csvData[item.name] || 0;
       const orePerUnit = calculateValue(item.baseValue);
       const numV = orePerUnit > 0 ? inventory / orePerUnit : 0;
+      // Gets the max number of NV/SV/etc value from the ores and returns it
       return numV > max.value ? { name: item.name, value: numV } : max;
     }, { name: '', value: 0 });
-
+    // Format the max value ore with one decimal and the mode string after
     return `${highestItem.name} (${highestItem.value.toFixed(1)} ${modeStr})`;
   };
 
 
   // Handle inventory changes
   const handleInventoryChange = (itemName, newValue) => {
+    // Account for non-number values
     const numericValue = Math.max(0, isNaN(newValue) ? 0 : Number(newValue));
-
     // Update through context which will automatically persist to localStorage
     setCSVData(prev => ({
       ...prev,
@@ -137,6 +143,7 @@ const TableComponent = ({
     }));
   };
 
+  // Track the current copied search filter
   const [copiedFilter, setCopiedFilter] = useState(null);
 
   const findMatchingFilter = (layerName) => {
@@ -147,18 +154,22 @@ const TableComponent = ({
     });
   };
 
+  // Copy the layer filter to the clipboard, clearing after 2s
   const copyLayerFilter = () => {
     const matchingFilter = findMatchingFilter(title);
     if (matchingFilter) {
+      // If the filter exists, split it from the title and copy it to the clipboard
       const filterItems = matchingFilter.split(': ')[1];
       navigator.clipboard.writeText(filterItems.trim())
         .then(() => {
           setCopiedFilter(filterItems);
-          setTimeout(() => setCopiedFilter(null), 2000); // Clear after 2 seconds
+          // Clear the filter after 2 seconds
+          setTimeout(() => setCopiedFilter(null), 2000);
         });
     }
   };
 
+  // Default component to return in case the data bugs out
   if (!data) {
     return (
       <div className="table-wrapper">
@@ -186,6 +197,19 @@ const TableComponent = ({
         </thead>
         <tbody>
           {data.map((item, index) => {
+            /* Components mapped per ore:
+              - Ore Icon (NEEDED) from Icons map/file (Match name exactly)
+              - Ore Name from CSV data
+              - Ore gradient - matches pattern in ore name to ore color-template in AllGradients
+              - Amount of ore in inventory
+              - Percent completion of 1 AV/NV/UV/etc.
+              - Number of the value mode (AV/UV/NV/TV/SV)
+              - The base value (Per AV) of that ore
+              - Expanded value (UV/NV/TV/SV)
+
+              - Also allows user to edit the quantity in real time, updating the
+              CSV data as they do so
+            */
             const inventory = csvData[item.name] || 0;
             const baseValue = item.baseValue;
             const percentage = calculatePercentage(baseValue, inventory);
@@ -220,10 +244,12 @@ const TableComponent = ({
                       handleInventoryChange(item.name, numericValue);
                     }}
                     className="inventory-input"
+                    // Select the cell when focused and set the value
                     onFocus={(e) => {
                       e.target.select();
                       e.target.dataset.prevValue = e.target.value;
                     }}
+                    // Handle inventory change when final input occurs and cell is un-focused
                     onBlur={(e) => {
                       const newValue = e.target.value === '' ? 0 : Math.max(0, parseInt(e.target.value) || 0);
                       if (newValue !== parseInt(e.target.dataset.prevValue || 0)) {
@@ -231,6 +257,7 @@ const TableComponent = ({
                       }
                       if (e.target.value === '') e.target.value = 0;
                     }}
+                    // Detect key down events for clearing the cell
                     onKeyDown={(e) => {
                       // Allow backspace/delete to clear
                       if (e.key === 'Backspace' || e.key === 'Delete') {
@@ -244,8 +271,8 @@ const TableComponent = ({
                   />
                 </td>
                 <td>{numV}</td> {/* Already rounded to 2 decimals */}
-                <td>{formatDecimal(baseValue, 1)}</td>
-                <td>{formatDecimal(baseValue, currentMode)}</td>
+                <td>{formatValue(baseValue, 1)}</td>
+                <td>{formatValue(baseValue, currentMode)}</td>
               </tr>
             );
           })}
@@ -264,7 +291,7 @@ const TableComponent = ({
           </span></li>
         </ul>
         
-        {/* Add this copy button section */}
+        {/* Copy search filter button section */}
         <div className="copy-filter-container">
           <button 
             className="copy-filter-btn"

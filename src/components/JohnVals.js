@@ -1,4 +1,8 @@
-import '../styles/AllGradients.css';
+/* ZTT | John_Sypher's value dictionary
+  - Categorized into layers
+  - Each layer contains all its ores
+  - Each ore contains its name, base value (ore per AV), and color template gradient
+*/
 
 // Dictionaries for John and NAN values
 export const johnValsDict = {
