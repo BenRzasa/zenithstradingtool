@@ -1,5 +1,5 @@
 // Modular table component that works with any dictionary of values
-// given the layer name, ore names, and a base value.
+// given the layer name, ore names, and a base value. And the gradient!
 import '../styles/AllGradients.css';
 import '../styles/ValueChart.css';
 import '../styles/TableComponent.css';
@@ -64,12 +64,10 @@ const TableComponent = ({
     const formatWithSuffix = (val, suffix) => {
       const truncated = truncate(val, 3);
       let str = truncated.toString();
-
       // Remove trailing .000 if present
       if (str.includes('.')) {
         str = str.replace(/\.?0+$/, '');
       }
-
       return str + suffix;
     };
     // Millions
@@ -141,7 +139,6 @@ const TableComponent = ({
 
   const [copiedFilter, setCopiedFilter] = useState(null);
 
-  // Add this near your other functions in TableComponent
   const findMatchingFilter = (layerName) => {
     return searchFilters.find(filter => {
       // Remove arrow and compare with layer name

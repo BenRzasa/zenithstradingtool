@@ -20,7 +20,7 @@
 
 .card {
     width: 850px;
-    height: 254px;
+    height: 300px;
     background-image: linear-gradient(90deg, #e3a21a 0%,#fff77e 21.1%,#d2ffc0 35%,#8bff95 45%,#45dc46 55.4%,#3ac8d0 75%,#094973 100%);
     border-radius: 20px;
     transition: all .3s;
@@ -38,6 +38,16 @@
     display: flex;
     flex-direction: column;
     color: white;
+}
+
+[data-theme="light"] {
+    --background-color: #ffffff;
+    --textCol: #2f2f2f;
+}
+  
+[data-theme="dark"] {
+    --background-color: #121212;
+    --textCol: #ffffff;
 }
 
 .card2:hover {
@@ -61,7 +71,7 @@
 
 .card-link {
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 110px;
     color: #00ff75;
     text-decoration: none;
     font-weight: bold;
@@ -72,11 +82,12 @@
     transform: translateX(5px);
 }
 
-.search-filters {
-    max-height: 180px;
+.search-filters, .numNV {
+    max-height: 250px;
     overflow-y: auto;
     padding-right: 8px;
-    margin: 10px 0;
+    margin-top: -15px;
+    margin-bottom: -100px;
     font-size: 0.8em;
     line-height: 1.4;
 }
@@ -117,4 +128,44 @@
   
 .copy-btn:hover {
     opacity: 1;
+}
+
+/* Custom scrollbar */
+.numNV::-webkit-scrollbar {
+    width: 12px;
+}
+  
+.numNV::-webkit-scrollbar-thumb {
+    background: #00ff75;
+    border-radius: 2px;
+}
+.mode-selector {
+    margin-left: -100px;
+    transform: scale(0.75);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.ore-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+  
+.ore-item {
+    width: 230px;
+    justify-content: space-between;
+    display: flex;
+    padding: 8px 12px;
+    background: var(--background-color);
+    border-radius: 12px;
+}
+  
+.ore-name {
+    color: var(--accent-color);
+}
+  
+.ore-value {
+    color: var(--textCol);
 }

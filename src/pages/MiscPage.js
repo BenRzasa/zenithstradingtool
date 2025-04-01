@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CSVContext } from '../context/CSVContext';
 import { TradeContext } from '../context/TradeContext';
@@ -9,6 +9,11 @@ import "../styles/AllGradients.css";
 import searchFilters from '../components/SearchFilters';
 
 function MiscPage() {
+    const { csvData, isJohnValues, setIsJohnValues } = useContext(CSVContext);
+
+    const toggleJohnVals = (enableJohn) => {
+        setIsJohnValues(enableJohn); // true for John, false for NAN
+    };
 
     const copyFilter = (filterText) => {
         navigator.clipboard.writeText(filterText)
@@ -20,6 +25,28 @@ function MiscPage() {
                 console.error('Failed to copy:', err);
             });
     };
+
+    // Get the appropriate dictionary based on mode
+    const currentDict = isJohnValues ? johnValsDict : nanValsDict;
+
+    // Flatten all ore arrays from all categories into one array
+    const allOres = Object.values(currentDict).flat();
+
+    // Calculate and sort ores by number of NVs
+    const sortedOres = allOres
+        .map(ore => {
+        const inventory = csvData[ore.name] || 0;
+        const nvValue = ore.baseValue * 100;
+        const numNVs = nvValue > 0 ? inventory / nvValue : 0;
+        
+        return {
+            ...ore,  // Include all original properties
+            numNVs,
+            inventory,
+            nvValue
+        };
+        })
+        .sort((a, b) => a.numNVs - b.numNVs);
 
     const cards = [
         {
@@ -51,12 +78,47 @@ function MiscPage() {
                     })}
                 </div>
             ),
-            link: "/materials"
+            link: 'link1'
         },
         {
             id: "card2",
-            title: "Second Card",
-            content: "Content for the second card goes here. Check out the gradient border.",
+            title: "Ores by Number of NVs (Least to Most)",
+            content: (
+                <div className="numNV">
+                {/* Mode selector buttons */}
+                <div className="mode-selector">
+                    <div className="box-button">
+                    <button 
+                        onClick={() => toggleJohnVals(true)}
+                        className={isJohnValues ? "color-template-rhylazil" : ""}
+                    >
+                        <span>John Values</span>
+                    </button>
+                    </div>
+                    <div className="box-button">
+                    <button 
+                        onClick={() => toggleJohnVals(false)}
+                        className={isJohnValues === false ? "color-template-diamond" : ""}
+                    >
+                        <span>NAN Values</span>
+                    </button>
+                    </div>
+                </div>
+            
+                {/* Ore list */}
+                <div className="ore-list">
+                    {sortedOres.map((ore, index) => (
+                    <div key={index} className="ore-item">
+                        <span className="ore-name">{ore.name}</span>
+                        <div className="ore-stats">
+                        <span>NVs: {ore.numNVs.toFixed(2)}</span>
+                        <span> Inv: {ore.inventory.toLocaleString()}</span>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                </div>
+            ),
             link: "/link2"
         },
         {
@@ -85,7 +147,7 @@ function MiscPage() {
                             <h3>{card.title}</h3>
                             {card.content}
                             <Link to={card.link} className="card-link">
-                                Learn More
+                                More Stats
                             </Link>
                         </div>
                     </div>
