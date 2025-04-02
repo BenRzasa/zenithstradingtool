@@ -15,6 +15,7 @@ import { CSVContext } from "../context/CSVContext";
 import { TradeContext } from "../context/TradeContext";
 import { johnValsDict } from "../components/JohnVals";
 import { nanValsDict } from "../components/NANVals";
+import { oreIcons } from "../lib/oreIcons";
 
 import "../styles/TradeTool.css";
 import "../styles/AllGradients.css";
@@ -35,7 +36,7 @@ function TradeTool() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [globalQuantity, setGlobalQuantity] = useState(1);
-  // Set the search input and results to null 
+  // Set the search input and results to null
   const searchInputRef = useRef(null);
   const resultsRef = useRef(null);
   // Fetch the CSV Data from the context
@@ -440,6 +441,16 @@ function TradeTool() {
                       >
                         ✖
                       </button>
+                      <img
+                        src={oreIcons[oreObj.name.replace(/ /g, '_')]}
+                        alt={`${oreObj.name} icon`}
+                        className="t-ore-icon"
+                        loading="lazy"
+                        onError={(e) => {
+                          console.error(`Missing icon for: ${oreObj.name}`);
+                          e.target.style.display = 'none';
+                        }}
+                      />
                       {oreObj.name}
                     </td>
                     <td>

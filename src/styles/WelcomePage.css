@@ -153,9 +153,8 @@
 .welcome-page .title {
   margin-top: 100px;
   font-size: 100px;
-  letter-spacing: 0.075em;
-  text-transform: uppercase;
-  font-weight: 900;
+  letter-spacing: 0.02em;
+  font-weight: 800;
   overflow: hidden;
   color: black;
 }
@@ -166,11 +165,11 @@
   color: var(--welcome-text);
   position: absolute;
   left: 50%;
-  margin: 0; 
+  margin: 0;
   padding: 0;
   transition: all .5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
   transform: translate3d(-50%,0,0);
-  font-weight: 800; 
+  font-weight: 800;
   overflow: hidden;
   font-size: 20px;
   letter-spacing: 0.05em;
@@ -211,7 +210,7 @@
   height: 2px;
   background-color: currentColor;
   position: absolute;
-  left: 50%; 
+  left: 50%;
   top: 50%;
   transform: translate3d(-50%,-50%,0);
 }

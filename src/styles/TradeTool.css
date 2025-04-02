@@ -167,7 +167,7 @@ ul {
     background-color: transparent !important;
     mix-blend-mode: normal !important;
   }
-  
+
 /* Ore name cell with gradient background */
 .ore-name-cell {
     font-family: 'Segoe UI';
@@ -182,13 +182,12 @@ ul {
     color: white;
     z-index: 1;
 }
-  
 
 /* Adjusted text outline position */
 .ore-name-cell::before {
     content: attr(data-text);
     position: absolute;
-    left: 40px;
+    left: 78px;
     top: 12px;
     z-index: -1;
     color: black;
@@ -198,6 +197,14 @@ ul {
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeLegibility;
+}
+
+.t-ore-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 0px;
+    margin-right: 8px;
 }
 
 /* Remove the background from other cells */
@@ -210,7 +217,7 @@ ul {
 /* Moved delete button to left */
 .delete-ore-button {
     position: absolute;
-    left: 8px; /* Changed from right to left */
+    left: 8px;
     top: 50%;
     transform: translateY(-50%);
     background-color: #ff4444;
@@ -227,7 +234,7 @@ ul {
     transition: background-color 0.2s;
     z-index: 2;
 }
-  
+
 .delete-ore-button:hover {
     background-color: #cc0000;
 }
@@ -240,7 +247,7 @@ ul {
     justify-content: flex-end;
     width: 100%;
   }
-  
+
 /* Input field styling */
 .quantity-input {
     width: 75px;
@@ -336,7 +343,7 @@ ul {
         flex-direction: column;
         gap: 50px;
     }
-    
+
     .trade-controls-column,
     .trade-table-section {
         width: 100%;
