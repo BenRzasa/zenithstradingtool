@@ -246,6 +246,10 @@ function TradeTool() {
     setQuantities({});
   };
 
+  const removeOresFromInv = (selectedOres) => {
+    window.alert("Are you sure you want to remove these ores from your data?");
+  }
+
   return (
     <div className="trade-tool-container">
       <h1>Welcome to the Trade Tool!</h1>
@@ -394,6 +398,13 @@ function TradeTool() {
               <div className="box-button" onClick={clearTable}>
                 <button>
                   <span className="button">Clear Table</span>
+                </button>
+              </div>
+            </div>
+            <div className="clear-button-container">
+              <div className="box-button" onClick={removeOresFromInv}>
+                <button>
+                  <span className="button">Remove Ores from Inventory</span>
                 </button>
               </div>
             </div>

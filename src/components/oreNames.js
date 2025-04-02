@@ -126,7 +126,7 @@ export const OreNames = [
   "Iron",
   "Isoronil",
   "Jade",
-  "Jalaboño",
+  "Jalabono",
   "Jasper",
   "Kafsium",
   "Korenil",

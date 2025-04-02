@@ -1,40 +1,17 @@
 # Stuff to do
 
-## FIX:
+## TO FIX:
 
 ### Misc: Update formatting, add verbosity, clean up code & css files
    - Add header comment to each file, and more usage & details on what the functions do
 
 ### DONE -- First: fix github-pages deployment crashing
- - Wacky fix of duplicating index.html to 404.html??
-
 ### DONE -- Quick Summary
- - Fix Quick Info button moving funkily - must be mapped to cursor globally
- - Dropdown should open when "More Stats" is clicked - should be simple enough
-
 ### DONE -- Trade Tool
- - Fix solid color gradients not working
-
 ### DONE -- Main Page layout
- - Self explanatory
-
-- [ ] Checkbox?
 
 # TO ADD (No particular order):
-### Ore Icons
- - Missing: Jala, hollev, verglaz, surrenderock (rename?), Eidoliphyll
- - Update: ambro, malb, dyst, ecto, havi, meteorite, chalcedony, stone,
- - Kyanite, tungsten, diamond, malachite, plutonium, uranium, mithril,
- - gargantium, horrorstone, eclipsium, void orb, gray matter, chromium, argibar, tenebris,
- - aquamarine, hydrolyth, naquadah, pearl, astratine, bedrock?, redsteel, neutronium, shadowspec, andrium, 
- - electrium? ferozium, gluonium, up quark, down quark, charm quark, top bottom quark, strange quark, crystal photon, photalizine, 
- - univ barrier, rifted?, fabric, antireal, taynalum, sludge, auric, zero, exo?, ethanerite, evrasalt, truth quark, wish alloy, 
- - These MUST be in one folder (or layer folders named precisely to match)
- - Format: `{oreObj.name}_Icon.webp` (or use quotes if needed)
- - Double check that all ore names are correct and exist in the folder
- - FIRST: go through and get all updated ore icons as webps
- - Insert in the name-column cell (should be relatively simple?)
- - Make sure they are all a standard size, and that the name cell has enough room
+### DONE -- Ore Icons
 
 ### Custom Value Setting
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.
@@ -62,9 +39,9 @@ pictures, the ore textures, descriptions of the ores, possible lore, etc.
 
 ### Trade Section - button to "remove selected ores from inventory"
  - Confirmation popup to make sure the user is certain
- - Takes all quantities in the table, matches the name to the CSV data, 
+ - Takes all quantities in the table, matches the name to the CSV data,
   and subtracts the quantities from their inventory, updating it immediately
 
-### Graphs? 
+### Graphs?
  - AV/hr of layers, Trade data over time, ores gained/NVs gained over time, etc
 And more coming soon... :]
