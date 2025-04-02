@@ -30,7 +30,7 @@ export const nanValsDict = {
 
   Uniques: [
     { name: "Vicious Shard", baseValue: 0.006, className: "color-template-vicious-shard" },
-    { name: "Jalaboño", baseValue: 1.0, className: "color-template-jalaboño" },
+    { name: "Jalabono", baseValue: 1.0, className: "color-template-jalaboño" },
     { name: "Hollevite", baseValue: 1.0, className: "color-template-hollevite" },
     { name: "Verglazium", baseValue: 2.0, className: "color-template-verglazium" },
     { name: "Meteorite", baseValue: 2.0, className: "color-template-meteorite" },

@@ -477,9 +477,9 @@ function ValueChart() {
               className: "color-template-universallium",
               label: "UV Mode",
             },
-            { 
-              mode: 3, 
-              className: "color-template-neutrine", 
+            {
+              mode: 3,
+              className: "color-template-neutrine",
               label: "NV Mode" },
             {
               mode: 4,

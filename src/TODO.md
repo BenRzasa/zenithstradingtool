@@ -22,13 +22,6 @@
 
 # TO ADD (No particular order):
 ### Ore Icons
- - Missing: Jala, hollev, verglaz, surrenderock (rename?), Eidoliphyll
- - Update: ambro, malb, dyst, ecto, havi, meteorite, chalcedony, stone,
- - Kyanite, tungsten, diamond, malachite, plutonium, uranium, mithril,
- - gargantium, horrorstone, eclipsium, void orb, gray matter, chromium, argibar, tenebris,
- - aquamarine, hydrolyth, naquadah, pearl, astratine, bedrock?, redsteel, neutronium, shadowspec, andrium, 
- - electrium? ferozium, gluonium, up quark, down quark, charm quark, top bottom quark, strange quark, crystal photon, photalizine, 
- - univ barrier, rifted?, fabric, antireal, taynalum, sludge, auric, zero, exo?, ethanerite, evrasalt, truth quark, wish alloy, 
  - These MUST be in one folder (or layer folders named precisely to match)
  - Format: `{oreObj.name}_Icon.webp` (or use quotes if needed)
  - Double check that all ore names are correct and exist in the folder
@@ -36,12 +29,12 @@
  - Insert in the name-column cell (should be relatively simple?)
  - Make sure they are all a standard size, and that the name cell has enough room
 
-### Custom Value Setting
+### Custom Value Setting 
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.
  - Have the user search for an ore, then enter a value in "Ore Per AV" OR "AV Per Ore"
     - Use a similar interface to the Trade Tool search box and table
  - Those two options could be in a dropdown/checkmark selection
- - Once "Ore Per AV" is entered, simply modify the baseValue of the ore
+ - Once "Ore Per AV" is entered, simply modify the baseValue of the ore 
  to match it. e.g., 15.5 Ore Per AV would result in a baseValue of 15.5.
  - Likewise, if "AV Per Ore" is entered, take that number (let's say "50")
  and modify it to become 0.02 baseValue (divide 1 by the number - 0.2 = 1/50)

@@ -11,9 +11,9 @@ import "../styles/CSVLoader.css";
 
 function CSVLoader() {
   // Fetch the current data and the set function from context
-  const { 
-    csvData, 
-    setCSVData 
+  const {
+    csvData,
+    setCSVData
   } = useContext(CSVContext);
 
   const updateOreAmounts = () => {
@@ -21,7 +21,7 @@ function CSVLoader() {
     const csvInput = document.getElementById("csvInput").value;
     if (!csvInput) return;
     // Split the string (comma delimited) and map the amounts as numbers
-    const newAmounts = csvInput.split(",").map(Number);  
+    const newAmounts = csvInput.split(",").map(Number);
     // Create an updated object with ore names as keys
     const updatedData = OreNames.reduce((acc, ore, index) => {
       acc[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
@@ -46,6 +46,9 @@ function CSVLoader() {
         </li>
         <li>
           <Link to="/tradetool">Trade Tool</Link>
+        </li>
+        <li>
+          <Link to="/misc">Miscellaneous</Link>
         </li>
       </ul>
     </nav>

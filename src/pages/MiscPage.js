@@ -15,10 +15,10 @@ import "../styles/AllGradients.css";
 
 function MiscPage() {
   // Grab the data, john boolean, and function from CSV context
-  const { 
-    csvData, 
-    isJohnValues, 
-    setIsJohnValues 
+  const {
+    csvData,
+    isJohnValues,
+    setIsJohnValues
   } = useContext(CSVContext);
 
   // Function for toggling John/NAN vals with CSV context fetching

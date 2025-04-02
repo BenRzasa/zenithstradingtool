@@ -123,14 +123,14 @@
 [data-theme="dark"] .summary-content {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
-  
+
 /* Dark mode support */
 
 [data-theme="light"] {
     --table-outline: #333;
     --background-color: #ffffff;
 }
-  
+
 [data-theme="dark"] {
     --table-outline: #3a3a3a;
     --background-color: #121212;
@@ -194,11 +194,18 @@
 }
 
 .table-wrapper h2 {
-    font-family: 'Montserrat';
+    font-family:
+        "Segoe UI",                /* Windows */
+        -apple-system,             /* macOS/iOS San Francisco */
+        BlinkMacSystemFont,        /* macOS Chrome */
+        "Roboto",                  /* Android/Google */
+        "Helvetica Neue",          /* Fallback sans-serif */
+        Arial,                     /* Universal fallback */
+        sans-serif;                /* Final generic fallback */
     text-align: center;
     vertical-align: middle;
     font-size: 21px;
-    letter-spacing: -1px;
+    letter-spacing: 0px;
     font-weight: bolder;
     padding: 10px;
     width: 100%;
