@@ -9,7 +9,7 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext";
-import TableComponent from "../components/TableComponent";
+import LayerTable from "../components/LayerTable";
 import { johnValsDict } from "../components/JohnVals";
 import { nanValsDict } from "../components/NANVals";
 import { LayerGradients } from "../components/LayerGradients";
@@ -45,7 +45,7 @@ function ValueChart() {
     clickOffset: { x: 0, y: 0 },
   });
 
-  // Implement the drag handlers
+  // Mouse drag handlers
   const handleMouseDown = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setDragState({
@@ -217,12 +217,10 @@ function ValueChart() {
         let layerSum = 0;
         layerData.forEach((item) => {
           if (excludedOres.includes(item.name)) return;
-
           const inventory = csvData[item.name] || 0;
           const numV = parseFloat(
             (inventory / calculateValue(item.baseValue)).toFixed(1)
           );
-          
           // Track individual ores
           if (numV < minOre.value) {
             minOre = { value: numV, name: item.name, layer: layerName };
@@ -230,7 +228,6 @@ function ValueChart() {
           if (numV > maxOre.value) {
             maxOre = { value: numV, name: item.name, layer: layerName };
           }
-          
           layerSum += numV;
         });
 
@@ -555,7 +552,7 @@ function ValueChart() {
 
               return (
                 <div id={layerName.replace(/\s+/g, "-")} key={layerName}>
-                  <TableComponent
+                  <LayerTable
                     data={layerData}
                     title={layerName}
                     currentMode={currentMode}

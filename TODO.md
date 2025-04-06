@@ -12,6 +12,7 @@
 
 # TO ADD (No particular order):
 ### DONE -- Ore Icons
+### DONE -- Trade Tool -> Button to "Remove Ores from Inventory"
 
 ### Custom Value Setting
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.

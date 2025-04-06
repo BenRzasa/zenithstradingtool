@@ -1,11 +1,11 @@
-/* Trade Tool Specific Styles */
+/* Trade Tool Container */
 .trade-tool-container {
-    margin: 100px;
+    margin: 80px;
     position: relative;
 }
 
 .trade-tool-container h1 {
-    font-size: 40px;
+    font-size: 35px;
     margin-top: 0px;
     text-align: left;
     margin-bottom: 0px;
@@ -15,7 +15,17 @@ ul {
     font-size: 22px;
 }
 
-.t-button-container {
+.t-button-container1 {
+    flex-direction: row;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    gap: 25px;
+    margin-top: 25px;
+    margin-left: 75px;
+}
+
+.t-button-container2 {
     flex-direction: row;
     display: flex;
     justify-content: left;
@@ -25,107 +35,46 @@ ul {
     margin-left: 25px;
 }
 
+/* Main Content Area - Horizontal Layout */
 .trade-main-content {
-    transform: scale(1.25);
     position: relative;
     display: flex;
-    justify-content: left;
-    align-items: flex-start;
-    gap: 1px;
-    margin-top: 135px;
-    margin-left: 175px;
-    width: 100%;
-    max-width: 1200px;
-}
-
-/* Left Column - Discount and Search */
-.trade-controls-column {
-    display: flex;
     flex-direction: column;
-    gap: 1px;
-    width: 30%;
+    gap: 40px;
+    margin-top: 50px;
+    margin-left: 175px;
+    width: calc(100% - 350px);
 }
 
-/* Right Column - Table */
-.trade-table-section {
-    flex: 1;
-    width: 40%;
-    min-width: 500px;
-    max-width: 600px;
-    height: 1000px;
-    margin-top: 0;
+/* Input Controls Row */
+.input-controls-row {
+    margin-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 225px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    max-width: 1000px;
 }
 
-/* Table Styles */
-.trade-table {
-    width: 100%;
-    font-size: 20px;
-    border-collapse: collapse;
-    background-color: transparent;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-.trade-table th {
-    font-size: 25px;
-    border: 2px solid var(--csv-outline);
-    padding: 16px;
-    text-align: center;
-}
-
-.trade-table td {
-    background-color: var(--background-color);
-    font-size: 20px;
-}
-
-/* Totals Section */
-.trade-totals {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: -80px;
-    margin-left: 25px;
-    margin-bottom: -15px
-}
-
-.trade-totals span {
-    color: var(--accent-color);
-}
-
-/* Discount Section */
-.discount-container {
-    width: 100%;
-}
-
-.discount-input {
-    font-family: 'Comfortaa';
-    width: 25%;
-    padding: 12px 20px;
-    font-size: 20px;
-    border: 2px solid var(--csv-outline);
-    border-radius: 8px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    box-sizing: border-box;
-    margin-top: -20px;
-}
-
-/* Search Section */
+/* Search Sections */
 .search-container {
-    width: 100%;
+    flex: 2;
+    min-width: 300px;
     position: relative;
 }
 
 .search-input {
     font-family: 'Comfortaa';
+    width: 275px;
     padding: 12px 20px;
+    margin-top: -10px;
     font-size: 20px;
     border: 2px solid var(--csv-outline);
-    border-radius: 8px 8px 0 0 !important;
+    border-radius: 8px 8px 0 0;
     background-color: transparent;
-    width: 275px;
-    box-sizing: border-box;
     color: var(--text-color);
-    margin-top: -20px;
+    box-sizing: border-box;
 }
 
 .search-results {
@@ -144,6 +93,7 @@ ul {
     scroll-behavior: smooth;
     box-sizing: border-box;
     background-color: var(--background-color);
+    z-index: 10000;
 }
 
 .search-result-item {
@@ -163,190 +113,23 @@ ul {
     color: white;
 }
 
-.trade-table td:first-child {
-    background-color: transparent !important;
-    mix-blend-mode: normal !important;
-  }
-
-/* Ore name cell with gradient background */
-.ore-name-cell {
-    font-family: 'Segoe UI';
-    position: relative;
-    text-align: left;
-    padding: 12px 10px 12px 40px !important;
-    width: fit-content !important;
-    white-space: nowrap;
-    border: 2px solid var(--table-outline);
-    font-size: 20px !important;
-    font-weight: 900;
-    color: white;
-    z-index: 1;
-}
-
-/* Adjusted text outline position */
-.ore-name-cell::before {
-    content: attr(data-text);
-    position: absolute;
-    left: 78px;
-    top: 12px;
-    z-index: -1;
-    color: black;
-    font-weight: 900;
-    font-size: 20px;
-    -webkit-text-stroke: 5px black;
-    -webkit-font-smoothing: antialiased;
-    paint-order: stroke fill;
-    text-rendering: optimizeLegibility;
-}
-
-.t-ore-icon {
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-    margin-left: 0px;
-    margin-right: 8px;
-}
-
-/* Remove the background from other cells */
-.trade-table td:not(.ore-name-cell) {
-    background: none !important;
-    /* Or use your default table cell color */
-    background-color: var(--background-color) !important;
-}
-
-/* Moved delete button to left */
-.delete-ore-button {
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    border: 2px solid black;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    z-index: 2;
-}
-
-.delete-ore-button:hover {
-    background-color: #cc0000;
-}
-
-/* Quantity Cell Alignment */
-.quantity-cell-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: flex-end;
-    width: 100%;
-  }
-
-/* Input field styling */
-.quantity-input {
-    width: 75px;
-    padding: 8px;
-    margin-right: 5px;
-    font-size: 20px;
-    font-family: 'Comfortaa';
-    text-align: center;
-    border: 1px solid var(--csv-outline);
-    border-radius: 4px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    margin-left: auto;
-}
-
-.inventory-check {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-.inventory-check.has-enough {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.inventory-check.not-enough {
-    background-color: #f44336;
-    color: white;
-}
-
-.inventory-count {
-    font-size: 0.9em;
-    color: #666;
-    min-width: 50px;
-    display: inline-block;
-}
-
-/* Global checkmark styling */
-.global-checkmark {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Missing ores warning styling */
-.missing-ores-warning {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    max-width: fit-content;
-    padding: 8px 12px;
-    background-color: #f44336;
-    color: white;
-    border-radius: 4px;
-}
-
-.warning-header {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.missing-ores-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.missing-ore-item {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.9em;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .trade-main-content {
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .input-controls-row {
         flex-direction: column;
-        gap: 50px;
+        align-items: stretch;
     }
 
-    .trade-controls-column,
-    .trade-table-section {
-        width: 100%;
-        min-width: auto;
+    .discount-container,
+    .search-container {
+        min-width: 100%;
+    }
+
+    .trade-table {
+        font-size: 16px;
+    }
+
+    .trade-table th {
+        font-size: 18px;
     }
 }

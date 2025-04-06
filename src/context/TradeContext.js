@@ -15,11 +15,14 @@ export const TradeProvider = ({ children }) => {
       /* Components
         - Selected ores: ores in the trade table
         - Quantities: input numbers in the box
+        - Received ores
         - Discount: percentage saved from discount box
         - John/NAN vals
       */
       selectedOres: [],
       quantities: {},
+      receivedOres: [],
+      receivedQuantities: {},
       discount: 0,
       isJohnValues: false
     };
