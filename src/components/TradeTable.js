@@ -114,7 +114,7 @@ const TradeTable = ({
           </tr>
         </thead>
         <tbody>
-          {ores.map((oreObj) => {
+          {(Array.isArray(ores) ? ores : []).map((oreObj) => {
             const oreClassName = oreObj.className || "";
             return (
               <tr key={`${isReceiveTable ? 'receive-' : ''}${oreObj.name}`} className={oreClassName}>

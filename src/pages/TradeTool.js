@@ -189,19 +189,6 @@ function TradeTool() {
 
   // Updated the calculateTotals function to not apply discount
   const calculateTotals = (ores, quantities, discount = 0) => {
-    console.log('ores:', ores);
-    console.log('quantities:', quantities);
-  
-    if (!Array.isArray(ores)) {
-      console.error('ores is not an array:', ores);
-      return { totalOres: 0, totalAV: 0, discountedAV: 0 };
-    }
-  
-    if (typeof quantities !== 'object') {
-      console.error('quantities is not an object:', quantities);
-      return { totalOres: 0, totalAV: 0, discountedAV: 0 };
-    }
-  
     const safeOres = Array.isArray(ores) ? ores : [];
     const safeQuantities = typeof quantities === 'object' ? quantities : {};
   
@@ -211,10 +198,7 @@ function TradeTool() {
       const qty = Number(safeQuantities[ore.name]) || 0;
       const oreData = allOresWithLayers.find(o => o?.name === ore.name);
   
-      if (!oreData) {
-        console.error('oreData is undefined for ore:', ore);
-        return acc;
-      }
+      if (!oreData) return acc;
   
       const value = Number(oreData?.baseValue) || 1;
       return {
