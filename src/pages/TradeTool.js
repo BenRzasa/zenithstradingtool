@@ -67,6 +67,8 @@ function TradeTool() {
     }))
   );
 
+  console.log('allOresWithLayers:', allOresWithLayers);
+
   // Filter ores based on search term
   const filterOres = (term, source = allOresWithLayers) => {
     // Early return if empty search
@@ -186,18 +188,41 @@ function TradeTool() {
   };
 
   // Updated the calculateTotals function to not apply discount
-  const calculateTotals = (ores = [], quantities = {}) => {
-    // Safe reduce operations
-    const totalOres = ores.reduce((sum, ore) => sum + (quantities[ore.name] || 0), 0);
-    const totalAV = ores.reduce((sum, ore) => {
-      const oreData = allOresWithLayers.find(o => o.name === ore.name);
-      return sum + ((quantities[ore.name] || 0) / (oreData?.baseValue || 1));
-    }, 0);
-    return {
-      totalOres,
-      totalAV: Math.round(totalAV).toFixed(0),
-      discountedAV: Math.round(totalAV * (1 - discount / 100))
-    };
+  const calculateTotals = (ores, quantities, discount = 0) => {
+    console.log('ores:', ores);
+    console.log('quantities:', quantities);
+  
+    if (!Array.isArray(ores)) {
+      console.error('ores is not an array:', ores);
+      return { totalOres: 0, totalAV: 0, discountedAV: 0 };
+    }
+  
+    if (typeof quantities !== 'object') {
+      console.error('quantities is not an object:', quantities);
+      return { totalOres: 0, totalAV: 0, discountedAV: 0 };
+    }
+  
+    const safeOres = Array.isArray(ores) ? ores : [];
+    const safeQuantities = typeof quantities === 'object' ? quantities : {};
+  
+    return safeOres.reduce((acc, ore) => {
+      if (!ore?.name) return acc;
+  
+      const qty = Number(safeQuantities[ore.name]) || 0;
+      const oreData = allOresWithLayers.find(o => o?.name === ore.name);
+  
+      if (!oreData) {
+        console.error('oreData is undefined for ore:', ore);
+        return acc;
+      }
+  
+      const value = Number(oreData?.baseValue) || 1;
+      return {
+        totalOres: acc.totalOres + qty,
+        totalAV: acc.totalAV + (qty / value),
+        discountedAV: acc.discountedAV + (qty / value * (1 - discount / 100))
+      };
+    }, { totalOres: 0, totalAV: 0, discountedAV: 0 });
   };
 
   // Apply global quantity to all ores in a table
@@ -337,23 +362,12 @@ function TradeTool() {
     <div className="trade-tool-container">
       <h1>Welcome to the Trade Tool!</h1>
       <h1>Usage:</h1>
-      <l>
         <ul>
-          1. Start typing an ore or layer name in the search box on the left.
+          <li>Start typing an ore or layer name in the search box on the left.</li>
+          <li>Either click on the ore or hit enter to add it to the list. You can also use arrow keys to navigate up and down the list!</li>
+          <li>Enter the quantity of each ore you wish to trade in the text boxes on the right side.</li>
+          <li>To add a discount to large orders, type the percent in the "Discount %" box.</li>
         </ul>
-        <ul>
-          2. Either click on the ore or hit enter to add it to the list. You can
-          also use arrow keys to navigate up and down the list!
-        </ul>
-        <ul>
-          3. Enter the quantity of each ore you wish to trade in the text boxes
-          on the right side.
-        </ul>
-        <ul>
-          4. To add a discount to large orders, type the percent in the
-          "Discount %" box.
-        </ul>
-      </l>
       <h1>
         ➜ Current Values:{" "}
         <span className="placeholder">

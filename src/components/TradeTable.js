@@ -52,9 +52,9 @@ const TradeTable = ({
       {totals && (
         <div className="totals-and-clear-container">
           <div className="trade-totals">
-            <p>➜ Total AV: <span>{totals.totalAV}</span></p>
+            <p>➜ Total AV: <span>{totals.totalAV.toFixed(0)}</span></p>
             {discount > 0 && (
-              <p>➜ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100))}
+              <p>➜ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}
                 </span>
               </p>
             )}
