@@ -186,27 +186,17 @@ function TradeTool() {
   };
 
   // Updated the calculateTotals function to not apply discount
-  const calculateTotals = (ores, quantities) => {
-    const valueDict = isJohnValues ? johnValsDict : nanValsDict;
-    // Sum up total ore count
-    const totalOres = ores.reduce(
-      (sum, ore) => sum + (quantities[ore.name] || 0),
-      0
-    );
-    // Calculate total AV value (quantity divided by base value)
+  const calculateTotals = (ores = [], quantities = {}) => {
+    // Safe reduce operations
+    const totalOres = ores.reduce((sum, ore) => sum + (quantities[ore.name] || 0), 0);
     const totalAV = ores.reduce((sum, ore) => {
-      const qty = quantities[ore.name] || 0;
-      // Find the ore in the current value dictionary
-      const oreData = Object.values(valueDict)
-        .flat()
-        .find(o => o.name === ore.name);
-      const value = oreData?.baseValue || 1;
-      return sum + qty / value;
+      const oreData = allOresWithLayers.find(o => o.name === ore.name);
+      return sum + ((quantities[ore.name] || 0) / (oreData?.baseValue || 1));
     }, 0);
-    // Return rounded values (without discount)
     return {
       totalOres,
       totalAV: Math.round(totalAV).toFixed(0),
+      discountedAV: Math.round(totalAV * (1 - discount / 100))
     };
   };
 
