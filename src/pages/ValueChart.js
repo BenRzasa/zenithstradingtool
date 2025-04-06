@@ -16,7 +16,7 @@ import { LayerGradients } from "../components/LayerGradients";
 import searchFilters from "../components/SearchFilters";
 
 import "../styles/ValueChart.css";
-import "../styles/TableComponent.css";
+import "../styles/LayerTable.css";
 import "../styles/AllGradients.css";
 
 function ValueChart() {

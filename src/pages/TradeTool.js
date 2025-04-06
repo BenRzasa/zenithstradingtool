@@ -191,15 +191,11 @@ function TradeTool() {
   const calculateTotals = (ores, quantities, discount = 0) => {
     const safeOres = Array.isArray(ores) ? ores : [];
     const safeQuantities = typeof quantities === 'object' ? quantities : {};
-  
     return safeOres.reduce((acc, ore) => {
       if (!ore?.name) return acc;
-  
       const qty = Number(safeQuantities[ore.name]) || 0;
       const oreData = allOresWithLayers.find(o => o?.name === ore.name);
-  
       if (!oreData) return acc;
-  
       const value = Number(oreData?.baseValue) || 1;
       return {
         totalOres: acc.totalOres + qty,

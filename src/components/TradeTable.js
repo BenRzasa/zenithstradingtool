@@ -5,7 +5,9 @@
 
 import React, { useState } from 'react';
 import { oreIcons } from "../lib/oreIcons";
+
 import '../styles/TradeTable.css';
+import '../styles/AllGradients.css';
 
 const TradeTable = ({
   title,
@@ -102,7 +104,7 @@ const TradeTable = ({
                   onChange={(e) => {
                     const value = Math.max(
                       1,
-                      parseInt(e.target.value) || (0)
+                      parseInt(e.target.value) || 1
                     );
                     onGlobalQuantityChange(value);
                   }}
@@ -115,10 +117,9 @@ const TradeTable = ({
         </thead>
         <tbody>
           {(Array.isArray(ores) ? ores : []).map((oreObj) => {
-            const oreClassName = oreObj.className || "";
             return (
-              <tr key={`${isReceiveTable ? 'receive-' : ''}${oreObj.name}`} className={oreClassName}>
-                <td className={`ore-name-cell ${oreClassName}`} data-text={oreObj.name}>
+              <tr key={oreObj.name}>
+                <td className={`tr-name-cell ${oreObj.className || ""}`} data-text={oreObj.name}>
                   <button
                     className="delete-ore-button"
                     onClick={() => onRemoveOre(oreObj)}

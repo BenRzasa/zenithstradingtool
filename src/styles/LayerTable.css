@@ -92,15 +92,15 @@ td {
     font-weight: bold;
 }
 
-/* Add to your theme variables */
+
 :root {
     --accent-color: #5b42f3;
-    /* Purple to match your button gradient */
+
 }
 
 [data-theme="dark"] {
     --accent-color: #33add6;
-    /* Teal for dark mode */
+
 }
 
 .name-column {
@@ -130,7 +130,7 @@ td {
     content: attr(data-text);
     position: absolute;
     left: 37px;
-    top: -2;
+    top: 2px;
     z-index: -1;
     color: black;
     font-size: 21px;
@@ -227,8 +227,8 @@ td {
 
 .copy-filter-btn {
     background: none;
-    border: 1px solid #00ff75;
-    color: #00ff75;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
@@ -249,7 +249,7 @@ td {
 }
 
 .copy-confirmation {
-    color: #00ff75;
+    color: var(--accent-color);
     font-size: 0.8em;
     margin-top: 5px;
     animation: fadeIn 0.3s ease-in;

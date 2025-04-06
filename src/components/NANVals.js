@@ -162,7 +162,7 @@ export const nanValsDict = {
     { name: "Palladium", baseValue: 7, className: "color-template-palladium" },
     { name: "Neptunium", baseValue: 7, className: "color-template-neptunium" },
     { name: "Void Orb", baseValue: 7, className: "color-template-void-orb" },
-    { name: "Nilidust", baseValue: 5, className: "color-template-nilidust" },
+    { name: "Nilidust", baseValue: 8, className: "color-template-nilidust" },
     { name: "Asthenocrit", baseValue: 6, className: "color-template-asthenocrit" }
   ],
 
@@ -305,7 +305,7 @@ export const nanValsDict = {
     { name: "Phosphyll", baseValue: 40, className: "color-template-phosphyll" },
     { name: "Vrimsten", baseValue: 40, className: "color-template-vrimsten" },
     { name: "Zilithorus", baseValue: 20, className: "color-template-zilithorus" },
-    { name: "Rimrock", baseValue: 3, className: "color-template-rimrock" },
+    { name: "Rimrock", baseValue: 4, className: "color-template-rimrock" },
     { name: "Korundum", baseValue: 25, className: "color-template-korundum" },
     { name: "Cytosol", baseValue: 750, className: "color-template-cytosol" },
     { name: "Ichor", baseValue: 7, className: "color-template-ichor" },
@@ -358,7 +358,7 @@ export const nanValsDict = {
     { name: "Starniferus", baseValue: 8, className: "color-template-starniferus" },
     { name: "Ethanerite", baseValue: 8, className: "color-template-ethanerite" },
     { name: "Lumenyl", baseValue: 9, className: "color-template-lumenyl" },
-    { name: "Impervium", baseValue: 13, className: "color-template-impervium" },
+    { name: "Impervium", baseValue: 15, className: "color-template-impervium" },
     { name: "Kryposilus", baseValue: 7, className: "color-template-kryposilus" },
     { name: "Vythusilyte", baseValue: 8, className: "color-template-vythusilyte" }
   ],

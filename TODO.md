@@ -13,6 +13,7 @@
 # TO ADD (No particular order):
 ### DONE -- Ore Icons
 ### DONE -- Trade Tool -> Button to "Remove Ores from Inventory"
+### DONE -- Trade Tool -> To Receive table & add ores in it to inv
 
 ### Custom Value Setting
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.
@@ -38,11 +39,8 @@ pictures, the ore textures, descriptions of the ores, possible lore, etc.
  - Credit the inventor/contributor of the strat
  - e.g., Protireal grind method information, tips and tricks, and so on
 
-### Trade Section - button to "remove selected ores from inventory"
- - Confirmation popup to make sure the user is certain
- - Takes all quantities in the table, matches the name to the CSV data,
-  and subtracts the quantities from their inventory, updating it immediately
 
 ### Graphs?
  - AV/hr of layers, Trade data over time, ores gained/NVs gained over time, etc
-And more coming soon... :]
+
+### And more coming soon... :]

@@ -10,7 +10,7 @@ import { oreIcons } from "../lib/oreIcons";
 
 import "../styles/AllGradients.css";
 import "../styles/ValueChart.css";
-import "../styles/TableComponent.css";
+import "../styles/LayerTable.css";
 
 const TableComponent = ({
   // Table's data fields/components
