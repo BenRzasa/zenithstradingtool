@@ -1,5 +1,5 @@
 /* ZTT | Trade Table Component
- - To condense the code for the Trade tool down a lot.
+ - To condense the code for the Trade tool down a lot
  - Need basically identical tables for to Trade and to Receive
 */
 
@@ -36,7 +36,7 @@ const TradeTable = ({
   <div>
     <div className="table-container">
       <h2>{title}</h2>
-      {/* Discount Input */}
+      {/* Discount input - 0->100 */}
       <div className="discount-container">
         <h3>Discount %</h3>
         <input
@@ -50,7 +50,7 @@ const TradeTable = ({
           placeholder="Discount %"
         />
       </div>
-      {/* Totals Section */}
+      {/* Totals section - displays the total, discounted (if applicable) and number of ores */}
       {totals && (
         <div className="totals-and-clear-container">
           <div className="trade-totals">
@@ -62,7 +62,7 @@ const TradeTable = ({
             )}
             <p>➜ Total # Ores: <span>{totals.totalOres}</span></p>
           </div>
-          {/* Inventory Status */}
+          {/* Inventory status */}
           {!isReceiveTable && inventoryStatus && (
             <>
               {inventoryStatus.allOresAvailable ? (
@@ -70,6 +70,8 @@ const TradeTable = ({
                   ✓ All ores available in inventory
                 </div>
               ) : (
+                // Dynamically display a list of the missing ores if there are any
+                // Mapped from the oreObj array with its index as a unique key
                 inventoryStatus.hasMissingOres && (
                   <div className="missing-ores-warning">
                     <div className="warning-header">✖ Missing:</div>
@@ -116,9 +118,11 @@ const TradeTable = ({
           </tr>
         </thead>
         <tbody>
+          {/* Ore Name column with additional security to fix null reads */}
           {(Array.isArray(ores) ? ores : []).map((oreObj) => {
             return (
               <tr key={oreObj.name}>
+                {/* Gets the gradient dynamically */}
                 <td className={`tr-name-cell ${oreObj.className || ""}`} data-text={oreObj.name}>
                   <button
                     className="delete-ore-button"
@@ -126,6 +130,7 @@ const TradeTable = ({
                   >
                     ✖
                   </button>
+                  {/* Ore icon - again, sourced dynamically from the name */}
                   <img
                     src={oreIcons[oreObj.name.replace(/ /g, '_')]}
                     alt={`${oreObj.name} icon`}
@@ -139,6 +144,7 @@ const TradeTable = ({
                   {oreObj.name}
                 </td>
                 <td>
+                  {/* Quantity input cell - allows the user to change & increment */}
                   <div className="quantity-cell-container">
                     {showInventory && (
                       <>
@@ -155,6 +161,7 @@ const TradeTable = ({
                         </div>
                       </>
                     )}
+                    {/* Main input section of the cell - checks for recieve cell */}
                     <input
                       type="number"
                       value={quantities[oreObj.name] ?? ""}
@@ -166,6 +173,7 @@ const TradeTable = ({
                     />
                   </div>
                 </td>
+                {/* Shows the total av of the individual ore based off the amount */}
                 <td>
                   {calculateAV ?
                     calculateAV(oreObj.name) :

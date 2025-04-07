@@ -189,7 +189,9 @@ function TradeTool() {
 
   // Updated the calculateTotals function to not apply discount
   const calculateTotals = (ores, quantities, discount = 0) => {
+    // Ensure it can never be "null"
     const safeOres = Array.isArray(ores) ? ores : [];
+    // Same here - this is crucial to prevent rendering/reading errors
     const safeQuantities = typeof quantities === 'object' ? quantities : {};
     return safeOres.reduce((acc, ore) => {
       if (!ore?.name) return acc;
@@ -202,6 +204,7 @@ function TradeTool() {
         totalAV: acc.totalAV + (qty / value),
         discountedAV: acc.discountedAV + (qty / value * (1 - discount / 100))
       };
+      // Dsfaults to 0 as default case
     }, { totalOres: 0, totalAV: 0, discountedAV: 0 });
   };
 

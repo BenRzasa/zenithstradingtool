@@ -1,11 +1,11 @@
 /* ZTT | Miscellaneous info page
-  - 
+  - Will contain various
 */
 
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext";
-import { TradeContext } from "../context/TradeContext";
+// import { TradeContext } from "../context/TradeContext";
 import { johnValsDict } from "../components/JohnVals";
 import { nanValsDict } from "../components/NANVals";
 import searchFilters from "../components/SearchFilters";

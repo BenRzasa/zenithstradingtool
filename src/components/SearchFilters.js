@@ -28,7 +28,7 @@ const searchFilters = [
   "➜ Stability: al b/ted b/fabric/mavri",
   "➜ Planck: string/hadr/axio/viton/meso/tachy/desme",
   "➜ Conversion/Disarray/Breakage/Criticality: Ailm/terr/sinf/gyri/kraz/tendro/rk e/corro/antir/hype/therm/alkan",
-  "➜ Grim 1 / Hive / Grim 2: Dys/Malb/Grim/Cyt/Macus/Korun/Trina/Neur",
+  "➜ Grim 1 / Hive / Grim 2: gri/phos/vrim/zili/rimr/und/cyt/icho/cen/neur/trina/adre/mac",
   "➜ Murk: Lep/Mez/Tay/Thul/Rhy",
   "➜ Event Horizon: r s/nebu/arki/non/auro/kore/apia/ecto/havi/rhy/solar/ubri",
   "➜ Sediment: Singu/Rhy/Ubri/Havi/Ecto/r s",

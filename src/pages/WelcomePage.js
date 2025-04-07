@@ -3,13 +3,15 @@
 */
 
 import logo from "../images/misc/Site-logo.webp";
-import ambro from "../images/misc/Ambrosine.webp";
 import universallium from "../images/misc/Universallium.webp";
-import havicron from "../images/misc/Havicron.webp";
 import neutrine from "../images/misc/Neutrine.webp";
-import ubriniale from "../images/misc/Ubriniale.webp";
 import tornfabric from "../images/misc/Torn_Fabric.webp";
 import singularity from "../images/misc/Singularity.webp";
+/*
+  import ambro from "../images/misc/Ambrosine.webp";
+  import ubriniale from "../images/misc/Ubriniale.webp";
+  import havicron from "../images/misc/Havicron.webp";
+*/
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +69,7 @@ function WelcomePage() {
           <div className="card-title-wrap">
             <h1 className="title">
               <span className="copy-wrap">
-                Welcome to Zenith's Trading Tool β1.0!
+                Welcome to Zenith's Trading Tool β1.1!
               </span>
             </h1>
           </div>
