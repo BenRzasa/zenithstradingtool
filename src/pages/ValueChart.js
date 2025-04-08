@@ -105,6 +105,8 @@ function ValueChart() {
         return baseValue * 500; // TV
       case 5:
         return baseValue * 1000; // SV
+      case 6:
+        return baseValue * 50; // RV
       default:
         return baseValue;
     }
@@ -129,6 +131,8 @@ function ValueChart() {
       ? "TV"
       : currentMode === 5
       ? "SV"
+      : currentMode === 6
+      ? "RV"
       : "BAD";
 
   // Calculate quick summary info
@@ -460,7 +464,7 @@ function ValueChart() {
 
         {/* Mode Selection Buttons */}
         <div
-          className="button-container"
+          className="val-button-container"
           style={{ flexDirection: "row", flexWrap: "wrap" }}
         >
           {[
@@ -488,6 +492,11 @@ function ValueChart() {
               className: "color-template-singularity",
               label: "SV Mode",
             },
+            {
+              mode: 6,
+              className: "color-template-rhylazil",
+              label: "RV Mode",
+            }
           ].map(({ mode, className, label }) => (
             <div className="box-button" key={mode}>
               <button

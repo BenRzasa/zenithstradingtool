@@ -34,6 +34,8 @@ const TableComponent = ({
       ? "TV"
       : currentMode === 5
       ? "SV"
+      : currentMode === 6
+      ? "RV"
       : "BAD";
 
   // Function to calculate the value based on the current mode
@@ -49,6 +51,8 @@ const TableComponent = ({
         return baseValue * 500; // TV
       case 5:
         return baseValue * 1000; // SV
+      case 6:
+        return baseValue * 50; // RV
       default:
         return baseValue;
     }
@@ -79,6 +83,8 @@ const TableComponent = ({
         ? 500
         : mode === 5
         ? 1000
+        : mode === 6
+        ? 50
         : 1;
     const scaledValue = num * scaleFactor;
     // Strict truncation function (no rounding)
