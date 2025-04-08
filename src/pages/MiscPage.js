@@ -1,5 +1,11 @@
 /* ZTT | Miscellaneous info page
-  - Will contain various
+  - Will contain various helful sections and miscellaneous info
+  that the average user & more serious player will find useful
+  - Includes, but not limited to:
+    - Rare grind strategies
+    - Normal ore grind strategies
+    - Various statistics about the user's inventory
+    - Copyable search filters for use in-game
 */
 
 import React, { useContext } from "react";

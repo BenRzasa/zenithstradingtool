@@ -1,1 +1,1 @@
-### PLACEHOLDER - ADD USAGE INSTRUCTIONS FOR THE SITE HERE
+### Zenith's Trading Tool | Created for The Celestial Caverns

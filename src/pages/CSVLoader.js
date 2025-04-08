@@ -1,5 +1,9 @@
 /* ZTT | CSV Loader Page
-  - 
+  - Allows the user to update their data and view
+  the name and quantity of each ore in their inventory.
+  - Parses a CSV string, comma-separated, to ore names in
+  alphabetical order. Stored in local storage to ensure persistency
+  across sessions
 */
 
 import React, { useContext } from "react";
@@ -16,6 +20,7 @@ function CSVLoader() {
     setCSVData
   } = useContext(CSVContext);
 
+  // Update the amounts unless there is no data in the box
   const updateOreAmounts = () => {
     // Check for existing CSV Input already
     const csvInput = document.getElementById("csvInput").value;
@@ -38,18 +43,10 @@ function CSVLoader() {
     {/* Nav Bar - remains fixed at top */}
     <nav className="nav">
       <ul>
-        <li>
-          <Link to="/">Back to Home Page</Link>
-        </li>
-        <li>
-          <Link to="/valuechart">Value Chart</Link>
-        </li>
-        <li>
-          <Link to="/tradetool">Trade Tool</Link>
-        </li>
-        <li>
-          <Link to="/misc">Miscellaneous</Link>
-        </li>
+        <li><Link to="/">Back to Home Page</Link></li>
+        <li><Link to="/valuechart">Value Chart</Link></li>
+        <li><Link to="/tradetool">Trade Tool</Link></li>
+        <li><Link to="/misc">Miscellaneous</Link></li>
       </ul>
     </nav>
     <div className="main-container">
@@ -62,7 +59,7 @@ function CSVLoader() {
       </l>
       {/* Main content area with flex layout */}
       <div className="main-content">
-        {/* Ore List Table - now part of flex layout */}
+        {/* Ore list table - now part of flex layout */}
         <div className="ore-table-parent">
           <div className="ore-list">
             <table>

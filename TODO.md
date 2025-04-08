@@ -15,7 +15,7 @@
 ### DONE -- Trade Tool -> Button to "Remove Ores from Inventory"
 ### DONE -- Trade Tool -> To Receive table & add ores in it to inv
 
-### Custom Value Setting
+### Custom Value Setting - Maybe
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.
  - Have the user search for an ore, then enter a value in "Ore Per AV" OR "AV Per Ore"
     - Use a similar interface to the Trade Tool search box and table

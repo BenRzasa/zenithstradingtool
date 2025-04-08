@@ -25,11 +25,14 @@ const TradeTable = ({
   totals,
   inventoryStatus
 }) => {
+  // State for discount per table
   const [discount, setDiscount] = useState(0);
-
+  // Handle the discount state updating
   const handleDiscountChange = (e) => {
+    // Parse the float input (also handles integer)
     const value = parseFloat(e.target.value) || 0;
-    setDiscount(Math.min(100, Math.max(0, value))); // Clamp between 0-100
+    // Clamp between 0-100%
+    setDiscount(Math.min(100, Math.max(0, value)));
   };
 
   return (
@@ -55,6 +58,7 @@ const TradeTable = ({
         <div className="totals-and-clear-container">
           <div className="trade-totals">
             <p>➜ Total AV: <span>{totals.totalAV.toFixed(0)}</span></p>
+            {/* Only display the discounted AV if there IS a discount */}
             {discount > 0 && (
               <p>➜ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}
                 </span>
@@ -110,7 +114,8 @@ const TradeTable = ({
                     );
                     onGlobalQuantityChange(value);
                   }}
-                  className={`quantity-input ${isReceiveTable ? 'receive-input' : ''}`}
+                  className={`quantity-input ${isReceiveTable
+                           ? 'receive-input' : ''}`}
                 />
               </div>
             </th>
@@ -123,7 +128,8 @@ const TradeTable = ({
             return (
               <tr key={oreObj.name}>
                 {/* Gets the gradient dynamically */}
-                <td className={`tr-name-cell ${oreObj.className || ""}`} data-text={oreObj.name}>
+                <td className={`tr-name-cell ${oreObj.className || ""}`} 
+                    data-text={oreObj.name}>
                   <button
                     className="delete-ore-button"
                     onClick={() => onRemoveOre(oreObj)}
@@ -168,7 +174,8 @@ const TradeTable = ({
                       onChange={(e) =>
                         onQuantityChange(oreObj.name, e.target.value, isReceiveTable)
                       }
-                      className={`quantity-input ${isReceiveTable ? 'receive-input' : ''}`}
+                      className={`quantity-input ${isReceiveTable 
+                               ? 'receive-input' : ''}`}
                       min={1}
                     />
                   </div>

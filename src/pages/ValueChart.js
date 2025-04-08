@@ -431,6 +431,7 @@ function ValueChart() {
         </header>
         {/* Value buttons */}
         <div className="button-container" style={{ flexDirection: "row" }}>
+          {/* More stats button - expands quick summary & enables more info */}
           <div className="box-button">
             <button
               onClick={() => {
@@ -462,7 +463,8 @@ function ValueChart() {
           </div>
         </div>
 
-        {/* Mode Selection Buttons */}
+        {/* Mode selection buttons */}
+        {/* AV/UV/RV/NV/TV/SV */}
         <div
           className="val-button-container"
           style={{ flexDirection: "row", flexWrap: "wrap" }}
@@ -479,6 +481,11 @@ function ValueChart() {
               label: "UV Mode",
             },
             {
+              mode: 6,
+              className: "color-template-rhylazil",
+              label: "RV Mode",
+            },
+            {
               mode: 3,
               className: "color-template-neutrine",
               label: "NV Mode" },
@@ -491,12 +498,10 @@ function ValueChart() {
               mode: 5,
               className: "color-template-singularity",
               label: "SV Mode",
-            },
-            {
-              mode: 6,
-              className: "color-template-rhylazil",
-              label: "RV Mode",
             }
+            // Mapped to avoid more redundant code
+            // Key is the mode, template has the mode number,
+            // Class name (gradient template) & label (text)
           ].map(({ mode, className, label }) => (
             <div className="box-button" key={mode}>
               <button
@@ -511,6 +516,8 @@ function ValueChart() {
 
         {/* Back to Top button */}
         {showBackToTop && (
+          // Should probably move this styling into the css.
+          // Just title it ".back-to-top"...
           <div
             className="box-button"
             style={{
@@ -538,6 +545,7 @@ function ValueChart() {
             <option value="" disabled>
               Select a table...
             </option>
+            {/* Map all tables/layers to the results based on the names */}
             {tableNames.map((name) => (
               <option key={name} value={name.replace(/\s+/g, "-")}>
                 {name}
@@ -546,7 +554,13 @@ function ValueChart() {
           </select>
         </div>
 
-        {/* Tables Section */}
+        {/* Tables section */}
+        {/* Makes use of the LayerTable component
+            - Accounts for John/NAN vals
+            - Finds the gradient key (color-template-oreName) and applies
+            - Layer name is the header outside of the table in the wrapper
+            - Layer data, name, mode, csv data, gradient, and search filter is passed in
+        */}
         <div className="tables-container">
           {Object.entries(isJohnValues ? johnValsDict : nanValsDict).map(
             ([layerName, layerData]) => {
