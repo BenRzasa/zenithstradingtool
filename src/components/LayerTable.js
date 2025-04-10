@@ -3,7 +3,7 @@
   given the layer name, ore names, and a base value. And the gradient!
 */
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { CSVContext } from "../context/CSVContext";
 
 import { oreIcons } from "../lib/oreIcons";
@@ -23,38 +23,30 @@ const TableComponent = ({
   const { csvData, setCSVData } = useContext(CSVContext);
 
   // Pick the string based on the value mode
-  const modeStr =
-    currentMode === 1
-      ? "AV"
-      : currentMode === 2
-      ? "UV"
-      : currentMode === 3
-      ? "NV"
-      : currentMode === 4
-      ? "TV"
-      : currentMode === 5
-      ? "SV"
-      : currentMode === 6
-      ? "RV"
-      : "BAD";
+  // Now memoized to avoid unnecessary re-calculations
+  // eslint-disable-next-line
+  const modeStr = useMemo(() => {
+    switch (currentMode) {
+      case 1: return "AV"; // AV
+      case 2: return "UV"; // UV
+      case 3: return "NV"; // NV
+      case 4: return "TV"; // TV
+      case 5: return "SV"; // SV
+      case 6: return "RV"; // RV
+      default: return "AV"; // Default to AV
+    }
+  })
 
   // Function to calculate the value based on the current mode
   const calculateValue = (baseValue) => {
     switch (currentMode) {
-      case 1:
-        return baseValue * 1; // AV
-      case 2:
-        return baseValue * 10; // UV
-      case 3:
-        return baseValue * 100; // NV
-      case 4:
-        return baseValue * 500; // TV
-      case 5:
-        return baseValue * 1000; // SV
-      case 6:
-        return baseValue * 50; // RV
-      default:
-        return baseValue;
+      case 1: return baseValue * 1; // AV
+      case 2: return baseValue * 10; // UV
+      case 3: return baseValue * 100; // NV
+      case 4: return baseValue * 500; // TV
+      case 5: return baseValue * 1000; // SV
+      case 6: return baseValue * 50; // RV
+      default: return baseValue;
     }
   };
 
@@ -75,17 +67,12 @@ const TableComponent = ({
     if (mode === 1) return num.toString();
     // Calculate scaled value
     const scaleFactor =
-      mode === 2
-        ? 10
-        : mode === 3
-        ? 100
-        : mode === 4
-        ? 500
-        : mode === 5
-        ? 1000
-        : mode === 6
-        ? 50
-        : 1;
+      mode === 2 ? 10   // UV
+    : mode === 3 ? 100  // NV
+    : mode === 4 ? 500  // TV
+    : mode === 5 ? 1000 // SV
+    : mode === 6 ? 50   // RV
+    : 1;  // Default to 1
     const scaledValue = num * scaleFactor;
     // Strict truncation function (no rounding)
     const truncate = (n, decimals) => {

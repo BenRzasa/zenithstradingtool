@@ -2,15 +2,14 @@
 
 ## TO FIX:
 
-### Misc: Update formatting, add verbosity, clean up code & css files
-   - Add header comment to each file, and more usage & details on what the functions do
-
+### DONE -- Misc: Update formatting, add verbosity, clean up code & css files
 ### DONE -- First: fix github-pages deployment crashing
 ### DONE -- Quick Summary
 ### DONE -- Trade Tool
 ### DONE -- Main Page layout
 
-# TO ADD (No particular order):
+## TO ADD (No particular order):
+
 ### DONE -- Ore Icons
 ### DONE -- Trade Tool -> Button to "Remove Ores from Inventory"
 ### DONE -- Trade Tool -> To Receive table & add ores in it to inv

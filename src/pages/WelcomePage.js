@@ -2,7 +2,7 @@
     The page the user will see upon entering the site
 */
 
-import logo from "../images/misc/Site-logo.webp";
+import logo from "../images/misc/tcc_icon_afterfool.png";
 import universallium from "../images/misc/Universallium.webp";
 import neutrine from "../images/misc/Neutrine.webp";
 import tornfabric from "../images/misc/Torn_Fabric.webp";
@@ -62,8 +62,10 @@ function WelcomePage() {
               position: "absolute",
               zIndex: "10000",
               marginLeft: "0px",
-              marginTop: "900px",
-              transform: "scale(1.25)",
+              marginTop: "935px",
+              transform: "scale(1)",
+              border: "25px solid black",
+              borderRadius: "15px"
             }}
           />
           <div className="card-title-wrap">
