@@ -106,7 +106,7 @@ function CSVLoader() {
   };
 
   return (
-    <div>
+    <>
     {/* Nav Bar - remains fixed at top */}
     <NavBar />
     <div className="main-container">
@@ -270,7 +270,7 @@ function CSVLoader() {
       </div>
     </div>
     )}
-    </div>
+    </>
   );
 }
 

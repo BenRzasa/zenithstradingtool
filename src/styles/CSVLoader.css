@@ -5,22 +5,23 @@
     justify-content: left;
     align-items: flex-start;
     gap: 25px;
-    margin: 50px 0px 0px 100px;
+    margin: 50px 0px 0px 50px;
     width: calc(100% - 400px);
     max-width: 1600px;
 }
 
 .main-container h1 {
-    margin-top: 100px;
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .main-container {
-    margin-left: 75px;
+    margin-left: 50px;
+    padding-top: 50px;
 }
 
 .main-container ul {
-    margin-left: 75px;
+margin-left: 30px;
+    position: relative;
 }
 
 /* Equal width for both sections */
@@ -120,7 +121,7 @@
 }
 
 .value-change-summary {
-    margin: 50px 175px;
+    margin: 50px 110px;
     padding: 15px;
     background: rgba(0,0,0,0.1);
     border-radius: 15px;
@@ -171,7 +172,7 @@
 
 .ore-table-parent {
     overflow: hidden;
-    overflow-x: scroll;
+    overflow-x: auto ;
     overflow-y: scroll;
     height: 500px;
     min-width: 600px;
@@ -230,8 +231,8 @@
         gap: 50px;
         margin: 100px 50px 0 50px;
     }
-    
-    .ore-list, 
+
+    .ore-list,
     .csv-input {
         width: 100%;
         max-width: 100%;
