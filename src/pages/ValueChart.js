@@ -8,13 +8,13 @@
 */
 
 import React, { useState, useContext, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext";
 import LayerTable from "../components/LayerTable";
 import { johnValsDict } from "../components/JohnVals";
 import { nanValsDict } from "../components/NANVals";
 import { LayerGradients } from "../components/LayerGradients";
 import searchFilters from "../components/SearchFilters";
+import NavBar from '../components/NavBar';
 
 
 import "../styles/ValueChart.css";
@@ -413,26 +413,10 @@ function ValueChart() {
           </div>
         )}
       </div>
+      <div>
+        <NavBar />
+      </div>
       <div className="container">
-        {/* Header Section */}
-        <header className="header">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/tradetool">Trade Tool</Link>
-              </li>
-              <li>
-                <Link to="/csvloader">CSV Loader</Link>
-              </li>
-              <li>
-                <Link to="/misc">Miscellaneous</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
         {/* Value buttons */}
         <div className="button-container" style={{ flexDirection: "row" }}>
           {/* More stats button - expands quick summary & enables more info */}

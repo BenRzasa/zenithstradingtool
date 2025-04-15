@@ -17,6 +17,10 @@
 ### DONE -- Custom Background Image (Main page only)
 ### DONE -- Date & Amount since last CSV change
 
+### Tentative - SETTINGS PAGE
+ - Need ideas here...
+### Value Chart Page - background transparency/opacity overlay of some sort
+ - Pop-up that the user can have (Maybe just make a settings page at this point...)
 ### Custom Value Setting - Per ore
  - Could just have the user set up their own values from scratch, or start with a baseline
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.

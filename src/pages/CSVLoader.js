@@ -7,7 +7,7 @@
 */
 
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 import { OreNames } from "../components/OreNames";
 import { CSVContext } from "../context/CSVContext";
 
@@ -108,14 +108,7 @@ function CSVLoader() {
   return (
     <div>
     {/* Nav Bar - remains fixed at top */}
-    <nav className="nav">
-      <ul>
-        <li><Link to="/">Back to Home Page</Link></li>
-        <li><Link to="/valuechart">Value Chart</Link></li>
-        <li><Link to="/tradetool">Trade Tool</Link></li>
-        <li><Link to="/misc">Miscellaneous</Link></li>
-      </ul>
-    </nav>
+    <NavBar />
     <div className="main-container">
       {/* Usage instructions for the user */}
       <h1>CSV Loader Usage:</h1>

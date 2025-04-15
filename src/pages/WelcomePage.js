@@ -14,13 +14,28 @@ import singularity from "../images/misc/Singularity.webp";
 */
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import NavBar from "../components/NavBar";
+
 import "../styles/WelcomePage.css";
 
 function WelcomePage() {
-  const navigate = useNavigate();
   return (
     <div className="welcome-page">
+      {/* TCC Logo */}
+      <img
+        src={logo}
+        alt="Site Logo"
+        className="site-logo"
+        style={{
+          position: "absolute",
+          zIndex: "10000",
+          marginLeft: "0px",
+          top: "25%", bottom: "50%",
+          border: "15px solid black",
+          transform: "scale(0.5)",
+          borderRadius: "15px"
+        }}
+      />
       {/* Corner images container */}
       <div className="corner-images-container">
         <img
@@ -51,23 +66,10 @@ function WelcomePage() {
           </span>
         </h1>
 
+        <NavBar />
+
         <div className="square"></div>
         <div className="wcard">
-          {/* TCC Logo */}
-          <img
-            src={logo}
-            alt="Site Logo"
-            className="site-logo"
-            style={{
-              position: "absolute",
-              zIndex: "10000",
-              marginLeft: "0px",
-              marginTop: "935px",
-              transform: "scale(1)",
-              border: "15px solid black",
-              borderRadius: "15px"
-            }}
-          />
           <div className="card-title-wrap">
             <h1 className="title">
               <span className="copy-wrap">
@@ -77,41 +79,7 @@ function WelcomePage() {
           </div>
           <div className="card-img"></div>
         </div>
-        {/* Buttons section */}
-        <div className="button-container">
-          <div className="box-button">
-            <button onClick={() => navigate("/csvloader")}>
-              <span>CSV Loader</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button onClick={() => navigate("/valuechart")}>
-              <span>Value Chart</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button onClick={() => navigate("/tradetool")}>
-              <span>Trade Tool</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button onClick={() => navigate("/misc")}>
-              <span>Misc Info</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button
-              onClick={() =>
-                window.open(
-                  "https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki",
-                  "_blank"
-                )
-              }
-            >
-              <span>TCC Wiki Page</span>
-            </button>
-          </div>
-        </div>
+
         <h2 className="copyright">
           <span className="copy-wrap">20&nbsp;&nbsp;&nbsp;&nbsp;25</span>
         </h2>

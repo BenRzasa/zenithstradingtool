@@ -10,7 +10,8 @@
 
 // This comment was added on my Arch Linux WSL2 environment.
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import { Link } from 'react-router-dom';
 import { CSVContext } from "../context/CSVContext";
 // import { TradeContext } from "../context/TradeContext";
 import { johnValsDict } from "../components/JohnVals";
@@ -158,24 +159,9 @@ function MiscPage() {
   ];
 
   return (
+    <div>
+    <NavBar />
     <div className="misc-page">
-      <nav className="misc-nav">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/valuechart">Value Chart</Link>
-          </li>
-          <li>
-            <Link to="/tradetool">Trade Tool</Link>
-          </li>
-          <li>
-            <Link to="/csvloader">CSV Loader</Link>
-          </li>
-        </ul>
-      </nav>
-
       <div className="cards-container">
         {cards.map((card) => (
           <div key={card.id} className="card">
@@ -189,6 +175,7 @@ function MiscPage() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

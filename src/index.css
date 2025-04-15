@@ -102,41 +102,6 @@
   opacity: 1;
 }
 
-nav {
-  position: fixed;
-  top: -15px;
-  right: -10px;
-  padding: 25px;
-  padding-top: 35px;
-  z-index: 1000;
-  background-color: rgb(221, 221, 221);
-  border-radius: 15px;
-  box-shadow: inset 0px 10px 10px #141414;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
 /* Global Styles */
 body {
   transition: background-image 0.5s ease;

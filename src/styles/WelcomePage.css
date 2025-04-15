@@ -50,29 +50,29 @@
 }
 
 .corner-image {
-  position: absolute;
-  width: 200px;
-  height: 200px;
+  position: fixed;
+  width: 150px;
+  height: 150px;
 }
 
 .corner-image.top-left {
-  top: 200px;
-  left: 200px;
+  top: 85px;
+  left: 85px;
 }
 
 .corner-image.top-right {
-  top: 200px;
-  right: 200px;
+  top: 85px;
+  right: 85px;
 }
 
 .corner-image.bottom-left {
-  bottom: 200px;
-  left: 200px;
+  bottom: 85px;
+  left: 85px;
 }
 
 .corner-image.bottom-right {
-  bottom: 200px;
-  right: 200px;
+  bottom: 85px;
+  right: 85px;
 }
 
 /*--------------------------------------------------
@@ -80,34 +80,34 @@
 --------------------------------------------------*/
 .welcome-page .square {
   padding: 120px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   transform: translate3d(-50%,-50%,0);
   position: absolute;
   top: 50%;
   left: 50%;
   /* Torn
-  background: linear-gradient(123deg, 
-      #feffff 0%, #ccffff 13.8%, 
-      #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%, 
+  background: linear-gradient(123deg,
+      #feffff 0%, #ccffff 13.8%,
+      #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%,
       #a17cc3 64.4%, #403e68 84.3%, #171c41 100%);
   */
-  background: linear-gradient(135deg, 
-  #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, 
+  background: linear-gradient(135deg,
+  #fdfcef 0%, #d3f8f8 20%, #faedfd 30%,
   #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%,
    #edebd6 70%, #ecf9df 80%, #b7dce1 100%);
   background-clip: content-box;
   background-size: 800% 800%;
-  border-color: currentColor; 
+  border-color: currentColor;
   animation: partytime 20s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-  transition: 
+  transition:
       padding 1s cubic-bezier(0.215, 0.61, 0.355, 1),
       background-position 0.8s cubic-bezier(0.39, 0.58, 0.57, 1);
   will-change: transform, background-position;
   z-index: 1 !important;
 }
 
-@keyframes partytime { 
+@keyframes partytime {
   0% { background-position: 0% 50% }
   25% { background-position: 50% 100% }
   50% { background-position: 100% 50% }
@@ -119,13 +119,6 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
-  transition: transform 1.25s cubic-bezier(0.215, 0.61, 0.355, 1), 
-              box-shadow 1.25s cubic-bezier(0.215, 0.61, 0.355, 1), 
-              filter 1.25s cubic-bezier(0.215, 0.61, 0.355, 1), 
-              opacity 1.25s cubic-bezier(0.215, 0.61, 0.355, 1);
-  transform: perspective(1600px) translate3d(0, 0, 0) scale(0.5);
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -151,12 +144,14 @@
   Title/name/copyright
 --------------------------------------------------*/
 .welcome-page .title {
-  margin-top: 100px;
-  font-size: 100px;
+  margin-top: 150px;
+  font-size: 60px;
   letter-spacing: 0.02em;
   font-weight: 800;
   overflow: hidden;
   color: black;
+  position: relative;
+  max-width: 800px;
 }
 
 .welcome-page .name,

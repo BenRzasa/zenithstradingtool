@@ -21,6 +21,7 @@ function App() {
     return (
         <TradeProvider>
             <CSVProvider>
+                <div className="app-container">
                 <HashRouter>
                     <Routes>
                         <Route path="/" element={<WelcomePage />} />
@@ -37,6 +38,7 @@ function App() {
                         <Route path="/misc" element={<MiscPage />} />
                     </Routes>
                 </HashRouter>
+                </div>
             </CSVProvider>
         </TradeProvider>
     );

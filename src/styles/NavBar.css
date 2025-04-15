@@ -1,0 +1,46 @@
+nav {
+  margin-top: 25px;
+  font-family: 'Comfortaa';
+  position: fixed !important;
+  right: 15px;
+  padding: 15px;
+  z-index: 1000;
+  background-color: rgb(221, 221, 221);
+  border-radius: 15px;
+  box-shadow: inset 0px 2px 2px #141414;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+.dropdown-menu {
+  direction: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.nav-h {
+  color: black;
+}

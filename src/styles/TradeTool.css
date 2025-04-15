@@ -1,14 +1,12 @@
 /* Trade Tool Container */
 .trade-tool-container {
     margin: 80px;
-    position: relative;
+    position: absolute;
 }
 
 .trade-tool-container h1 {
     font-size: 35px;
-    margin-top: 0px;
     text-align: left;
-    margin-bottom: 0px;
 }
 
 ul {

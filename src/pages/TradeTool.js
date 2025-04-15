@@ -11,7 +11,7 @@
 */
 
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 import { CSVContext } from "../context/CSVContext";
 import { TradeContext } from "../context/TradeContext";
 import { johnValsDict } from "../components/JohnVals";
@@ -342,6 +342,8 @@ function TradeTool() {
 
   // Main trade tool interface
   return (
+  <div>
+    <NavBar />
     <div className="trade-tool-container">
       <h1>Welcome to the Trade Tool!</h1>
       <h1>Usage:</h1>
@@ -357,22 +359,6 @@ function TradeTool() {
           {isJohnValues ? "John's Values" : "NAN's Values"}
         </span>
       </h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/valuechart">Value Chart</Link>
-          </li>
-          <li>
-            <Link to="/csvloader">CSV Loader</Link>
-          </li>
-          <li>
-            <Link to="/misc">Miscellaneous</Link>
-          </li>
-        </ul>
-      </nav>
       <div className="t-button-container1">
         <div className="box-button">
           <button
@@ -512,6 +498,7 @@ function TradeTool() {
           totals={calculateTotals(receivedOres, receivedQuantities, true)}
         />
       </div>
+    </div>
     </div>
   );
 }
