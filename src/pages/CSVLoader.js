@@ -124,7 +124,8 @@ function CSVLoader() {
         <ul>2. Click "Update Amounts" button to load your CSV data into the website.</ul>
         <ul>3. Navigate to the Value Chart by clicking on the link in the top right corner.</ul>
         {/* Show the time & date when the CSV data was last updated */}
-        <ul className='placeholder'>Last Updated: {lastUpdated.toLocaleString()}</ul>
+        <ul className='placeholder'>
+          Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</ul>
       </l>
       {/* Main content area with flex layout */}
       <div className="main-content">

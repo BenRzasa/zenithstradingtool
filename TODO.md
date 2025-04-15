@@ -17,7 +17,7 @@
 ### DONE -- Custom Background Image (Main page only)
 ### DONE -- Date & Amount since last CSV change
 
-### Custom Value Setting - Per ore / global basis
+### Custom Value Setting - Per ore
  - Could just have the user set up their own values from scratch, or start with a baseline
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.
  - Have the user search for an ore, then enter a value in "Ore Per AV" OR "AV Per Ore"
