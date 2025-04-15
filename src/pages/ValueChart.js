@@ -1,6 +1,7 @@
 // Value Chart page. Provides functionality below:
 /*
     - Dynamically switch between UV (10x AV), NV (100x AV) and SV (1000x AV)
+    - and more
     - Switch between John and NAN's values (based off the dictionaries)
     - Users can copy search filters of all ores in the layer
     - Display various global and layer-specific stats
@@ -14,6 +15,7 @@ import { johnValsDict } from "../components/JohnVals";
 import { nanValsDict } from "../components/NANVals";
 import { LayerGradients } from "../components/LayerGradients";
 import searchFilters from "../components/SearchFilters";
+
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
@@ -107,6 +109,8 @@ function ValueChart() {
         return baseValue * 1000; // SV
       case 6:
         return baseValue * 50; // RV
+      case 7:
+        return baseValue * customMultiplier; // Custom value (AV #)
       default:
         return baseValue;
     }
@@ -121,19 +125,14 @@ function ValueChart() {
 
   // For displaying the current mode dynamically
   const modeStr =
-    currentMode === 1
-      ? "AV"
-      : currentMode === 2
-      ? "UV"
-      : currentMode === 3
-      ? "NV"
-      : currentMode === 4
-      ? "TV"
-      : currentMode === 5
-      ? "SV"
-      : currentMode === 6
-      ? "RV"
-      : "BAD";
+    currentMode === 1 ? "AV"
+  : currentMode === 2 ? "UV"
+  : currentMode === 3 ? "NV"
+  : currentMode === 4 ? "TV"
+  : currentMode === 5 ? "SV"
+  : currentMode === 6 ? "RV"
+  : currentMode === 7 ? "CV"
+  : "BAD";
 
   // Calculate quick summary info
   // 1. Calculate base totals (without exclusions)
@@ -303,6 +302,11 @@ function ValueChart() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Save the customMultiplier to local storage and retrieve
+  const [customMultiplier, setCustomMultiplier] = useState(() => {
+    const saved = localStorage.getItem('ztt-custom-multiplier');
+    return saved ? parseInt(saved) : 100; // Default to 100 (same as NV)
+  });
   // Fetch the total values object
   const totals = calculateGrandTotals();
 
@@ -464,7 +468,7 @@ function ValueChart() {
         </div>
 
         {/* Mode selection buttons */}
-        {/* AV/UV/RV/NV/TV/SV */}
+        {/* AV/UV/RV/NV/TV/SV/CV */}
         <div
           className="val-button-container"
           style={{ flexDirection: "row", flexWrap: "wrap" }}
@@ -488,7 +492,8 @@ function ValueChart() {
             {
               mode: 3,
               className: "color-template-neutrine",
-              label: "NV Mode" },
+              label: "NV Mode",
+            },
             {
               mode: 4,
               className: "color-template-torn-fabric",
@@ -498,6 +503,11 @@ function ValueChart() {
               mode: 5,
               className: "color-template-singularity",
               label: "SV Mode",
+            },
+            {
+              mode: 7,
+              className: "color-template-havicron",
+              label: "Custom",
             }
             // Mapped to avoid more redundant code
             // Key is the mode, template has the mode number,
@@ -513,7 +523,40 @@ function ValueChart() {
             </div>
           ))}
         </div>
-
+        {/* Custom value input box */}
+        {currentMode === 7 && (
+          <div className="custom-multiplier-input" style={{
+            margin: '10px auto',
+            padding: '10px',
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            borderRadius: '10px',
+            outline: '3px solid var(--table-outline)',
+            maxWidth: '450px'
+          }}>
+            <label htmlFor="custom-multiplier" style={{marginRight: '10px'}}>
+              Custom Multiplier (xAV):
+            </label>
+            <input
+              type="number"
+              id="custom-multiplier"
+              min="1"
+              step="1"
+              value={customMultiplier}
+              onChange={(e) => {
+                const value = Math.max(1, parseInt(e.target.value) || 1);
+                setCustomMultiplier(value);
+                localStorage.setItem('ztt-custom-multiplier', value.toString());
+              }}
+              style={{
+                padding: '8px',
+                width: '70px',
+                textAlign: 'center',
+                borderRadius: '4px',
+                border: '1px solid var(--table-outline)'
+              }}
+            />
+          </div>
+        )}
         {/* Back to Top button */}
         {showBackToTop && (
           // Should probably move this styling into the css.
@@ -579,6 +622,7 @@ function ValueChart() {
                     data={layerData}
                     title={layerName}
                     currentMode={currentMode}
+                    customMultiplier={customMultiplier}
                     csvData={csvData}
                     gradient={gradientStyle}
                     searchFilters={searchFilters}

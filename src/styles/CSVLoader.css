@@ -32,6 +32,58 @@
     max-height: 500px;
 }
 
+/* Filter button styles */
+.filter-button {
+    background-color: var(--filter-button-color, #2196F3);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+    background-color: var(--filter-button-hover, #0b7dda);
+}
+
+/* Filter popup styles */
+.filter-popup {
+    transform:scale(1.25);
+    position: relative;
+    background: var(--popup-bg, #2a2a2a);
+    border: 1px solid var(--csv-outline);
+    border-radius: 4px;
+    padding: 10px;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    margin-top: 5px;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-options button {
+    padding: 8px 12px;
+    text-align: left;
+    background: var(--option-bg, #333);
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.filter-options button:hover {
+    background: var(--option-hover, #444);
+}
+
+.filter-options button.active {
+    background: var(--active-filter, #555);
+    font-weight: bold;
+}
 .csv-input {
     flex: 1;
     min-width: 500px;
@@ -40,13 +92,89 @@
     max-height: 500px;
 }
 
-/* To make table scrollable */
+.positive-change {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.negative-change {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.ore-changes-details {
+    max-height: fit-content;
+    max-width: 500px;
+    text-align: left;
+}
+
+.ore-changes-list {
+    border: 2px solid var(--csv-outline);
+    overflow-y: auto;
+    max-height: 200px;
+    text-align: left;
+}
+
+.ore-changes-list li {
+    text-align: left;
+}
+
+.value-change-summary {
+    margin: 50px 175px;
+    padding: 15px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 15px;
+    max-width: 1000px;
+    outline: 4px solid var(--csv-outline);
+}
+
+.value-change-cards {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 20px;
+    max-width: 100%;
+}
+
+.value-card {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.value-card.gained {
+    background: rgba(76, 175, 80, 0.2);
+    border: 2px solid #4CAF50;
+}
+
+.value-card.lost {
+    background: rgba(244, 67, 54, 0.2);
+    border: 2px solid #f44336;
+}
+
+.value-card.net {
+    background: rgba(33, 150, 243, 0.2);
+    border: 2px solid #2196F3;
+}
+
+.value-card.positive span:last-child {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.value-card.negative span:last-child {
+    color: #f44336;
+    font-weight: bold;
+}
+
+
 .ore-table-parent {
     overflow: hidden;
     overflow-x: scroll;
     overflow-y: scroll;
     height: 500px;
-    min-width: 500px;
+    min-width: 600px;
     padding: 25px 25px 25px 25px;
     margin-right: 5px;
     box-shadow: inset 3px 5px 10px #000000;
@@ -55,14 +183,14 @@
 /* Table Styles */
 .ore-list table {
     margin-top: 5px;
-    min-width: 500px;
+    min-width: 600px;
     width: 100%;
-    font-size: 30px;
+    font-size: 25px;
     border-collapse: collapse;
     background-color: transparent;
 }
 
-.ore-list td, 
+.ore-list td,
 .ore-list th {
     border: 2px solid var(--csv-outline);
     padding: 0px;

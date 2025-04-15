@@ -15,6 +15,7 @@ import ValueChart from './pages/ValueChart';
 import MiscPage from './pages/MiscPage';
 import { CSVProvider } from './context/CSVContext';
 import { TradeProvider } from './context/TradeContext';
+import BackgroundManager from './components/BackgroundManager';
 
 function App() {
     return (
@@ -24,7 +25,14 @@ function App() {
                     <Routes>
                         <Route path="/" element={<WelcomePage />} />
                         <Route path="/csvloader" element={<CSVLoader />} />
-                        <Route path="/valuechart" element={<ValueChart />} />
+                        <Route
+                            path="/valuechart"
+                            element={
+                                <BackgroundManager>
+                                    <ValueChart />
+                                </BackgroundManager>
+                            }
+                        />
                         <Route path="/tradetool" element={<TradeTool />} />
                         <Route path="/misc" element={<MiscPage />} />
                     </Routes>

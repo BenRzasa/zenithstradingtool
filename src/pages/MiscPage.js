@@ -8,6 +8,7 @@
     - Copyable search filters for use in-game
 */
 
+// This comment was added on my Arch Linux WSL2 environment.
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext";

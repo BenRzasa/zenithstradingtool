@@ -17,6 +17,7 @@ const TableComponent = ({
   data,
   title,
   currentMode,
+  customMultiplier,
   gradient,
   searchFilters,
 }) => {
@@ -33,6 +34,7 @@ const TableComponent = ({
       case 4: return "TV"; // TV
       case 5: return "SV"; // SV
       case 6: return "RV"; // RV
+      case 7: return "CV"; // Custom
       default: return "AV"; // Default to AV
     }
   })
@@ -46,6 +48,7 @@ const TableComponent = ({
       case 4: return baseValue * 500; // TV
       case 5: return baseValue * 1000; // SV
       case 6: return baseValue * 50; // RV
+      case 7: return baseValue * customMultiplier // Custom
       default: return baseValue;
     }
   };
@@ -72,6 +75,7 @@ const TableComponent = ({
     : mode === 4 ? 500  // TV
     : mode === 5 ? 1000 // SV
     : mode === 6 ? 50   // RV
+    : mode === 7 ? customMultiplier // Custom
     : 1;  // Default to 1
     const scaledValue = num * scaleFactor;
     // Strict truncation function (no rounding)

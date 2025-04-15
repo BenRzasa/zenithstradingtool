@@ -64,14 +64,14 @@ function WelcomePage() {
               marginLeft: "0px",
               marginTop: "935px",
               transform: "scale(1)",
-              border: "25px solid black",
+              border: "15px solid black",
               borderRadius: "15px"
             }}
           />
           <div className="card-title-wrap">
             <h1 className="title">
               <span className="copy-wrap">
-                Welcome to Zenith's Trading Tool β1.1!
+                Welcome to Zenith's Trading Tool β1.2!
               </span>
             </h1>
           </div>

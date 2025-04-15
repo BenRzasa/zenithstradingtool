@@ -13,8 +13,12 @@
 ### DONE -- Ore Icons
 ### DONE -- Trade Tool -> Button to "Remove Ores from Inventory"
 ### DONE -- Trade Tool -> To Receive table & add ores in it to inv
+### DONE -- Values -> Custom AV value setting option - saves locally
+### DONE -- Custom Background Image (Main page only)
+### DONE -- Date & Amount since last CSV change
 
-### Custom Value Setting - Maybe
+### Custom Value Setting - Per ore / global basis
+ - Could just have the user set up their own values from scratch, or start with a baseline
  - e.g., you value an ore at 50 AV while the standard rate is 30AV.
  - Have the user search for an ore, then enter a value in "Ore Per AV" OR "AV Per Ore"
     - Use a similar interface to the Trade Tool search box and table

@@ -3,68 +3,87 @@
   value chart over to the trade tool (since it needs the inventory data)
 */
 
+/* ZTT | Enhanced Context file for CSV data persistence */
 import React, { createContext, useState, useEffect } from 'react';
 
-export const CSVContext = createContext(); // Send the context out
+export const CSVContext = createContext();
 
 export const CSVProvider = ({ children }) => {
-  const [csvData, setCSVData] = useState({});              // Default: empty
-  const [isJohnValues, setIsJohnValues] = useState(false); // Default: false
-  const [currentMode, setCurrentMode] = useState(3);       // Default: NV Mode
-
-  // Load all persisted data on initial render
-  useEffect(() => {
-    // Load CSV data
+  // Core CSV data state
+  const [csvData, setCSVData] = useState(() => {
     const savedCSVData = localStorage.getItem('csvData');
-    if (savedCSVData) {
-      try {
-        setCSVData(JSON.parse(savedCSVData));
-      } catch (e) {
-        console.error("Failed to parse saved CSV data", e);
-      }
-    }
+    return savedCSVData ? JSON.parse(savedCSVData) : {};
+  });
 
-    // Load John mode state
+  // Previous amounts for comparison
+  const [previousAmounts, setPreviousAmounts] = useState(() => {
+    const savedPreviousData = localStorage.getItem('csvPreviousData');
+    return savedPreviousData ? JSON.parse(savedPreviousData) : {};
+  });
+
+  // Last updated timestamp
+  const [lastUpdated, setLastUpdated] = useState(() => {
+    const savedTime = localStorage.getItem('csvLastUpdated');
+    return savedTime ? new Date(savedTime) : null;
+  });
+
+  // Value calculation settings
+  const [isJohnValues, setIsJohnValues] = useState(() => {
     const savedJohnMode = localStorage.getItem('isJohnValues');
-    if (savedJohnMode !== null) {
-      setIsJohnValues(JSON.parse(savedJohnMode));
-    }
-    // Load saved Value mode state
+    return savedJohnMode !== null ? JSON.parse(savedJohnMode) : false;
+  });
+
+  const [currentMode, setCurrentMode] = useState(() => {
     const savedValueMode = localStorage.getItem('currentMode');
-    if (savedValueMode !== null) {
-      setCurrentMode(JSON.parse(savedValueMode));
-    }
+    return savedValueMode !== null ? JSON.parse(savedValueMode) : 3;
+  });
 
-  }, []);
-
-  // Save CSV data whenever it changes
+  // Persist all data changes
   useEffect(() => {
-    if (Object.keys(csvData).length > 0) {
-      localStorage.setItem('csvData', JSON.stringify(csvData));
-    }
+    localStorage.setItem('csvData', JSON.stringify(csvData));
   }, [csvData]);
 
-  // Save John mode state whenever it changes
+  useEffect(() => {
+    if (Object.keys(previousAmounts).length > 0) {
+      localStorage.setItem('csvPreviousData', JSON.stringify(previousAmounts));
+    }
+  }, [previousAmounts]);
+
+  useEffect(() => {
+    if (lastUpdated) {
+      localStorage.setItem('csvLastUpdated', lastUpdated.toISOString());
+    }
+  }, [lastUpdated]);
+
   useEffect(() => {
     localStorage.setItem('isJohnValues', JSON.stringify(isJohnValues));
   }, [isJohnValues]);
 
-  // Save Value mode state whenever it changes
   useEffect(() => {
     localStorage.setItem('currentMode', JSON.stringify(currentMode));
   }, [currentMode]);
 
+  // Helper function to update data (moved from CSVLoader)
+  const updateCSVData = (newData) => {
+    setPreviousAmounts(csvData);
+    setCSVData(newData);
+    setLastUpdated(new Date());
+  };
+
   return (
-    // Return and wrap all necessary fields and functions to set them
-    // (Must also import these in any page that needs them)
     <CSVContext.Provider
       value={{
         csvData,
         setCSVData,
+        previousAmounts,
+        setPreviousAmounts,
+        lastUpdated,
+        setLastUpdated,
         isJohnValues,
         setIsJohnValues,
         currentMode,
         setCurrentMode,
+        updateCSVData // New helper function
       }}
     >
       {children}

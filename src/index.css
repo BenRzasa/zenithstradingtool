@@ -139,10 +139,12 @@ nav ul li a:hover {
 
 /* Global Styles */
 body {
+  transition: background-image 0.5s ease;
+  background-color: var(--background-color);
   font-family: 'Comfortaa';
   font-weight: 700;
   margin: 0;
-  background-color: var(--background-color);
+  /*background-color: var(--background-color);*/
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
 }

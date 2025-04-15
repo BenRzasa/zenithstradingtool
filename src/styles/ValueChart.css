@@ -38,6 +38,29 @@
     max-width: 700px;
 }
 
+.custom-multiplier-input {
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px 0;
+}
+
+.custom-multiplier-input input {
+    font-size: 20px;
+    font-family: 'Comfortaa';
+    font-weight: 700;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 2px solid var(--csv-outline);
+}
+
+.custom-multiplier-input label {
+    font-weight: 700;
+    color: var(--text-color);
+}
 .quick-summary {
     position: fixed;
     text-align: left;
