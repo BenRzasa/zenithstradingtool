@@ -121,6 +121,7 @@ import Infrarian from '../images/ore-icons/Infrarian_Icon.webp';
 import Inversium from '../images/ore-icons/Inversium_Icon.webp';
 import Iridium from '../images/ore-icons/Iridium_Icon.webp';
 import Iron from '../images/ore-icons/Iron_Icon.webp';
+import Irulisteel from '../images/ore-icons/Irulisteel_Icon.webp';
 import Isoronil from '../images/ore-icons/Isoronil_Icon.webp';
 import Jade from '../images/ore-icons/Jade_Icon.webp';
 import Jalabono from '../images/ore-icons/Jalabono_Icon.webp';
@@ -273,6 +274,7 @@ import Uranium from '../images/ore-icons/Uranium_Icon.webp';
 import Vanadium from '../images/ore-icons/Vanadium_Icon.webp';
 import Vantaslate from '../images/ore-icons/Vantaslate_Icon.webp';
 import Verglazium from '../images/ore-icons/Verglazium_Icon.webp';
+import Vermillion from '../images/ore-icons/Vermillion_Icon.webp';
 import Vermillium from '../images/ore-icons/Vermillium_Icon.webp';
 import Vicious_Shard from '../images/ore-icons/Vicious_Shard_Icon.webp';
 import Vitalinyn from '../images/ore-icons/Vitalinyn_Icon.webp';
@@ -414,6 +416,7 @@ export const oreIcons = {
   Inversium,
   Iridium,
   Iron,
+  Irulisteel,
   Isoronil,
   Jade,
   Jalabono,
@@ -566,6 +569,7 @@ export const oreIcons = {
   Vanadium,
   Vantaslate,
   Verglazium,
+  Vermillion,
   Vermillium,
   Vicious_Shard,
   Vitalinyn,

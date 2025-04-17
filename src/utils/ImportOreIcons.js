@@ -4,7 +4,7 @@ export const importAllOreIcons = (r) => {
   let icons = {};
   const importAll = (r) => r.keys().forEach((key) => {
     const oreKey = key.replace('./', '').replace('_Icon.webp', '');
-    icons[oreKey] = r(key).default; 
+    icons[oreKey] = r(key).default;
   });
 
   importAll(require.context('../images/ore-icons', false, /_Icon\.webp$/));

@@ -272,7 +272,8 @@ export const nanValsDict = {
     { name: "Universal Barrier", baseValue: 500, className: "color-template-universal-barrier" },
     { name: "Rifted Barrier", baseValue: 6, className: "color-template-rifted-barrier" },
     { name: "Fabric", baseValue: 6, className: "color-template-fabric" },
-    { name: "Mavrikine", baseValue: 6, className: "color-template-mavrikine" }
+    { name: "Mavrikine", baseValue: 6, className: "color-template-mavrikine" },
+    { name: "Irulisteel", baseValue: 5, className: "color-template-irulisteel"} ,
   ],
 
   Planck: [

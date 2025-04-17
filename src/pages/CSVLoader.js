@@ -258,7 +258,9 @@ function CSVLoader() {
         <h2>Changed Ores:</h2>
         <div className="ore-changes-list">
         <ul>
-          {calculateValueChanges().changedOres.map(({ore, valueChange}) => (
+          {calculateValueChanges().changedOres
+            .sort((a, b) => b.valueChange - a.valueChange) // Sort by valueChange descending
+            .map(({ore, valueChange}) => (
             <li key={ore}>
               {ore}: <span className={valueChange > 0 ? 'positive-change' : 'negative-change'}>
                 {(valueChange > 0 ? ' +' : ' ') + valueChange.toFixed(2)} AV

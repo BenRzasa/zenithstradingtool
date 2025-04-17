@@ -17,6 +17,10 @@
 ### DONE -- Custom Background Image (Main page only)
 ### DONE -- Date & Amount since last CSV change
 
+### CSV Loader -- Sort by AV gained
+### Misc Page -- Box containing "Useful tips & tricks" - link to another card-style page?
+ - List of all emblems with perks
+
 ### Tentative - SETTINGS PAGE
  - Need ideas here...
 ### Value Chart Page - background transparency/opacity overlay of some sort

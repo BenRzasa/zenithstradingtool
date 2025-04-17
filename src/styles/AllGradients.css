@@ -720,6 +720,10 @@
     background: #cfdce6;
 }
 
+.color-template-irulisteel {
+    background: #363a3e;
+}
+
 .color-template-string {
     background: linear-gradient(90deg, #ff009d 0%, #ff9215 20%, #15ff1c 40%, #dadd31 60%, #ff0000 80%, #0011ff 100%);
 }

@@ -124,6 +124,7 @@ export const OreNames = [
   "Inversium",
   "Iridium",
   "Iron",
+  "Irulisteel",
   "Isoronil",
   "Jade",
   "Jalabono",
