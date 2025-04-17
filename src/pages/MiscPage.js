@@ -117,7 +117,7 @@ function MiscPage() {
             <div className="box-button">
               <button
                 onClick={() => toggleJohnVals(true)}
-                className={isJohnValues ? "color-template-rhylazil" : ""}
+                className={isJohnValues ? "color-template-pout" : ""}
               >
                 <span>John Values</span>
               </button>

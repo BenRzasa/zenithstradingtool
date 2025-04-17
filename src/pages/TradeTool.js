@@ -178,12 +178,14 @@ function TradeTool() {
   };
 
   // Calculate AV for a single ore
-  const calculateAV = (oreName) => {
+  const calculateAV = (oreName, isReceive = false) => {
     // First try to find the ore in the current value dictionary
     const oreData = allOresWithLayers.find(ore => ore.name === oreName);
     if (!oreData) return "0.0";
-    // Get quantity from either trade or receive quantities
-    const quantity = quantities[oreName] ?? receivedQuantities[oreName] ?? 0;
+    // Get quantity from the correct source based on isReceive
+    const quantity = isReceive
+                   ? receivedQuantities[oreName] ?? 0 
+                   : quantities[oreName] ?? 0;
     return (quantity / oreData.baseValue).toFixed(1);
   };
 
@@ -366,7 +368,7 @@ function TradeTool() {
               setIsJohnValues(true);
               setQuantities(prev => ({...prev}));
             }}
-            className={isJohnValues ? "color-template-rhylazil" : ""}
+            className={isJohnValues ? "color-template-pout" : ""}
           >
             <span>John Values</span>
           </button>
@@ -468,7 +470,7 @@ function TradeTool() {
           showInventory={true}
           hasEnoughOre={hasEnoughOre}
           getAvailableAmount={getAvailableAmount}
-          calculateAV={calculateAV}
+          calculateAV={(oreName) => calculateAV(oreName, false)}
           totals={calculateTotals(selectedOres, quantities)}
           inventoryStatus={{
             allOresAvailable,
@@ -487,7 +489,7 @@ function TradeTool() {
             setGlobalReceiveQuantity(value);
             applyGlobalQuantity(value, true);
           }}
-          calculateAV={calculateAV}
+          calculateAV={(oreName) => calculateAV(oreName, true)}
           onRemoveOre={(oreObj) => {
             setReceivedOres(receivedOres.filter(ore => ore.name !== oreObj.name));
             const newQuantities = { ...receivedQuantities };

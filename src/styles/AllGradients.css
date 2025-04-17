@@ -1201,3 +1201,7 @@
 .color-template-verglazium {
     background: #547888;
 }
+
+.color-template-pout {
+    background: linear-gradient(112deg, #004700 0%, #9eff1c 25%, #b2fca5 50%, #075800 100%);
+}
