@@ -29,25 +29,35 @@ function CSVLoader() {
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [currentFilter, setCurrentFilter] = useState('alphabetical');
 
-  // Add this filter function
+  // Filter the ores by selected type (alphabetical, change #, name)
   const filterOres = (filterType) => {
     setCurrentFilter(filterType);
     setShowFilterPopup(false);
   };
 
   const updateOreAmounts = () => {
+    // 1. Force alphabetical sorting immediately
+    setCurrentFilter('alphabetical');
+    // 2. Process the CSV data
     const csvInput = document.getElementById("csvInput").value;
     if (!csvInput) return;
-
     const newAmounts = csvInput.split(",").map(Number);
-    const updatedData = OreNames.reduce((acc, ore, index) => {
-      acc[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
+    const updatedData = {};
+    // Process in alphabetical order to ensure consistency
+    OreNames.sort((a, b) => a.localeCompare(b)).forEach((ore, index) => {
+      updatedData[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
         ? newAmounts[index]
         : 0;
-      return acc;
-    }, {});
-
-    updateCSVData(updatedData); // Using the context helper
+    });
+    // 3. Update the CSV data
+    updateCSVData(updatedData);
+    // 4. Force a re-render with alphabetical sorting before switching to change view
+    setTimeout(() => {
+      setCurrentFilter('alphabetical'); // Ensure one more render with alphabetical
+      setTimeout(() => {
+        setCurrentFilter('change'); // Then switch to change view
+      }, 50); // Small delay to ensure render completes
+    }, 50);
   };
 
   // Calculate total value change from last update

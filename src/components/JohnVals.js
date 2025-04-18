@@ -222,6 +222,7 @@ export const johnValsDict = {
     { name: "Molten Iron", baseValue: 15.5, className: "color-template-molten-iron" },
     { name: "Corium", baseValue: 9, className: "color-template-corium" },
     { name: "Cinnabar", baseValue: 16, className: "color-template-cinnabar" },
+    { name: "Liquid Gold", baseValue: 16, className: "color-template-liquid-gold"},
     { name: "Molten Iron", baseValue: 16, className: "color-template-molten-iron" },
     { name: "Pyroscorium", baseValue: 9, className: "color-template-pyroscorium" },
     { name: "Samarium", baseValue: 16, className: "color-template-samarium" }

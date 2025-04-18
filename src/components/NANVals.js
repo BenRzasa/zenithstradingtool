@@ -223,6 +223,7 @@ export const nanValsDict = {
     { name: "Molten Iron", baseValue: 15, className: "color-template-molten-iron" },
     { name: "Corium", baseValue: 9, className: "color-template-corium" },
     { name: "Cinnabar", baseValue: 12, className: "color-template-cinnabar" },
+    { name: "Liquid Gold", baseValue: 15, className: "color-template-liquid-gold" },
     { name: "Pyroscorium", baseValue: 7, className: "color-template-pyroscorium" },
     { name: "Samarium", baseValue: 14, className: "color-template-samarium" }
   ],
