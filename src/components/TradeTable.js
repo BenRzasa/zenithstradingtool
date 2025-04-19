@@ -35,6 +35,11 @@ const TradeTable = ({
     setDiscount(Math.min(100, Math.max(0, value)));
   };
 
+  // Function to generate the className based on ore name
+  const getOreClassName = (oreName) => {
+    return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
+  };
+
   return (
   <div>
     <div className="table-container">
@@ -128,7 +133,7 @@ const TradeTable = ({
             return (
               <tr key={oreObj.name}>
                 {/* Gets the gradient dynamically */}
-                <td className={`tr-name-cell ${oreObj.className || ""}`} 
+                <td className={`tr-name-cell ${getOreClassName(oreObj.name)}`}
                     data-text={oreObj.name}>
                   <button
                     className="delete-ore-button"
@@ -174,7 +179,7 @@ const TradeTable = ({
                       onChange={(e) =>
                         onQuantityChange(oreObj.name, e.target.value, isReceiveTable)
                       }
-                      className={`quantity-input ${isReceiveTable 
+                      className={`quantity-input ${isReceiveTable
                                ? 'receive-input' : ''}`}
                       min={1}
                     />

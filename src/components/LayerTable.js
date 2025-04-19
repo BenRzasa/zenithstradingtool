@@ -39,6 +39,11 @@ const TableComponent = ({
     }
   })
 
+  // Function to generate the className based on ore name
+  const getOreClassName = (oreName) => {
+    return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
+  };
+
   // Function to calculate the value based on the current mode
   const calculateValue = (baseValue) => {
     switch (currentMode) {
@@ -83,8 +88,18 @@ const TableComponent = ({
       const factor = 10 ** decimals;
       return Math.trunc(n * factor) / factor;
     };
-    // Return the numeric value without any formatting
-    return truncate(scaledValue, 3);
+    // Return the numeric value, truncated to 3 decimals max and rounded to nearest int
+    // Depending on MODE
+    switch(currentMode) {
+      case 1:
+        return truncate(scaledValue, 3);
+      case 2:
+        return truncate(scaledValue, 2);
+      case 6:
+        return truncate(scaledValue, 1);
+      default:
+        return Math.round(truncate(scaledValue, 3));
+    }
   };
 
   const formatDisplayValue = (value, mode) => {
@@ -232,7 +247,9 @@ const TableComponent = ({
             return (
               <tr key={index}>
                 {/* Get the gradient dynamically for each ore name */}
-                <td className={`name-column ${item.className || ""}`} data-text={item.name}>
+                <td
+                  className={`name-column ${getOreClassName(item.name)}`}
+                  data-text={item.name}>
                   {oreIcons[item.name.replace(/ /g, '_')] ? (
                     <img
                       src={oreIcons[item.name.replace(/ /g, '_')]}
@@ -315,7 +332,7 @@ const TableComponent = ({
                     />
                   </div>
                 </td>
-                <td>{numV}</td>{/* Already rounded to 2 decimals */}
+                <td>{numV}</td>
                 <td>{formatDisplayValue(baseValue, 1)}</td>
                 <td>{formatDisplayValue(baseValue, currentMode)}</td>
               </tr>
