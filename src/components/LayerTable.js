@@ -65,51 +65,38 @@ const TableComponent = ({
   // if the number is, say, "2.000"
   const formatValue = (value, mode = 3) => {
     const num = Number(value);
-    if (!Number.isFinite(num)) return "0";
+    if (!Number.isFinite(num)) return 0;
     // For /AV (mode 1) - return raw number exactly as provided
-    if (mode === 1) return num.toString();
+    if (mode === 1) return num;
     // Calculate scaled value
     const scaleFactor =
       mode === 2 ? 10   // UV
-    : mode === 3 ? 100  // NV
-    : mode === 4 ? 500  // TV
-    : mode === 5 ? 1000 // SV
-    : mode === 6 ? 50   // RV
-    : mode === 7 ? customMultiplier // Custom
-    : 1;  // Default to 1
+      : mode === 3 ? 100  // NV
+      : mode === 4 ? 500  // TV
+      : mode === 5 ? 1000 // SV
+      : mode === 6 ? 50   // RV
+      : mode === 7 ? customMultiplier // Custom
+      : 1;  // Default to 1
     const scaledValue = num * scaleFactor;
     // Strict truncation function (no rounding)
     const truncate = (n, decimals) => {
       const factor = 10 ** decimals;
       return Math.trunc(n * factor) / factor;
     };
-    // Format with suffix
-    const formatWithSuffix = (val, suffix) => {
-      const truncated = truncate(val, 3);
-      let str = truncated.toString();
-      // Remove trailing .000 if present
-      if (str.includes(".")) {
-        str = str.replace(/\.?0+$/, "");
-      }
-      return str + suffix;
-    };
-    // Millions
-    if (Math.abs(scaledValue) >= 1000000) {
-      const divided = scaledValue / 1000000;
-      return formatWithSuffix(divided, "M");
+    // Return the numeric value without any formatting
+    return truncate(scaledValue, 3);
+  };
+
+  const formatDisplayValue = (value, mode) => {
+    const num = formatValue(value, mode);
+    // Format with suffix for display purposes
+    if (Math.abs(num) >= 1000000) {
+      return (num / 1000000).toFixed(3).replace(/\.?0+$/, "") + "M";
     }
-    // Thousands
-    if (Math.abs(scaledValue) >= 1000) {
-      const divided = scaledValue / 1000;
-      return formatWithSuffix(divided, "K");
+    if (Math.abs(num) >= 1000) {
+      return (num / 1000).toFixed(3).replace(/\.?0+$/, "") + "K";
     }
-    // Regular numbers
-    const truncated = truncate(scaledValue, 3);
-    let str = truncated.toString();
-    if (str.includes(".")) {
-      str = str.replace(/\.?0+$/, "");
-    }
-    return str;
+    return num.toFixed(3).replace(/\.?0+$/, "");
   };
 
   // Calculate completion percentage
@@ -241,6 +228,7 @@ const TableComponent = ({
                 ? (inventory / calculateValue(baseValue)).toFixed(2) // Round to 2 decimals here
                 : "0";
 
+
             return (
               <tr key={index}>
                 {/* Get the gradient dynamically for each ore name */}
@@ -328,8 +316,8 @@ const TableComponent = ({
                   </div>
                 </td>
                 <td>{numV}</td>{/* Already rounded to 2 decimals */}
-                <td>{formatValue(baseValue, 1)}</td>
-                <td>{formatValue(baseValue, currentMode)}</td>
+                <td>{formatDisplayValue(baseValue, 1)}</td>
+                <td>{formatDisplayValue(baseValue, currentMode)}</td>
               </tr>
             );
           })}
