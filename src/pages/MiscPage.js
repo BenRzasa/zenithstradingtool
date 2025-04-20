@@ -13,9 +13,6 @@ import React, { useContext } from "react";
 import NavBar from "../components/NavBar";
 import { Link } from 'react-router-dom';
 import { CSVContext } from "../context/CSVContext";
-// import { TradeContext } from "../context/TradeContext";
-import { johnValsDict } from "../components/JohnVals";
-import { nanValsDict } from "../components/NANVals";
 import searchFilters from "../components/SearchFilters";
 
 import "../styles/MiscPage.css";
@@ -25,14 +22,10 @@ function MiscPage() {
   // Grab the data, john boolean, and function from CSV context
   const {
     csvData,
-    isJohnValues,
-    setIsJohnValues
+    valueMode,
+    setValueMode,
+    currentDict
   } = useContext(CSVContext);
-
-  // Function for toggling John/NAN vals with CSV context fetching
-  const toggleJohnVals = (enableJohn) => {
-    setIsJohnValues(enableJohn); // true for John, false for NAN
-  };
 
   // Copy the search filter to the clipboard
   const copyFilter = (filterText) => {
@@ -45,9 +38,6 @@ function MiscPage() {
         console.error("Failed to copy:", err);
       });
   };
-
-  // Get the appropriate dictionary based on mode
-  const currentDict = isJohnValues ? johnValsDict : nanValsDict;
 
   // Flatten all ore arrays from all categories into one array
   const allOres = Object.values(currentDict).flat();
@@ -116,20 +106,30 @@ function MiscPage() {
           <div className="mode-selector">
             <div className="box-button">
               <button
-                onClick={() => toggleJohnVals(true)}
-                className={isJohnValues ? "color-template-pout" : ""}
+                onClick={setValueMode('john')}
+                className={valueMode === 'john' ? "color-template-pout" : ""}
               >
                 <span>John Values</span>
               </button>
             </div>
             <div className="box-button">
               <button
-                onClick={() => toggleJohnVals(false)}
+                onClick={setValueMode('nan')}
                 className={
-                  isJohnValues === false ? "color-template-diamond" : ""
+                  valueMode === 'nan' ? "color-template-diamond" : ""
                 }
               >
                 <span>NAN Values</span>
+              </button>
+            </div>
+            <div className="box-button">
+              <button
+                onClick={setValueMode('custom')}
+                className={
+                  valueMode === 'custom' ? "color-template-havicron" : ""
+                }
+              >
+                <span>Custom</span>
               </button>
             </div>
           </div>

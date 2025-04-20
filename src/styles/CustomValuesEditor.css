@@ -1,0 +1,91 @@
+/* Custom Editor Styles */
+.custom-editor {
+  padding: 75px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.editor-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  margin-bottom: 20px;
+
+}
+
+.editor-controls button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Comfortaa';
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.save-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.base-value-input {
+  position: relative;
+  max-width: 100%;
+  padding: 5px;
+  font-size: 20px;
+  font-family: 'Comfortaa';
+  border-radius: 3px;
+  border: 1px solid var(--table-outline);
+  text-align: center;
+  background: white;
+  color: black;
+}
+
+.e-table-wrapper {
+    flex: 1 1 calc(33.333% -10px);
+    width: 575px;
+    overflow-x: auto;
+    border: 4px solid var(--table-outline);
+    border-radius: 25px;
+    padding-top: 6px;
+    height: fit-content;
+    position: relative;
+    z-index: 500;
+    margin: 0px;
+    margin-bottom: 30px;
+    background: var(--background-color);
+    overflow: hidden;
+}
+
+.editor-table h2 {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.editor-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.editor-table th, .editor-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-table input {
+  width: 80px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  text-align: right;
+}

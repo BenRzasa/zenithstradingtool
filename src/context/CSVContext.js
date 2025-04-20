@@ -3,8 +3,10 @@
   value chart over to the trade tool (since it needs the inventory data)
 */
 
-/* ZTT | Enhanced Context file for CSV data persistence */
-import React, { createContext, useState, useEffect } from 'react';
+/* ZTT | Enhanced Context file with Custom Values support */
+import React, { createContext, useState, useEffect, useMemo } from 'react';
+import { johnValsDict } from '../components/JohnVals';
+import { nanValsDict } from '../components/NANVals';
 
 export const CSVContext = createContext();
 
@@ -28,15 +30,33 @@ export const CSVProvider = ({ children }) => {
   });
 
   // Value calculation settings
-  const [isJohnValues, setIsJohnValues] = useState(() => {
-    const savedJohnMode = localStorage.getItem('isJohnValues');
-    return savedJohnMode !== null ? JSON.parse(savedJohnMode) : false;
+  const [valueMode, setValueMode] = useState(() => {
+    const savedValueMode = localStorage.getItem('valueMode');
+    return savedValueMode !== null ? JSON.parse(savedValueMode) : 'john'; // 'john', 'nan', or 'custom'
   });
 
   const [currentMode, setCurrentMode] = useState(() => {
-    const savedValueMode = localStorage.getItem('currentMode');
-    return savedValueMode !== null ? JSON.parse(savedValueMode) : 3;
+    const savedCalcMode = localStorage.getItem('currentMode');
+    return savedCalcMode !== null ? JSON.parse(savedCalcMode) : 3; // 1-7 for AV/UV/NV/etc
   });
+
+  // Custom values dictionary
+  const [customDict, setCustomDict] = useState(() => {
+    const savedCustomDict = localStorage.getItem('customDict');
+    try {
+      return savedCustomDict ? JSON.parse(savedCustomDict) :
+        JSON.parse(JSON.stringify(johnValsDict)); // Default to John's values copy
+    } catch (e) {
+      console.error('Failed to parse customDict', e);
+      return JSON.parse(JSON.stringify(johnValsDict)); // Fallback
+    }
+  });
+
+  const currentDict = useMemo(() => {
+    return valueMode === 'john' ? johnValsDict :
+           valueMode === 'nan' ? nanValsDict :
+           customDict || johnValsDict; // Fallback
+  }, [valueMode, customDict]);
 
   // Persist all data changes
   useEffect(() => {
@@ -56,34 +76,79 @@ export const CSVProvider = ({ children }) => {
   }, [lastUpdated]);
 
   useEffect(() => {
-    localStorage.setItem('isJohnValues', JSON.stringify(isJohnValues));
-  }, [isJohnValues]);
+    localStorage.setItem('valueMode', JSON.stringify(valueMode));
+  }, [valueMode]);
 
   useEffect(() => {
     localStorage.setItem('currentMode', JSON.stringify(currentMode));
   }, [currentMode]);
 
-  // Helper function to update data (moved from CSVLoader)
+  useEffect(() => {
+    if (customDict) {
+      localStorage.setItem('customDict', JSON.stringify(customDict));
+    }
+  }, [customDict]);
+
+  // Helper function to update data
   const updateCSVData = (newData) => {
     setPreviousAmounts(csvData);
     setCSVData(newData);
     setLastUpdated(new Date());
   };
 
+  // Initialize custom dictionary from a source
+  const initializeCustomDict = (source) => {
+    const newCustomDict = source === 'john'
+      ? JSON.parse(JSON.stringify(johnValsDict))
+      : JSON.parse(JSON.stringify(nanValsDict));
+    setCustomDict(newCustomDict);
+    setValueMode('custom');
+    return newCustomDict;
+  };
+
+  // Export custom dictionary
+  const exportCustomDict = () => {
+    if (!customDict) return null;
+    return JSON.stringify(customDict, null, 2);
+  };
+
+  // Import custom dictionary
+  const importCustomDict = (jsonString) => {
+    try {
+      const parsed = JSON.parse(jsonString);
+      setCustomDict(parsed);
+      setValueMode('custom');
+      return true;
+    } catch (e) {
+      console.error('Failed to import custom values:', e);
+      return false;
+    }
+  };
+
   return (
     <CSVContext.Provider
       value={{
+        // Core data
         csvData,
         setCSVData,
         previousAmounts,
         setPreviousAmounts,
         lastUpdated,
         setLastUpdated,
-        isJohnValues,
-        setIsJohnValues,
+        // Value modes
+        valueMode,
+        setValueMode,
         currentMode,
         setCurrentMode,
-        updateCSVData // New helper function
+        // Custom values
+        customDict,
+        setCustomDict,
+        initializeCustomDict,
+        exportCustomDict,
+        importCustomDict,
+        currentDict,
+        // Helper functions
+        updateCSVData
       }}
     >
       {children}

@@ -14,9 +14,6 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { CSVContext } from "../context/CSVContext";
 import { TradeContext } from "../context/TradeContext";
-import { johnValsDict } from "../components/JohnVals";
-import { nanValsDict } from "../components/NANVals";
-// import { oreIcons } from "../lib/oreIcons";
 import TradeTable from "../components/TradeTable";
 
 import "../styles/TradeTool.css";
@@ -32,10 +29,15 @@ function TradeTool() {
   */
   // State hooks - Manage trade data and CSV inventory context
   const { tradeData, setTradeData } = useContext(TradeContext);
-  const { csvData, setCSVData } = useContext(CSVContext);
+  const {
+    csvData,
+    setCSVData,
+    valueMode,
+    setValueMode,
+    currentDict
+  } = useContext(CSVContext);
 
   // Component state - Track all UI and trade-related state
-  const [isJohnValues, setIsJohnValues] = useState(tradeData.isJohnValues);
   const [selectedOres, setSelectedOres] = useState(tradeData.selectedOres);
   const [quantities, setQuantities] = useState(tradeData.quantities);
   const [receivedOres, setReceivedOres] = useState(tradeData.receivedOres);
@@ -58,9 +60,8 @@ function TradeTool() {
    * Combines ore data from either John or NAN values with their layer information
    * Returns array of ore objects with layer property added
   */
-  const allOresWithLayers = Object.entries(
-    isJohnValues ? johnValsDict : nanValsDict
-  ).flatMap(([layerName, ores]) =>
+  const allOresWithLayers = Object.entries(currentDict)
+  .flatMap(([layerName, ores]) =>
     ores.map((ore) => ({
       ...ore,
       layer: layerName, // Add layer info to each ore
@@ -311,10 +312,10 @@ function TradeTool() {
   useEffect(() => {
     setTradeData({ selectedOres, quantities,
                    receivedOres, receivedQuantities,
-                   isJohnValues });
+                   valueMode });
   }, [selectedOres, quantities,
       receivedOres, receivedQuantities,
-      isJohnValues, setTradeData]);
+      valueMode, setTradeData]);
 
   // Effect to reset search selection when term changes
   useEffect(() => {
@@ -340,7 +341,7 @@ function TradeTool() {
   useEffect(() => {
     // This will force a recalculation of all AV values
     setQuantities(prev => ({...prev}));
-  }, [isJohnValues]);
+  }, [valueMode]);
 
   // Main trade tool interface
   return (
@@ -358,17 +359,19 @@ function TradeTool() {
       <h1>
         ➜ Current Values:{" "}
         <span className="placeholder">
-          {isJohnValues ? "John's Values" : "NAN's Values"}
+          {valueMode === 'john' ? "John's Values"
+         : valueMode === 'nan' ? "NAN's Values"
+         : valueMode === 'custom' ? "Your Custom Values" : "ERROR"}
         </span>
       </h1>
       <div className="t-button-container1">
         <div className="box-button">
           <button
             onClick={() => {
-              setIsJohnValues(true);
+              setValueMode('john');
               setQuantities(prev => ({...prev}));
             }}
-            className={isJohnValues ? "color-template-pout" : ""}
+            className={valueMode === 'john' ? "color-template-pout" : ""}
           >
             <span>John Values</span>
           </button>
@@ -376,12 +379,23 @@ function TradeTool() {
         <div className="box-button">
           <button
             onClick={() => {
-              setIsJohnValues(false);
+              setValueMode('nan');
               setQuantities(prev => ({...prev}));
             }}
-            className={!isJohnValues ? "color-template-diamond" : ""}
+            className={valueMode === 'nan' ? "color-template-diamond" : ""}
           >
             <span>NAN Values</span>
+          </button>
+        </div>
+        <div className="box-button">
+          <button
+            onClick={() => {
+              setValueMode('custom');
+              setQuantities(prev => ({...prev}));
+            }}
+            className={valueMode === 'custom' ? "color-template-havicron" : ""}
+          >
+            <span>Custom</span>
           </button>
         </div>
         <div className="box-button" onClick={clearTable}>

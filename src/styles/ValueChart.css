@@ -200,6 +200,55 @@
     box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
 }
 
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.custom-modal {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--table-outline);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.modal-buttons button {
+    padding: 10px 10px;
+    font-family: 'Comfortaa';
+    font-size: 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-close {
+    background-color: var(--table-outline);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 .tables-container {
     display: flex;
     flex-wrap: wrap;

@@ -114,6 +114,9 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+li {
+  margin-bottom: 10px;
+}
 
 /* Light Theme */
 :root {
@@ -132,13 +135,15 @@ body {
 /* Global Button Styles */
 .button-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 15px;
-  margin: 20px 0;
+  margin: 15px auto;
+  max-width: 700px;
 }
 
 .box-button {
+  max-width: calc(33.333% - 10px);
   cursor: pointer;
   border: 4px solid black;
   background-color: gray;

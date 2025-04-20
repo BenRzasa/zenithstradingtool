@@ -13,6 +13,7 @@ import CSVLoader from './pages/CSVLoader';
 import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
 import MiscPage from './pages/MiscPage';
+import CustomValuesEditor from './pages/CustomValuesEditor';
 import { CSVProvider } from './context/CSVContext';
 import { TradeProvider } from './context/TradeContext';
 import BackgroundManager from './components/BackgroundManager';
@@ -36,6 +37,7 @@ function App() {
                         />
                         <Route path="/tradetool" element={<TradeTool />} />
                         <Route path="/misc" element={<MiscPage />} />
+                        <Route path="/customvalues" element={<CustomValuesEditor />} />
                     </Routes>
                 </HashRouter>
                 </div>

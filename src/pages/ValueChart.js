@@ -8,6 +8,7 @@
 */
 
 import React, { useState, useContext, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext";
 import LayerTable from "../components/LayerTable";
 import { johnValsDict } from "../components/JohnVals";
@@ -15,7 +16,6 @@ import { nanValsDict } from "../components/NANVals";
 import { LayerGradients } from "../components/LayerGradients";
 import searchFilters from "../components/SearchFilters";
 import NavBar from '../components/NavBar';
-
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
@@ -27,13 +27,27 @@ function ValueChart() {
     csvData,
     currentMode,
     setCurrentMode,
-    isJohnValues,
-    setIsJohnValues,
+    valueMode,
+    setValueMode,
+    customDict,
+    setCustomDict,
   } = useContext(CSVContext);
 
-  const toggleJohnVals = (enableJohn) => {
-    setIsJohnValues(enableJohn); // true for John, false for NAN
+  const navigate = useNavigate();
+
+  // Toggle between three value modes: john, nan, & custom
+  const toggleValueMode = (mode) => {
+    if (mode === 'custom' && !customDict) {
+      setShowCustomModal(true);
+    } else {
+      setValueMode(mode);
+    }
   };
+
+  const currentDict =
+    valueMode === 'john' ? johnValsDict :
+    valueMode === 'nan' ? nanValsDict :
+    customDict;
 
   // UI control states
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
@@ -93,26 +107,18 @@ function ValueChart() {
   }, [dragState.isDragging, handleMouseMove, handleMouseUp]);
 
   // List of table names for the dropdown
-  const tableNames = Object.keys(isJohnValues ? johnValsDict : nanValsDict);
+  const tableNames = Object.keys(johnValsDict);
 
   const calculateValue = (baseValue) => {
     switch (currentMode) {
-      case 1:
-        return baseValue * 1; // AV
-      case 2:
-        return baseValue * 10; // UV
-      case 3:
-        return baseValue * 100; // NV
-      case 4:
-        return baseValue * 500; // TV
-      case 5:
-        return baseValue * 1000; // SV
-      case 6:
-        return baseValue * 50; // RV
-      case 7:
-        return baseValue * customMultiplier; // Custom value (AV #)
-      default:
-        return baseValue;
+      case 1: return baseValue; // AV
+      case 2: return baseValue * 10; // UV
+      case 3: return baseValue * 100; // NV
+      case 4: return baseValue * 500; // TV
+      case 5: return baseValue * 1000; // SV
+      case 6: return baseValue * 50; // RV
+      case 7: return baseValue * customMultiplier; // Custom value (AV #)
+      default: return baseValue; // Default to AV
     }
   };
 
@@ -144,7 +150,7 @@ function ValueChart() {
     let totalOres = Object.values(csvData).reduce((acc, val) => acc + val, 0);
     let tableCompletions = [];
 
-    Object.entries(isJohnValues ? johnValsDict : nanValsDict).forEach(
+    Object.entries(currentDict).forEach(
       ([layerName, layerData]) => {
         let tableCompletion = 0;
         let itemCount = 0;
@@ -213,7 +219,7 @@ function ValueChart() {
     let maxOre = { value: -Infinity, name: "", layer: "" };
     const layerValues = {};
 
-    Object.entries(isJohnValues ? johnValsDict : nanValsDict).forEach(
+    Object.entries(currentDict).forEach(
       ([layerName, layerData]) => {
         if (excludedLayers.includes(layerName)) return;
 
@@ -235,7 +241,6 @@ function ValueChart() {
         });
 
         layerValues[layerName] = layerSum;
-
         // Track layers
         if (layerSum < minLayer.value) {
           minLayer = { value: layerSum, name: layerName };
@@ -245,6 +250,7 @@ function ValueChart() {
         }
       }
     );
+
     // Just in case, handle nonexistent/wrong data
     const handleDefault = (obj) =>
       obj.value === Infinity || obj.value === -Infinity
@@ -309,6 +315,34 @@ function ValueChart() {
   });
   // Fetch the total values object
   const totals = calculateGrandTotals();
+
+  // Custom value mode states
+  const [showCustomModal, setShowCustomModal] = useState(false);
+  const [customDictSource] = useState(null); // 'john' or 'nan'
+
+  // Initialize custom dict
+  const initializeCustomDict = (source) => {
+    const newCustomDict = source === 'john'
+      ? JSON.parse(JSON.stringify(johnValsDict))
+      : JSON.parse(JSON.stringify(nanValsDict));
+    setCustomDict(newCustomDict);
+    setCurrentMode('custom');
+    setShowCustomModal(false);
+  };
+
+  // Function to export the custom dict
+  const exportCustomDict = () => {
+    if (!customDict) return;
+    const dataStr = JSON.stringify(customDict, null, 2);
+    const dataUri =
+      'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    const exportFileDefaultName =
+      `custom_values_${customDictSource}_${new Date().toISOString().slice(0,10)}.json`;
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+  };
 
   // Main page layout
   return (
@@ -435,22 +469,53 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleJohnVals(true)}
-              className={isJohnValues ? "color-template-pout" : ""}
+              onClick={() => toggleValueMode('john')}
+              className={valueMode === 'john' ? "color-template-pout" : ""}
             >
               <span>John Values</span>
             </button>
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleJohnVals(false)}
-              className={isJohnValues === false ? "color-template-diamond" : ""}
+              onClick={() => toggleValueMode('nan')}
+              className={valueMode === 'nan' ? "color-template-diamond" : ""}
             >
               <span>NAN Values</span>
             </button>
           </div>
-        </div>
+          <div className="box-button">
+            <button
+              onClick={() => {
+                if (!customDict) {
+                  // Initialize with John's values if none exists
+                  const newDict = JSON.parse(JSON.stringify(johnValsDict));
+                  setCustomDict(newDict);
+                  setValueMode('custom');
+                } else {
+                  setValueMode('custom');
+                }
+              }}
+              className={valueMode === 'custom' ? "color-template-havicron active" : ""}
+            >
+              <span>Custom</span>
+            </button>
+          </div>
 
+          {valueMode === 'custom' && customDict && (
+            <>
+              <div className="box-button">
+                <button onClick={exportCustomDict}>
+                  <span>Export</span>
+                </button>
+              </div>
+              <div className="box-button">
+                <button onClick={() => navigate('/customvalues')}>
+                  <span>Customize</span>
+                </button>
+              </div>
+            </>
+          )}
+        </div>
         {/* Mode selection buttons */}
         {/* AV/UV/RV/NV/TV/SV/CV */}
         <div
@@ -580,7 +645,34 @@ function ValueChart() {
             ))}
           </select>
         </div>
-
+        {showCustomModal && (
+          <div className="custom-modal-overlay">
+            <div className="custom-modal">
+              <h3>Select Base Values</h3>
+              <p>Choose which value set to use as a starting point:</p>
+              <div className="modal-buttons">
+                <button
+                  onClick={() => initializeCustomDict('john')}
+                  className="color-template-pout"
+                >
+                  John Values
+                </button>
+                <button
+                  onClick={() => initializeCustomDict('nan')}
+                  className="color-template-diamond"
+                >
+                  NAN Values
+                </button>
+              </div>
+              <button
+                onClick={() => setShowCustomModal(false)}
+                className="modal-close"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
         {/* Tables section */}
         {/* Makes use of the LayerTable component
             - Accounts for John/NAN vals
@@ -589,7 +681,7 @@ function ValueChart() {
             - Layer data, name, mode, csv data, gradient, and search filter is passed in
         */}
         <div className="tables-container">
-          {Object.entries(isJohnValues ? johnValsDict : nanValsDict).map(
+          {Object.entries(currentDict).map(
             ([layerName, layerData]) => {
 
               const gradientKey = Object.keys(LayerGradients).find((key) =>

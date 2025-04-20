@@ -27,6 +27,8 @@ const NavBar = () => {
             onClick={() => setIsOpen(false)}>Trade Tool</Link></li>
           <li><Link to="/misc"
             onClick={() => setIsOpen(false)}>Miscellaneous</Link></li>
+          <li><Link to="/customvalues"
+            onClick={() => setIsOpen(false)}>Custom Values</Link></li>
           <li><a
             href="https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki"
             target="_blank" rel="noreferrer">

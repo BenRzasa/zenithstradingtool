@@ -21,7 +21,11 @@ const TableComponent = ({
   gradient,
   searchFilters,
 }) => {
-  const { csvData, setCSVData } = useContext(CSVContext);
+  const {
+    csvData,
+    setCSVData,
+    valueMode,
+  } = useContext(CSVContext);
 
   // Pick the string based on the value mode
   // Now memoized to avoid unnecessary re-calculations
@@ -75,7 +79,7 @@ const TableComponent = ({
     if (mode === 1) return num;
     // Calculate scaled value
     const scaleFactor =
-      mode === 2 ? 10   // UV
+        mode === 2 ? 10   // UV
       : mode === 3 ? 100  // NV
       : mode === 4 ? 500  // TV
       : mode === 5 ? 1000 // SV
@@ -91,20 +95,17 @@ const TableComponent = ({
     // Return the numeric value, truncated to 3 decimals max and rounded to nearest int
     // Depending on MODE
     switch(currentMode) {
-      case 1:
-        return truncate(scaledValue, 3);
-      case 2:
-        return truncate(scaledValue, 2);
-      case 6:
-        return truncate(scaledValue, 1);
-      default:
-        return Math.round(truncate(scaledValue, 3));
+      case 1: return truncate(scaledValue, 3);
+      case 2: return truncate(scaledValue, 2);
+      case 3: return truncate(scaledValue, 2);
+      case 6: return truncate(scaledValue, 2);
+      default: return Math.round(truncate(scaledValue, 3));
     }
   };
 
   const formatDisplayValue = (value, mode) => {
     const num = formatValue(value, mode);
-    // Format with suffix for display purposes
+    // Format with suffix for display purposes (M or K)
     if (Math.abs(num) >= 1000000) {
       return (num / 1000000).toFixed(3).replace(/\.?0+$/, "") + "M";
     }
@@ -223,7 +224,7 @@ const TableComponent = ({
         <tbody>
           {data.map((item, index) => {
             /* Components mapped per ore:
-              - Ore Icon (NEEDED) from Icons map/file (Match name exactly)
+              - Ore Icon from Icons map/file (Match name exactly)
               - Ore Name from CSV data
               - Ore gradient - matches pattern in ore name to ore color-template in AllGradients
               - Amount of ore in inventory
@@ -277,7 +278,7 @@ const TableComponent = ({
                     <span className="value-display" aria-hidden="true">
                       {inventory.toLocaleString()}
                     </span>
-                    {/* Actual editable input - absolutely positioned over the display */}
+                    {/* Editable input - absolutely positioned over the display */}
                     <input
                       id={`inventory-${item.name.replace(/\W+/g, "-")}`}
                       name={`inventory-${index}`} // Name for form handling
