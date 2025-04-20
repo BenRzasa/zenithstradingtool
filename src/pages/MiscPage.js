@@ -106,7 +106,7 @@ function MiscPage() {
           <div className="mode-selector">
             <div className="box-button">
               <button
-                onClick={setValueMode('john')}
+                onClick={() => setValueMode('john')}
                 className={valueMode === 'john' ? "color-template-pout" : ""}
               >
                 <span>John Values</span>
@@ -114,7 +114,7 @@ function MiscPage() {
             </div>
             <div className="box-button">
               <button
-                onClick={setValueMode('nan')}
+                onClick={() => setValueMode('nan')}
                 className={
                   valueMode === 'nan' ? "color-template-diamond" : ""
                 }
@@ -124,7 +124,7 @@ function MiscPage() {
             </div>
             <div className="box-button">
               <button
-                onClick={setValueMode('custom')}
+                onClick={() => setValueMode('custom')}
                 className={
                   valueMode === 'custom' ? "color-template-havicron" : ""
                 }

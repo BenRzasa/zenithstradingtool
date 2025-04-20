@@ -24,7 +24,6 @@ const TableComponent = ({
   const {
     csvData,
     setCSVData,
-    valueMode,
   } = useContext(CSVContext);
 
   // Pick the string based on the value mode
@@ -126,7 +125,7 @@ const TableComponent = ({
       return sum + completion;
     }, 0);
     // Divide the total percentage by number of ores in the table and fix to .1
-    return ((totalCompletion / data.length) * 100).toFixed(1);
+    return ((totalCompletion / data.length) * 100).toFixed(2);
   };
 
   // Calculate total NVs/UVs/TVs/SVs
@@ -210,6 +209,9 @@ const TableComponent = ({
         data-text={title}
       >
         {title}
+        {getAverageCompletion() === '100.00' && (
+          <span className="nv-comp-check">✓</span>
+        )}
       </h2>
       <table className="table-comp">
         <thead>
