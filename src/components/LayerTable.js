@@ -99,6 +99,7 @@ const TableComponent = ({
       case 2: return truncate(scaledValue, 2);
       case 3: return truncate(scaledValue, 2);
       case 6: return truncate(scaledValue, 2);
+      case 7: return truncate(scaledValue, 3);
       default: return Math.round(truncate(scaledValue, 3));
     }
   };
