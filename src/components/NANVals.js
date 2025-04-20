@@ -29,7 +29,7 @@ export const nanValsDict = {
   ],
 
   Uniques: [
-    { name: "Vicious Shard", baseValue: 0.006 },
+    { name: "Vicious Shard", baseValue: 1/180 },
     { name: "Jalabono", baseValue: 1.0 },
     { name: "Hollevite", baseValue: 1.0 },
     { name: "Verglazium", baseValue: 2.0 },
@@ -272,9 +272,9 @@ export const nanValsDict = {
   Stability: [
     { name: "Universal Barrier", baseValue: 500 },
     { name: "Rifted Barrier", baseValue: 6 },
-    { name: "Fabric", baseValue: 6 },
+    { name: "Fabric", baseValue: 12 },
     { name: "Mavrikine", baseValue: 6 },
-    { name: "Irulisteel", baseValue: 5 }
+    { name: "Irulisteel", baseValue: 2 }
   ],
 
   Planck: [
