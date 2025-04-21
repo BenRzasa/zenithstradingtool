@@ -1,10 +1,18 @@
+/* ZTT | Custom Value Editor Page
+  - Allows the user to customize a full set of values in table form
+  - Results in a custom value dictionary in similar format to the John and NAN dicts
+  - Can be exported (and later, imported), to save for later
+  - Can be reset to NAN or John's default values
+  - Saving or cancelling will result in immediate navigation to the Value Chart page
+*/
+
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CSVContext } from '../context/CSVContext';
-import { LayerGradients } from '../components/LayerGradients';
-import { oreIcons } from '../lib/oreIcons';
 import NavBar from '../components/NavBar';
 
+import { LayerGradients } from '../data/LayerGradients';
+import { oreIcons } from '../data/oreIcons';
 
 import '../styles/CustomValuesEditor.css';
 import '../styles/AllGradients.css';
@@ -40,16 +48,19 @@ function CustomValuesEditor() {
       return newDict;
     });
   };
+
   // Save the new dictionary
   const handleSave = () => {
     setCustomDict(editedDict);
     setValueMode('custom');
     navigate(-1);
   };
+
   // Handle cancellation (navigate 1 page backward -> Value Chart)
   const handleCancel = () => {
     navigate(-1);
   };
+
   // Handle resetting of the dictionary
   const handleReset = (source) => {
     if (window.confirm(`Reset all values to '${source}' values? This cannot be undone.`)) {
@@ -79,6 +90,7 @@ function CustomValuesEditor() {
         <li>If you make a mistake, or want to start over, click one of the two reset buttons, then click to confirm.</li>
       </ul>
       <div className="editor-controls">
+        {/* Reset buttons for NAN & John value dicts */}
         <div className="reset-buttons">
           <button onClick={() => handleReset('john')} className="reset-john">
             Reset to John's Values
@@ -96,7 +108,7 @@ function CustomValuesEditor() {
           </button>
         </div>
       </div>
-
+      {/* Value tables container - formatted similarly to the main Value Chart page */}
       <div className="tables-container">
         {Object.entries(editedDict).map(([layerName, layerData]) => {
           const gradientKey = Object.keys(LayerGradients).find(key =>
@@ -119,6 +131,7 @@ function CustomValuesEditor() {
               >
                 {layerName}
               </h2>
+              {/* Only needs the per AV column, since they're customizing the baseValue */}
               <table className="table">
                 <thead>
                   <tr>

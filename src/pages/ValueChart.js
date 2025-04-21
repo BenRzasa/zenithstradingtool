@@ -10,12 +10,14 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { CSVContext } from "../context/CSVContext";
+
 import LayerTable from "../components/LayerTable";
-import { johnValsDict } from "../components/JohnVals";
-import { nanValsDict } from "../components/NANVals";
-import { LayerGradients } from "../components/LayerGradients";
-import searchFilters from "../components/SearchFilters";
 import NavBar from '../components/NavBar';
+
+import { johnValsDict } from "../data/JohnVals";
+import { nanValsDict } from "../data/NANVals";
+import { LayerGradients } from "../data/LayerGradients";
+import searchFilters from "../data/SearchFilters";
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";

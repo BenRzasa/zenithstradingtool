@@ -273,7 +273,7 @@ export const johnValsDict = {
     { name: "Rifted Barrier", baseValue: 6 },
     { name: "Fabric", baseValue: 7 },
     { name: "Mavrikine", baseValue: 6 },
-    { name: "Irulisteel", baseValue: 5 }
+    { name: "Irulisteel", baseValue: 2 }
   ],
 
   Planck: [

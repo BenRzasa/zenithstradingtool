@@ -2,6 +2,8 @@
 
 ## TO FIX:
 
+### LOW PRIORITY -- All pages: Standardize input rules
+ - e.g., no 0, Infinity, NaN values allowed in any input boxes (it fucks up stuff)
 ### DONE -- Misc: Update formatting, add verbosity, clean up code & css files
 ### DONE -- First: fix github-pages deployment crashing
 ### DONE -- Quick Summary
@@ -16,33 +18,26 @@
 ### DONE -- Values -> Custom AV value setting option - saves locally
 ### DONE -- Custom Background Image (Main page only)
 ### DONE -- Date & Amount since last CSV change
+### DONE -- Custom Value Setting - Per ore
+### DONE -- CSV Loader -- Sort by AV gained
 
-### CSV Loader -- Sort by AV gained
 ### Misc Page -- Box containing "Useful tips & tricks" - link to another card-style page?
  - List of all emblems with perks
-
-### Tentative - SETTINGS PAGE
- - Need ideas here...
-### Value Chart Page - background transparency/opacity overlay of some sort
- - Pop-up that the user can have (Maybe just make a settings page at this point...)
-### Custom Value Setting - Per ore
- - Could just have the user set up their own values from scratch, or start with a baseline
- - e.g., you value an ore at 50 AV while the standard rate is 30AV.
- - Have the user search for an ore, then enter a value in "Ore Per AV" OR "AV Per Ore"
-    - Use a similar interface to the Trade Tool search box and table
- - Those two options could be in a dropdown/checkmark selection
- - Once "Ore Per AV" is entered, simply modify the baseValue of the ore
- to match it. e.g., 15.5 Ore Per AV would result in a baseValue of 15.5.
- - Likewise, if "AV Per Ore" is entered, take that number (let's say "50")
- and modify it to become 0.02 baseValue (divide 1 by the number - 0.2 = 1/50)
- - These custom values will then need to be updated in the dictionaries
- - Probably should provide an option to "revert back to standard values"
-    - This would discard all the user's changes and revert to John/NAN standard vals
 
 ### Rare Finds Tracker - Self explanatory, follow layout of JTT
  - Calculate total AV/NV of rare finds, and AV/NV per ore found
  - Manually entered by the user
+ - Arrows to tick up or down the find amounts
+ - Must be exportable & importable (simple CSV format [oreName:amount#])
+    - Allows the user to start where they left off after a re-deploy
  - This MUST be persistently stored - create another Context file to store the data
+
+### Tentative - SETTINGS PAGE
+ - Need ideas here...
+
+### Value Chart Page - background transparency/opacity overlay of some sort
+ - Pop-up that the user can have (Maybe just make a settings page at this point...)
+
 
 ### Grind Strats - List some of mine and others' favorite grind strats for various ores
  - Format prettily, include drop-down sections for the strategies, categories to open,

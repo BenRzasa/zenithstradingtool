@@ -10,10 +10,12 @@
 
 // This comment was added on my Arch Linux WSL2 environment.
 import React, { useContext } from "react";
-import NavBar from "../components/NavBar";
 import { Link } from 'react-router-dom';
 import { CSVContext } from "../context/CSVContext";
-import searchFilters from "../components/SearchFilters";
+
+import NavBar from "../components/NavBar";
+
+import searchFilters from "../data/SearchFilters";
 
 import "../styles/MiscPage.css";
 import "../styles/AllGradients.css";

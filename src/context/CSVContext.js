@@ -5,8 +5,8 @@
 
 /* ZTT | Enhanced Context file with Custom Values support */
 import React, { createContext, useState, useEffect, useMemo } from 'react';
-import { johnValsDict } from '../components/JohnVals';
-import { nanValsDict } from '../components/NANVals';
+import { johnValsDict } from '../data/JohnVals';
+import { nanValsDict } from '../data/NANVals';
 
 export const CSVContext = createContext();
 

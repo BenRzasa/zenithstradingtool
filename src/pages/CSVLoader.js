@@ -8,11 +8,11 @@
 
 import React, { useContext, useState } from "react";
 import NavBar from "../components/NavBar";
-import { OreNames } from "../components/OreNames";
 import { CSVContext } from "../context/CSVContext";
 
-import { johnValsDict } from "../components/JohnVals";
-import { nanValsDict } from "../components/NANVals";
+import { OreNames } from "../data/OreNames";
+import { johnValsDict } from "../data/JohnVals";
+import { nanValsDict } from "../data/NANVals";
 
 import "../styles/CSVLoader.css";
 

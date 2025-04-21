@@ -6,7 +6,7 @@
 import React, { useContext, useState, useMemo } from "react";
 import { CSVContext } from "../context/CSVContext";
 
-import { oreIcons } from "../lib/oreIcons";
+import { oreIcons } from "../data/oreIcons";
 
 import "../styles/AllGradients.css";
 import "../styles/ValueChart.css";

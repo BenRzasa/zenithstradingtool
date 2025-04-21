@@ -4,7 +4,7 @@
 */
 
 import React, { useState } from 'react';
-import { oreIcons } from "../lib/oreIcons";
+import { oreIcons } from "../data/oreIcons";
 
 import '../styles/TradeTable.css';
 import '../styles/AllGradients.css';
