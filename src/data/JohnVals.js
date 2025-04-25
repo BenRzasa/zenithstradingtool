@@ -142,7 +142,7 @@ export const johnValsDict = {
     { name: "Dark Matter", baseValue: 10 }
   ],
 
-  Gloom: [
+  Dread: [
     { name: "Crimstone", baseValue: 70.5 },
     { name: "Horrorstone", baseValue: 11 },
     { name: "Strange Matter", baseValue: 6 },

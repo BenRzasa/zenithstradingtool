@@ -43,8 +43,8 @@ export const LayerGradients = {
 
   Mirage: { background: " #b06cda" },
 
-  Gloom: {
-    background: "linear-gradient(180deg,rgb(128, 7, 7) 0%, #360000 100%)",
+  Dread: {
+    background: "linear-gradient(180deg, #cc382f 0%, #ae241e 50%,rgb(92, 10, 9) 100%)",
   },
 
   Void: {

@@ -143,7 +143,7 @@ export const nanValsDict = {
     { name: "Dark Matter", baseValue: 10 }
   ],
 
-  Gloom: [
+  Dread: [
     { name: "Crimstone", baseValue: 100 },
     { name: "Horrorstone", baseValue: 10 },
     { name: "Strange Matter", baseValue: 7 },
