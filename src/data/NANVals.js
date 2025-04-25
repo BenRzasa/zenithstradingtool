@@ -167,13 +167,13 @@ export const nanValsDict = {
   ],
 
   Grayscale: [
-    { name: "Gallium", baseValue: 40 },
-    { name: "Amnesite", baseValue: 20 },
+    { name: "Gallium", baseValue: 15 },
+    { name: "Amnesite", baseValue: 15 },
     { name: "Shadow Quartz", baseValue: 4 },
     { name: "Glowstone", baseValue: 3 },
     { name: "Graphene", baseValue: 5 },
     { name: "Quicksilver", baseValue: 8 },
-    { name: "Gray Matter", baseValue: 7 }
+    { name: "Gray Matter", baseValue: 5 }
   ],
 
   "Achrothesi / Whitespace": [
