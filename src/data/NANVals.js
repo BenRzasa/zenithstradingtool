@@ -287,7 +287,7 @@ export const nanValsDict = {
     { name: "Desmentinum", baseValue: 10 }
   ],
 
-  "Conversion/Disarray/Breakage/Criticality": [
+  "Upper Instability": [
     { name: "Ailmentin", baseValue: 500 },
     { name: "Territane", baseValue: 15 },
     { name: "Sinfurmium", baseValue: 8 },
@@ -302,7 +302,7 @@ export const nanValsDict = {
     { name: "Alkanite", baseValue: 500 }
   ],
 
-  "Grim 1 / Hive / Grim 2": [
+  "Lower Instability": [
     { name: "Grimstone", baseValue: 1000 },
     { name: "Phosphyll", baseValue: 40 },
     { name: "Vrimsten", baseValue: 40 },

@@ -11,10 +11,11 @@ import NavBar from "../components/NavBar";
 import { CSVContext } from "../context/CSVContext";
 
 import { OreNames } from "../data/OreNames";
-import { johnValsDict } from "../data/JohnVals";
-import { nanValsDict } from "../data/NANVals";
 
 import "../styles/CSVLoader.css";
+
+// To make useMemo shut up...
+const ORE_NAMES = Object.freeze([...OreNames]);
 
 function CSVLoader() {
   // Fetch the current data and the set function from context
@@ -23,22 +24,89 @@ function CSVLoader() {
     previousAmounts,
     lastUpdated,
     updateCSVData,
-    isJohnValues
+    currentDict,
   } = useContext(CSVContext);
 
-  const [showFilterPopup, setShowFilterPopup] = useState(false);
-  const [currentFilter, setCurrentFilter] = useState('alphabetical');
 
-  // Filter the ores by selected type (alphabetical, change #, name)
-  const filterOres = (filterType) => {
-    setCurrentFilter(filterType);
-    setShowFilterPopup(false);
-  };
+    // State for sorting configuration
+    const [sortConfig, setSortConfig] = useState({
+      key: 'ore',       // Current column being sorted 'ore', 'amount', 'change'
+      direction: 'asc'  // Current direction 'asc' or 'desc'
+    });
+
+    // Function to handle header clicks and toggle sorting
+    const handleSort = (columnKey) => {
+      let direction = 'asc';
+      // If clicking the same column, toggle the direction
+      if (sortConfig.key === columnKey) {
+        direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
+      }
+      setSortConfig({ key: columnKey, direction });
+    };
+
+    // Get sort indicator for a column
+    const displaySortArrow = (columnKey) => {
+      if (sortConfig.key !== columnKey) return null;
+      return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
+    };
+
+    // Memoized sorted ores
+    const sortedOres = React.useMemo(() => {
+      const sortableOres = [...ORE_NAMES];
+
+      sortableOres.sort((a, b) => {
+        // Handle change column cases - requires some nitpicking to format nicely
+        if (sortConfig.key === 'change') {
+          const changeA = (csvData[a] || 0) - (previousAmounts[a] || 0);
+          const changeB = (csvData[b] || 0) - (previousAmounts[b] || 0);
+          // Handle zeros first (they should always be last)
+          if (changeA === 0 && changeB === 0) return 0;
+          if (changeA === 0) return 1;
+          if (changeB === 0) return -1;
+          if (sortConfig.direction === 'asc') {
+            // ASCENDING: Negative increasing then Positive increasing
+            if (changeA < 0 && changeB < 0) return changeA - changeB;
+            if (changeA < 0 && changeB > 0) return -1;
+            if (changeA > 0 && changeB < 0) return 1;
+            if (changeA > 0 && changeB > 0) return changeA - changeB;
+          } else {
+            // DESCENDING: Positive decreasing then Negative decreasing
+            if (changeA > 0 && changeB > 0) return changeB - changeA;
+            if (changeA > 0 && changeB < 0) return -1;
+            if (changeA < 0 && changeB > 0) return 1;
+            if (changeA < 0 && changeB < 0) return changeB - changeA;
+          }
+          return 0;
+        }
+
+        // Get values to compare based on sort column
+        let aValue, bValue;
+
+        switch (sortConfig.key) {
+          case 'amount':
+            aValue = csvData[a] || 0;
+            bValue = csvData[b] || 0;
+            break;
+          default: // 'ore'
+            aValue = a;
+            bValue = b;
+            break;
+        }
+
+        // Compare values
+        if (aValue < bValue) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+    });
+      return sortableOres;
+    }, [csvData, previousAmounts, sortConfig]);
 
   const updateOreAmounts = () => {
-    // 1. Force alphabetical sorting immediately
-    setCurrentFilter('alphabetical');
-    // 2. Process the CSV data
+    // Process the CSV data
     const csvInput = document.getElementById("csvInput").value;
     if (!csvInput) return;
     const newAmounts = csvInput.split(",").map(Number);
@@ -49,15 +117,8 @@ function CSVLoader() {
         ? newAmounts[index]
         : 0;
     });
-    // 3. Update the CSV data
+    // Update the CSV data
     updateCSVData(updatedData);
-    // 4. Force a re-render with alphabetical sorting before switching to change view
-    setTimeout(() => {
-      setCurrentFilter('alphabetical'); // Ensure one more render with alphabetical
-      setTimeout(() => {
-        setCurrentFilter('change'); // Then switch to change view
-      }, 50); // Small delay to ensure render completes
-    }, 50);
   };
 
   // Calculate total value change from last update
@@ -66,7 +127,7 @@ function CSVLoader() {
     let totalLost = 0;
     const changedOres = [];
     // Get both value dictionaries
-    const valueDict = isJohnValues ? johnValsDict : nanValsDict;
+    const valueDict = currentDict;
     // Calculate changes for each ore
     OreNames.forEach((ore) => {
       const currentAmount = csvData[ore] || 0;
@@ -138,9 +199,18 @@ function CSVLoader() {
             <table>
               <thead>
                 <tr>
-                  <th>Ore</th>
-                  <th>Amount</th>
-                  <th>Change</th>
+                  <th onClick={() => handleSort('ore')}
+                      className="sortable-header">
+                    Ore{displaySortArrow('ore')}
+                  </th>
+                  <th onClick={() => handleSort('amount')}
+                      className="sortable-header">
+                    Amount{displaySortArrow('amount')}
+                  </th>
+                  <th onClick={() => handleSort('change')}
+                      className="sortable-header">
+                    Change{displaySortArrow('change')}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -148,42 +218,28 @@ function CSVLoader() {
                     Map all ores from OreNames, with the corresponding
                     amount from the user's inventory CSV string.
                     Now includes sorting based on the current sort chosen
+                     - User can interact with the header by clicking to sort in ascending/
+                       descending order
                 */}
-                {OreNames
-                  .sort((a, b) => {
-                    switch(currentFilter) {
-                      case 'quantity':
-                        return (csvData[b] || 0) - (csvData[a] || 0);
-                      case 'change':
-                        const changeA = (csvData[a] || 0) - (previousAmounts[a] || 0);
-                        const changeB = (csvData[b] || 0) - (previousAmounts[b] || 0);
-                        return changeB - changeA;
-                      default:
-                        return a.localeCompare(b);
-                    }
-                  })
-                  .map((ore) => {
-                    const currentAmount = csvData[ore] || 0;
-                    const previousAmount = previousAmounts[ore] || 0;
-                    const change = currentAmount - previousAmount;
-                    return (
-                      <tr key={ore}>
-                        <td>{ore}</td>
-                        <td>{currentAmount}</td>
-                        <td
-                          className={
-                            change > 0 ? 'positive-change'
-                            : change < 0 ? 'negative-change'
-                            : ''
-                          }>
-                          {
-                            change !== 0 ? (change > 0 ? `+${change}` : change) : ''
-                          }
-                        </td>
-                      </tr>
-                    );
-                  })
-                }
+                {sortedOres.map((ore) => {
+                  const currentAmount = csvData[ore] || 0;
+                  const previousAmount = previousAmounts[ore] || 0;
+                  const change = currentAmount - previousAmount;
+                  return (
+                    <tr key={ore}>
+                      <td>{ore}</td>
+                      <td>{currentAmount}</td>
+                      <td
+                        className={
+                          change > 0 ? 'positive-change'
+                          : change < 0 ? 'negative-change'
+                          : ''
+                        }>
+                        {change !== 0 ? (change > 0 ? `+${change}` : change) : ''}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -200,36 +256,6 @@ function CSVLoader() {
                 <span>Export CSV</span>
               </button>
           </div>
-          <div className="box-button">
-            <button onClick={() => setShowFilterPopup(!showFilterPopup)}>
-              <span>Filter Table</span>
-            </button>
-          </div>
-          {/* filter popup - under the filter button */}
-          {showFilterPopup && (
-            <div className="filter-popup">
-              <div className="filter-options">
-                <button
-                  onClick={() => filterOres('alphabetical')}
-                  className={currentFilter === 'alphabetical' ? 'active' : ''}
-                >
-                  Alphabetically
-                </button>
-                <button
-                  onClick={() => filterOres('quantity')}
-                  className={currentFilter === 'quantity' ? 'active' : ''}
-                >
-                  Quantity in Inventory
-                </button>
-                <button
-                  onClick={() => filterOres('change')}
-                  className={currentFilter === 'change' ? 'active' : ''}
-                >
-                  Change Amount
-                </button>
-              </div>
-            </div>
-          )}
         </div>
         <div className="csv-input">
           {/* CSV Input Box */}

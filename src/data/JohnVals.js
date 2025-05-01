@@ -286,7 +286,7 @@ export const johnValsDict = {
     { name: "Desmentinum", baseValue: 10 }
   ],
 
-  "Conversion/Disarray/Breakage/Criticality": [
+  "Upper Instability": [
     { name: "Ailmentin", baseValue: 750 },
     { name: "Territane", baseValue: 15 },
     { name: "Sinfurmium", baseValue: 10 },
@@ -301,7 +301,7 @@ export const johnValsDict = {
     { name: "Alkanite", baseValue: 2000 }
   ],
 
-  "Grim 1 / Hive / Grim 2": [
+  "Lower Instability": [
     { name: "Grimstone", baseValue: 2000 },
     { name: "Phosphyll", baseValue: 44.5 },
     { name: "Vrimsten", baseValue: 36.5 },
