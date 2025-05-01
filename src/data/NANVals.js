@@ -177,15 +177,15 @@ export const nanValsDict = {
   ],
 
   "Achrothesi / Whitespace": [
-    { name: "Cadmium", baseValue: 12 },
-    { name: "Chromium", baseValue: 9 },
-    { name: "Null", baseValue: 8 },
-    { name: "Geometrium", baseValue: 4 },
+    { name: "Cadmium", baseValue: 15 },
+    { name: "Chromium", baseValue: 12 },
+    { name: "Null", baseValue: 16 },
+    { name: "Geometrium", baseValue: 7 },
     { name: "Noise", baseValue: 4 },
-    { name: "Inversium", baseValue: 3 },
-    { name: "Navitalc", baseValue: 8 },
-    { name: "Myriroule", baseValue: 5 },
-    { name: "Argibar", baseValue: 3 },
+    { name: "Inversium", baseValue: 6 },
+    { name: "Navitalc", baseValue: 10 },
+    { name: "Myriroule", baseValue: 7 },
+    { name: "Argibar", baseValue: 8 },
     { name: "Perilium", baseValue: 2 }
   ],
 
