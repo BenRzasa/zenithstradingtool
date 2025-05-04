@@ -1,521 +1,560 @@
-/* ZTT | Trading tool component
-    Trading tool to assist users
-    Contains the following features:
-    - Search filter by ore/layer
-    - Mass quantity setting
-    - To Trade & To Receive tables
-    - Subtracting and adding the required ores to the user's inventory
-    - Value mode switcher
-    - Table clearing
-    - Keyboard navigation
+
+/* ZTT | Trading tool component (Refactored 5/2/25)
+   Simplified trading tool with:
+   - All ores displayed in layer groups
+   - Single column for quantity inputs
+   - Real-time AV calculation
+   - Value mode selection
+   - Discount application
+   - two-column layout
+   Removed features:
+   - Receive functionality
+   - Search filtering
+   - Inventory management
 */
 
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import NavBar from "../components/NavBar";
 import { CSVContext } from "../context/CSVContext";
 import { TradeContext } from "../context/TradeContext";
-import TradeTable from "../components/TradeTable";
-
+import { oreIcons } from "../data/oreIcons";
 import "../styles/TradeTool.css";
 import "../styles/AllGradients.css";
 
 function TradeTool() {
-  /* Fetches the following pieces from the saved trade context:
-    - Full trade data
-    - John/NAN mode
-    - Quantities set per ore
-    - Discount
-    And sets other fields to null/default
-  */
-  // State hooks - Manage trade data and CSV inventory context
-  const { tradeData, setTradeData } = useContext(TradeContext);
+  /* Context hooks */
   const {
-    csvData,
-    setCSVData,
-    valueMode,
-    setValueMode,
-    currentDict
-  } = useContext(CSVContext);
+    tradeState,
+    setTradeState,
+    updateTradeOres,
+    clearTradeSummary
+  } = useContext(TradeContext);
 
-  // Component state - Track all UI and trade-related state
-  const [selectedOres, setSelectedOres] = useState(tradeData.selectedOres);
-  const [quantities, setQuantities] = useState(tradeData.quantities);
-  const [receivedOres, setReceivedOres] = useState(tradeData.receivedOres);
-  const [receivedQuantities, setReceivedQuantities] = useState(tradeData.receivedQuantities);
+  const { csvData, valueMode, setValueMode, currentDict } = useContext(CSVContext);
 
-  // Search and UI state
-  const [searchTerm, setSearchTerm] = useState("");
-  const [receiveSearchTerm, setReceiveSearchTerm] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [receiveSelectedIndex, setReceiveSelectedIndex] = useState(-1);
-  const [globalQuantity, setGlobalQuantity] = useState(1);
-  const [globalReceiveQuantity, setGlobalReceiveQuantity] = useState(0);
+  // Extract data from trade context
+  const { quantities, discount, selectedOres } = tradeState;
 
-  // Refs for DOM access
-  const searchInputRef = useRef(null); // Reference to search input for focus management
-  const resultsRef = useRef(null); // Reference to search results container for scrolling
+  // Batch mode (NV or AV)
+  const [batchMode, setBatchMode] = useState('quantity'); // 'quantity' or 'av'
 
-  /*
-   * Prepare complete ore list with layer information
-   * Combines ore data from either John or NAN values with their layer information
-   * Returns array of ore objects with layer property added
-  */
-  const allOresWithLayers = Object.entries(currentDict)
-  .flatMap(([layerName, ores]) =>
-    ores.map((ore) => ({
-      ...ore,
-      layer: layerName, // Add layer info to each ore
-    }))
-  );
+  // Mode toggle button
+  const toggleBatchMode = () => {
+    setBatchMode(prev => prev === 'quantity' ? 'av' : 'quantity');
+  };
 
-  console.log('allOresWithLayers:', allOresWithLayers);
-
-  // Filter ores based on search term
-  const filterOres = (term, source = allOresWithLayers) => {
-    // Early return if empty search
-    if (!term.trim()) return [];
-    const termLower = term.toLowerCase();
-    return source.filter((ore) => {
-      // Check if ore name matches
-      const oreMatch = ore.name.toLowerCase().includes(termLower);
-      // Check if layer name matches (including partial matches for layered ores)
-      const layerMatch =
-        ore.layer.toLowerCase().includes(termLower) ||
-        ore.layer
-          .split("/")
-          .some((part) => part.trim().toLowerCase().includes(termLower));
-      return oreMatch || layerMatch;
+  // Initialize state with all layers collapsed
+  const [collapsedLayers, setCollapsedLayers] = useState(() => {
+    const initialState = {};
+    Object.keys(currentDict).forEach(layer => {
+      initialState[layer] = true; // true means collapsed
     });
-  };
+    return initialState;
+  });
 
-  // Current filtered results for both search inputs
-  const filteredOres = filterOres(searchTerm);
-  const filteredReceiveOres = filterOres(receiveSearchTerm);
-
-  // Add ore to either trade or receive table
-  const handleAddOre = (oreObj, isReceive = false) => {
-    // Determine which state to update based on isReceive flag
-    const targetArray = isReceive ? receivedOres : selectedOres;
-    const setTargetArray = isReceive ? setReceivedOres : setSelectedOres;
-    const setTargetQuantities = isReceive
-      ? setReceivedQuantities
-      : setQuantities;
-    // Only add if ore isn't already in the table
-    if (!targetArray.some((ore) => ore.name === oreObj.name)) {
-      setTargetArray((prev) => [...prev, oreObj]);
-      setTargetQuantities((prev) => ({
-        ...prev,
-        [oreObj.name]: isReceive ? 0 : 1, // Default to 0 for receive, 1 for trade
-      }));
-    }
-    // Reset search state after adding
-    if (isReceive) {
-      setReceiveSearchTerm("");
-      setReceiveSelectedIndex(-1);
-    } else {
-      setSearchTerm("");
-      setSelectedIndex(-1);
-      // Return focus to search input for trade table
-      searchInputRef.current?.focus();
-    }
-  };
-
-  // Handle keyboard navigation in search results
-  const handleKeyDown = (e, isReceive = false) => {
-    // Get current search state based on which input is active
-    const currentTerm = isReceive ? receiveSearchTerm : searchTerm;
-    const currentOres = isReceive ? filteredReceiveOres : filteredOres;
-    const setIndex = isReceive ? setReceiveSelectedIndex : setSelectedIndex;
-    // Ignore if no search term or results
-    if (!currentTerm || !currentOres.length) return;
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        // Move selection down, wrapping to top if at bottom
-        setIndex((prev) => (prev < currentOres.length - 1 ? prev + 1 : 0));
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        // Move selection up, wrapping to bottom if at top
-        setIndex((prev) => (prev > 0 ? prev - 1 : currentOres.length - 1));
-        break;
-      case "Enter":
-        e.preventDefault();
-        // Add currently highlighted ore
-        const index = isReceive ? receiveSelectedIndex : selectedIndex;
-        if (index >= 0 && index < currentOres.length) {
-          handleAddOre(currentOres[index], isReceive);
-        }
-        break;
-      case "Escape":
-        // Clear current search
-        if (isReceive) {
-          setReceiveSearchTerm("");
-        } else {
-          setSearchTerm("");
-        }
-        break;
-      default:
-        break;
-    }
-  };
-
-  // Handle quantity change for an ore
-  const handleQuantityChange = (oreName, value, isReceive = false) => {
-    // Determine which quantity state to update
-    const setQuantitiesFn = isReceive ? setReceivedQuantities : setQuantities;
-    // Minimum value depends on which table (0 for receive, 1 for trade)
-    const minValue = isReceive ? 0 : 1;
-    setQuantitiesFn((prev) => ({
+  // Toggle layer collapse
+  const toggleLayerCollapse = (layerName) => {
+    setCollapsedLayers(prev => ({
       ...prev,
-      [oreName]:
-        value === ""
-          ? "" // Allow empty string for UX (user can backspace completely)
-          : Math.max(
-              minValue,
-              parseInt(value) || minValue // Fallback to minValue if NaN
-            ),
+      [layerName]: !prev[layerName]
     }));
   };
 
-  // Calculate AV for a single ore
-  const calculateAV = (oreName, isReceive = false) => {
-    // First try to find the ore in the current value dictionary
-    const oreData = allOresWithLayers.find(ore => ore.name === oreName);
-    if (!oreData) return "0.0";
-    // Get quantity from the correct source based on isReceive
-    const quantity = isReceive
-                   ? receivedQuantities[oreName] ?? 0 
-                   : quantities[oreName] ?? 0;
-    return (quantity / oreData.baseValue).toFixed(1);
-  };
-
-  // Updated the calculateTotals function to not apply discount
-  const calculateTotals = (ores, quantities, discount = 0) => {
-    // Ensure it can never be "null"
-    const safeOres = Array.isArray(ores) ? ores : [];
-    // Same here - this is crucial to prevent rendering/reading errors
-    const safeQuantities = typeof quantities === 'object' ? quantities : {};
-    return safeOres.reduce((acc, ore) => {
-      if (!ore?.name) return acc;
-      const qty = Number(safeQuantities[ore.name]) || 0;
-      const oreData = allOresWithLayers.find(o => o?.name === ore.name);
-      if (!oreData) return acc;
-      const value = Number(oreData?.baseValue) || 1;
-      return {
-        totalOres: acc.totalOres + qty,
-        totalAV: acc.totalAV + (qty / value),
-        discountedAV: acc.discountedAV + (qty / value * (1 - discount / 100))
-      };
-      // Dsfaults to 0 as default case
-    }, { totalOres: 0, totalAV: 0, discountedAV: 0 });
-  };
-
-  // Apply global quantity to all ores in a table
-  const applyGlobalQuantity = (quantity, isReceive = false) => {
-    // Determine which state to update
-    const setQuantitiesFn = isReceive ? setReceivedQuantities : setQuantities;
-    const ores = isReceive ? receivedOres : selectedOres;
-    // Minimum value depends on table type
-    const minValue = isReceive ? 0 : 1;
-    // Create new quantities object with all ores set to the global quantity
-    const newQuantities = ores.reduce(
-      (acc, ore) => ({
-        ...acc,
-        [ore.name]: Math.max(minValue, quantity),
-      }),
-      {}
+  /* Prepare complete ore list with layer information */
+  const allOresWithLayers = Object.entries(currentDict)
+    .flatMap(([layerName, ores]) =>
+      ores.map((ore) => ({
+        ...ore,
+        layer: layerName,
+      }))
     );
-    setQuantitiesFn(newQuantities);
+
+  /* Group ores by layer for organized display */
+  const oresByLayer = Object.entries(currentDict).map(([layerName, ores]) => ({
+    layer: layerName,
+    ores: ores.map(ore => ({
+      ...ore,
+      layer: layerName,
+    }))
+  }));
+
+  /* Toggle ore selection */
+  const toggleOreSelection = (oreName) => {
+    setTradeState(prev => ({
+      ...prev,
+      selectedOres: prev.selectedOres.includes(oreName)
+        ? prev.selectedOres.filter(name => name !== oreName)
+        : [...prev.selectedOres, oreName]
+    }));
   };
 
+  /* Apply batch quantity to selected ores */
+  const applyBatchQuantity = () => {
+    if (tradeState.selectedOres.length === 0) return;
 
-  // Remove an ore from the trade table
-  const handleRemoveOre = (oreObj) => {
-    // Filter out the ore from selected ores
-    setSelectedOres((prev) => prev.filter((ore) => ore.name !== oreObj.name));
-    // Remove its quantity entry
-    setQuantities((prev) => {
-      const newQuantities = { ...prev };
-      delete newQuantities[oreObj.name];
-      return newQuantities;
-    });
-  };
+    const newQuantities = { ...tradeState.quantities };
 
+    tradeState.selectedOres.forEach(oreName => {
+      const oreData = allOresWithLayers.find(ore => ore.name === oreName);
+      if (!oreData) return;
 
-  // Clear all ores from the trade table
-  const clearTable = () => {
-    setSelectedOres([]);
-    setQuantities({});
-    setReceivedOres([]);
-    setReceivedQuantities({});
-  };
-
-
-  // Process trade - both to Trade and Receive tables
-  const processTrade = () => {
-    const confirmed = window.confirm(
-      "Confirm trade?\nThis will:\n1) Remove traded ores from inventory\n2) Add received ores to inventory"
-    );
-    if (!confirmed) return;
-    const updatedCSV = { ...csvData }; // Create a shallow copy first
-    // Remove traded ores from inventory
-    selectedOres.forEach((ore) => {
-      const oreName = ore.name;
-      const currentAmount = updatedCSV[oreName] || 0;
-      const tradeAmount = quantities[oreName] || 0;
-      updatedCSV[oreName] = Math.max(0, currentAmount - tradeAmount);
-    });
-    // Add received ores to inventory
-    receivedOres.forEach((ore) => {
-      const oreName = ore.name;
-      const receiveAmount = receivedQuantities[oreName] || 0;
-      if (receiveAmount > 0) {
-        const receivedOreName = ore.name;
-        updatedCSV[receivedOreName] = (updatedCSV[receivedOreName] || 0) + receiveAmount;
+      if (batchMode === 'quantity') {
+        // Direct quantity mode
+        newQuantities[oreName] = Math.max(1, tradeState.batchQuantity);
+      } else {
+        // AV mode - calculate quantity needed to reach target AV
+        const targetAV = tradeState.batchQuantity;
+        const oreValue = oreData.baseValue;
+        const calculatedQuantity = Math.ceil(targetAV * oreValue);
+        newQuantities[oreName] = Math.max(1, calculatedQuantity);
       }
     });
-    // Update state
-    setCSVData(updatedCSV);
-    clearTable();
-    requestAnimationFrame(() => searchInputRef.current?.focus());
+
+    setTradeState(prev => ({
+      ...prev,
+      quantities: newQuantities,
+      selectedOres: [], // Clear selection after applying
+      batchQuantity: 0  // Reset batch quantity
+    }));
+
+    // Update trade summary
+    updateTradeOres(allOresWithLayers);
   };
 
+  /* Clear selected ores */
+  const clearSelection = () => {
+    setTradeState(prev => ({
+      ...prev,
+      selectedOres: [],
+      batchQuantity: 0
+    }));
+  };
 
-  // Check if inventory has enough of an ore for trade
+  /* Check if ore is selected */
+  const isOreSelected = (oreName) => selectedOres.includes(oreName);
+
+  /* Check inventory availability */
   const hasEnoughOre = (oreObj) => {
     return csvData?.[oreObj.name] >= (quantities[oreObj.name] || 0);
   };
 
-
-  // Get available quantity of an ore from inventory
+  /* Get available amount from inventory */
   const getAvailableAmount = (oreObj) => csvData?.[oreObj.name] || 0;
 
+  /* Get list of ores with insufficient inventory */
+  const missingOres = allOresWithLayers
+    .filter(ore => quantities[ore.name] > 0)
+    .filter(ore => !hasEnoughOre(ore))
+    .map(ore => ({
+      ...ore,
+      missing: Math.max(
+        0,
+        (quantities[ore.name] || 0) - (csvData[ore.name] || 0)
+  )}));
 
-  // Get list of ores with insufficient inventory
-  const missingOres = selectedOres
-  .filter((ore) => !hasEnoughOre(ore))
-  .map((ore) => ({
-    ...ore,
-    missing: Math.max(
-      0,
-      (quantities[ore.name] || 0) - (csvData[ore.name] || 0)
-    ),
+  /* Check if all ores are available */
+  const allOresAvailable = Object.keys(quantities).length > 0 && 
+    !missingOres.length;
+
+  /* Calculate AV for a single ore */
+  const calculateAV = (oreName) => {
+    const oreData = allOresWithLayers.find(ore => ore.name === oreName);
+    if (!oreData) return "0.0";
+    const quantity = quantities[oreName] ?? 0;
+    return (quantity / oreData.baseValue).toFixed(1);
+  };
+
+  /* Calculate totals */
+  const calculateTotals = () => {
+    return Object.entries(quantities).reduce((acc, [oreName, qty]) => {
+      const oreData = allOresWithLayers.find(o => o?.name === oreName);
+      if (!oreData) return acc;
+      const value = Number(oreData?.baseValue) || 1;
+      const quantity = Number(qty) || 0;
+      return {
+        totalOres: acc.totalOres + quantity,
+        totalAV: acc.totalAV + (quantity / value),
+        discountedAV: acc.discountedAV + (quantity / value * (1 - discount / 100))
+      };
+    }, { totalOres: 0, totalAV: 0, discountedAV: 0 });
+  };
+
+  const totals = calculateTotals();
+
+/* Handle quantity change */
+const handleQuantityChange = (oreName, value) => {
+  const numericValue = value === "" ? "" : Math.max(0, Number(value) || 0);
+  const newQuantities = {
+    ...tradeState.quantities,
+    [oreName]: numericValue
+  };
+
+  setTradeState(prev => ({
+    ...prev,
+    quantities: newQuantities
   }));
 
+  // Update trade summary
+  updateTradeOres(allOresWithLayers);
+};
 
-  // Check if all ores are available
-  const allOresAvailable =
-    selectedOres.length > 0 && selectedOres.every((ore) => hasEnoughOre(ore));
+  /* Handle discount change */
+  const handleDiscountChange = (e) => {
+    const value = parseFloat(e.target.value) || 0;
+    setTradeState(prev => ({
+      ...prev,
+      discount: Math.min(100, Math.max(0, value))
+    }));
+  };
 
-  // Effect to persist trade data to context
-  useEffect(() => {
-    setTradeData({ selectedOres, quantities,
-                   receivedOres, receivedQuantities,
-                   valueMode });
-  }, [selectedOres, quantities,
-      receivedOres, receivedQuantities,
-      valueMode, setTradeData]);
+  /* Clear all quantities */
+  const clearTable = () => {
+    setTradeState(prev => ({
+      ...prev,
+      quantities: {},
+      selectedOres: [],
+      batchQuantity: 0
+    }));
+    clearTradeSummary();
+  };
 
-  // Effect to reset search selection when term changes
-  useEffect(() => {
-    setSelectedIndex(-1);
-  }, [searchTerm]);
+  /* Remove an ore from the trade table */
+  const handleRemoveOre = (oreObj) => {
+    const newQuantities = { ...tradeState.quantities };
+    delete newQuantities[oreObj.name];
 
-  // Effect to focus search input on initial render
-  useEffect(() => {
-    searchInputRef.current?.focus();
-  }, []);
+    setTradeState(prev => ({
+      ...prev,
+      quantities: newQuantities
+    }));
 
-  // Effect to scroll selected search result into view
-  useEffect(() => {
-    if (selectedIndex >= 0 && resultsRef.current?.children[selectedIndex]) {
-      resultsRef.current.children[selectedIndex].scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
-  }, [selectedIndex]);
+    updateTradeOres(allOresWithLayers);
+  };
 
-  // Recalculate
-  useEffect(() => {
-    // This will force a recalculation of all AV values
-    setQuantities(prev => ({...prev}));
-  }, [valueMode]);
+  /* Generate CSS class name for ore gradient */
+  const getOreClassName = (oreName) => {
+    return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
+  };
 
-  // Main trade tool interface
   return (
-  <div>
-    <NavBar />
-    <div className="trade-tool-container">
-      <h1>Welcome to the Trade Tool!</h1>
-      <h1>Usage:</h1>
-        <ul>
-          <li>Start typing an ore or layer name in the search box on the left.</li>
-          <li>Either click on the ore or hit enter to add it to the list. You can also use arrow keys to navigate up and down the list!</li>
-          <li>Enter the quantity of each ore you wish to trade in the text boxes on the right side.</li>
-          <li>To add a discount to large orders, type the percent in the "Discount %" box.</li>
-        </ul>
-      <h1>
-        ➜ Current Values:{" "}
-        <span className="placeholder">
-          {valueMode === 'john' ? "John's Values"
-         : valueMode === 'nan' ? "NAN's Values"
-         : valueMode === 'custom' ? "Your Custom Values" : "ERROR"}
-        </span>
-      </h1>
-      <div className="t-button-container1">
-        <div className="box-button">
-          <button
-            onClick={() => {
-              setValueMode('john');
-              setQuantities(prev => ({...prev}));
-            }}
-            className={valueMode === 'john' ? "color-template-pout" : ""}
-          >
-            <span>John Values</span>
-          </button>
+    <div>
+      <NavBar />
+      <div className="trade-tool-layout">
+        {/* Left side - controls */}
+        <div className="trade-controls-panel">
+        <div className="trade-usage">
+          <h1>Usage Instructions:</h1>
+          <ul>
+            <li>Click ores to select multiple, then set their quantities below</li>
+            <li>Click the header for each layer to open the dropdown</li>
+            <li>Type in the quantity for each ore you'd like to trade</li>
+            <li>To add a discount to large orders, type the percent in the "Discount %" box</li>
+          </ul>
         </div>
-        <div className="box-button">
-          <button
-            onClick={() => {
-              setValueMode('nan');
-              setQuantities(prev => ({...prev}));
-            }}
-            className={valueMode === 'nan' ? "color-template-diamond" : ""}
-          >
-            <span>NAN Values</span>
-          </button>
-        </div>
-        <div className="box-button">
-          <button
-            onClick={() => {
-              setValueMode('custom');
-              setQuantities(prev => ({...prev}));
-            }}
-            className={valueMode === 'custom' ? "color-template-havicron" : ""}
-          >
-            <span>Custom</span>
-          </button>
-        </div>
-        <div className="box-button" onClick={clearTable}>
-          <button>
-            <span className="button">Clear Tables</span>
-          </button>
-        </div>
-        <div className="box-button" onClick={processTrade}>
-          <button>
-            <span className="button">Process Trade</span>
-          </button>
-        </div>
-      </div>
 
-      {/* Input Controls Row */}
-      <div className="input-controls-row">
-        <div className="search-container">
-          <h2>Add Ores to Trade ⤵</h2>
-          <input
-            ref={searchInputRef}
-            type="text"
-            placeholder="Search ores or layers..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => handleKeyDown(e)}
-            className="search-input"
-          />
-          {searchTerm && (
-            <ul className="search-results" ref={resultsRef}>
-              {filteredOres.map((ore, index) => (
-                <li
-                  key={`${ore.name}-${index}`}
-                  onClick={() => handleAddOre(ore)}
-                  className={`search-result-item ${
-                    index === selectedIndex ? "selected" : ""
-                  }`}
+          {/* Value mode selector */}
+          <div className="t-button-container">
+            <div className="box-button">
+              <button
+                onClick={() => setValueMode('john')}
+                className={valueMode === 'john' ? "color-template-pout" : ""}
+              >
+                <span>John Values</span>
+              </button>
+            </div>
+            <div className="box-button">
+              <button
+                onClick={() => setValueMode('nan')}
+                className={valueMode === 'nan' ? "color-template-diamond" : ""}
+              >
+                <span>NAN Values</span>
+              </button>
+            </div>
+            <div className="box-button">
+              <button
+                onClick={() => setValueMode('custom')}
+                className={valueMode === 'custom' ? "color-template-havicron" : ""}
+              >
+                <span>Custom</span>
+              </button>
+            </div>
+            <div className="box-button" onClick={clearTable}>
+              <button>
+                <span className="button">Clear Table</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Batch quantity controls */}
+          <div className="batch-controls">
+            <div className="batch-quantity-container">
+              <div className="batch-mode-selector">
+                <span>Selected: {tradeState.selectedOres.length} ores</span>
+                <button
+                  onClick={toggleBatchMode}
+                  className="batch-apply-button"
                 >
-                  {ore.name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <div className="search-container">
-          <h2>Add Ores to Receive ⤵</h2>
-          <input
-            type="text"
-            placeholder="Search ores or layers..."
-            value={receiveSearchTerm}
-            onChange={(e) => setReceiveSearchTerm(e.target.value)}
-            onKeyDown={(e) => handleKeyDown(e, true)}
-            className="search-input"
-          />
-          {receiveSearchTerm && (
-            <ul className="search-results">
-              {filteredReceiveOres.map((ore, index) => (
-                <li
-                  key={`receive-${ore.name}-${index}`}
-                  onClick={() => handleAddOre(ore, true)}
-                  className={`search-result-item ${
-                    index === receiveSelectedIndex ? "selected" : ""
-                  }`}
+                  {batchMode === 'quantity' ? 'Switch to AV Mode' : 'Switch to Quantity Mode'}
+                </button>
+              </div>
+              <div className="batch-input-container">
+                <label>
+                  {batchMode === 'quantity' ? 'Quantity:' : '# AV:'}
+                  <input
+                    type="number"
+                    min="0"
+                    value={tradeState.batchQuantity === 0 ? "" : tradeState.batchQuantity}
+                    onChange={(e) => setTradeState(prev => ({
+                      ...prev,
+                      batchQuantity: Math.max(0, parseInt(e.target.value) || 0)
+                    }))}
+                    className="quantity-input"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </label>
+              </div>
+              <div className="batch-action-buttons">
+                <button
+                  onClick={applyBatchQuantity}
+                  disabled={tradeState.selectedOres.length === 0}
+                  className="batch-apply-button"
                 >
-                  {ore.name}
-                </li>
-              ))}
-            </ul>
+                  Apply {batchMode === 'quantity' ? 'Quantity' : 'AV'}
+                </button>
+                <button
+                  onClick={clearSelection}
+                  disabled={tradeState.selectedOres.length === 0}
+                  className="batch-clear-button"
+                >
+                  Clear Selection
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Discount input */}
+          <div className="discount-container">
+            <h3>Enter Discount</h3>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              value={discount === 0 ? "" : discount}
+              onChange={handleDiscountChange}
+              className="discount-input"
+              placeholder="Discount %"
+            />
+          </div>
+
+          {/* Totals and inventory status */}
+          <div className="trade-totals">
+            <p>➽ Total AV: <span>{totals.totalAV.toFixed(0)}</span></p>
+            {discount > 0 && (
+              <p>➽ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
+            )}
+            <p>➽ Total # Ores: <span>{totals.totalOres}</span></p>
+          </div>
+
+          {/* Inventory status */}
+          {allOresAvailable ? (
+            <div className="global-checkmark">
+              ✓ All ores available in inventory
+            </div>
+          ) : (
+            missingOres.length > 0 && (
+              <div className="missing-ores-warning">
+                <div className="warning-header">✖ Missing:</div>
+                <div className="missing-ores-list">
+                  {missingOres.map((oreObj, index) => (
+                    <div key={index} className="missing-ore-item">
+                      {oreObj.name}: {oreObj.missing}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
           )}
+
+          {/* Trade Summary Table */}
+          <div className="trade-summary">
+            <h3>Current Trade</h3>
+            {tradeState.tradeOres.length > 0 ? (
+              <table className="trade-table">
+                <thead>
+                  <tr>
+                    <th>Ore Name</th>
+                    <th>#</th>
+                    <th>AV</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tradeState.tradeOres.map(ore => (
+                    <tr key={ore.name}>
+                      <td>
+                        {ore.name}
+                      </td>
+                      <td>
+                        {quantities[ore.name] ?? ""}
+                      </td>
+                      <td>
+                        {calculateAV(ore.name)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No ores added to trade yet</p>
+            )}
+          </div>
+        </div>
+          {/* Main table */}
+          <div className="ore-table-panel">
+          <div className="layer-controls">
+            <button
+              onClick={() => {
+                const allCollapsed = {};
+                Object.keys(currentDict).forEach(layer => {
+                  allCollapsed[layer] = true;
+                });
+                setCollapsedLayers(allCollapsed);
+              }}
+              className="collapse-button"
+            >
+              Collapse All
+            </button>
+            <button
+              onClick={() => {
+                const allExpanded = {};
+                Object.keys(currentDict).forEach(layer => {
+                  allExpanded[layer] = false;
+                });
+                setCollapsedLayers(allExpanded);
+              }}
+              className="expand-button"
+            >
+              Expand All
+            </button>
+          </div>
+          <table className="trade-table">
+            <thead>
+              <tr>
+                <th>Ore Name</th>
+                <th>Quantity</th>
+                <th>AV</th>
+              </tr>
+            </thead>
+            <tbody>
+              {oresByLayer.map(({ layer, ores }) => (
+                <React.Fragment key={layer}>
+                  {/* Collapsible layer header */}
+                  <tr
+                    className="layer-header"
+                    onClick={() => toggleLayerCollapse(layer)}
+                  >
+                    <td colSpan="3">
+                      {layer}
+                      <span className="collapse-icon">
+                        {collapsedLayers[layer] ? '▶' : '▼'}
+                      </span>
+                    </td>
+                  </tr>
+
+                  {/* Layer content - conditionally rendered */}
+                  {!collapsedLayers[layer] && (
+                  <>
+                    {/* Select All row */}
+                      <tr className="layer-actions-row">
+                        <td colSpan="3">
+                          <button
+                            className="select-all-button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setTradeState(prev => {
+                                const newSelected = [...prev.selectedOres];
+                                ores.forEach(ore => {
+                                  if (!newSelected.includes(ore.name)) {
+                                    newSelected.push(ore.name);
+                                  }
+                                });
+                                return {
+                                  ...prev,
+                                  selectedOres: newSelected
+                                };
+                              });
+                            }}
+                          >
+                            Select All in {layer}
+                          </button>
+                          <button
+                            className="deselect-all-button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setTradeState(prev => ({
+                                ...prev,
+                                selectedOres: prev.selectedOres.filter(name =>
+                                  !ores.some(ore => ore.name === name)
+                              )}));
+                            }}
+                          >
+                            Deselect All
+                          </button>
+                        </td>
+                      </tr>
+                  {ores.map(ore => (
+                    <tr
+                      key={ore.name}
+                      className={isOreSelected(ore.name) ? "selected-row" : ""}
+                      onClick={() => toggleOreSelection(ore.name)}
+                    >
+                      <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
+                        <button
+                          className="delete-ore-button"
+                          onClick={() => handleRemoveOre(ore)}
+                        >
+                          ✖
+                        </button>
+                        <img
+                          src={oreIcons[ore.name.replace(/ /g, '_')]}
+                          alt={`${ore.name} icon`}
+                          className="t-ore-icon"
+                        />
+                        {ore.name}
+                      </td>
+                      <td>
+                        <div className="quantity-cell-container">
+                          <div className={`inventory-check ${hasEnoughOre(ore) ? "has-enough" : "not-enough"}`}>
+                              {hasEnoughOre(ore) ? "✓" : "✖"}
+                          </div>
+                          <div className="inventory-count">
+                            {getAvailableAmount(ore)}/
+                            {quantities[ore.name] || 0}
+                          </div>
+                          <input
+                            type="number"
+                            value={quantities[ore.name] ?? ""}
+                            onChange={(e) => handleQuantityChange(ore.name, e.target.value)}
+                            className="quantity-input"
+                            min="1"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        {calculateAV(ore.name)}
+                      </td>
+                    </tr>
+                  ))}
+                </>
+                )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
         </div>
       </div>
-
-      {/* Tables Container */}
-      <div className="t-tables-container">
-        <TradeTable
-          title="Ores to Trade"
-          ores={selectedOres}
-          quantities={quantities}
-          globalQuantity={globalQuantity}
-          onQuantityChange={handleQuantityChange}
-          onGlobalQuantityChange={(value) => {
-            setGlobalQuantity(value);
-            applyGlobalQuantity(value);
-          }}
-          onRemoveOre={handleRemoveOre}
-          showInventory={true}
-          hasEnoughOre={hasEnoughOre}
-          getAvailableAmount={getAvailableAmount}
-          calculateAV={(oreName) => calculateAV(oreName, false)}
-          totals={calculateTotals(selectedOres, quantities)}
-          inventoryStatus={{
-            allOresAvailable,
-            hasMissingOres: missingOres.length > 0,
-            missingOres: missingOres
-          }}
-        />
-
-        <TradeTable
-          title="Ores to Receive"
-          ores={receivedOres}
-          quantities={receivedQuantities}
-          globalQuantity={globalReceiveQuantity}
-          onQuantityChange={handleQuantityChange}
-          onGlobalQuantityChange={(value) => {
-            setGlobalReceiveQuantity(value);
-            applyGlobalQuantity(value, true);
-          }}
-          calculateAV={(oreName) => calculateAV(oreName, true)}
-          onRemoveOre={(oreObj) => {
-            setReceivedOres(receivedOres.filter(ore => ore.name !== oreObj.name));
-            const newQuantities = { ...receivedQuantities };
-            delete newQuantities[oreObj.name];
-            setReceivedQuantities(newQuantities);
-          }}
-          isReceiveTable={true}
-          totals={calculateTotals(receivedOres, receivedQuantities, true)}
-        />
-      </div>
-    </div>
-    </div>
   );
 }
 

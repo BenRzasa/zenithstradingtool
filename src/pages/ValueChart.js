@@ -59,7 +59,7 @@ function ValueChart() {
   // State and handlers
   const [dragState, setDragState] = useState({
     isDragging: false,
-    position: { x: 115, y: 20 },
+    position: { x: 90, y: 10 },
     clickOffset: { x: 0, y: 0 },
   });
 
@@ -630,7 +630,6 @@ function ValueChart() {
 
         {/* Dropdown navigation */}
         <div className="table-navigation">
-          <label htmlFor="table-select">Jump to Table: </label>
           <select
             id="table-select"
             onChange={handleTableSelect}

@@ -247,7 +247,15 @@ function CSVLoader() {
         {/* CSV Input Section */}
         <div className="button-container">
           <div className="box-button">
-              <button onClick={updateOreAmounts}>
+            {/* Update the amounts, sort by Change # and descending */}
+              <button onClick={() => {
+                updateOreAmounts();
+                // Force sort by change
+                setSortConfig({
+                  key: 'change',
+                  direction: 'desc'
+                });
+              }}>
                 <span>Update Amounts</span>
               </button>
           </div>

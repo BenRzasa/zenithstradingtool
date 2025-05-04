@@ -4,7 +4,7 @@
 const searchFilters = [
   "➜ Rares: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ v/rhy/Cind/unob/nyrv/ sh",
   "➜ Condensed: ambr/sall/utrine/hav/dy/Torn/Zyn/ubri/singu/ v/rhy/Cind/Ecto",
-  "➜ Torn Materials: Fa/Ecto/Peril/Qy/Dys/ge q/obl/nili/zero/malb/raw /meso/nih",
+  "➜ Torn Materials: qy/bla/chron/com/cons/dy/ok/ v/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
   "➜ Uniques: sh/ñ/vergl/holle/ambe/onyx/chalc/suns/pano/mete",
   "➜ Compounds: Quark m/Iso/Perig/Eq",
   "➜ Surface / Shallow: coal/moon/kyan/opaz/opal/minu/copp/iron/silver/sulfur/zinc/gold/chloro/sapph",
@@ -31,7 +31,7 @@ const searchFilters = [
   "➜ Lower Instability: gri/phos/vrim/zili/rimr/und/cyt/icho/cen/neur/trina/adre/mac",
   "➜ Murk: Lep/Mez/Tay/Thul/Rhy",
   "➜ Event Horizon: r s/nebu/arki/non/auro/kore/apia/ecto/havi/solar",
-  "➜ Sediment: Singu/Rhy/Ubri/Havi/Ecto/r s/sall/c m/chron/apia/kore/rimr",
+  "➜ Sediment: Singu/Rhy/Ubri/Havi/Ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
   "➜ Abyss: l s/Prim/modi/Hexf/Tetr/Maur/Ecto/Havi",
   "➜ Inner Horizon: Nyr/Nih/Ult/Infr/Auri/Unob/Zero/Exod",
   "➜ Quintessence: Aeth/Nif/Etha/Lume/Impe/Kryp/Vyth",

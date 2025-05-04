@@ -126,7 +126,8 @@ td {
 
 /* Table header adjustments */
 .table-comp th {
-    padding: 6px 4px;
+    padding-top: 11px;
+    padding-bottom: 8px;
     white-space: nowrap;
 }
 

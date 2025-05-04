@@ -73,7 +73,7 @@ function WelcomePage() {
           <div className="card-title-wrap">
             <h1 className="title">
               <span className="copy-wrap">
-                Welcome to Zenith's Trading Tool β1.3!
+                Welcome to Zenith's Trading Tool v1.4!
               </span>
             </h1>
           </div>

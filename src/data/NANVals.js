@@ -178,7 +178,7 @@ export const nanValsDict = {
 
   "Achrothesi / Whitespace": [
     { name: "Cadmium", baseValue: 15 },
-    { name: "Chromium", baseValue: 12 },
+    { name: "Chromium", baseValue: 15 },
     { name: "Null", baseValue: 16 },
     { name: "Geometrium", baseValue: 7 },
     { name: "Noise", baseValue: 4 },
@@ -339,7 +339,7 @@ export const nanValsDict = {
 
   Abyss: [
     { name: "Abyssal Sludge", baseValue: 12 },
-    { name: "Primordian", baseValue: 10 },
+    { name: "Primordian", baseValue: 25 },
     { name: "Cosmodium", baseValue: 4 },
     { name: "Hexflame", baseValue: 8 },
     { name: "Tetraquark", baseValue: 7 },
