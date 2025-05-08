@@ -31,7 +31,7 @@ const searchFilters = [
   "➜ Lower Instability: gri/phos/vrim/zili/rimr/und/cyt/icho/cen/neur/trina/adre/mac",
   "➜ Murk: Lep/Mez/Tay/Thul/Rhy",
   "➜ Event Horizon: r s/nebu/arki/non/auro/kore/apia/ecto/havi/solar",
-  "➜ Sediment: Singu/Rhy/Ubri/Havi/Ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
+  "➜ Sediment: Rhy/Ubri/Havi/Ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
   "➜ Abyss: l s/Prim/modi/Hexf/Tetr/Maur/Ecto/Havi",
   "➜ Inner Horizon: Nyr/Nih/Ult/Infr/Auri/Unob/Zero/Exod",
   "➜ Quintessence: Aeth/Nif/Etha/Lume/Impe/Kryp/Vyth",

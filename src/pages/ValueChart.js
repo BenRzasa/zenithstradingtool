@@ -594,6 +594,12 @@ function ValueChart() {
               step="1"
               value={customMultiplier}
               onChange={(e) => {
+                // Set empty on backspace
+                if (e.target.value === '') {
+                  setCustomMultiplier('');
+                  return;
+                }
+                // Otherwise enforce min of 1
                 const value = Math.max(1, parseInt(e.target.value) || 1);
                 setCustomMultiplier(value);
                 localStorage.setItem('ztt-custom-multiplier', value.toString());

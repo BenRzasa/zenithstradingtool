@@ -22,7 +22,7 @@
 ### DONE -- CSV Loader -- Sort by AV gained
 
 ### Misc Page -- Box containing "Useful tips & tricks" - link to another card-style page?
- - List of all emblems with perks
+ - List of all emblems with perks (+ icons)
 
 ### Rare Finds Tracker - Self explanatory, follow layout of JTT
  - Calculate total AV/NV of rare finds, and AV/NV per ore found
