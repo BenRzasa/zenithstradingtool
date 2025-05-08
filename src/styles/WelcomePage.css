@@ -144,14 +144,14 @@
   Title/name/copyright
 --------------------------------------------------*/
 .welcome-page .title {
-  margin-top: 150px;
-  font-size: 60px;
-  letter-spacing: 0.02em;
-  font-weight: 800;
+  margin-top: 200px;
+  font-size: 4em;
+  letter-spacing: 0.0em;
+  font-weight: 1000;
   overflow: hidden;
   color: black;
   position: relative;
-  max-width: 800px;
+  max-width: 750px;
 }
 
 .welcome-page .name,
@@ -179,7 +179,7 @@
 }
 
 .welcome-page .name {
-  top: 53px;
+  top: 45px;
 }
 
 .welcome-page .copy-wrap {

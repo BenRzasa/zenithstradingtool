@@ -40,7 +40,7 @@
     background-color: var(--background-color);
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
-    width: 550px;
+    width: fit-content;
 }
 
 .batch-quantity-container {
@@ -105,14 +105,14 @@
 
 .trade-summary {
     position: relative;
-    max-width: 100%;
+    width: fit-content;
     background-color: var(--background-color);
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
     padding: 10px;
     z-index: -1000;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 9px rgba(0,0,0,0.5);
 }
 
 /* Selected row styling */
@@ -249,12 +249,6 @@
     background-color: var(--background-color);
     top: 0;
     z-index: 10000;
-}
-
-.trade-table td {
-    padding: 2px;
-    border: 2px solid var(--csv-outline);
-    font-size: 20px;
 }
 
   /* Ore name cell with gradient background */

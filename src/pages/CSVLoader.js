@@ -25,6 +25,8 @@ function CSVLoader() {
     lastUpdated,
     updateCSVData,
     currentDict,
+    valueMode,
+    setValueMode
   } = useContext(CSVContext);
 
 
@@ -264,6 +266,31 @@ function CSVLoader() {
                 <span>Export CSV</span>
               </button>
           </div>
+          <div className="box-button">
+            <button
+              onClick={() => setValueMode('john')}
+              className={valueMode === 'john' ? "color-template-pout" : ""}
+            >
+              <span>John Values</span>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => setValueMode('nan')}
+              className={valueMode === 'nan' ? "color-template-diamond" : ""}
+            >
+              <span>NAN Values</span>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => setValueMode('custom')}
+              className={valueMode === 'custom' ? "color-template-havicron" : ""}
+            >
+              <span>Custom</span>
+            </button>
+          </div>
+          <l>Please navigate to the Custom Values page to modify Custom Values.</l>
         </div>
         <div className="csv-input">
           {/* CSV Input Box */}
@@ -277,7 +304,6 @@ function CSVLoader() {
     {/* Total value updates from last csv update */}
     {Object.keys(previousAmounts).length > 0 && (
       <div className="value-change-summary">
-      <h2>Value Changes (AV)</h2>
       <div className="value-change-cards">
         <div className="value-card gained">
           <span>Value Gained:</span>
@@ -299,7 +325,7 @@ function CSVLoader() {
       </div>
       {/* Show detailed changes per ore */}
       <div className="ore-changes-details">
-        <h2>Changed Ores:</h2>
+        <h3>Changed Ores:</h3>
         <div className="ore-changes-list">
         <ul>
           {calculateValueChanges().changedOres

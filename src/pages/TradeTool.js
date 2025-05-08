@@ -378,7 +378,6 @@ const handleQuantityChange = (oreName, value) => {
 
           {/* Trade Summary Table */}
           <div className="trade-summary">
-            <h3>Current Trade</h3>
             {tradeState.tradeOres.length > 0 ? (
               <table className="trade-table">
                 <thead>
