@@ -82,7 +82,7 @@
 .value-change-summary {
     display: flex;
     flex-direction: row;
-    margin: 50px 80px;
+    margin: 25px 55px;
     gap: 15px;
     padding: 15px;
     padding-top: 5px;
@@ -101,13 +101,15 @@
     font-size: 20px;
     max-width: 100%;
     height: 250px;
+
 }
 
 .value-card {
+    align-content: center;
+    text-align: center;
     flex: 1;
     padding: 10px;
     border-radius: 10px;
-    text-align: center;
 }
 
 .value-card.gained {

@@ -155,13 +155,13 @@ export const nanValsDict = {
 
   Void: [
     { name: "Vantaslate", baseValue: 500 },
-    { name: "Cometite", baseValue: 9 },
+    { name: "Cometite", baseValue: 8 },
     { name: "Adamantite", baseValue: 3 },
-    { name: "Eclipsium", baseValue: 8 },
+    { name: "Eclipsium", baseValue: 7 },
     { name: "Ebonakite", baseValue: 8 },
     { name: "Palladium", baseValue: 7 },
-    { name: "Neptunium", baseValue: 7 },
-    { name: "Void Orb", baseValue: 7 },
+    { name: "Neptunium", baseValue: 6 },
+    { name: "Void Orb", baseValue: 8 },
     { name: "Nilidust", baseValue: 8 },
     { name: "Asthenocrit", baseValue: 6 }
   ],
