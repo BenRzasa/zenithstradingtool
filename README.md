@@ -24,7 +24,6 @@
  - **Galactic**
    - Custom value setting
    - Dark mode
-   - 
  - **Sean**
    - Custom per-ore values
  - **HolySeeker**
@@ -44,4 +43,4 @@
  - **Randomwastaken**
    - Checkmark for NV completion of a given layer
  - **Sandglasss**
-   - 
+   - Simplification of trade tool for less clunkiness and ease of use
