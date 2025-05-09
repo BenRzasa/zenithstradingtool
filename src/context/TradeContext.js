@@ -8,7 +8,7 @@
     - Removed receive-related data
 */
 
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 
 export const TradeContext = createContext();
 
@@ -70,20 +70,25 @@ export const TradeProvider = ({ children }) => {
     localStorage.setItem('tradeState', JSON.stringify(tradeState));
   }, [tradeState]);
 
-  // Helper function to update trade ores
-  const updateTradeOres = (allOres) => {
-    const tradeOres = allOres
-      .filter(ore => tradeState.quantities[ore.name] > 0)
-      .map(ore => ({
-        ...ore,
-        amount: tradeState.quantities[ore.name]
-      }));
-
-    setTradeState(prev => ({
-      ...prev,
-      tradeOres
-    }));
-  };
+  const updateTradeOres = useCallback((allOres) => {
+    setTradeState(prev => {
+      // Calculate new tradeOres
+      const newTradeOres = allOres
+        .filter(ore => prev.quantities[ore.name] > 0)
+        .map(ore => ({
+          ...ore,
+          amount: prev.quantities[ore.name]
+        }));
+      // Only update if tradeOres actually changed
+      if (JSON.stringify(newTradeOres) !== JSON.stringify(prev.tradeOres)) {
+        return {
+          ...prev,
+          tradeOres: newTradeOres
+        };
+      }
+      return prev; // Return previous state if no changes
+    });
+  }, []); // Empty dependency array since it doesn't depend on any props/state
 
   // Clear trade summary
   const clearTradeSummary = () => {

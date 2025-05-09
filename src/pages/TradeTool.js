@@ -13,7 +13,7 @@
    - Inventory management
 */
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
 import NavBar from "../components/NavBar";
 import { CSVContext } from "../context/CSVContext";
 import { TradeContext } from "../context/TradeContext";
@@ -35,8 +35,14 @@ function TradeTool() {
   // Extract data from trade context
   const { quantities, discount, selectedOres } = tradeState;
 
-  // Batch mode (NV or AV)
+  // Local UI states
   const [batchMode, setBatchMode] = useState('quantity'); // 'quantity' or 'av'
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  // Refs for DOM access
+  const searchInputRef = useRef(null);
+  const resultsRef = useRef(null);
 
   // Mode toggle button
   const toggleBatchMode = () => {
@@ -77,6 +83,15 @@ function TradeTool() {
       layer: layerName,
     }))
   }));
+
+  // Memoize the ores data
+  const memoizedOres = useMemo(() => allOresWithLayers, [allOresWithLayers])
+  // Update trade ores only when quantities change
+  useEffect(() => {
+    if (memoizedOres) {
+      updateTradeOres(memoizedOres);
+    }
+  }, [tradeState.quantities, updateTradeOres, memoizedOres]);
 
   /* Toggle ore selection */
   const toggleOreSelection = (oreName) => {
@@ -181,22 +196,20 @@ function TradeTool() {
 
   const totals = calculateTotals();
 
-/* Handle quantity change */
-const handleQuantityChange = (oreName, value) => {
-  const numericValue = value === "" ? "" : Math.max(0, Number(value) || 0);
-  const newQuantities = {
-    ...tradeState.quantities,
-    [oreName]: numericValue
+  /* Handle quantity change */
+  const handleQuantityChange = (oreName, value) => {
+    const numericValue = value === "" ? "" : Math.max(0, Number(value) || 0);
+    const newQuantities = {
+      ...tradeState.quantities,
+      [oreName]: numericValue
+    };
+
+    setTradeState(prev => ({
+      ...prev,
+      quantities: newQuantities
+    }));
   };
 
-  setTradeState(prev => ({
-    ...prev,
-    quantities: newQuantities
-  }));
-
-  // Update trade summary
-  updateTradeOres(allOresWithLayers);
-};
 
   /* Handle discount change */
   const handleDiscountChange = (e) => {
@@ -236,6 +249,79 @@ const handleQuantityChange = (oreName, value) => {
     return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
   };
 
+  // Filter ores based on search term
+  const filterOres = (term, source = allOresWithLayers) => {
+    // Early return if empty search
+    if (!term.trim()) return [];
+    const termLower = term.toLowerCase();
+    return source.filter((ore) => {
+      // Check if ore name matches
+      const oreMatch = ore.name.toLowerCase().includes(termLower);
+      // Check if layer name matches (including partial matches for layered ores)
+      const layerMatch =
+        ore.layer.toLowerCase().includes(termLower) ||
+        ore.layer
+          .split("/")
+          .some((part) => part.trim().toLowerCase().includes(termLower));
+      return oreMatch || layerMatch;
+    });
+  };
+
+  // Current filtered results for search input
+  const filteredOres = filterOres(searchTerm);
+
+  // Add ore to trade table
+  const handleAddOre = (oreObj) => {
+    // Only add if ore isn't already in the table
+    if (!tradeState.selectedOres.some((ore) => ore.name === oreObj.name)) {
+      setTradeState(prev => ({
+        ...prev,
+        selectedOres: [...prev.selectedOres, oreObj],
+        quantities: {
+          ...prev.quantities,
+          [oreObj.name]: 1, // Default to 1 for trade
+        }
+      }));
+    }
+    // Reset search state after adding
+    setSearchTerm("");
+    setSelectedIndex(-1);
+    searchInputRef.current?.focus();
+  };
+
+  // Handle keyboard navigation in search results
+  const handleKeyDown = (e) => {
+    // Ignore if no search term or results
+    if (!searchTerm || !filteredOres.length) return;
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        // Move selection down, wrapping to top if at bottom
+        setSelectedIndex((prev) => (prev < filteredOres.length - 1 ? prev + 1 : 0));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        // Move selection up, wrapping to bottom if at top
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredOres.length - 1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        // Add currently highlighted ore
+        if (selectedIndex >= 0 && selectedIndex < filteredOres.length) {
+          handleAddOre(filteredOres[selectedIndex]);
+        }
+        break;
+      case "Escape":
+        // Clear current search
+        setSearchTerm("");
+        break;
+      default:
+        break;
+    }
+    // Update trade summary
+    updateTradeOres(allOresWithLayers);
+  };
+
   return (
     <div>
       <NavBar />
@@ -249,6 +335,8 @@ const handleQuantityChange = (oreName, value) => {
             <li>Click the header for each layer to open the dropdown</li>
             <li>Type in the quantity for each ore you'd like to trade</li>
             <li>To add a discount to large orders, type the percent in the "Discount %" box</li>
+            <li>Click "Apply Quantity" to set the selected ores (highlighted blue) to the specified quantity</li>
+            <li>Click "Clear Table" to reset the trade table</li>
           </ul>
         </div>
 
@@ -298,9 +386,11 @@ const handleQuantityChange = (oreName, value) => {
                 </button>
               </div>
               <div className="batch-input-container">
-                <label>
+                <label htmlFor="batch-quantity">
                   {batchMode === 'quantity' ? 'Quantity:' : '# AV:'}
                   <input
+                    id="batch-quantity"
+                    name="batch-quantity"
                     type="number"
                     min="0"
                     value={tradeState.batchQuantity === 0 ? "" : tradeState.batchQuantity}
@@ -332,10 +422,50 @@ const handleQuantityChange = (oreName, value) => {
             </div>
           </div>
 
+          {/* Search input */}
+          <div className="search-container">
+            <h3>Add Ores to Trade ⤵</h3>
+            <label htmlFor="search-input">
+              <input
+                id="search-input"
+                name="search"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="none"
+                spellCheck="false"
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search ores or layers..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e)}
+                className="search-input"
+              />
+            </label>
+            {searchTerm && (
+              <ul className="search-results" ref={resultsRef}>
+                {filteredOres.map((ore, index) => (
+                  <li
+                    key={`${ore.name}-${index}`}
+                    onClick={() => handleAddOre(ore)}
+                    className={`search-result-item ${
+                      index === selectedIndex ? "selected" : ""
+                    }`}
+                  >
+                    {ore.name} ({ore.layer})
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           {/* Discount input */}
           <div className="discount-container">
             <h3>Enter Discount</h3>
+          <label htmlFor="discount-input">
             <input
+              id="discount-input"
+              name="discount"
               type="number"
               min="0"
               max="100"
@@ -345,6 +475,7 @@ const handleQuantityChange = (oreName, value) => {
               className="discount-input"
               placeholder="Discount %"
             />
+          </label>
           </div>
 
           {/* Totals and inventory status */}
@@ -378,23 +509,58 @@ const handleQuantityChange = (oreName, value) => {
 
           {/* Trade Summary Table */}
           <div className="trade-summary">
+            <h2>&nbsp;&nbsp;Current Trade</h2>
             {tradeState.tradeOres.length > 0 ? (
               <table className="trade-table">
                 <thead>
                   <tr>
-                    <th>Ore Name</th>
-                    <th>#</th>
+                    <th>Name</th>
+                    <th>[ # ]</th>
                     <th>AV</th>
                   </tr>
                 </thead>
                 <tbody>
                   {tradeState.tradeOres.map(ore => (
-                    <tr key={ore.name}>
-                      <td>
+                    <tr
+                      key={ore.name}
+                      className={isOreSelected(ore.name) ? "selected-row" : ""}
+                      onClick={() => toggleOreSelection(ore.name)}
+                    >
+                      <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
+                        <button
+                          className="delete-ore-button"
+                          onClick={() => handleRemoveOre(ore)}
+                        >
+                          ✖
+                        </button>
+                        <img
+                          src={oreIcons[ore.name.replace(/ /g, '_')]}
+                          alt={`${ore.name} icon`}
+                          className="t-ore-icon"
+                        />
                         {ore.name}
                       </td>
                       <td>
-                        {quantities[ore.name] ?? ""}
+                        <div className="quantity-cell-container">
+                          <div className={`inventory-check ${hasEnoughOre(ore) ? "has-enough" : "not-enough"}`}>
+                              {hasEnoughOre(ore) ? "✓" : "✖"}
+                          </div>
+                          <div className="inventory-count">
+                            {getAvailableAmount(ore)}/
+                            {quantities[ore.name] || 0}
+                          </div>
+                          <label htmlFor={`quantity-${ore.name}`} className="quantity-label">
+                            <input
+                              id={`quantity-${ore.name}`}
+                              type="number"
+                              value={quantities[ore.name] ?? ""}
+                              onChange={(e) => handleQuantityChange(ore.name, e.target.value)}
+                              className="quantity-input"
+                              min="1"
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          </label>
+                        </div>
                       </td>
                       <td>
                         {calculateAV(ore.name)}
@@ -404,7 +570,7 @@ const handleQuantityChange = (oreName, value) => {
                 </tbody>
               </table>
             ) : (
-              <p>No ores added to trade yet</p>
+              <p>&nbsp;&nbsp;&nbsp;No ores added to trade yet</p>
             )}
           </div>
         </div>
@@ -530,14 +696,17 @@ const handleQuantityChange = (oreName, value) => {
                             {getAvailableAmount(ore)}/
                             {quantities[ore.name] || 0}
                           </div>
-                          <input
-                            type="number"
-                            value={quantities[ore.name] ?? ""}
-                            onChange={(e) => handleQuantityChange(ore.name, e.target.value)}
-                            className="quantity-input"
-                            min="1"
-                            onClick={(e) => e.stopPropagation()}
-                          />
+                          <label htmlFor={`quantity-${ore.name}`} className="quantity-label">
+                            <input
+                              id={`quantity-${ore.name}`}
+                              type="number"
+                              value={quantities[ore.name] ?? ""}
+                              onChange={(e) => handleQuantityChange(ore.name, e.target.value)}
+                              className="quantity-input"
+                              min="1"
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          </label>
                         </div>
                       </td>
                       <td>
