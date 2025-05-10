@@ -1,14 +1,22 @@
-# Stuff to do
-
+# Notes
 GIT COMMITS:
 Flag commits with:
 [PAGE] for new routes/pages (bump X)
 [FEAT] for components (bump Y)
 [FIX] for patches (bump Z)
 npm run
-"bump:page": "npm version major -m '[PAGE] %s' && git push --follow-tags"
-"bump:feat": "npm version minor -m '[FEAT] %s' && git push --follow-tags"
-"bump:fix": "npm version patch -m '[FIX] %s' && git push --follow-tags"
+"bump:page"
+"bump:feat"
+"bump:fix"
+
+FOR BUMPING THE UPDATES on WINDOWS!!:
+npm version major --no-git-tag-version -m "[PAGE] Bump to %s"
+   git add package.json package-lock.json
+   git commit -m "[PAGE] Bump version"
+   git tag v7.0.0
+   git push origin main --tags
+
+# Stuff to do
 
 ## TO FIX:
 

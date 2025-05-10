@@ -139,7 +139,7 @@ export const LayerGradients = {
   },
 
   Crush: {
-    background: "linear-gradient(180deg, #ffffff,#ffffff)",
+    background: "linear-gradient(180deg,rgb(140, 147, 226),rgb(30, 66, 150), rgb(12, 0, 83),rgb(0, 39, 90))",
   },
 
   "Singularity": {

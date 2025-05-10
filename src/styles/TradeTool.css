@@ -386,7 +386,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    justify-content: flex-end;
     width: 100%;
 }
 
@@ -414,6 +413,7 @@
     justify-content: center;
     border-radius: 4px;
     font-size: 12px;
+    margin-right: auto;
 }
 
 .inventory-check.has-enough {
@@ -430,7 +430,6 @@
     font-size: 0.9em;
     color: #666;
     min-width: 50px;
-    display: inline-block;
 }
 
 /* Totals Section */

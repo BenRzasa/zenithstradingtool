@@ -40,10 +40,24 @@ function App() {
                                 </BackgroundManager>
                             }
                         />
+                        <Route
+                            path="/findtracker"
+                            element={
+                                <BackgroundManager>
+                                    <RareFindsTracker />
+                                </BackgroundManager>
+                            }
+                        />
                         <Route path="/tradetool" element={<TradeTool />} />
                         <Route path="/misc" element={<MiscPage />} />
-                        <Route path="/customvalues" element={<CustomValuesEditor />} />
-                        <Route path="/findtracker" element={<RareFindsTracker />} />
+                        <Route
+                            path="/customvalues"
+                            element={
+                                <BackgroundManager>
+                                    <CustomValuesEditor />
+                                </BackgroundManager>
+                            }
+                        />
                     </Routes>
                 </HashRouter>
                 </div>

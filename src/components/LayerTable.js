@@ -7,6 +7,7 @@ import React, { useContext, useState, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
 
 import { oreIcons } from "../data/oreIcons";
+import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
 import "../styles/AllGradients.css";
 import "../styles/ValueChart.css";
@@ -265,8 +266,15 @@ const LayerTable = ({
                         e.target.style.display = 'none';
                       }}
                     />
-                  ) : (
-                    <span>🖼️</span>
+                  ) : ( // Missing icon
+                    <span>
+                      <img
+                        src={missingIcon}
+                        alt={"Missing icon"}
+                        className="ore-icon"
+                        loading="lazy"
+                      ></img>
+                    </span>
                   )}
                   {item.name}
                 </td>

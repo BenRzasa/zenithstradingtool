@@ -1,6 +1,6 @@
 {
   "name": "zenithstradingtool",
-  "version": "6.0.0",
+  "version": "7.1.0",
   "private": true,
   "homepage": "https://benrzasa.github.io/zenithstradingtool",
   "dependencies": {
@@ -20,10 +20,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "bump:page": "npm version major -m '[PAGE] %s'",
-    "bump:feat": "npm version minor -m '[FEAT] %s'",
-    "bump:fix": "npm version patch -m '[FIX] %s'",
-    "predeploy": "npm run build && if [ $(git branch --show-current) != 'main' ]; then echo 'Error: Deploy only from main branch!'; exit 1; fi",
+    "bump:page": "npm version major --no-git-tag-version",
+    "bump:feat": "npm version minor --no-git-tag-version",
+    "bump:fix": "npm version patch --no-git-tag-version",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build && npm run log-version",
     "log-version": "echo 'Successfully deployed v$(node -p \"require('./package.json').version\") to GitHub Pages'"
   },

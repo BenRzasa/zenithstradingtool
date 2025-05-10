@@ -388,5 +388,11 @@ export const johnValsDict = {
     { name: "Protireal", baseValue: 20 },
     { name: "Xerutherum", baseValue: 7.5 },
     { name: "Mesmirian", baseValue: 13 }
+  ],
+
+  Crush: [
+    { name: "Proxalith", baseValue: 103729 },
+    { name: "Stygian Ooze", baseValue: 2769.722821272927392183769272727 },
+    { name: "Antallizine", baseValue: 0.27 },
   ]
 };

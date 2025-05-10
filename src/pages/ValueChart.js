@@ -14,6 +14,7 @@ import { MiscContext } from "../context/MiscContext";
 import LayerTable from "../components/LayerTable";
 import NavBar from "../components/NavBar";
 import ValueModeSelector from "../components/ValueModeSelector";
+import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import { johnValsDict } from "../data/JohnVals";
 import { nanValsDict } from "../data/NANVals";
@@ -30,6 +31,7 @@ function ValueChart() {
     csvData,
     currentMode,
     setCurrentMode,
+    customMultiplier,
     valueMode,
     setValueMode,
     customDict,
@@ -324,11 +326,6 @@ function ValueChart() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Save the customMultiplier to local storage and retrieve
-  const [customMultiplier, setCustomMultiplier] = useState(() => {
-    const saved = localStorage.getItem("ztt-custom-multiplier");
-    return saved ? parseInt(saved) : 100; // Default to 100 (same as NV)
-  });
   // Fetch the total values object
   const totals = calculateGrandTotals();
 
@@ -546,51 +543,7 @@ function ValueChart() {
           currentMode={currentMode}
           setCurrentMode={setCurrentMode}
         />
-
-        {/* Custom value input box */}
-        {currentMode === 7 && (
-          <div
-            className="custom-multiplier-input"
-            style={{
-              margin: "10px auto",
-              padding: "10px",
-              backgroundColor: "rgba(0,0,0,0.2)",
-              borderRadius: "10px",
-              outline: "3px solid var(--table-outline)",
-              maxWidth: "450px",
-            }}
-          >
-            <label htmlFor="custom-multiplier" style={{ marginRight: "10px" }}>
-              Custom Multiplier (xAV):
-            </label>
-            <input
-              type="number"
-              id="custom-multiplier"
-              min="1"
-              step="1"
-              value={customMultiplier}
-              onChange={(e) => {
-                // Set empty on backspace
-                if (e.target.value === "") {
-                  setCustomMultiplier("");
-                  return;
-                }
-                // Otherwise enforce min of 1
-                const value = Math.max(1, parseInt(e.target.value) || 1);
-                setCustomMultiplier(value);
-                localStorage.setItem("ztt-custom-multiplier", value.toString());
-              }}
-              style={{
-                padding: "8px",
-                width: "70px",
-                textAlign: "center",
-                borderRadius: "4px",
-                border: "1px solid var(--table-outline)",
-              }}
-            />
-          </div>
-        )}
-
+        <CustomMultiplierInput />
         {/* Back to Top button */}
         {showBackToTop && (
           // Should probably move this styling into the css.

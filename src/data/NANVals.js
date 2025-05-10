@@ -389,5 +389,11 @@ export const nanValsDict = {
     { name: "Protireal", baseValue: 14 },
     { name: "Xerutherum", baseValue: 4 },
     { name: "Mesmirian", baseValue: 7 }
+  ],
+
+  Crush: [
+    { name: "Proxalith", baseValue: 103729 },
+    { name: "Stygian Ooze", baseValue: 2769.722821272927392183769272727 },
+    { name: "Antallizine", baseValue: 0.27 },
   ]
 };

@@ -43,6 +43,11 @@ export const MiscProvider = ({ children }) => {
     return savedCalcMode !== null ? JSON.parse(savedCalcMode) : 3; // 1-7 for AV/UV/NV/etc
   });
 
+  const [customMultiplier, setCustomMultiplier] = useState(() => {
+    const savedCustomMult = localStorage.getItem('customMultiplier');
+    return savedCustomMult !== null ? JSON.parse(savedCustomMult) : 100; // Default
+  })
+
   // Custom values dictionary
   const [customDict, setCustomDict] = useState(() => {
     const savedCustomDict = localStorage.getItem('customDict');
@@ -91,6 +96,10 @@ export const MiscProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('currentMode', JSON.stringify(currentMode));
   }, [currentMode]);
+
+  useEffect(() => {
+    localStorage.setItem('customMultiplier', JSON.stringify(customMultiplier));
+  }, [customMultiplier]);
 
   useEffect(() => {
     if (customDict) {
@@ -156,6 +165,8 @@ export const MiscProvider = ({ children }) => {
         currentMode,
         setCurrentMode,
         // Custom values
+        customMultiplier,
+        setCustomMultiplier,
         customDict,
         setCustomDict,
         initializeCustomDict,

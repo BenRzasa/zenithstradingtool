@@ -11,12 +11,18 @@ import { johnValsDict } from "../data/JohnVals";
 import NavBar from "../components/NavBar";
 import ValueModeSelector from "../components/ValueModeSelector";
 import RareRow from "../components/RareRow";
+import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import "../styles/RareFindsTracker.css";
 
 const RareFindsTracker = () => {
-  const { rareFindsData, setRareFindsData, currentMode, setCurrentMode } =
-    useContext(MiscContext);
+  const {
+    rareFindsData,
+    setRareFindsData,
+    currentMode,
+    setCurrentMode,
+    customMultiplier,
+  } = useContext(MiscContext);
 
   /*
     State for tracking when each rare ore was last updated
@@ -47,6 +53,8 @@ const RareFindsTracker = () => {
         return "SV"; // SV
       case 6:
         return "RV"; // RV
+      case 7:
+        return "CV";  // Custom
       default:
         return "AV"; // Default to AV
     }
@@ -79,6 +87,9 @@ const RareFindsTracker = () => {
       case 6:
         numV = baseValue * 50;
         break; // RV
+      case 7:
+        numV = baseValue * customMultiplier;
+        break; // Custom
       default:
         numV = baseValue;
     }
@@ -215,6 +226,7 @@ const RareFindsTracker = () => {
         currentMode={currentMode}
         setCurrentMode={setCurrentMode}
       />
+      <CustomMultiplierInput />
       <div className="box-button">
         <button className="reset-btn" onClick={resetAllRareFinds}>
           Reset All
