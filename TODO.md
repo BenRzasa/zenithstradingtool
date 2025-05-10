@@ -1,5 +1,15 @@
 # Stuff to do
 
+GIT COMMITS:
+Flag commits with:
+[PAGE] for new routes/pages (bump X)
+[FEAT] for components (bump Y)
+[FIX] for patches (bump Z)
+npm run
+"bump:page": "npm version major -m '[PAGE] %s' && git push --follow-tags"
+"bump:feat": "npm version minor -m '[FEAT] %s' && git push --follow-tags"
+"bump:fix": "npm version patch -m '[FIX] %s' && git push --follow-tags"
+
 ## TO FIX:
 
 ### LOW PRIORITY -- All pages: Standardize input rules
@@ -20,17 +30,10 @@
 ### DONE -- Date & Amount since last CSV change
 ### DONE -- Custom Value Setting - Per ore
 ### DONE -- CSV Loader -- Sort by AV gained
+### DONE -- Rare Finds Tracker
 
 ### Misc Page -- Box containing "Useful tips & tricks" - link to another card-style page?
  - List of all emblems with perks (+ icons)
-
-### Rare Finds Tracker - Self explanatory, follow layout of JTT
- - Calculate total AV/NV of rare finds, and AV/NV per ore found
- - Manually entered by the user
- - Arrows to tick up or down the find amounts
- - Must be exportable & importable (simple CSV format [oreName:amount#])
-    - Allows the user to start where they left off after a re-deploy
- - This MUST be persistently stored - create another Context file to store the data
 
 ### Tentative - SETTINGS PAGE
  - Need ideas here...
@@ -38,13 +41,11 @@
 ### Value Chart Page - background transparency/opacity overlay of some sort
  - Pop-up that the user can have (Maybe just make a settings page at this point...)
 
-
 ### Grind Strats - List some of mine and others' favorite grind strats for various ores
  - Format prettily, include drop-down sections for the strategies, categories to open,
 pictures, the ore textures, descriptions of the ores, possible lore, etc.
  - Credit the inventor/contributor of the strat
  - e.g., Protireal grind method information, tips and tricks, and so on
-
 
 ### Graphs?
  - AV/hr of layers, Trade data over time, ores gained/NVs gained over time, etc

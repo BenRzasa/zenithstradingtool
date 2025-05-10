@@ -6,7 +6,7 @@
     - Layer Value Chart
 */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
 import CSVLoader from './pages/CSVLoader';
@@ -14,14 +14,19 @@ import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
 import MiscPage from './pages/MiscPage';
 import CustomValuesEditor from './pages/CustomValuesEditor';
-import { CSVProvider } from './context/CSVContext';
+import RareFindsTracker from './pages/RareFindsTracker';
+import { MiscProvider } from './context/MiscContext';
 import { TradeProvider } from './context/TradeContext';
 import BackgroundManager from './components/BackgroundManager';
+import packageJson from '../package.json'; // or use process.env.REACT_APP_VERSION
 
 function App() {
+    useEffect(() => {
+        document.title = `Zenith's Trading Tool v${packageJson.version}`;
+    }, []);
     return (
         <TradeProvider>
-            <CSVProvider>
+            <MiscProvider>
                 <div className="app-container">
                 <HashRouter>
                     <Routes>
@@ -38,10 +43,11 @@ function App() {
                         <Route path="/tradetool" element={<TradeTool />} />
                         <Route path="/misc" element={<MiscPage />} />
                         <Route path="/customvalues" element={<CustomValuesEditor />} />
+                        <Route path="/findtracker" element={<RareFindsTracker />} />
                     </Routes>
                 </HashRouter>
                 </div>
-            </CSVProvider>
+            </MiscProvider>
         </TradeProvider>
     );
 }

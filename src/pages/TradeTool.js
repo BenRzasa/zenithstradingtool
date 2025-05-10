@@ -15,7 +15,7 @@
 
 import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
 import NavBar from "../components/NavBar";
-import { CSVContext } from "../context/CSVContext";
+import { MiscContext } from "../context/MiscContext";
 import { TradeContext } from "../context/TradeContext";
 import { oreIcons } from "../data/oreIcons";
 import "../styles/TradeTool.css";
@@ -30,7 +30,7 @@ function TradeTool() {
     clearTradeSummary
   } = useContext(TradeContext);
 
-  const { csvData, valueMode, setValueMode, currentDict } = useContext(CSVContext);
+  const { csvData, valueMode, setValueMode, currentDict } = useContext(MiscContext);
 
   // Extract data from trade context
   const { quantities, discount, selectedOres } = tradeState;

@@ -8,7 +8,7 @@
 
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CSVContext } from '../context/CSVContext';
+import { MiscContext } from '../context/MiscContext';
 import NavBar from '../components/NavBar';
 
 import { LayerGradients } from '../data/LayerGradients';
@@ -25,7 +25,7 @@ function CustomValuesEditor() {
     setCustomDict,
     setValueMode,
     initializeCustomDict
-  } = useContext(CSVContext);
+  } = useContext(MiscContext);
   // Return a custom dict or, if none exists, initialize one with NAN's vals
   const [editedDict, setEditedDict] = useState(() => {
     return customDict || initializeCustomDict('nan');

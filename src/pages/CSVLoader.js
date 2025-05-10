@@ -8,7 +8,7 @@
 
 import React, { useContext, useState } from "react";
 import NavBar from "../components/NavBar";
-import { CSVContext } from "../context/CSVContext";
+import { MiscContext } from "../context/MiscContext";
 
 import { OreNames } from "../data/OreNames";
 
@@ -27,7 +27,7 @@ function CSVLoader() {
     currentDict,
     valueMode,
     setValueMode
-  } = useContext(CSVContext);
+  } = useContext(MiscContext);
 
 
     // State for sorting configuration

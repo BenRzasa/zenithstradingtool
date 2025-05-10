@@ -12,8 +12,18 @@
         crossOrigin="anonymous"
     />
     <link rel="stylesheet" href="index.css">
-    <title>Zenith's Trading Tool v1.4</title>
 </head>
+<script>
+  fetch('package.json')
+    .then(response => response.json())
+    .then(data => {
+      const versionElement = document.getElementById('app-version');
+      if (versionElement) {
+        versionElement.textContent = `v${data.version}`;
+      }
+    })
+    .catch(error => console.error('Error loading version:', error));
+</script>
 <body>
     <!-- Theme Switch -->
     <label class="switch">

@@ -1,6 +1,9 @@
 /* ZTT | Context file to ensure persistency of the CSV data
   - e.g., from the CSV page over to the value chart, or from the
   value chart over to the trade tool (since it needs the inventory data)
+  - Also the rare finds
+  - And random other things
+  - Also the custom values
 */
 
 /* ZTT | Enhanced Context file with Custom Values support */
@@ -8,9 +11,9 @@ import React, { createContext, useState, useEffect, useMemo } from 'react';
 import { johnValsDict } from '../data/JohnVals';
 import { nanValsDict } from '../data/NANVals';
 
-export const CSVContext = createContext();
+export const MiscContext = createContext();
 
-export const CSVProvider = ({ children }) => {
+export const MiscProvider = ({ children }) => {
   // Core CSV data state
   const [csvData, setCSVData] = useState(() => {
     const savedCSVData = localStorage.getItem('csvData');
@@ -58,6 +61,12 @@ export const CSVProvider = ({ children }) => {
            customDict || johnValsDict; // Fallback
   }, [valueMode, customDict]);
 
+  // Rare finds data state
+  const [rareFindsData, setRareFindsData] = useState(() => {
+    const savedRareFinds = localStorage.getItem('rareFindsData');
+    return savedRareFinds ? JSON.parse(savedRareFinds) : {};
+  });
+
   // Persist all data changes
   useEffect(() => {
     localStorage.setItem('csvData', JSON.stringify(csvData));
@@ -88,6 +97,10 @@ export const CSVProvider = ({ children }) => {
       localStorage.setItem('customDict', JSON.stringify(customDict));
     }
   }, [customDict]);
+
+  useEffect(() => {
+    localStorage.setItem('rareFindsData', JSON.stringify(rareFindsData));
+  }, [rareFindsData]);
 
   // Helper function to update data
   const updateCSVData = (newData) => {
@@ -126,11 +139,13 @@ export const CSVProvider = ({ children }) => {
   };
 
   return (
-    <CSVContext.Provider
+    <MiscContext.Provider
       value={{
         // Core data
         csvData,
         setCSVData,
+        rareFindsData,
+        setRareFindsData,
         previousAmounts,
         setPreviousAmounts,
         lastUpdated,
@@ -152,6 +167,6 @@ export const CSVProvider = ({ children }) => {
       }}
     >
       {children}
-    </CSVContext.Provider>
+    </MiscContext.Provider>
   );
 };

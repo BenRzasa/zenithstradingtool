@@ -163,19 +163,12 @@ td {
 }
 
 .name-column {
-    font-family:
-        "Segoe UI",                /* Windows */
-        -apple-system,             /* macOS/iOS San Francisco */
-        BlinkMacSystemFont,        /* macOS Chrome */
-        "Roboto",                  /* Android/Google */
-        "Helvetica Neue",          /* Fallback sans-serif */
-        Arial,                     /* Universal fallback */
-        sans-serif;                /* Final generic fallback */
-    letter-spacing: auto;
+    font-family: 'Segoe UI';
     position: relative;
     text-align: left;
     padding-left: 37px !important;
     width: fit-content !important;
+    vertical-align: middle;
     padding-right: 0px;
     white-space: nowrap;
     border: 2px solid var(--table-outline);
@@ -189,7 +182,6 @@ td {
     content: attr(data-text);
     position: absolute;
     left: 37px;
-    top: 2px;
     z-index: -1;
     color: black;
     font-size: 21px;

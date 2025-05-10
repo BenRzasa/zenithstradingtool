@@ -4,7 +4,7 @@
 */
 
 import React, { useContext, useState, useMemo } from "react";
-import { CSVContext } from "../context/CSVContext";
+import { MiscContext } from "../context/MiscContext";
 
 import { oreIcons } from "../data/oreIcons";
 
@@ -12,7 +12,7 @@ import "../styles/AllGradients.css";
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
 
-const TableComponent = ({
+const LayerTable = ({
   // Table's data fields/components
   data,
   title,
@@ -24,7 +24,7 @@ const TableComponent = ({
   const {
     csvData,
     setCSVData,
-  } = useContext(CSVContext);
+  } = useContext(MiscContext);
 
   // Pick the string based on the value mode
   // Now memoized to avoid unnecessary re-calculations
@@ -377,4 +377,4 @@ const TableComponent = ({
   );
 };
 
-export default TableComponent;
+export default LayerTable;

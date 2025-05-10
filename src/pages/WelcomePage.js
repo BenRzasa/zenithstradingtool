@@ -15,6 +15,7 @@ import singularity from "../images/misc/Singularity.webp";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import packageJson from '../../package.json'; // or use process.env.REACT_APP_VERSION
 
 import "../styles/WelcomePage.css";
 
@@ -36,13 +37,17 @@ function WelcomePage() {
           class="slide-btn"
         >Trade Tool</button>
         <button
+          onClick={() => navigate('/customvalues')}
+          class="slide-btn"
+        >Custom Values</button>
+        <button
           onClick={() => navigate('/misc')}
           class="slide-btn"
         >Miscellaneous</button>
         <button
-          onClick={() => navigate('/customvalues')}
+          onClick={() => navigate('/findtracker')}
           class="slide-btn"
-        >Custom Values</button>
+        >Rare Tracker</button>
         <button
           onClick={() => window.open('https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki', "_blank")}
           class="slide-btn"
@@ -81,7 +86,7 @@ function WelcomePage() {
         <div className="wcard">
             <h1 className="title">
               <span className="copy-wrap">
-                Welcome to Zenith's Trading Tool v1.4!
+                Welcome to Zenith's Trading Tool v{packageJson.version}!
               </span>
             </h1>
           </div>

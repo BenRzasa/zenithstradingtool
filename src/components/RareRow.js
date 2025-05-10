@@ -1,0 +1,95 @@
+import React from "react";
+import { oreIcons } from "../data/oreIcons";
+
+import "../styles/AllGradients.css";
+import "../styles/LayerTable.css";
+import "../styles/ValueChart.css";
+
+/*
+  Import like:
+  <ValueModeSelector
+    currentMode={currentMode}
+    setCurrentMode={setCurrentMode}
+  />
+*/
+
+// Extracting row rendering into a separate component for reusability
+const RareRow = ({
+  item,
+  count,
+  lastUpdated,
+  incrementValue,
+  decrementValue,
+  handleCountChange,
+  getOreClassName,
+  calculateNumV,
+  formatDate,
+}) => {
+  return (
+    <tr>
+      {/* Ore name cell */}
+      <td
+        className={`name-column ${getOreClassName(item.name)}`}
+        data-text={item.name}
+      >
+        {oreIcons[item.name.replace(/ /g, "_")] ? (
+          <img
+            src={oreIcons[item.name.replace(/ /g, "_")]}
+            alt={`${item.name} icon`}
+            className="ore-icon"
+            loading="lazy"
+            onError={(e) => {
+              console.error(`Missing icon for: ${item.name}`);
+              e.target.style.display = "none";
+            }}
+          />
+        ) : (
+          <span>🖼️</span>
+        )}
+        {item.name}
+      </td>
+
+      {/* Quantity cell */}
+      <td className="count-cell">
+        <div className="count-controls">
+          <button
+            className="count-btn decrement"
+            onClick={() => decrementValue(item.name)}
+            aria-label={`Decrement ${item.name}`}
+          >
+            -
+          </button>
+          <div className="count-input-wrapper">
+            <input
+              type="number"
+              value={count === 0 ? "" : count}
+              min="0"
+              onChange={(e) => handleCountChange(item.name, e.target.value)}
+              onBlur={(e) => {
+                if (e.target.value === "") {
+                  handleCountChange(item.name, 0);
+                }
+              }}
+              aria-label={`Edit ${item.name} count`}
+            />
+          </div>
+          <button
+            className="count-btn increment"
+            onClick={() => incrementValue(item.name)}
+            aria-label={`Increment ${item.name}`}
+          >
+            +
+          </button>
+        </div>
+      </td>
+
+      {/* NVs cell */}
+      <td>{calculateNumV(item.baseValue, count)}</td>
+
+      {/* Last found cell */}
+      <td>{formatDate(lastUpdated)}</td>
+    </tr>
+  );
+};
+
+export default RareRow;

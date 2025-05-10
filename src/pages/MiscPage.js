@@ -11,7 +11,7 @@
 // This comment was added on my Arch Linux WSL2 environment.
 import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
-import { CSVContext } from "../context/CSVContext";
+import { MiscContext } from "../context/MiscContext";
 
 import NavBar from "../components/NavBar";
 
@@ -27,7 +27,7 @@ function MiscPage() {
     valueMode,
     setValueMode,
     currentDict
-  } = useContext(CSVContext);
+  } = useContext(MiscContext);
 
   // Copy the search filter to the clipboard
   const copyFilter = (filterText) => {

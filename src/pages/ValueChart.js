@@ -9,10 +9,11 @@
 
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { CSVContext } from "../context/CSVContext";
+import { MiscContext } from "../context/MiscContext";
 
 import LayerTable from "../components/LayerTable";
-import NavBar from '../components/NavBar';
+import NavBar from "../components/NavBar";
+import ValueModeSelector from "../components/ValueModeSelector";
 
 import { johnValsDict } from "../data/JohnVals";
 import { nanValsDict } from "../data/NANVals";
@@ -33,13 +34,13 @@ function ValueChart() {
     setValueMode,
     customDict,
     setCustomDict,
-  } = useContext(CSVContext);
+  } = useContext(MiscContext);
 
   const navigate = useNavigate();
 
   // Toggle between three value modes: john, nan, & custom
   const toggleValueMode = (mode) => {
-    if (mode === 'custom' && !customDict) {
+    if (mode === "custom" && !customDict) {
       setShowCustomModal(true);
     } else {
       setValueMode(mode);
@@ -47,9 +48,11 @@ function ValueChart() {
   };
 
   const currentDict =
-    valueMode === 'john' ? johnValsDict :
-    valueMode === 'nan' ? nanValsDict :
-    customDict;
+    valueMode === "john"
+      ? johnValsDict
+      : valueMode === "nan"
+      ? nanValsDict
+      : customDict;
 
   // UI control states
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
@@ -113,14 +116,22 @@ function ValueChart() {
 
   const calculateValue = (baseValue) => {
     switch (currentMode) {
-      case 1: return baseValue; // AV
-      case 2: return baseValue * 10; // UV
-      case 3: return baseValue * 100; // NV
-      case 4: return baseValue * 500; // TV
-      case 5: return baseValue * 1000; // SV
-      case 6: return baseValue * 50; // RV
-      case 7: return baseValue * customMultiplier; // Custom value (AV #)
-      default: return baseValue; // Default to AV
+      case 1:
+        return baseValue; // AV
+      case 2:
+        return baseValue * 10; // UV
+      case 3:
+        return baseValue * 100; // NV
+      case 4:
+        return baseValue * 500; // TV
+      case 5:
+        return baseValue * 1000; // SV
+      case 6:
+        return baseValue * 50; // RV
+      case 7:
+        return baseValue * customMultiplier; // Custom value (AV #)
+      default:
+        return baseValue; // Default to AV
     }
   };
 
@@ -133,14 +144,21 @@ function ValueChart() {
 
   // For displaying the current mode dynamically
   const modeStr =
-    currentMode === 1 ? "AV"
-  : currentMode === 2 ? "UV"
-  : currentMode === 3 ? "NV"
-  : currentMode === 4 ? "TV"
-  : currentMode === 5 ? "SV"
-  : currentMode === 6 ? "RV"
-  : currentMode === 7 ? "CV"
-  : "BAD";
+    currentMode === 1
+      ? "AV"
+      : currentMode === 2
+      ? "UV"
+      : currentMode === 3
+      ? "NV"
+      : currentMode === 4
+      ? "TV"
+      : currentMode === 5
+      ? "SV"
+      : currentMode === 6
+      ? "RV"
+      : currentMode === 7
+      ? "CV"
+      : "BAD";
 
   // Calculate quick summary info
   // 1. Calculate base totals (without exclusions)
@@ -152,40 +170,38 @@ function ValueChart() {
     let totalOres = Object.values(csvData).reduce((acc, val) => acc + val, 0);
     let tableCompletions = [];
 
-    Object.entries(currentDict).forEach(
-      ([layerName, layerData]) => {
-        let tableCompletion = 0;
-        let itemCount = 0;
-        // For each layer, calculate its totals
-        layerData.forEach((item) => {
-          const inventory = csvData[item.name] || 0;
-          const perValue = calculateValue(item.baseValue).toFixed(
-            getPrecision(item.baseValue)
-          );
-          const numV = parseFloat((inventory / perValue).toFixed(1));
-          const completion = Math.min(
-            1,
-            inventory / calculateValue(item.baseValue)
-          );
-          // Update the ore count and table total completion
-          tableCompletion += completion;
-          itemCount++;
-          // Track rare & unique totals individually
-          if (layerName.includes("Rare")) {
-            rareTotal += numV;
-          } else if (layerName.includes("Unique")) {
-            uniqueTotal += numV;
-          } else {
-            layerTotal += numV;
-          }
-          grandTotal += numV;
-        });
-        // Calculate the avg completion for one table
-        const tableAvgCompletion =
-          itemCount > 0 ? tableCompletion / itemCount : 0;
-        tableCompletions.push(Math.min(1, tableAvgCompletion));
-      }
-    );
+    Object.entries(currentDict).forEach(([layerName, layerData]) => {
+      let tableCompletion = 0;
+      let itemCount = 0;
+      // For each layer, calculate its totals
+      layerData.forEach((item) => {
+        const inventory = csvData[item.name] || 0;
+        const perValue = calculateValue(item.baseValue).toFixed(
+          getPrecision(item.baseValue)
+        );
+        const numV = parseFloat((inventory / perValue).toFixed(1));
+        const completion = Math.min(
+          1,
+          inventory / calculateValue(item.baseValue)
+        );
+        // Update the ore count and table total completion
+        tableCompletion += completion;
+        itemCount++;
+        // Track rare & unique totals individually
+        if (layerName.includes("Rare")) {
+          rareTotal += numV;
+        } else if (layerName.includes("Unique")) {
+          uniqueTotal += numV;
+        } else {
+          layerTotal += numV;
+        }
+        grandTotal += numV;
+      });
+      // Calculate the avg completion for one table
+      const tableAvgCompletion =
+        itemCount > 0 ? tableCompletion / itemCount : 0;
+      tableCompletions.push(Math.min(1, tableAvgCompletion));
+    });
     // Calculate the average completion percentage from all layers
     const avgCompletion =
       tableCompletions.length > 0
@@ -221,37 +237,35 @@ function ValueChart() {
     let maxOre = { value: -Infinity, name: "", layer: "" };
     const layerValues = {};
 
-    Object.entries(currentDict).forEach(
-      ([layerName, layerData]) => {
-        if (excludedLayers.includes(layerName)) return;
+    Object.entries(currentDict).forEach(([layerName, layerData]) => {
+      if (excludedLayers.includes(layerName)) return;
 
-        let layerSum = 0;
-        layerData.forEach((item) => {
-          if (excludedOres.includes(item.name)) return;
-          const inventory = csvData[item.name] || 0;
-          const numV = parseFloat(
-            (inventory / calculateValue(item.baseValue)).toFixed(1)
-          );
-          // Track individual ores
-          if (numV < minOre.value) {
-            minOre = { value: numV, name: item.name, layer: layerName };
-          }
-          if (numV > maxOre.value) {
-            maxOre = { value: numV, name: item.name, layer: layerName };
-          }
-          layerSum += numV;
-        });
+      let layerSum = 0;
+      layerData.forEach((item) => {
+        if (excludedOres.includes(item.name)) return;
+        const inventory = csvData[item.name] || 0;
+        const numV = parseFloat(
+          (inventory / calculateValue(item.baseValue)).toFixed(1)
+        );
+        // Track individual ores
+        if (numV < minOre.value) {
+          minOre = { value: numV, name: item.name, layer: layerName };
+        }
+        if (numV > maxOre.value) {
+          maxOre = { value: numV, name: item.name, layer: layerName };
+        }
+        layerSum += numV;
+      });
 
-        layerValues[layerName] = layerSum;
-        // Track layers
-        if (layerSum < minLayer.value) {
-          minLayer = { value: layerSum, name: layerName };
-        }
-        if (layerSum > maxLayer.value) {
-          maxLayer = { value: layerSum, name: layerName };
-        }
+      layerValues[layerName] = layerSum;
+      // Track layers
+      if (layerSum < minLayer.value) {
+        minLayer = { value: layerSum, name: layerName };
       }
-    );
+      if (layerSum > maxLayer.value) {
+        maxLayer = { value: layerSum, name: layerName };
+      }
+    });
 
     // Just in case, handle nonexistent/wrong data
     const handleDefault = (obj) =>
@@ -312,7 +326,7 @@ function ValueChart() {
 
   // Save the customMultiplier to local storage and retrieve
   const [customMultiplier, setCustomMultiplier] = useState(() => {
-    const saved = localStorage.getItem('ztt-custom-multiplier');
+    const saved = localStorage.getItem("ztt-custom-multiplier");
     return saved ? parseInt(saved) : 100; // Default to 100 (same as NV)
   });
   // Fetch the total values object
@@ -324,11 +338,12 @@ function ValueChart() {
 
   // Initialize custom dict
   const initializeCustomDict = (source) => {
-    const newCustomDict = source === 'john'
-      ? JSON.parse(JSON.stringify(johnValsDict))
-      : JSON.parse(JSON.stringify(nanValsDict));
+    const newCustomDict =
+      source === "john"
+        ? JSON.parse(JSON.stringify(johnValsDict))
+        : JSON.parse(JSON.stringify(nanValsDict));
     setCustomDict(newCustomDict);
-    setCurrentMode('custom');
+    setCurrentMode("custom");
     setShowCustomModal(false);
   };
 
@@ -337,12 +352,13 @@ function ValueChart() {
     if (!customDict) return;
     const dataStr = JSON.stringify(customDict, null, 2);
     const dataUri =
-      'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const exportFileDefaultName =
-      `custom_values_${customDictSource}_${new Date().toISOString().slice(0,10)}.json`;
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
+      "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+    const exportFileDefaultName = `custom_values_${customDictSource}_${new Date()
+      .toISOString()
+      .slice(0, 10)}.json`;
+    const linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
     linkElement.click();
   };
 
@@ -454,7 +470,12 @@ function ValueChart() {
       </div>
       <div className="container">
         {/* Value buttons */}
-        <div className="button-container" style={{ flexDirection: "row" }}>
+        <div
+          className="button-container"
+          style={{
+            flexDirection: "row",
+          }}
+        >
           {/* More stats button - expands quick summary & enables more info */}
           <div className="box-button">
             <button
@@ -471,16 +492,16 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleValueMode('john')}
-              className={valueMode === 'john' ? "color-template-pout" : ""}
+              onClick={() => toggleValueMode("john")}
+              className={valueMode === "john" ? "color-template-pout" : ""}
             >
               <span>John Values</span>
             </button>
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleValueMode('nan')}
-              className={valueMode === 'nan' ? "color-template-diamond" : ""}
+              onClick={() => toggleValueMode("nan")}
+              className={valueMode === "nan" ? "color-template-diamond" : ""}
             >
               <span>NAN Values</span>
             </button>
@@ -492,18 +513,20 @@ function ValueChart() {
                   // Initialize with John's values if none exists
                   const newDict = JSON.parse(JSON.stringify(johnValsDict));
                   setCustomDict(newDict);
-                  setValueMode('custom');
+                  setValueMode("custom");
                 } else {
-                  setValueMode('custom');
+                  setValueMode("custom");
                 }
               }}
-              className={valueMode === 'custom' ? "color-template-havicron active" : ""}
+              className={
+                valueMode === "custom" ? "color-template-havicron active" : ""
+              }
             >
               <span>Custom</span>
             </button>
           </div>
 
-          {valueMode === 'custom' && customDict && (
+          {valueMode === "custom" && customDict && (
             <>
               <div className="box-button">
                 <button onClick={exportCustomDict}>
@@ -511,7 +534,7 @@ function ValueChart() {
                 </button>
               </div>
               <div className="box-button">
-                <button onClick={() => navigate('/customvalues')}>
+                <button onClick={() => navigate("/customvalues")}>
                   <span>Customize</span>
                 </button>
               </div>
@@ -519,72 +542,25 @@ function ValueChart() {
           )}
         </div>
         {/* Mode selection buttons */}
-        {/* AV/UV/RV/NV/TV/SV/CV */}
-        <div
-          className="val-button-container"
-          style={{ flexDirection: "row", flexWrap: "wrap" }}
-        >
-          {[
-            {
-              mode: 1,
-              className: "color-template-ambrosine",
-              label: "AV Mode",
-            },
-            {
-              mode: 2,
-              className: "color-template-universallium",
-              label: "UV Mode",
-            },
-            {
-              mode: 6,
-              className: "color-template-rhylazil",
-              label: "RV Mode",
-            },
-            {
-              mode: 3,
-              className: "color-template-neutrine",
-              label: "NV Mode",
-            },
-            {
-              mode: 4,
-              className: "color-template-torn-fabric",
-              label: "TV Mode",
-            },
-            {
-              mode: 5,
-              className: "color-template-singularity",
-              label: "SV Mode",
-            },
-            {
-              mode: 7,
-              className: "color-template-havicron",
-              label: "Custom",
-            }
-            // Mapped to avoid more redundant code
-            // Key is the mode, template has the mode number,
-            // Class name (gradient template) & label (text)
-          ].map(({ mode, className, label }) => (
-            <div className="box-button" key={mode}>
-              <button
-                onClick={() => setCurrentMode(mode)}
-                className={currentMode === mode ? className : ""}
-              >
-                <span>{label}</span>
-              </button>
-            </div>
-          ))}
-        </div>
+        <ValueModeSelector
+          currentMode={currentMode}
+          setCurrentMode={setCurrentMode}
+        />
+
         {/* Custom value input box */}
         {currentMode === 7 && (
-          <div className="custom-multiplier-input" style={{
-            margin: '10px auto',
-            padding: '10px',
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            borderRadius: '10px',
-            outline: '3px solid var(--table-outline)',
-            maxWidth: '450px'
-          }}>
-            <label htmlFor="custom-multiplier" style={{marginRight: '10px'}}>
+          <div
+            className="custom-multiplier-input"
+            style={{
+              margin: "10px auto",
+              padding: "10px",
+              backgroundColor: "rgba(0,0,0,0.2)",
+              borderRadius: "10px",
+              outline: "3px solid var(--table-outline)",
+              maxWidth: "450px",
+            }}
+          >
+            <label htmlFor="custom-multiplier" style={{ marginRight: "10px" }}>
               Custom Multiplier (xAV):
             </label>
             <input
@@ -595,25 +571,26 @@ function ValueChart() {
               value={customMultiplier}
               onChange={(e) => {
                 // Set empty on backspace
-                if (e.target.value === '') {
-                  setCustomMultiplier('');
+                if (e.target.value === "") {
+                  setCustomMultiplier("");
                   return;
                 }
                 // Otherwise enforce min of 1
                 const value = Math.max(1, parseInt(e.target.value) || 1);
                 setCustomMultiplier(value);
-                localStorage.setItem('ztt-custom-multiplier', value.toString());
+                localStorage.setItem("ztt-custom-multiplier", value.toString());
               }}
               style={{
-                padding: '8px',
-                width: '70px',
-                textAlign: 'center',
-                borderRadius: '4px',
-                border: '1px solid var(--table-outline)'
+                padding: "8px",
+                width: "70px",
+                textAlign: "center",
+                borderRadius: "4px",
+                border: "1px solid var(--table-outline)",
               }}
             />
           </div>
         )}
+
         {/* Back to Top button */}
         {showBackToTop && (
           // Should probably move this styling into the css.
@@ -652,6 +629,8 @@ function ValueChart() {
             ))}
           </select>
         </div>
+
+        {/* Custom mode starting overlay for empty data */}
         {showCustomModal && (
           <div className="custom-modal-overlay">
             <div className="custom-modal">
@@ -659,13 +638,13 @@ function ValueChart() {
               <p>Choose which value set to use as a starting point:</p>
               <div className="modal-buttons">
                 <button
-                  onClick={() => initializeCustomDict('john')}
+                  onClick={() => initializeCustomDict("john")}
                   className="color-template-pout"
                 >
                   John Values
                 </button>
                 <button
-                  onClick={() => initializeCustomDict('nan')}
+                  onClick={() => initializeCustomDict("nan")}
                   className="color-template-diamond"
                 >
                   NAN Values
@@ -680,40 +659,39 @@ function ValueChart() {
             </div>
           </div>
         )}
+
         {/* Tables section */}
         {/* Makes use of the LayerTable component
             - Accounts for John/NAN vals
             - Finds the gradient key (color-template-oreName) and applies
             - Layer name is the header outside of the table in the wrapper
-            - Layer data, name, mode, csv data, gradient, and search filter is passed in
+            - Layer data, name, mode, csv data, gradient, and search filter 
+            is passed in
         */}
         <div className="tables-container">
-          {Object.entries(currentDict).map(
-            ([layerName, layerData]) => {
+          {Object.entries(currentDict).map(([layerName, layerData]) => {
+            const gradientKey = Object.keys(LayerGradients).find((key) =>
+              layerName.includes(key)
+            );
 
-              const gradientKey = Object.keys(LayerGradients).find((key) =>
-                layerName.includes(key)
-              );
+            const gradientStyle = gradientKey
+              ? LayerGradients[gradientKey].background
+              : "linear-gradient(90deg, #667eea 0%, #764ba2 100%)";
 
-              const gradientStyle = gradientKey
-                ? LayerGradients[gradientKey].background
-                : "linear-gradient(90deg, #667eea 0%, #764ba2 100%)";
-
-              return (
-                <div id={layerName.replace(/\s+/g, "-")} key={layerName}>
-                  <LayerTable
-                    data={layerData}
-                    title={layerName}
-                    currentMode={currentMode}
-                    customMultiplier={customMultiplier}
-                    csvData={csvData}
-                    gradient={gradientStyle}
-                    searchFilters={searchFilters}
-                  />
-                </div>
-              );
-            }
-          )}
+            return (
+              <div id={layerName.replace(/\s+/g, "-")} key={layerName}>
+                <LayerTable
+                  data={layerData}
+                  title={layerName}
+                  currentMode={currentMode}
+                  customMultiplier={customMultiplier}
+                  csvData={csvData}
+                  gradient={gradientStyle}
+                  searchFilters={searchFilters}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
