@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.7365c397.css",
-    "main.js": "/zenithstradingtool/static/js/main.38b05055.js",
+    "main.css": "/zenithstradingtool/static/css/main.7f0eaa78.css",
+    "main.js": "/zenithstradingtool/static/js/main.32e4afec.js",
     "static/media/tcc_icon_afterfool.png": "/zenithstradingtool/static/media/tcc_icon_afterfool.8707612c20c6b152c99e.png",
     "static/media/Singularity.webp": "/zenithstradingtool/static/media/Singularity.f1bc952e898315b398d9.webp",
     "static/media/Ectokelyte_Icon.webp": "/zenithstradingtool/static/media/Ectokelyte_Icon.25a43f20bdf4f8c35469.webp",
@@ -293,16 +293,17 @@
     "static/media/Noise_Icon.webp": "/zenithstradingtool/static/media/Noise_Icon.1cc1364a089a74549c15.webp",
     "static/media/Supermatter_Icon.webp": "/zenithstradingtool/static/media/Supermatter_Icon.6f275a207abd3d53997a.webp",
     "static/media/Rainbonite_Icon.webp": "/zenithstradingtool/static/media/Rainbonite_Icon.8505e47758bfb411555d.webp",
+    "static/media/Missing_Texture.webp": "/zenithstradingtool/static/media/Missing_Texture.fdb955553b1010987741.webp",
     "static/media/Starsteel_Icon.webp": "/zenithstradingtool/static/media/Starsteel_Icon.4a8076f405c09e3166f4.webp",
     "static/media/Tetraquark_Icon.webp": "/zenithstradingtool/static/media/Tetraquark_Icon.2066249e621e610d60be.webp",
     "static/media/Infrarian_Icon.webp": "/zenithstradingtool/static/media/Infrarian_Icon.6ecab7e706236f376df0.webp",
     "static/media/Panolethrium_Icon.webp": "/zenithstradingtool/static/media/Panolethrium_Icon.a8819dd71df0f4716bb6.webp",
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
-    "main.7365c397.css.map": "/zenithstradingtool/static/css/main.7365c397.css.map",
-    "main.38b05055.js.map": "/zenithstradingtool/static/js/main.38b05055.js.map"
+    "main.7f0eaa78.css.map": "/zenithstradingtool/static/css/main.7f0eaa78.css.map",
+    "main.32e4afec.js.map": "/zenithstradingtool/static/js/main.32e4afec.js.map"
   },
   "entrypoints": [
-    "static/css/main.7365c397.css",
-    "static/js/main.38b05055.js"
+    "static/css/main.7f0eaa78.css",
+    "static/js/main.32e4afec.js"
   ]
 }
