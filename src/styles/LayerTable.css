@@ -170,7 +170,7 @@ td {
     width: fit-content !important;
     vertical-align: middle;
     padding-right: 0px;
-    white-space: nowrap;
+    white-space: wrap;
     border: 2px solid var(--table-outline);
     font-size: 21px;
     font-weight: 700;

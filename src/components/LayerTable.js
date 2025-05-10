@@ -27,21 +27,20 @@ const LayerTable = ({
     setCSVData,
   } = useContext(MiscContext);
 
-  // Pick the string based on the value mode
-  // Now memoized to avoid unnecessary re-calculations
-  // eslint-disable-next-line
-  const modeStr = useMemo(() => {
-    switch (currentMode) {
-      case 1: return "AV"; // AV
-      case 2: return "UV"; // UV
-      case 3: return "NV"; // NV
-      case 4: return "TV"; // TV
-      case 5: return "SV"; // SV
-      case 6: return "RV"; // RV
-      case 7: return "CV"; // Custom
-      default: return "AV"; // Default to AV
-    }
-  })
+  // Check if CV is a multiple of NVs
+  const isNV = customMultiplier % 100 === 0;
+  // For displaying the current mode dynamically
+  const modeStr =
+    currentMode === 1
+      ? "AV"
+      : currentMode === 2 ? "UV"
+      : currentMode === 3 ? "NV"
+      : currentMode === 4 ? "TV"
+      : currentMode === 5 ? "SV"
+      : currentMode === 6 ? "RV"
+      : !isNV && currentMode === 7 ? "CV"
+      : isNV && currentMode === 7 ? `${customMultiplier / 100}NV`
+      : "BAD";
 
   // Function to generate the className based on ore name
   const getOreClassName = (oreName) => {

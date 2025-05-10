@@ -143,7 +143,8 @@ function ValueChart() {
     const decimalPart = number.toString().split(".")[1];
     return decimalPart ? decimalPart.length : 0;
   };
-
+  // Bool for NVs
+  const isNV = customMultiplier % 100 === 0;
   // For displaying the current mode dynamically
   const modeStr =
     currentMode === 1
@@ -158,8 +159,10 @@ function ValueChart() {
       ? "SV"
       : currentMode === 6
       ? "RV"
-      : currentMode === 7
+      : !isNV && currentMode === 7
       ? "CV"
+      : isNV && currentMode === 7
+      ? `${customMultiplier / 100}NV`
       : "BAD";
 
   // Calculate quick summary info

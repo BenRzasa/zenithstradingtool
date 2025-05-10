@@ -22,7 +22,7 @@ const searchFilters = [
   "➜ Marine: Nero/Tene/Yil/Aquam/Naq/Hyd/Pea/Eid",
   "➜ Cosmic: c g/cosma/astra/arst/ardu/endot",
   "➜ Molten: Nic/Mol/Cori/Liq/Cinn/Sam/Cind/Zyn",
-  "➜ Serenity: Ambr/ade/Red/Cele/cryop/And/troni/Spec/Spira/n n/orich",
+  "➜ Serenity: bedro/ade/Red/Cele/cryop/And/troni/Spec/Spira/n n/orich",
   "➜ Plasma: Cind/Plasma/Pyrop/Infer/Proto/Galv/Feroz/Elec/Conv",
   "➜ Quantum: rino/gluo/up /own /osit/perm/arm /top /tom /ge q/ ph/ota",
   "➜ Stability: al b/ted b/fabric/mavri/irul",

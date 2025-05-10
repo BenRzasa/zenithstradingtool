@@ -9,7 +9,7 @@
 import React, { useContext, useState } from "react";
 import NavBar from "../components/NavBar";
 import { MiscContext } from "../context/MiscContext";
-
+import CSVEditor from "../components/CSVEditor";
 import { OreNames } from "../data/OreNames";
 
 import "../styles/CSVLoader.css";
@@ -35,6 +35,9 @@ function CSVLoader() {
       key: 'ore',       // Current column being sorted 'ore', 'amount', 'change'
       direction: 'asc'  // Current direction 'asc' or 'desc'
     });
+
+    // State for CSV editor popup
+    const [ showCSVEditor, setShowCSVEditor ] = useState(false);
 
     // Function to handle header clicks and toggle sorting
     const handleSort = (columnKey) => {
@@ -268,6 +271,14 @@ function CSVLoader() {
           </div>
           <div className="box-button">
             <button
+              onClick={() => setShowCSVEditor(!showCSVEditor)}
+              className={showCSVEditor ? "color-template-protireal" : ""}
+            >
+              <span>Edit CSV</span>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
               onClick={() => setValueMode('john')}
               className={valueMode === 'john' ? "color-template-pout" : ""}
             >
@@ -292,6 +303,9 @@ function CSVLoader() {
           </div>
           <l>Please navigate to the Custom Values page to modify Custom Values.</l>
         </div>
+        {showCSVEditor && (
+          <CSVEditor />
+        )}
         <div className="csv-input">
           {/* CSV Input Box */}
           <textarea

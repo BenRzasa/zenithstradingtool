@@ -1,0 +1,10 @@
+.editor-popup {
+  position: absolute;
+  left: 55%;
+  top: 20%;
+  z-index: 10000;
+  background-color: rgba(86, 83, 83, 0.8);
+  color: rgb(253, 212, 212);
+  width: 40%;
+  height: 50%;
+}
