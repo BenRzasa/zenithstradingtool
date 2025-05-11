@@ -46,6 +46,9 @@ npm version major --no-git-tag-version -m "[PAGE] Bump to %s"
 ### Tentative - SETTINGS PAGE
  - Need ideas here...
 
+### Custom font setting?
+ - Might just apply to headers/ore names... or the entire thing fuck it we ball
+
 ### Value Chart Page - background transparency/opacity overlay of some sort
  - Pop-up that the user can have (Maybe just make a settings page at this point...)
 

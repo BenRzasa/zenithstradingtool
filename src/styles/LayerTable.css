@@ -173,7 +173,8 @@ td {
     white-space: wrap;
     border: 2px solid var(--table-outline);
     font-size: 21px;
-    font-weight: 700;
+    letter-spacing: -1px;
+    font-weight: 650;
     color: white;
     z-index: 1;
 }
@@ -185,7 +186,7 @@ td {
     z-index: -1;
     color: black;
     font-size: 21px;
-    font-weight: 700;
+    font-weight: 650;
     -webkit-text-stroke: 5px black;
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
