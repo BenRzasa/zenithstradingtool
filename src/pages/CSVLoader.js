@@ -303,9 +303,11 @@ function CSVLoader() {
           </div>
           <l>Please navigate to the Custom Values page to modify Custom Values.</l>
         </div>
+
         {showCSVEditor && (
           <CSVEditor />
         )}
+
         <div className="csv-input">
           {/* CSV Input Box */}
           <textarea

@@ -333,7 +333,7 @@ export const nanValsDict = {
     { name: "Chronon", baseValue: 30 },
     { name: "Aurorum", baseValue: 15 },
     { name: "Korenil", baseValue: 6 },
-    { name: "Stellar Sediment", baseValue: 1000 },
+    { name: "Stellar Sediment", baseValue: 1500 },
     { name: "Apiastrine", baseValue: 15 }
   ],
 

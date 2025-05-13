@@ -1,10 +1,29 @@
 .editor-popup {
-  position: absolute;
-  left: 55%;
-  top: 20%;
+  position: fixed;
+  left: 5%;
+  top: 25%;
   z-index: 10000;
-  background-color: rgba(86, 83, 83, 0.8);
+  background-color: rgb(40, 37, 37);
   color: rgb(253, 212, 212);
   width: 40%;
-  height: 50%;
+  height: 70%;
+  border-radius: 20px;
+}
+
+.csv-output {
+  flex: 1;
+  width: 90%;
+  height: 70%;
+  padding: 16px;
+}
+
+/* CSV output */
+.csv-output textarea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  resize: vertical, horizontal;
+  margin-bottom: 0px;
+  font-size: 18px;
+  border: 2px solid #000000;
 }

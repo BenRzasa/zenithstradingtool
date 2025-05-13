@@ -110,7 +110,7 @@
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
     padding-right: 20px;
-    z-index: -1000;
+    z-index: 1;
     overflow: hidden;
     box-shadow: 0 5px 9px rgba(0,0,0,0.5);
 }
@@ -374,7 +374,7 @@
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.2s;
-    z-index: 2;
+    z-index: 99999;
 }
 
 .delete-ore-button:hover {
