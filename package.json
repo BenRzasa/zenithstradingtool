@@ -1,6 +1,6 @@
 {
   "name": "zenithstradingtool",
-  "version": "7.1.4",
+  "version": "7.1.7",
   "private": true,
   "homepage": "https://benrzasa.github.io/zenithstradingtool",
   "dependencies": {
@@ -25,7 +25,7 @@
     "bump:fix": "npm version patch --no-git-tag-version",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build && npm run log-version",
-    "log-version": "echo 'Successfully deployed v$(node -p \"require('./package.json').version\") to GitHub Pages'"
+    "log-version": "echo Successfully deployed to GitHub Pages"
   },
   "eslintConfig": {
     "extends": [

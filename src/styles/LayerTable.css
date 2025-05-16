@@ -1,33 +1,58 @@
 .percent-0 {
-    background-color: #ff2d2d;
+    background-color: #e20000;
+}
+
+.percent-10 {
+    background-color: #ff4800;
 }
 
 .percent-20 {
-    background-color: #ff4000;
+    background-color: #ff6a00;
+}
+
+.percent-30 {
+    background-color: #ff9100;
 }
 
 .percent-40 {
-    background-color: #ff8000;
+    background-color: #ffb700;
+}
+
+.percent-50 {
+    background-color: #ffe100;
 }
 
 .percent-60 {
-    background-color: #ffbf00;
+    background-color: #e9e209;
+}
+
+.percent-70 {
+    background-color: #bfff00;
 }
 
 .percent-80 {
-    background-color: #71c700;
+    background-color: #81ec00;
+}
+
+.percent-90 {
+    background-color: #b3ff00;
 }
 
 .percent-100 {
-    background-color: #18a4e0;
+    background-color: #009dff;
 }
 
 /* Percentage column adjustments */
 .percent-0,
+.percent-10,
 .percent-20,
+.percent-30,
 .percent-40,
+.percent-50,
 .percent-60,
+.percent-70,
 .percent-80,
+.percent-90,
 .percent-100 {
     width: 50px !important;
     color: black !important;

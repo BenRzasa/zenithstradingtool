@@ -154,8 +154,21 @@ function MiscPage() {
     },
     {
       id: "card3",
-      title: "Third Card",
-      content: "Final card content with the same stylish hover animations.",
+      title: "Useful Emblems",
+      content:
+        <div className="emblemsBox">
+          <table>
+            <thead>
+            <tr>
+              <th>Ore Name</th>
+              <th>Emblem Perk</th>
+            </tr>
+          </thead>
+          <tbody>
+            Test
+          </tbody>
+        </table>
+        </div>,
       link: "/link3",
     },
   ];

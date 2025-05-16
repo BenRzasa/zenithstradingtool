@@ -270,7 +270,7 @@ const RareFindsTracker = () => {
             <thead>
               <tr>
                 <th>Ore Name</th>
-                <th>Quantity</th>
+                <th>Amount Found</th>
                 <th># {modeStr}</th>
                 <th>Last Found</th>
               </tr>
@@ -310,7 +310,7 @@ const RareFindsTracker = () => {
             <thead>
               <tr>
                 <th>Ore Name</th>
-                <th>Quantity</th>
+                <th>Amount Found</th>
                 <th># {modeStr}</th>
                 <th>Last Found</th>
               </tr>

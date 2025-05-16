@@ -3,7 +3,7 @@
 // -> Exported as simple array of strings
 const searchFilters = [
   "➜ Rares: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ v/rhy/Cind/unob/nyrv/ sh",
-  "➜ Condensed: ambr/sall/utrine/hav/dy/Torn/Zyn/ubri/singu/ v/rhy/Cind/Ecto",
+  "➜ Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ v/rhy/Cind/Ecto",
   "➜ Torn Materials: qy/bla/chron/com/cons/dy/ok/ v/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
   "➜ Uniques: sh/ñ/vergl/holle/ambe/onyx/chalc/suns/pano/mete",
   "➜ Compounds: Quark m/Iso/Perig/Eq",

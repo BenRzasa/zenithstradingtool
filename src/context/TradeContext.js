@@ -71,24 +71,25 @@ export const TradeProvider = ({ children }) => {
   }, [tradeState]);
 
   const updateTradeOres = useCallback((allOres) => {
-    setTradeState(prev => {
-      // Calculate new tradeOres
-      const newTradeOres = allOres
-        .filter(ore => prev.quantities[ore.name] > 0)
-        .map(ore => ({
-          ...ore,
-          amount: prev.quantities[ore.name]
-        }));
-      // Only update if tradeOres actually changed
-      if (JSON.stringify(newTradeOres) !== JSON.stringify(prev.tradeOres)) {
-        return {
-          ...prev,
-          tradeOres: newTradeOres
-        };
-      }
-      return prev; // Return previous state if no changes
-    });
-  }, []); // Empty dependency array since it doesn't depend on any props/state
+      setTradeState(prev => {
+        // Calculate new tradeOres - include ALL ores that have a quantity entry
+        const newTradeOres = allOres
+          .filter(ore => ore.name in prev.quantities) // Only changed this line
+          .map(ore => ({
+            ...ore,
+            amount: prev.quantities[ore.name] || 0 // Default to 0 if undefined
+          }));
+
+        // Only update if tradeOres actually changed
+        if (JSON.stringify(newTradeOres) !== JSON.stringify(prev.tradeOres)) {
+          return {
+            ...prev,
+            tradeOres: newTradeOres
+          };
+        }
+        return prev; // Return previous state if no changes
+      });
+  }, []);
 
   // Clear trade summary
   const clearTradeSummary = () => {

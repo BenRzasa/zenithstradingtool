@@ -3,7 +3,7 @@
   given the layer name, ore names, and a base value. And the gradient!
 */
 
-import React, { useContext, useState, useMemo } from "react";
+import React, { useContext, useState } from "react";
 import { MiscContext } from "../context/MiscContext";
 
 import { oreIcons } from "../data/oreIcons";
@@ -277,7 +277,7 @@ const LayerTable = ({
                   )}
                   {item.name}
                 </td>
-                <td className={`percent-${Math.floor(percentage / 20) * 20}`}>
+                <td className={`percent-${Math.floor(percentage / 10) * 10}`}>
                   {percentage.toFixed(1)}%
                 </td>
                 <td className="inventory-cell">

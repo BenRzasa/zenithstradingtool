@@ -661,7 +661,7 @@
 }
 
 .color-template-up-quark {
-    background: linear-gradient(180deg, #ffcad4 0%, #ffe9f1 10%, #ffcad4 30%, #e64a49 35%, #8f2b2c 66%, #2a0816 100%);
+    background: linear-gradient(180deg, #ffcad4 0%, #ffe9f1 10%, #ffcbd5 20%, #e54a49 33%, #e64a49 35%, #8f2b2c 66%, #2a0816 100%);
 }
 
 .color-template-down-quark {
