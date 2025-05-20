@@ -415,6 +415,9 @@
     background: #555555;
 }
 
+.color-template-kreosyte {
+    background: #3c3f4f;
+}
 .color-template-cadmium {
     background: #948383;
 }
@@ -771,6 +774,10 @@
 
 .color-template-krazmite {
     background: linear-gradient(90deg, #06578d 0%, #261a81 5%, #5f0000 15%, #ff2277 30%, #ffffff 50%, #ff2277 70%, #5f0000 85%, #261a81 95%, #06578d 100%);
+}
+
+.color-template-anaxinite {
+    background: #ef8a39;
 }
 
 .color-template-tendrock {

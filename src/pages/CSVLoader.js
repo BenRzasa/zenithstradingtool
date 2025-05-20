@@ -305,7 +305,7 @@ function CSVLoader() {
         </div>
 
         {showCSVEditor && (
-          <CSVEditor />
+          <CSVEditor onClose={() => setShowCSVEditor(false)}/>
         )}
 
         <div className="csv-input">

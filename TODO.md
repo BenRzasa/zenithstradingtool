@@ -39,6 +39,7 @@ npm version major --no-git-tag-version -m "[PAGE] Bump to %s"
 ### DONE -- Custom Value Setting - Per ore
 ### DONE -- CSV Loader -- Sort by AV gained
 ### DONE -- Rare Finds Tracker
+### DONE -- CSV Editor
 
 ### Misc Page -- Box containing "Useful tips & tricks" - link to another card-style page?
  - List of all emblems with perks (+ icons)

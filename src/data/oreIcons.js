@@ -9,6 +9,7 @@ import Amber from '../images/ore-icons/Amber_Icon.webp';
 import Ambrosine from '../images/ore-icons/Ambrosine_Icon.webp';
 import Amethyst from '../images/ore-icons/Amethyst_Icon.webp';
 import Amnesite from '../images/ore-icons/Amnesite_Icon.webp';
+import Anaxinite from '../images/ore-icons/Anaxinite_Icon.webp';
 import Andrium from '../images/ore-icons/Andrium_Icon.webp';
 import Anetrium from '../images/ore-icons/Anetrium_Icon.webp';
 import Antimatter from '../images/ore-icons/Antimatter_Icon.webp';
@@ -130,6 +131,7 @@ import Kafsium from '../images/ore-icons/Kafsium_Icon.webp';
 import Korenil from '../images/ore-icons/Korenil_Icon.webp';
 import Korundum from '../images/ore-icons/Korundum_Icon.webp';
 import Krazmite from '../images/ore-icons/Krazmite_Icon.webp';
+import Kreosyte from '../images/ore-icons/Kreosyte_Icon.webp';
 import Kryposilus from '../images/ore-icons/Kryposilus_Icon.webp';
 import Kyanite from '../images/ore-icons/Kyanite_Icon.webp';
 import Lapis from '../images/ore-icons/Lapis_Icon.webp';
@@ -304,6 +306,7 @@ export const oreIcons = {
   Ambrosine,
   Amethyst,
   Amnesite,
+  Anaxinite,
   Andrium,
   Anetrium,
   Antimatter,
@@ -425,6 +428,7 @@ export const oreIcons = {
   Korenil,
   Korundum,
   Krazmite,
+  Kreosyte,
   Kryposilus,
   Kyanite,
   Lapis,

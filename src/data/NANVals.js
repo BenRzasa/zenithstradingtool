@@ -166,17 +166,8 @@ export const nanValsDict = {
     { name: "Asthenocrit", baseValue: 6 }
   ],
 
-  Grayscale: [
-    { name: "Gallium", baseValue: 15 },
-    { name: "Amnesite", baseValue: 15 },
-    { name: "Shadow Quartz", baseValue: 4 },
-    { name: "Glowstone", baseValue: 3 },
-    { name: "Graphene", baseValue: 5 },
-    { name: "Quicksilver", baseValue: 8 },
-    { name: "Gray Matter", baseValue: 5 }
-  ],
-
   "Achrothesi / Whitespace": [
+    { name: "Kreosyte", baseValue: 8 },
     { name: "Cadmium", baseValue: 15 },
     { name: "Chromium", baseValue: 15 },
     { name: "Null", baseValue: 16 },
@@ -187,6 +178,16 @@ export const nanValsDict = {
     { name: "Myriroule", baseValue: 7 },
     { name: "Argibar", baseValue: 8 },
     { name: "Perilium", baseValue: 2 }
+  ],
+
+  Grayscale: [
+    { name: "Gallium", baseValue: 15 },
+    { name: "Amnesite", baseValue: 15 },
+    { name: "Shadow Quartz", baseValue: 4 },
+    { name: "Glowstone", baseValue: 3 },
+    { name: "Graphene", baseValue: 5 },
+    { name: "Quicksilver", baseValue: 8 },
+    { name: "Gray Matter", baseValue: 5 }
   ],
 
   Frigid: [
@@ -293,6 +294,7 @@ export const nanValsDict = {
     { name: "Sinfurmium", baseValue: 8 },
     { name: "Gyrivarium", baseValue: 8 },
     { name: "Krazmite", baseValue: 8 },
+    { name: "Anaxinite", baseValue: 8 },
     { name: "Tendrock", baseValue: 1000 },
     { name: "Dark Energy", baseValue: 10 },
     { name: "Corrodoil", baseValue: 25 },

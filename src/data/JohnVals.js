@@ -165,17 +165,8 @@ export const johnValsDict = {
     { name: "Asthenocrit", baseValue: 6.5 }
   ],
 
-  Grayscale: [
-    { name: "Gallium", baseValue: 60 },
-    { name: "Amnesite", baseValue: 18 },
-    { name: "Shadow Quartz", baseValue: 4 },
-    { name: "Glowstone", baseValue: 3.5 },
-    { name: "Graphene", baseValue: 6 },
-    { name: "Quicksilver", baseValue: 8 },
-    { name: "Gray Matter", baseValue: 5.5 }
-  ],
-
   "Achrothesi / Whitespace": [
+    { name: "Kreosyte", baseValue: 8 },
     { name: "Cadmium", baseValue: 12 },
     { name: "Chromium", baseValue: 9 },
     { name: "Null", baseValue: 8 },
@@ -186,6 +177,16 @@ export const johnValsDict = {
     { name: "Myriroule", baseValue: 5.5 },
     { name: "Argibar", baseValue: 4.5 },
     { name: "Perilium", baseValue: 2 }
+  ],
+
+  Grayscale: [
+    { name: "Gallium", baseValue: 60 },
+    { name: "Amnesite", baseValue: 18 },
+    { name: "Shadow Quartz", baseValue: 4 },
+    { name: "Glowstone", baseValue: 3.5 },
+    { name: "Graphene", baseValue: 6 },
+    { name: "Quicksilver", baseValue: 8 },
+    { name: "Gray Matter", baseValue: 5.5 }
   ],
 
   Frigid: [
@@ -292,6 +293,7 @@ export const johnValsDict = {
     { name: "Sinfurmium", baseValue: 10 },
     { name: "Gyrivarium", baseValue: 8 },
     { name: "Krazmite", baseValue: 7 },
+    { name: "Anaxinite", baseValue: 7 },
     { name: "Tendrock", baseValue: 2000 },
     { name: "Dark Energy", baseValue: 8 },
     { name: "Corrodoil", baseValue: 30.5 },
