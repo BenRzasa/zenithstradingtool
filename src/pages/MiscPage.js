@@ -16,9 +16,12 @@ import { MiscContext } from "../context/MiscContext";
 import NavBar from "../components/NavBar";
 
 import searchFilters from "../data/SearchFilters";
+import emblemPerks from "../data/EmblemPerks";
+import { oreIcons } from "../data/oreIcons";
+import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
-import "../styles/MiscPage.css";
 import "../styles/AllGradients.css";
+import "../styles/MiscPage.css";
 
 function MiscPage() {
   // Grab the data, john boolean, and function from CSV context
@@ -61,6 +64,12 @@ function MiscPage() {
       };
     })
     .sort((a, b) => a.numNVs - b.numNVs);
+
+  /* Generate CSS class name for ore gradient */
+  const getOreClassName = (oreName) => {
+    return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
+  };
+
   // Array of cards - can be expanded with new content and customized
   // with different gradients if necessary (PER CARD)
   // Each has an id, title (header) and customizable content
@@ -71,30 +80,25 @@ function MiscPage() {
       content: (
         <div className="search-filters">
           {searchFilters.map((category, index) => {
-            // Split at the first colon while preserving the arrow
-            const colonIndex = category.indexOf(":") + 2;
-            const arrowPart = category.substring(0, category.indexOf(" ") + 1); // Gets "➜ "
-            const titlePart = category.substring(
-              category.indexOf(" ") + 1,
-              colonIndex
-            );
-            const itemsPart = category.substring(colonIndex);
+            // Split at the first colon
+            const colonIndex = category.indexOf(":");
+            const titlePart = category.substring(0, colonIndex + 1);
+            const itemsPart = category.substring(colonIndex + 1);
 
             return (
-              <p key={index}>
-                {arrowPart}
-                <button
-                  className="copy-btn"
-                  onClick={() => copyFilter(itemsPart)}
-                  title="Copy filters"
-                >
-                  ⎘
-                </button>
-                <strong>{titlePart}</strong>
-                {itemsPart}
-              </p>
+                <p key={index}>
+                    <button
+                        className="copy-btn"
+                        onClick={() => copyFilter(category.substring(category.indexOf(":") + 1))}
+                        title="Copy filters"
+                    >
+                        ⎘
+                    </button>
+                    <strong>{titlePart}</strong>
+                    {itemsPart}
+                </p>
             );
-          })}
+        })}
         </div>
       ),
       link: "link1",
@@ -156,8 +160,8 @@ function MiscPage() {
       id: "card3",
       title: "Useful Emblems",
       content:
-        <div className="emblemsBox">
-          <table>
+        <div className="emblems-box">
+          <table className="emblems-table">
             <thead>
             <tr>
               <th>Ore Name</th>
@@ -165,7 +169,39 @@ function MiscPage() {
             </tr>
           </thead>
           <tbody>
-            Test
+            {emblemPerks.map((emblem) => (
+              <tr key={emblem.name}>
+                {/* Name column with gradient and icon */}
+                <td className={`name-column ${getOreClassName(emblem.name)}`} data-text={emblem.name}>
+                  {oreIcons[emblem.name.replace(/ /g, '_')] ? (
+                    <img
+                      src={oreIcons[emblem.name.replace(/ /g, '_')]}
+                      alt={`${emblem.name} icon`}
+                      className="ore-icon"
+                      loading="lazy"
+                      onError={(e) => {
+                        console.error(`Missing icon for: ${emblem.name}`);
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <span>
+                      <img
+                        src={missingIcon}
+                        alt="Missing icon"
+                        className="ore-icon"
+                        loading="lazy"
+                      />
+                    </span>
+                  )}
+                  {emblem.name}
+                </td>
+                {/* Description column */}
+                <td className="description-column">
+                  {emblem.description}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         </div>,
@@ -184,7 +220,7 @@ function MiscPage() {
               <h3>{card.title}</h3>
               {card.content}
               <Link to={card.link} className="card-link">
-                More Stats
+                Placeholder Link
               </Link>
             </div>
           </div>

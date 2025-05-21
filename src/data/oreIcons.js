@@ -47,6 +47,7 @@ import Cindrasil from '../images/ore-icons/Cindrasil_Icon.webp';
 import Cinnabar from '../images/ore-icons/Cinnabar_Icon.webp';
 import Coal from '../images/ore-icons/Coal_Icon.webp';
 import Cobalt from '../images/ore-icons/Cobalt_Icon.webp';
+import Coin from '../images/ore-icons/Coin_Icon.webp';
 import Cometite from '../images/ore-icons/Cometite_Icon.webp';
 import Constellatium from '../images/ore-icons/Constellatium_Icon.webp';
 import Convectine from '../images/ore-icons/Convectine_Icon.webp';
@@ -211,6 +212,7 @@ import Rainbonite from '../images/ore-icons/Rainbonite_Icon.webp';
 import Raw_Energy from '../images/ore-icons/Raw_Energy_Icon.webp';
 import Reality_Glass from '../images/ore-icons/Reality_Glass_Icon.webp';
 import Redsteel from '../images/ore-icons/Redsteel_Icon.webp';
+import Red_Diamond from '../images/ore-icons/Red_Diamond_Icon.webp';
 import Reithum from '../images/ore-icons/Reithum_Icon.webp';
 import Rhylazil from '../images/ore-icons/Rhylazil_Icon.webp';
 import Rifted_Barrier from '../images/ore-icons/Rifted_Barrier_Icon.webp';
@@ -344,6 +346,7 @@ export const oreIcons = {
   Cinnabar,
   Coal,
   Cobalt,
+  Coin,
   Cometite,
   Constellatium,
   Convectine,
@@ -508,6 +511,7 @@ export const oreIcons = {
   Raw_Energy,
   Reality_Glass,
   Redsteel,
+  Red_Diamond,
   Reithum,
   Rhylazil,
   Rifted_Barrier,

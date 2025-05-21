@@ -11,6 +11,9 @@ npm run
 
 FOR BUMPING THE UPDATES on WINDOWS!!:
 npm version major --no-git-tag-version -m "[PAGE] Bump to %s"
+            minor
+            patch
+
    git add package.json package-lock.json
    git commit -m "[PAGE] Bump version"
    git tag v7.0.0
