@@ -170,11 +170,11 @@ const LayerTable = ({
   const [copiedFilter, setCopiedFilter] = useState(null);
 
   const findMatchingFilter = (layerName) => {
-    return searchFilters.find((filter) => {
-      // Remove arrow and compare with layer name
-      const filterName = filter.split("➜ ")[1]?.split(":")[0]?.trim();
-      return filterName && layerName.includes(filterName);
-    });
+      return searchFilters.find((filter) => {
+          // Get the filter name part before the colon
+          const filterName = filter.split(":")[0]?.trim();
+          return filterName && layerName.includes(filterName);
+      });
   };
 
   // Copy the layer filter to the clipboard, clearing after 2s

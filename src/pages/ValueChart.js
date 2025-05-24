@@ -36,6 +36,7 @@ function ValueChart() {
     setValueMode,
     customDict,
     setCustomDict,
+    updateCustomDict
   } = useContext(MiscContext);
 
   const navigate = useNavigate();
@@ -334,7 +335,7 @@ function ValueChart() {
 
   // Custom value mode states
   const [showCustomModal, setShowCustomModal] = useState(false);
-  const [customDictSource] = useState(null); // 'john' or 'nan'
+  // const [customDictSource] = useState(null); // 'john' or 'nan'
 
   // Initialize custom dict
   const initializeCustomDict = (source) => {
@@ -348,6 +349,7 @@ function ValueChart() {
   };
 
   // Function to export the custom dict
+  /*
   const exportCustomDict = () => {
     if (!customDict) return;
     const dataStr = JSON.stringify(customDict, null, 2);
@@ -361,6 +363,7 @@ function ValueChart() {
     linkElement.setAttribute("download", exportFileDefaultName);
     linkElement.click();
   };
+  */
 
   // Main page layout
   return (
@@ -529,15 +532,22 @@ function ValueChart() {
           {valueMode === "custom" && customDict && (
             <>
               <div className="box-button">
-                <button onClick={exportCustomDict}>
-                  <span>Export</span>
-                </button>
-              </div>
-              <div className="box-button">
-                <button onClick={() => navigate("/customvalues")}>
-                  <span>Customize</span>
-                </button>
-              </div>
+              <button onClick={() => {
+                const updated = updateCustomDict();
+                if (updated) {
+                  alert("Custom values successfully updated with new ores!");
+                } else {
+                  alert("No new ores found - your custom values are already up to date.");
+                }
+              }}>
+                <span> [ Update ] </span>
+              </button>
+            </div>
+            <div className="box-button">
+              <button onClick={() => navigate("/customvalues")}>
+                <span>Customize</span>
+              </button>
+            </div>
             </>
           )}
         </div>

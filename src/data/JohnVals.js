@@ -82,6 +82,7 @@ export const johnValsDict = {
   ],
 
   Volatile: [
+    { name: "Shale", baseValue: 2000 },
     { name: "Boomite", baseValue: 30 },
     { name: "Titanium", baseValue: 8 },
     { name: "Plutonium", baseValue: 10 },
@@ -166,6 +167,7 @@ export const johnValsDict = {
   ],
 
   "Achrothesi / Whitespace": [
+    { name: "Nilglass", baseValue: 2000 },
     { name: "Kreosyte", baseValue: 8 },
     { name: "Cadmium", baseValue: 12 },
     { name: "Chromium", baseValue: 9 },

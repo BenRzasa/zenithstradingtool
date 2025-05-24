@@ -83,6 +83,7 @@ export const nanValsDict = {
   ],
 
   Volatile: [
+    { name: "Shale", baseValue: 2000 },
     { name: "Boomite", baseValue: 20 },
     { name: "Titanium", baseValue: 8 },
     { name: "Plutonium", baseValue: 12 },
@@ -167,6 +168,7 @@ export const nanValsDict = {
   ],
 
   "Achrothesi / Whitespace": [
+    { name: "Nilglass", baseValue: 2000 },
     { name: "Kreosyte", baseValue: 8 },
     { name: "Cadmium", baseValue: 15 },
     { name: "Chromium", baseValue: 15 },

@@ -60,6 +60,51 @@ export const MiscProvider = ({ children }) => {
     }
   });
 
+  // Update custom dict with NEW ORES
+  const updateCustomDict = () => {
+    if (!customDict) return false;
+    let hasUpdates = false;
+    const updatedDict = JSON.parse(JSON.stringify(customDict));
+    // Check each layer in John's dictionary
+    for (const [layerName, johnOres] of Object.entries(johnValsDict)) {
+      if (!updatedDict[layerName]) {
+        // If layer doesn't exist in custom dict, add it completely
+        updatedDict[layerName] = JSON.parse(JSON.stringify(johnOres));
+        hasUpdates = true;
+        continue;
+      }
+      // Create set of existing ore names for quick lookup
+      const existingOreNames = new Set(updatedDict[layerName].map(ore => ore.name));
+      // Find all new ores that need to be inserted
+      const newOres = johnOres.filter(johnOre => !existingOreNames.has(johnOre.name));
+      if (newOres.length === 0) continue;
+      hasUpdates = true;
+      // Rebuild the layer array with new ores in correct positions
+      const johnOrePositions = new Map(johnOres.map((ore, index) => [ore.name, index]));
+      const mergedOres = [...updatedDict[layerName]];
+      // Insert new ores at their original John's dictionary positions
+      for (const newOre of newOres) {
+        const targetPosition = johnOrePositions.get(newOre.name);
+        let insertPosition = 0;
+        // Find where to insert by counting how many John's ores come before this one
+        // that also exist in our custom dictionary
+        for (let i = 0; i < targetPosition; i++) {
+          const johnOreName = johnOres[i].name;
+          if (existingOreNames.has(johnOreName)) {
+            insertPosition++;
+          }
+        }
+        mergedOres.splice(insertPosition, 0, {...newOre});
+      }
+      updatedDict[layerName] = mergedOres;
+    }
+    if (hasUpdates) {
+      setCustomDict(updatedDict);
+      return true;
+    }
+    return false;
+  };
+
   const currentDict = useMemo(() => {
     return valueMode === 'john' ? johnValsDict :
            valueMode === 'nan' ? nanValsDict :
@@ -173,6 +218,7 @@ export const MiscProvider = ({ children }) => {
         exportCustomDict,
         importCustomDict,
         currentDict,
+        updateCustomDict,
         // Helper functions
         updateCSVData
       }}

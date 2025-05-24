@@ -261,7 +261,7 @@ function CSVLoader() {
                   direction: 'desc'
                 });
               }}>
-                <span>Update Amounts</span>
+                <span>Update</span>
               </button>
           </div>
           <div className="box-button">
@@ -301,7 +301,6 @@ function CSVLoader() {
               <span>Custom</span>
             </button>
           </div>
-          <l>Please navigate to the Custom Values page to modify Custom Values.</l>
         </div>
 
         {showCSVEditor && (

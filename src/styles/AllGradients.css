@@ -106,6 +106,9 @@
     background: #999999;
 }
 
+.color-template-shale {
+    background: #6f5a66;
+}
 .color-template-boomite {
     background: #ff6017;
 }
@@ -415,6 +418,10 @@
     background: #555555;
 }
 
+.color-template-nilglass {
+    background: #f0f0f0;
+}
+
 .color-template-kreosyte {
     background: #3c3f4f;
 }
@@ -451,7 +458,7 @@
 }
 
 .color-template-argibar {
-    background: linear-gradient(90deg, #ff0000 0%, #ff0000 33.9%, #00ff00 34%, #00ff00 66%, #0019ff 66.1%, #0019ff 100%);
+    background: linear-gradient(90deg, #ff0000 0%, #ff8aad 16.75%, #ff0000 33.9%, #00ff00 34%, #85ffab 50.1%, #00ff00 66%, #0019ff 66.1%, #0794ff 82.85%, #0019ff 100%);
 }
 
 .color-template-perilium {
@@ -652,7 +659,7 @@
 }
 
 .color-template-galvanium {
-    background: linear-gradient(90deg, #6fbaff, #459fff);
+    background: linear-gradient(85deg, #a2e9f8 0%, #4e93e7 25%, #a9f0f9 50%, #295ca1 75%, #1d4da8 100%);
 }
 
 .color-template-ferozium {

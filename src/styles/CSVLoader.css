@@ -4,10 +4,10 @@
     display: flex;
     justify-content: left;
     align-items: flex-start;
-    gap: 25px;
+    gap: 0px;
     margin: 25px 0px 0px 25px;
     width: calc(100% - 400px);
-    max-width: 1600px;
+    max-width: 1400px;
 }
 
 .main-container h1 {

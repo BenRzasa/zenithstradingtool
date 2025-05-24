@@ -62,7 +62,4 @@ pictures, the ore textures, descriptions of the ores, possible lore, etc.
  - Credit the inventor/contributor of the strat
  - e.g., Protireal grind method information, tips and tricks, and so on
 
-### Graphs?
- - AV/hr of layers, Trade data over time, ores gained/NVs gained over time, etc
-
 ### And more coming soon... :]

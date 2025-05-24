@@ -89,7 +89,7 @@ function MiscPage() {
                 <p key={index}>
                     <button
                         className="copy-btn"
-                        onClick={() => copyFilter(category.substring(category.indexOf(":") + 1))}
+                        onClick={() => copyFilter(category.substring(category.indexOf(":") + 2))}
                         title="Copy filters"
                     >
                         ⎘

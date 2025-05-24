@@ -171,6 +171,7 @@ import Neutronium from '../images/ore-icons/Neutronium_Icon.webp';
 import Newtonium from '../images/ore-icons/Newtonium_Icon.webp';
 import Nickel from '../images/ore-icons/Nickel_Icon.webp';
 import Nihinoris from '../images/ore-icons/Nihinoris_Icon.webp';
+import Nilglass from '../images/ore-icons/Nilglass_Icon.webp';
 import Nilidust from '../images/ore-icons/Nilidust_Icon.webp';
 import Noise from '../images/ore-icons/Noise_Icon.webp';
 import Null from '../images/ore-icons/Null_Icon.webp';
@@ -470,6 +471,7 @@ export const oreIcons = {
   Newtonium,
   Nickel,
   Nihinoris,
+  Nilglass,
   Nilidust,
   Noise,
   Null,
