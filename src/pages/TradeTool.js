@@ -233,14 +233,19 @@ function TradeTool() {
 
   /* Remove an ore from the trade table */
   const handleRemoveOre = (oreObj) => {
-    const newQuantities = { ...tradeState.quantities };
-    delete newQuantities[oreObj.name];
-
-    setTradeState(prev => ({
-      ...prev,
-      quantities: newQuantities
-    }));
-
+    setTradeState(prev => {
+      const newQuantities = { ...prev.quantities };
+      delete newQuantities[oreObj.name];
+      
+      // Also remove from selected ores if it was selected
+      const newSelectedOres = prev.selectedOres.filter(name => name !== oreObj.name);
+      
+      return {
+        ...prev,
+        quantities: newQuantities,
+        selectedOres: newSelectedOres
+      };
+    });
     updateTradeOres(allOresWithLayers);
   };
 
@@ -276,7 +281,6 @@ function TradeTool() {
     if (!tradeState.selectedOres.some((ore) => ore.name === oreObj.name)) {
       setTradeState(prev => ({
         ...prev,
-        selectedOres: [...prev.selectedOres, oreObj],
         quantities: {
           ...prev.quantities,
           [oreObj.name]: 1, // Default to 1 for trade
@@ -529,7 +533,10 @@ function TradeTool() {
                       <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
                         <button
                           className="delete-ore-button"
-                          onClick={() => handleRemoveOre(ore)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveOre(ore);
+                          }}
                         >
                           ✖
                         </button>
@@ -676,7 +683,10 @@ function TradeTool() {
                       <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
                         <button
                           className="delete-ore-button"
-                          onClick={() => handleRemoveOre(ore)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveOre(ore);
+                          }}
                         >
                           ✖
                         </button>
