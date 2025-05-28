@@ -5,6 +5,7 @@ const searchFilters = [
   "Rares: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ v/rhy/Cind/unob/nyrv/ sh",
   "Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ v/rhy/cind/ecto",
   "Torn Materials: qy/bla/chron/com/cons/dy/ok/ v/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
+  "Useful Emblems: auri/boom/blast/bism/egg/ v/exod/hadr/isor/lept/malb/noise/nili/phosp/posit/quark m/ed d/rhy/sola/th q/ult/unob/zyn",
   "Uniques: sh/ñ/vergl/holle/ambe/onyx/chalc/suns/pano/mete",
   "Compounds: quark m/iso/perig/eq",
   "Surface / Shallow: coal/moon/kyan/opaz/opal/minu/copp/iron/silver/sulfur/zinc/gold/chloro/sapph",

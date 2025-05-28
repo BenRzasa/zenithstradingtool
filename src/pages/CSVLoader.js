@@ -26,9 +26,13 @@ function CSVLoader() {
     updateCSVData,
     currentDict,
     valueMode,
-    setValueMode
+    setValueMode,
+    csvHistory,
+    loadOldCSV,
   } = useContext(MiscContext);
 
+    // State for dropdown visibility
+    const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
 
     // State for sorting configuration
     const [sortConfig, setSortConfig] = useState({
@@ -196,7 +200,36 @@ function CSVLoader() {
         <div className='placeholder'>
           Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</div>
       </ol>
+
       {/* Main content area with flex layout */}
+      <div className="box-button c-dropdown-container">
+          <button
+            className={showHistoryDropdown ? "color-template-stardust" : ""}
+            onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}>
+            <span>Load Past CSV</span>
+          </button>
+          {showHistoryDropdown && (
+            <div className="history-dropdown">
+              {csvHistory.length === 0 ? (
+                <div className="dropdown-item">No history yet</div>
+              ) : (
+                csvHistory.map((entry, index) => (
+                  <div
+                    key={index}
+                    className="dropdown-item"
+                    onClick={() => {
+                      loadOldCSV(index);
+                      setShowHistoryDropdown(false);
+                    }}
+                  >
+                    {entry.timestamp.toLocaleString()} -- {entry.totalAV.toFixed(1)} AV
+                  </div>
+                ))
+              )}
+          </div>
+        )}
+      </div>
+
       <div className="main-content">
         {/* Ore list table - now part of flex layout */}
         <div className="ore-table-parent">

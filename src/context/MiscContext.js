@@ -10,6 +10,7 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import { johnValsDict } from '../data/JohnVals';
 import { nanValsDict } from '../data/NANVals';
+import { OreNames } from '../data/OreNames';
 
 export const MiscContext = createContext();
 
@@ -18,6 +19,12 @@ export const MiscProvider = ({ children }) => {
   const [csvData, setCSVData] = useState(() => {
     const savedCSVData = localStorage.getItem('csvData');
     return savedCSVData ? JSON.parse(savedCSVData) : {};
+  });
+
+  // CSV History state
+  const [csvHistory, setCsvHistory] = useState(() => {
+    const savedHistory = localStorage.getItem('csvHistory');
+    return savedHistory ? JSON.parse(savedHistory) : [];
   });
 
   // Previous amounts for comparison
@@ -157,16 +164,32 @@ export const MiscProvider = ({ children }) => {
   }, [rareFindsData]);
 
   // Helper function to update data
+  // Update the updateCSVData function to also update history
   const updateCSVData = (newData) => {
+    const now = new Date();
+    // Calculate total AV for this CSV
+    const totalAV = calculateTotalAV(newData);
+    // Add to history
+    setCsvHistory(prev => {
+      const newHistory = [
+        {
+          data: newData,
+          timestamp: now,
+          totalAV: totalAV
+        },
+        ...prev.slice(0, 99) // Keep only last 100 entries
+      ];
+      return newHistory;
+    });
     setPreviousAmounts(csvData);
     setCSVData(newData);
-    setLastUpdated(new Date());
+    setLastUpdated(now);
   };
 
   // Initialize custom dictionary from a source
   const initializeCustomDict = (source) => {
     const newCustomDict = source === 'john'
-      ? JSON.parse(JSON.stringify(johnValsDict))
+    ? JSON.parse(JSON.stringify(johnValsDict))
       : JSON.parse(JSON.stringify(nanValsDict));
     setCustomDict(newCustomDict);
     setValueMode('custom');
@@ -192,12 +215,45 @@ export const MiscProvider = ({ children }) => {
     }
   };
 
+  // Helper function to calculate total AV
+  const calculateTotalAV = (data) => {
+    let total = 0;
+    OreNames.forEach(ore => {
+      const amount = data[ore] || 0;
+      // Find the ore's base value
+      let baseValue = 1;
+      Object.values(currentDict).some(layer => {
+        const oreData = layer.find(item => item.name === ore);
+        if (oreData) {
+          baseValue = oreData.baseValue;
+          return true;
+        }
+        return false;
+      });
+      total += amount / baseValue;
+    });
+    return total;
+  };
+
+  // Function to load an old CSV
+  const loadOldCSV = (index) => {
+    if (index < 0 || index >= csvHistory.length) return;
+    const oldCSVs = csvHistory[index];
+    setCSVData(oldCSVs.data);
+    setLastUpdated(oldCSVs.timestamp);
+  };
+
+
   return (
     <MiscContext.Provider
       value={{
         // Core data
         csvData,
         setCSVData,
+        loadOldCSV,
+        calculateTotalAV,
+        csvHistory,
+        setCsvHistory,
         rareFindsData,
         setRareFindsData,
         previousAmounts,
