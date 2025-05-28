@@ -28,6 +28,7 @@ function CSVLoader() {
     valueMode,
     setValueMode,
     csvHistory,
+    setCSVHistory,
     loadOldCSV,
   } = useContext(MiscContext);
 
@@ -185,6 +186,21 @@ function CSVLoader() {
     document.getElementById("csvInput").value = csvValues.join(",");
   };
 
+  // Clear all CSV history (only for use for bugged CSVs/emergencies)
+  const clearCSVHistory = () => {
+    const confirmed = window.confirm(
+      "⚠️ WARNING: This will PERMANENTLY delete ALL your saved CSV history.\n\n" +
+      "This includes all past ore amounts and timestamps.\n\n" +
+      "Are you absolutely sure?"
+    );
+
+    if (confirmed) {
+      setCSVHistory([]);
+      localStorage.removeItem('csvHistory');
+      alert("CSV history has been cleared.");
+    }
+  };
+
   return (
     <>
     {/* Nav Bar - remains fixed at top */}
@@ -202,6 +218,13 @@ function CSVLoader() {
       </ol>
 
       {/* Main content area with flex layout */}
+      <div 
+        className="val-button-container"
+        style={{
+          justifyContent:"left",
+          marginLeft:"-15px",
+        }}
+      >
       <div className="box-button c-dropdown-container">
           <button
             className={showHistoryDropdown ? "color-template-stardust" : ""}
@@ -228,6 +251,16 @@ function CSVLoader() {
               )}
           </div>
         )}
+      </div>
+      <div className="box-button">
+        <button
+          className="color-template-obliviril"
+          onClick={() => clearCSVHistory()}
+          disabled={csvHistory.length === 0}
+        >
+          <span>Clear History</span>
+        </button>
+      </div>
       </div>
 
       <div className="main-content">

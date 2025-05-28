@@ -22,10 +22,24 @@ export const MiscProvider = ({ children }) => {
   });
 
   // CSV History state
-  const [csvHistory, setCsvHistory] = useState(() => {
+  const [csvHistory, setCSVHistory] = useState(() => {
     const savedHistory = localStorage.getItem('csvHistory');
-    return savedHistory ? JSON.parse(savedHistory) : [];
+    try {
+      const parsed = savedHistory ? JSON.parse(savedHistory) : [];
+      // Ensure all timestamps are proper Date objects
+      return parsed.map(entry => ({
+        ...entry,
+        timestamp: new Date(entry.timestamp)
+      }));
+    } catch (e) {
+      console.error('Failed to parse CSV history', e);
+      return [];
+    }
   });
+
+  useEffect(() => {
+    localStorage.setItem('csvHistory', JSON.stringify(csvHistory));
+  }, [csvHistory]);
 
   // Previous amounts for comparison
   const [previousAmounts, setPreviousAmounts] = useState(() => {
@@ -137,7 +151,7 @@ export const MiscProvider = ({ children }) => {
 
   useEffect(() => {
     if (lastUpdated) {
-      localStorage.setItem('csvLastUpdated', lastUpdated.toISOString());
+      localStorage.setItem('csvLastUpdated', lastUpdated instanceof Date ? lastUpdated.toISOString() : new Date(lastUpdated).toISOString());
     }
   }, [lastUpdated]);
 
@@ -164,17 +178,16 @@ export const MiscProvider = ({ children }) => {
   }, [rareFindsData]);
 
   // Helper function to update data
-  // Update the updateCSVData function to also update history
   const updateCSVData = (newData) => {
     const now = new Date();
     // Calculate total AV for this CSV
     const totalAV = calculateTotalAV(newData);
     // Add to history
-    setCsvHistory(prev => {
+    setCSVHistory(prev => {
       const newHistory = [
         {
           data: newData,
-          timestamp: now,
+          timestamp: now.toISOString(), // Store as ISO string for consistency
           totalAV: totalAV
         },
         ...prev.slice(0, 99) // Keep only last 100 entries
@@ -189,7 +202,7 @@ export const MiscProvider = ({ children }) => {
   // Initialize custom dictionary from a source
   const initializeCustomDict = (source) => {
     const newCustomDict = source === 'john'
-    ? JSON.parse(JSON.stringify(johnValsDict))
+      ? JSON.parse(JSON.stringify(johnValsDict))
       : JSON.parse(JSON.stringify(nanValsDict));
     setCustomDict(newCustomDict);
     setValueMode('custom');
@@ -217,6 +230,8 @@ export const MiscProvider = ({ children }) => {
 
   // Helper function to calculate total AV
   const calculateTotalAV = (data) => {
+    if (!data) return 0;
+    
     let total = 0;
     OreNames.forEach(ore => {
       const amount = data[ore] || 0;
@@ -238,47 +253,50 @@ export const MiscProvider = ({ children }) => {
   // Function to load an old CSV
   const loadOldCSV = (index) => {
     if (index < 0 || index >= csvHistory.length) return;
-    const oldCSVs = csvHistory[index];
-    setCSVData(oldCSVs.data);
-    setLastUpdated(oldCSVs.timestamp);
+    
+    const historyEntry = csvHistory[index];
+    if (!historyEntry) return;
+    
+    try {
+      setCSVData(historyEntry.data);
+      // Ensure we have a valid date when loading from history
+      const loadedDate = historyEntry.timestamp 
+        ? new Date(historyEntry.timestamp)
+        : new Date();
+      setLastUpdated(loadedDate);
+    } catch (e) {
+      console.error('Failed to load old CSV:', e);
+    }
   };
 
+  // Context value
+  const contextValue = {
+    csvData,
+    updateCSVData,
+    previousAmounts,
+    lastUpdated,
+    csvHistory,
+    setCSVHistory,
+    loadOldCSV,
+    valueMode,
+    setValueMode,
+    currentMode,
+    setCurrentMode,
+    customMultiplier,
+    setCustomMultiplier,
+    currentDict,
+    customDict,
+    setCustomDict,
+    updateCustomDict,
+    initializeCustomDict,
+    exportCustomDict,
+    importCustomDict,
+    rareFindsData,
+    setRareFindsData
+  };
 
   return (
-    <MiscContext.Provider
-      value={{
-        // Core data
-        csvData,
-        setCSVData,
-        loadOldCSV,
-        calculateTotalAV,
-        csvHistory,
-        setCsvHistory,
-        rareFindsData,
-        setRareFindsData,
-        previousAmounts,
-        setPreviousAmounts,
-        lastUpdated,
-        setLastUpdated,
-        // Value modes
-        valueMode,
-        setValueMode,
-        currentMode,
-        setCurrentMode,
-        // Custom values
-        customMultiplier,
-        setCustomMultiplier,
-        customDict,
-        setCustomDict,
-        initializeCustomDict,
-        exportCustomDict,
-        importCustomDict,
-        currentDict,
-        updateCustomDict,
-        // Helper functions
-        updateCSVData
-      }}
-    >
+    <MiscContext.Provider value={contextValue}>
       {children}
     </MiscContext.Provider>
   );

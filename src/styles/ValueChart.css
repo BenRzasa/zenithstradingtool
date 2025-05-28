@@ -40,15 +40,15 @@
 }
 
 .custom-multiplier-input {
-    font-size: 25px;
+    font-size: 20px;
     display: flex;
+    position: inherit;
     align-items: center;
     justify-content: center;
     background-color: var(--background-color);
     gap: 10px;
-    margin: 15px 0;
-    padding: 15px 0;
-    transform:scale(0.9);
+    margin-top: 150px;
+    transform:scale(1);
 }
 
 .custom-multiplier-input input {

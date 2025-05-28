@@ -197,6 +197,7 @@
     font-size: 25px;
     border-collapse: collapse;
     background-color: transparent;
+    z-index: -1;
 }
 
 .ore-list td,
