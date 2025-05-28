@@ -8,92 +8,110 @@
     - Removed receive-related data
 */
 
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useEffect, useRef } from 'react';
 
 export const TradeContext = createContext();
 
 export const TradeProvider = ({ children }) => {
-  const [tradeState, setTradeState] = useState(() => {
-    /* Complete trade state structure:
-      - quantities: { [oreName]: amount }
-      - selectedOres: array of selected ore names/IDs
-      - tradeOres: array of ores with amounts >0 (for the summary table)
-      - valueMode: 'john' | 'nan' | 'custom'
-      - discount: number (0-100)
-      - batchQuantity: number
-      - tableNavigation: current table view state
-    */
+  /* Complete trade state structure:
+    - quantities: { [oreName]: amount }
+    - selectedOres: array of selected ore names/IDs
+    - tradeOres: array of ores with amounts >0 (for the summary table)
+    - valueMode: 'john' | 'nan' | 'custom'
+    - discount: number (0-100)
+    - batchQuantity: number
+    - tableNavigation: current table view state
+  */
+  const persistState = useCallback((state) => {
     try {
-      const savedData = localStorage.getItem('tradeState');
-      if (savedData) {
-        const parsed = JSON.parse(savedData);
-        return {
-          quantities: typeof parsed.quantities === 'object' ? parsed.quantities : {},
-          selectedOres: Array.isArray(parsed.selectedOres) ? parsed.selectedOres : [],
-          tradeOres: Array.isArray(parsed.tradeOres) ? parsed.tradeOres : [],
-          valueMode: ['john', 'nan', 'custom'].includes(parsed.valueMode) 
-            ? parsed.valueMode 
-            : 'john',
-          discount: typeof parsed.discount === 'number' 
-            ? Math.min(100, Math.max(0, parsed.discount)) 
-            : 0,
-          batchQuantity: typeof parsed.batchQuantity === 'number' ? parsed.batchQuantity : 0,
-          tableNavigation: parsed.tableNavigation || {
-            currentTable: 'all',
-            sortField: 'name',
-            sortDirection: 'asc'
-          }
-        };
-      }
+      localStorage.setItem('tradeState', JSON.stringify(state));
     } catch (e) {
-      console.error('Failed to parse tradeState from localStorage', e);
+      console.error('Failed to persist state', e);
     }
-
-    // Default values
-    return {
-      quantities: {},
-      selectedOres: [],
-      tradeOres: [],
-      valueMode: 'john',
-      discount: 0,
-      batchQuantity: 0,
-      tableNavigation: {
-        currentTable: 'all',
-        sortField: 'name',
-        sortDirection: 'asc'
-      }
-    };
-  });
-
-  // Save to localStorage whenever tradeState changes
-  useEffect(() => {
-    localStorage.setItem('tradeState', JSON.stringify(tradeState));
-  }, [tradeState]);
-
-  const updateTradeOres = useCallback((allOres) => {
-    setTradeState(prev => ({
-      ...prev,
-      tradeOres: allOres.map(ore => ({
-        ...ore,
-        amount: prev.quantities[ore.name] || 0
-      })).filter(ore => ore.amount > 0)
-    }));
   }, []);
 
-  // Clear trade summary
-  const clearTradeSummary = () => {
-    setTradeState(prev => ({
-      ...prev,
-      tradeOres: []
-    }));
-  };
+  const [tradeState, setTradeState] = useState(() => {
+    try {
+      const savedData = localStorage.getItem('tradeState');
+      return savedData ? JSON.parse(savedData) : {
+        quantities: {},
+        selectedOres: [],
+        tradeOres: [],
+        valueMode: 'john',
+        discount: 0,
+        batchQuantity: 0,
+        tableNavigation: {
+          currentTable: 'all',
+          sortField: 'name',
+          sortDirection: 'asc'
+        }
+      };
+    } catch (e) {
+      console.error('Failed to parse saved state', e);
+      return {
+        quantities: {},
+        selectedOres: [],
+        tradeOres: [],
+        valueMode: 'john',
+        discount: 0,
+        batchQuantity: 0,
+        tableNavigation: {
+          currentTable: 'all',
+          sortField: 'name',
+          sortDirection: 'asc'
+        }
+      };
+    }
+  });
+
+  // Use ref to track if we're mounting
+  const isMounted = useRef(false);
+
+  const persistentSetTradeState = useCallback((updater) => {
+    setTradeState(prev => {
+      const newState = typeof updater === 'function' ? updater(prev) : updater;
+      if (isMounted.current) {
+        persistState(newState);
+      }
+      return newState;
+    });
+  }, [persistState]);
+
+  // Update trade ores without causing loops
+  const updateTradeOres = useCallback((allOres) => {
+    persistentSetTradeState(prev => {
+      const newTradeOres = allOres
+        .filter(ore => prev.quantities.hasOwnProperty(ore.name))
+        .map(ore => ({
+          ...ore,
+          amount: prev.quantities[ore.name] || 0
+        }));
+
+      // Only update if something changed
+      if (JSON.stringify(newTradeOres) === JSON.stringify(prev.tradeOres)) {
+        return prev;
+      }
+
+      return { ...prev, tradeOres: newTradeOres };
+    });
+  }, [persistentSetTradeState]);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => { isMounted.current = false; };
+  }, []);
 
   return (
     <TradeContext.Provider value={{
       tradeState,
-      setTradeState,
+      setTradeState: persistentSetTradeState,
       updateTradeOres,
-      clearTradeSummary
+      clearTradeSummary: () => persistentSetTradeState(prev => ({
+        ...prev,
+        quantities: {},
+        tradeOres: [],
+        selectedOres: []
+      }))
     }}>
       {children}
     </TradeContext.Provider>

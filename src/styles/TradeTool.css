@@ -33,6 +33,9 @@
     justify-content: left;
 }
 
+.trade-tool-layout li {
+    font-size: 18px;
+}
 /* Batch quantity controls */
 .batch-controls {
     margin: 20px 0;

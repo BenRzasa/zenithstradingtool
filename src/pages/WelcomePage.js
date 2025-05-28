@@ -27,7 +27,7 @@ function WelcomePage() {
         <button
           onClick={() => navigate('/csvloader')}
           class="slide-btn"
-        >CSV Loader</button>
+        >⭐CSV Loader⭐</button>
         <button
           onClick={() => navigate('/valuechart')}
           class="slide-btn"
@@ -35,7 +35,7 @@ function WelcomePage() {
         <button
           onClick={() => navigate('/tradetool')}
           class="slide-btn"
-        >Trade Tool</button>
+        >💲Trade Tool💲</button>
         <button
           onClick={() => navigate('/customvalues')}
           class="slide-btn"
@@ -51,7 +51,7 @@ function WelcomePage() {
         <button
           onClick={() => window.open('https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki', "_blank")}
           class="slide-btn"
-        >TCC Wiki</button>
+        >📝TCC Wiki📕</button>
       </div>
       {/* Corner images container */}
       <div className="corner-images-container">

@@ -220,7 +220,6 @@ const RareFindsTracker = () => {
   <>
   <NavBar />
     <div className="rare-finds-tracker">
-      <h1>Rare Finds Tracker</h1>
       {/* Mode selection buttons */}
       <ValueModeSelector
         currentMode={currentMode}

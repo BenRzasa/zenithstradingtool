@@ -16,7 +16,7 @@ const CustomMultiplierInput = () => {
       style={{
         margin: "10px auto",
         padding: "10px",
-        backgroundColor: "rgba(0,0,0,0.2)",
+        backgroundColor: "var(--background-color)",
         borderRadius: "10px",
         outline: "3px solid var(--table-outline)",
         maxWidth: "450px",

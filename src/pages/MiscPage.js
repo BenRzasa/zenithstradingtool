@@ -10,7 +10,6 @@
 
 // This comment was added on my Arch Linux WSL2 environment.
 import React, { useContext } from "react";
-import { Link } from 'react-router-dom';
 import { MiscContext } from "../context/MiscContext";
 
 import NavBar from "../components/NavBar";
@@ -76,7 +75,7 @@ function MiscPage() {
   const cards = [
     {
       id: "card1",
-      title: "Search Filters",
+      title: "Search Filters (Copy & Paste in your inventory search bar)",
       content: (
         <div className="search-filters">
           {searchFilters.map((category, index) => {
@@ -101,7 +100,6 @@ function MiscPage() {
         })}
         </div>
       ),
-      link: "link1",
     },
     {
       id: "card2",
@@ -154,11 +152,10 @@ function MiscPage() {
           </div>
         </div>
       ),
-      link: "/link2",
     },
     {
       id: "card3",
-      title: "Useful Emblems",
+      title: "Useful Emblems with Perks",
       content:
         <div className="emblems-box">
           <table className="emblems-table">
@@ -205,7 +202,6 @@ function MiscPage() {
           </tbody>
         </table>
         </div>,
-      link: "/link3",
     },
   ];
 
@@ -219,9 +215,6 @@ function MiscPage() {
             <div className="card2">
               <h3>{card.title}</h3>
               {card.content}
-              <Link to={card.link} className="card-link">
-                Placeholder Link
-              </Link>
             </div>
           </div>
         ))}

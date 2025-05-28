@@ -188,14 +188,14 @@ function CSVLoader() {
     <div className="main-container">
       {/* Usage instructions for the user */}
       <h1>CSV Loader Usage:</h1>
-      <l>
-        <ul>1. Copy & Paste your CSV string from Settings ➜ Other (in TCC) in the box below.</ul>
-        <ul>2. Click "Update Amounts" button to load your CSV data into the website.</ul>
-        <ul>3. Navigate to the Value Chart by clicking on the link in the top right corner.</ul>
+      <ol>
+        <li>Copy & Paste your CSV string from Settings ➜ Other (in TCC) in the box below.</li>
+        <li>Click "Update Amounts" button to load your CSV data into the website.</li>
+        <li>Navigate to the Value Chart by clicking on the link in the top right corner.</li>
         {/* Show the time & date when the CSV data was last updated */}
-        <ul className='placeholder'>
-          Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</ul>
-      </l>
+        <div className='placeholder'>
+          Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</div>
+      </ol>
       {/* Main content area with flex layout */}
       <div className="main-content">
         {/* Ore list table - now part of flex layout */}

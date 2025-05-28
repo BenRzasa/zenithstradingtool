@@ -5,8 +5,8 @@
   z-index: 10000;
   background-color: rgb(40, 37, 37);
   color: rgb(253, 212, 212);
-  width: 35%;
-  height: 60%;
+  width: 660px;
+  height: 750px;
   border-radius: 20px;
   border: 3px solid var(--table-outline);
 }

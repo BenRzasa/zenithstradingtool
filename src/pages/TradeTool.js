@@ -336,6 +336,7 @@ function TradeTool() {
           <h1>Usage Instructions:</h1>
           <ul>
             <li>Click ores to select multiple, then set their quantities below</li>
+            <li>Type ore or layer names in the search bar, and hit enter or click to add them to the current trade</li>
             <li>Click the header for each layer to open the dropdown</li>
             <li>Type in the quantity for each ore you'd like to trade</li>
             <li>To add a discount to large orders, type the percent in the "Discount %" box</li>
@@ -525,11 +526,11 @@ function TradeTool() {
                 </thead>
                 <tbody>
                   {tradeState.tradeOres.map(ore => (
-                    <tr
-                      key={ore.name}
-                      className={isOreSelected(ore.name) ? "selected-row" : ""}
-                      onClick={() => toggleOreSelection(ore.name)}
-                    >
+                      <tr
+                        key={ore.name}
+                        className={isOreSelected(ore.name) ? "selected-row" : ""}
+                        onClick={() => toggleOreSelection(ore.name)}
+                      >
                       <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
                         <button
                           className="delete-ore-button"

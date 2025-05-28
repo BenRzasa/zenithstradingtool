@@ -1,7 +1,8 @@
 /* Custom Editor Styles */
 .custom-editor {
-  padding: 75px;
+  padding: 50px;
   max-width: 90%;
+  font-size: 18px;
   margin: 0 auto;
 }
 

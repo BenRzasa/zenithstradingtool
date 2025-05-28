@@ -15,6 +15,7 @@
     align-items: center;
     padding: 10px;
     position: relative;
+    padding-bottom: 100px;
 }
 
 /* Header Section */
@@ -32,7 +33,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 15px;
+    gap: 6px;
     margin: 15px;
     max-width: 700px;
 }
@@ -42,6 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--background-color);
     gap: 10px;
     margin: 15px 0;
     padding: 15px 0;
@@ -51,14 +53,11 @@
     font-size: 20px;
     font-family: 'Comfortaa';
     font-weight: 700;
-    background-color: var(--background-color);
-    color: var(--text-color);
     border: 2px solid var(--csv-outline);
 }
 
 .custom-multiplier-input label {
     font-weight: 700;
-    color: var(--text-color);
 }
 
 .quick-summary {
@@ -162,11 +161,13 @@
 /* Dark mode support */
 
 [data-theme="light"] {
+    --text-col: #000000;
     --table-outline: #333;
     --background-color: #ffffff;
 }
 
 [data-theme="dark"] {
+    --text-col: #ffffff;
     --table-outline: #3a3a3a;
     --background-color: #121212;
 }
