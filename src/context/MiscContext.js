@@ -10,6 +10,7 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import { johnValsDict } from '../data/JohnVals';
 import { nanValsDict } from '../data/NANVals';
+import { zenithValsDict } from '../data/ZenithVals';
 import { OreNames } from '../data/OreNames';
 
 export const MiscContext = createContext();
@@ -56,7 +57,7 @@ export const MiscProvider = ({ children }) => {
   // Value calculation settings
   const [valueMode, setValueMode] = useState(() => {
     const savedValueMode = localStorage.getItem('valueMode');
-    return savedValueMode !== null ? JSON.parse(savedValueMode) : 'john'; // 'john', 'nan', or 'custom'
+    return savedValueMode !== null ? JSON.parse(savedValueMode) : 'zenith';
   });
 
   const [currentMode, setCurrentMode] = useState(() => {
@@ -138,7 +139,8 @@ export const MiscProvider = ({ children }) => {
   const currentDict = useMemo(() => {
     return valueMode === 'john' ? johnValsDict :
            valueMode === 'nan' ? nanValsDict :
-           customDict || johnValsDict; // Fallback
+           valueMode === 'zenith' ? zenithValsDict :
+           customDict || zenithValsDict; // Fallback
   }, [valueMode, customDict]);
 
   // Rare finds data state
@@ -218,7 +220,7 @@ export const MiscProvider = ({ children }) => {
     try {
       setCSVData(historyEntry.data);
       // Set the chart to the value mode used when saved
-      setValueMode(historyEntry.valueMode || 'john');
+      setValueMode(historyEntry.valueMode || 'zenith');
       if (historyEntry.valueMode === 'custom' && historyEntry.customMultiplier) {
         setCustomMultiplier(historyEntry.customMultiplier);
       }
@@ -234,7 +236,7 @@ export const MiscProvider = ({ children }) => {
 
   // Initialize custom dictionary from a source
   const initializeCustomDict = (source) => {
-    const newCustomDict = source === 'john'
+    const newCustomDict = source === 'zenith'
       ? JSON.parse(JSON.stringify(johnValsDict))
       : JSON.parse(JSON.stringify(nanValsDict));
     setCustomDict(newCustomDict);

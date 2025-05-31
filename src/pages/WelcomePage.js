@@ -86,7 +86,7 @@ function WelcomePage() {
         <div className="wcard">
             <h1 className="title">
               <span className="copy-wrap">
-                Welcome to Zenith's Trading Tool v{packageJson.version}!
+                Welcome to ZenithFlare's Trading Tool v{packageJson.version}!
               </span>
             </h1>
           </div>

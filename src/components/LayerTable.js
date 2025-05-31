@@ -5,6 +5,11 @@
 
 import React, { useContext, useState } from "react";
 import { MiscContext } from "../context/MiscContext";
+import {
+  johnPlaceholderOres,
+  nanPlaceholderOres,
+  zenithPlaceholderOres
+} from '../data/PlaceholderOres';
 
 import { oreIcons } from "../data/oreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
@@ -24,7 +29,8 @@ const LayerTable = ({
 }) => {
   const {
     csvData,
-    updateCSVData
+    updateCSVData,
+    valueMode
   } = useContext(MiscContext);
 
   // Check if CV is a multiple of NVs
@@ -191,6 +197,20 @@ const LayerTable = ({
     }
   };
 
+  // includes checks if it's in the array
+  function isPlaceholderOre(itemName) {
+    switch (valueMode) {
+      case 'nan':
+        return nanPlaceholderOres.includes(itemName);
+      case 'john':
+        return johnPlaceholderOres.includes(itemName);
+      case 'zenith':
+        return zenithPlaceholderOres.includes(itemName);
+      default:
+        return false;
+    }
+  }
+
   // Default component to return in case the data bugs out
   if (!data) {
     return (
@@ -344,7 +364,7 @@ const LayerTable = ({
                   </div>
                 </td>
                 <td>{numV}</td>
-                <td>{formatDisplayValue(baseValue, 1)}</td>
+                <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
                 <td>{formatDisplayValue(baseValue, currentMode)}</td>
               </tr>
             );

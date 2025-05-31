@@ -176,7 +176,7 @@ export const nanValsDict = {
   "Achrothesi / Whitespace": [
     { name: "Kronosilt", baseValue: 1000 },
     { name: "Nilglass", baseValue: 1000 },
-    { name: "Kreosyte", baseValue: 8 },
+    { name: "Kreosyte", baseValue: 6 },
     { name: "Cadmium", baseValue: 15 },
     { name: "Chromium", baseValue: 15 },
     { name: "Null", baseValue: 16 },
@@ -368,7 +368,7 @@ export const nanValsDict = {
   ],
 
   Quintessence: [
-    { name: "Lattiglass", baseValue: 60 },
+    { name: "Lattiglass", baseValue: 80 },
     { name: "Aetherice", baseValue: 6 },
     { name: "Starniferus", baseValue: 8 },
     { name: "Ethanerite", baseValue: 8 },

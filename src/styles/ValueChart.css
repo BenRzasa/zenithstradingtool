@@ -39,6 +39,12 @@
     transform:scale(0.9);
 }
 
+.v-last-updated {
+  font-size: 0.7em;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
 .custom-multiplier-input {
     font-size: 20px;
     display: flex;

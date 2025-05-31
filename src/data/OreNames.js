@@ -137,7 +137,7 @@ export const OreNames = [
   "Korundum",
   "Krazmite",
   "Kreosyte",
-  "Kronisilt",
+  "Kronosilt",
   "Kryposilus",
   "Kyanite",
   "Lapis",

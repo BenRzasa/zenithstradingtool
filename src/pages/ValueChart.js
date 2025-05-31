@@ -18,8 +18,14 @@ import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import { johnValsDict } from "../data/JohnVals";
 import { nanValsDict } from "../data/NANVals";
+import { zenithValsDict } from "../data/ZenithVals";
 import { LayerGradients } from "../data/LayerGradients";
 import searchFilters from "../data/SearchFilters";
+import {
+  johnPlaceholderOres,
+  nanPlaceholderOres,
+  zenithPlaceholderOres
+} from '../data/PlaceholderOres';
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
@@ -55,7 +61,59 @@ function ValueChart() {
       ? johnValsDict
       : valueMode === "nan"
       ? nanValsDict
+      : valueMode === "zenith"
+      ? zenithValsDict
       : customDict;
+
+  // In your state initialization (replace the existing lastUpdatedDates state)
+  const [lastUpdatedDates, setLastUpdatedDates] = useState({
+    john: 'Jan 19 2025', // Default dates
+    nan: 'May 30 2025',
+    zenith: 'May 31 2025'
+  });
+
+  // Modified checkForUpdates function
+  const checkForUpdates = useCallback(() => {
+    const checkDictionary = (dict, placeholderList, dictName) => {
+      // Initialize stored ores if they don't exist
+      if (!localStorage.getItem(`${dictName}Ores`)) {
+        const allOres = Object.values(dict).flat().map(item => item.name);
+        localStorage.setItem(`${dictName}Ores`, JSON.stringify(allOres));
+        return false; // No update on first run
+      }
+      const storedOres = JSON.parse(localStorage.getItem(`${dictName}Ores`));
+      const currentOres = Object.values(dict).flat().map(item => item.name);
+      const newNonPlaceholderOres = [];
+      // Find new non-placeholder ores
+      currentOres.forEach(ore => {
+        if (!placeholderList.includes(ore) && !storedOres.includes(ore)) {
+          newNonPlaceholderOres.push(ore);
+        }
+      });
+      // Only update if there are new non-placeholder ores
+      if (newNonPlaceholderOres.length > 0) {
+        localStorage.setItem(`${dictName}Ores`, JSON.stringify(currentOres));
+        const newDate = new Date().toLocaleString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        localStorage.setItem(`${dictName}LastUpdated`, newDate);
+        setLastUpdatedDates(prev => ({ ...prev, [dictName]: newDate }));
+        return true;
+      }
+      return false;
+    };
+
+    checkDictionary(johnValsDict, johnPlaceholderOres, 'john');
+    checkDictionary(nanValsDict, nanPlaceholderOres, 'nan');
+    checkDictionary(zenithValsDict, zenithPlaceholderOres, 'zenith');
+  }, []);
+
+  // Check for value updates for NAN, John, & Zenith dicts on mount
+  useEffect(() => {
+    checkForUpdates();
+  }, [checkForUpdates]);
 
   // UI control states
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
@@ -298,7 +356,7 @@ function ValueChart() {
       ...extremes,
       excluded: {
         ores: ["Stone", "Grimstone"],
-        layers: ["Rares", "Uniques", "Compounds", "Surface / Shallow"],
+        layers: ["True Rares", "Rares", "Uniques", "Compounds", "Surface / Shallow"],
       },
     };
   };
@@ -341,8 +399,8 @@ function ValueChart() {
   // Initialize custom dict
   const initializeCustomDict = (source) => {
     const newCustomDict =
-      source === "john"
-        ? JSON.parse(JSON.stringify(johnValsDict))
+      source === "zenith"
+        ? JSON.parse(JSON.stringify(zenithValsDict))
         : JSON.parse(JSON.stringify(nanValsDict));
     setCustomDict(newCustomDict);
     setCurrentMode("custom");
@@ -469,6 +527,24 @@ function ValueChart() {
           </div>
         )}
       </div>
+      <div
+        className="v-usage"
+        style={{
+          position:"absolute",
+          left:"0px",
+          top:"90px",
+          width:"25%",
+          fontSize:"18px",
+        }}
+      >
+        <ul>
+          <li>Click the "Quick Summary" dropdown to see your total inventory value!</li>
+          <li>The "More Stats" button gives you some more fun info about your inventory</li>
+          <li>To set a custom AV multiplier, select "Custom" mode in the second group of buttons, then enter a whole number</li>
+          <li>If you'd like to modify an existing set of values, select "Custom" in the first group of buttons, then "Update", then "Modify"</li>
+          <li>Values denoted with [P] represent placeholder values</li>
+        </ul>
+      </div>
       <div>
         <NavBar />
       </div>
@@ -492,6 +568,7 @@ function ValueChart() {
               aria-pressed={moreStats && isSummaryOpen}
             >
               <span>More Stats {moreStats ? "▲" : "▼"}</span>
+              <div className="v-last-updated">Click for fun stats!</div>
             </button>
           </div>
           <div className="box-button">
@@ -499,7 +576,8 @@ function ValueChart() {
               onClick={() => toggleValueMode("john")}
               className={valueMode === "john" ? "color-template-pout" : ""}
             >
-              <span>John Values</span>
+              <span>John Vals</span>
+              <div className="v-last-updated">Updated: {lastUpdatedDates.john}</div>
             </button>
           </div>
           <div className="box-button">
@@ -507,7 +585,17 @@ function ValueChart() {
               onClick={() => toggleValueMode("nan")}
               className={valueMode === "nan" ? "color-template-diamond" : ""}
             >
-              <span>NAN Values</span>
+              <span>NAN Vals</span>
+              <div className="v-last-updated">Updated: {lastUpdatedDates.nan}</div>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => toggleValueMode("zenith")}
+              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
+            >
+              <span>Zenith Vals</span>
+              <div className="v-last-updated">Updated: {lastUpdatedDates.zenith}</div>
             </button>
           </div>
           <div className="box-button">
@@ -527,6 +615,7 @@ function ValueChart() {
               }
             >
               <span>Custom</span>
+              <div className="v-last-updated">Your own values</div>
             </button>
           </div>
 
@@ -542,11 +631,12 @@ function ValueChart() {
                 }
               }}>
                 <span> [ Update ] </span>
+                <div className="v-last-updated">New ores/layers</div>
               </button>
             </div>
             <div className="box-button">
               <button onClick={() => navigate("/customvalues")}>
-                <span>Customize</span>
+                <span>Modify</span>
               </button>
             </div>
             </>
@@ -608,13 +698,19 @@ function ValueChart() {
                   onClick={() => initializeCustomDict("john")}
                   className="color-template-pout"
                 >
-                  John Values
+                  John Vals
                 </button>
                 <button
                   onClick={() => initializeCustomDict("nan")}
                   className="color-template-diamond"
                 >
-                  NAN Values
+                  NAN Vals
+                </button>
+                <button
+                  onClick={() => initializeCustomDict("zenith")}
+                  className="color-template-tornfabric"
+                >
+                  Zenith Vals
                 </button>
               </div>
               <button
