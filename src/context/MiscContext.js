@@ -210,6 +210,28 @@ export const MiscProvider = ({ children }) => {
     setLastUpdated(now);
   };
 
+  // Function to load an old CSV
+  const loadOldCSV = (index) => {
+    if (index < 0 || index >= csvHistory.length) return;
+    const historyEntry = csvHistory[index];
+    if (!historyEntry) return;
+    try {
+      setCSVData(historyEntry.data);
+      // Set the chart to the value mode used when saved
+      setValueMode(historyEntry.valueMode || 'john');
+      if (historyEntry.valueMode === 'custom' && historyEntry.customMultiplier) {
+        setCustomMultiplier(historyEntry.customMultiplier);
+      }
+      // Ensure we have a valid date when loading from history
+      const loadedDate = historyEntry.timestamp 
+        ? new Date(historyEntry.timestamp)
+        : new Date();
+      setLastUpdated(loadedDate);
+    } catch (e) {
+      console.error('Failed to load old CSV:', e);
+    }
+  };
+
   // Initialize custom dictionary from a source
   const initializeCustomDict = (source) => {
     const newCustomDict = source === 'john'
@@ -259,30 +281,6 @@ export const MiscProvider = ({ children }) => {
       total += amount / baseValue;
     });
     return total;
-  };
-
-  // Function to load an old CSV
-  const loadOldCSV = (index) => {
-    if (index < 0 || index >= csvHistory.length) return;
-    
-    const historyEntry = csvHistory[index];
-    if (!historyEntry) return;
-    
-    try {
-      setCSVData(historyEntry.data);
-      // Set the chart to the value mode used when saved
-      setValueMode(historyEntry.valueMode || 'john');
-      if (historyEntry.valueMode === 'custom' && historyEntry.customMultiplier) {
-        setCustomMultiplier(historyEntry.customMultiplier);
-      }
-      // Ensure we have a valid date when loading from history
-      const loadedDate = historyEntry.timestamp 
-        ? new Date(historyEntry.timestamp)
-        : new Date();
-      setLastUpdated(loadedDate);
-    } catch (e) {
-      console.error('Failed to load old CSV:', e);
-    }
   };
 
   // Context value

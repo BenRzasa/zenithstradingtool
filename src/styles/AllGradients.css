@@ -145,12 +145,13 @@
     background: linear-gradient(135deg, #c3d1e6, #94abc1, #7c92ac);
 }
 
-.color-template-einsteinium {
-    background: #4e9cad;
-}
 
 .color-template-hematite {
     background: #607a88;
+}
+
+.color-template-calcite {
+    background: #566ca9
 }
 
 .color-template-rose-quartz {
@@ -321,6 +322,10 @@
     background: #662fbd;
 }
 
+.color-template-nightmica {
+    background: #661f20;
+}
+
 .color-template-crimstone {
     background: #ad0000;
 }
@@ -418,6 +423,10 @@
     background: #555555;
 }
 
+.color-template-kronosilt {
+    background: #5b5c65;
+}
+
 .color-template-nilglass {
     background: #f0f0f0;
 }
@@ -463,6 +472,10 @@
 
 .color-template-perilium {
     background: #d5d5d5;
+}
+
+.color-template-hyfrost {
+    background: #41809c;
 }
 
 .color-template-blue-ice {
@@ -594,12 +607,8 @@ background: linear-gradient(75deg, #dffcf7 0%, #a5def7 15%, #7b73f7 30%, #ce6ade
     background: linear-gradient(70deg, #ffeaa9 0%, #e97c50 11.6%, #da6cda 26.1%, #7160f2 70.2%, #32208d 100%);
 }
 
-.color-template-terraplasm {
-    background: #4219c7;
-}
-
 .color-template-cryoplasm {
-    background: #b07bc7;
+    background: linear-gradient(165deg, #d9f5fe 0%, #f5fffe 20%, #e9fcfe 40%, #8eb6d6 50%, #a081be 60%, #7b63a3 65%, #181737 80%);
 }
 
 .color-template-andrium {
@@ -982,6 +991,10 @@ background: linear-gradient(75deg, #dffcf7 0%, #a5def7 15%, #7b73f7 30%, #ce6ade
 
 .color-template-exodian {
     background: linear-gradient(180deg, #b1b1b1 0%, #ffffff 50%, #323232 100%);
+}
+
+.color-template-lattiglass {
+    background: #ffb5b6;
 }
 
 .color-template-aetherice {

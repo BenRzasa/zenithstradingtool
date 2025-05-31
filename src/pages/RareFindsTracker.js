@@ -105,8 +105,8 @@ const RareFindsTracker = () => {
     "Singularity",
   ];
 
-  // Get rares data
-  const raresData = johnValsDict.Rares;
+  // Get rares data (bracket notation for string names)
+  const raresData = johnValsDict.Rares.concat(johnValsDict["True Rares"]);
 
   // Need to fix this - should NOT need to hard-code the gradients in...
   const raresGradient = `linear-gradient(90deg, #ffcc66 0%, #f9f575 20%,

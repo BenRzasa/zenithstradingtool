@@ -34,6 +34,7 @@ import Boron from '../images/ore-icons/Boron_Icon.webp';
 import Bottom_Quark from '../images/ore-icons/Bottom_Quark_Icon.webp';
 import Cadmium from '../images/ore-icons/Cadmium_Icon.webp';
 import Caesium from '../images/ore-icons/Caesium_Icon.webp';
+import Calcite from '../images/ore-icons/Calcite_Icon.webp';
 import Carnelian from '../images/ore-icons/Carnelian_Icon.webp';
 import Celesteel from '../images/ore-icons/Celesteel_Icon.webp';
 import Centriale from '../images/ore-icons/Centriale_Icon.webp';
@@ -115,6 +116,7 @@ import Hexflame from '../images/ore-icons/Hexflame_Icon.webp';
 import Hollevite from '../images/ore-icons/Hollevite_Icon.webp';
 import Horrorstone from '../images/ore-icons/Horrorstone_Icon.webp';
 import Hydrolyth from '../images/ore-icons/Hydrolyth_Icon.webp';
+import Hyfrost from '../images/ore-icons/Hyfrost_Icon.webp';
 import Hyperium from '../images/ore-icons/Hyperium_Icon.webp';
 import Ichor from '../images/ore-icons/Ichor_Icon.webp';
 import Impervium from '../images/ore-icons/Impervium_Icon.webp';
@@ -133,9 +135,11 @@ import Korenil from '../images/ore-icons/Korenil_Icon.webp';
 import Korundum from '../images/ore-icons/Korundum_Icon.webp';
 import Krazmite from '../images/ore-icons/Krazmite_Icon.webp';
 import Kreosyte from '../images/ore-icons/Kreosyte_Icon.webp';
+import Kronosilt from '../images/ore-icons/Kronosilt_Icon.webp';
 import Kryposilus from '../images/ore-icons/Kryposilus_Icon.webp';
 import Kyanite from '../images/ore-icons/Kyanite_Icon.webp';
 import Lapis from '../images/ore-icons/Lapis_Icon.webp';
+import Lattiglass from '../images/ore-icons/Lattiglass_Icon.webp';
 import Lead from '../images/ore-icons/Lead_Icon.webp';
 import Leptonyte from '../images/ore-icons/Leptonyte_Icon.webp';
 import Liquid_Gold from '../images/ore-icons/Liquid_Gold_Icon.webp';
@@ -170,6 +174,7 @@ import Neutrino from '../images/ore-icons/Neutrino_Icon.webp';
 import Neutronium from '../images/ore-icons/Neutronium_Icon.webp';
 import Newtonium from '../images/ore-icons/Newtonium_Icon.webp';
 import Nickel from '../images/ore-icons/Nickel_Icon.webp';
+import Nightmica from '../images/ore-icons/Nightmica_Icon.webp';
 import Nihinoris from '../images/ore-icons/Nihinoris_Icon.webp';
 import Nilglass from '../images/ore-icons/Nilglass_Icon.webp';
 import Nilidust from '../images/ore-icons/Nilidust_Icon.webp';
@@ -334,6 +339,7 @@ export const oreIcons = {
   Bottom_Quark,
   Cadmium,
   Caesium,
+  Calcite,
   Carnelian,
   Celesteel,
   Centriale,
@@ -415,6 +421,7 @@ export const oreIcons = {
   Hollevite,
   Horrorstone,
   Hydrolyth,
+  Hyfrost,
   Hyperium,
   Ichor,
   Impervium,
@@ -433,9 +440,11 @@ export const oreIcons = {
   Korundum,
   Krazmite,
   Kreosyte,
+  Kronosilt,
   Kryposilus,
   Kyanite,
   Lapis,
+  Lattiglass,
   Lead,
   Leptonyte,
   Liquid_Gold,
@@ -470,6 +479,7 @@ export const oreIcons = {
   Neutronium,
   Newtonium,
   Nickel,
+  Nightmica,
   Nihinoris,
   Nilglass,
   Nilidust,

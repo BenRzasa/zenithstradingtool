@@ -20,7 +20,7 @@ export const johnValsDict = {
     { name: "Ubriniale", baseValue: 0.01 },
   ],
 
-  "Rares": [
+  Rares: [
     { name: "Ambrosine", baseValue: 1.0 },
     { name: "Zynulvinite", baseValue: 1.0 },
     { name: "Cindrasil", baseValue: 1/3 },
@@ -29,8 +29,8 @@ export const johnValsDict = {
     { name: "Ectokelyte", baseValue: 1/3 },
     { name: "Nyrvinoris", baseValue: 1.0 },
     { name: "Unobtainium", baseValue: 1.0 },
-
   ],
+
   Uniques: [
     { name: "Vicious Shard", baseValue: 1/180 },
     { name: "Jalabono", baseValue: 1.0 },
@@ -98,6 +98,7 @@ export const johnValsDict = {
   ],
 
   "Mystic / Inbetween": [
+    { name: "Calcite", baseValue: 1000 },
     { name: "Rose Quartz", baseValue: 8 },
     { name: "Rainbonite", baseValue: 2.5 },
     { name: "Barium", baseValue: 6.5 },
@@ -148,6 +149,7 @@ export const johnValsDict = {
   ],
 
   Dread: [
+    { name: "Nightmica", baseValue: 1000 },
     { name: "Crimstone", baseValue: 70.5 },
     { name: "Horrorstone", baseValue: 11 },
     { name: "Strange Matter", baseValue: 6 },
@@ -171,6 +173,7 @@ export const johnValsDict = {
   ],
 
   "Achrothesi / Whitespace": [
+    { name: "Kronosilt", baseValue: 1000 },
     { name: "Nilglass", baseValue: 1000 },
     { name: "Kreosyte", baseValue: 8 },
     { name: "Cadmium", baseValue: 12 },
@@ -196,6 +199,7 @@ export const johnValsDict = {
   ],
 
   Frigid: [
+    { name: "Hyfrost", baseValue: 1000 },
     { name: "Blue Ice", baseValue: 10 },
     { name: "Frostarium", baseValue: 10 },
     { name: "Anetrium", baseValue: 13.5 },
@@ -359,10 +363,11 @@ export const johnValsDict = {
     { name: "Ultranium", baseValue: 7 },
     { name: "Auricallium", baseValue: 9 },
     { name: "Zeronian", baseValue: 4.5 },
-    { name: "Exodian", baseValue: 9 }
+    { name: "Exodian", baseValue: 9 },
   ],
 
   Quintessence: [
+    { name: "Lattiglass", baseValue: 60 },
     { name: "Aetherice", baseValue: 8 },
     { name: "Starniferus", baseValue: 11 },
     { name: "Ethanerite", baseValue: 11 },

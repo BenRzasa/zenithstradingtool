@@ -21,7 +21,7 @@ export const nanValsDict = {
     { name: "Ubriniale", baseValue: 0.01 },
   ],
 
-  "Rares": [
+  Rares: [
     { name: "Ambrosine", baseValue: 1.0 },
     { name: "Zynulvinite", baseValue: 1.0 },
     { name: "Cindrasil", baseValue: 1/3 },
@@ -99,6 +99,7 @@ export const nanValsDict = {
   ],
 
   "Mystic / Inbetween": [
+    { name: "Calcite", baseValue: 1000 },
     { name: "Rose Quartz", baseValue: 7 },
     { name: "Rainbonite", baseValue: 4 },
     { name: "Barium", baseValue: 6 },
@@ -149,6 +150,7 @@ export const nanValsDict = {
   ],
 
   Dread: [
+    { name: "Nightmica", baseValue: 1000 },
     { name: "Crimstone", baseValue: 100 },
     { name: "Horrorstone", baseValue: 10 },
     { name: "Strange Matter", baseValue: 7 },
@@ -172,6 +174,7 @@ export const nanValsDict = {
   ],
 
   "Achrothesi / Whitespace": [
+    { name: "Kronosilt", baseValue: 1000 },
     { name: "Nilglass", baseValue: 1000 },
     { name: "Kreosyte", baseValue: 8 },
     { name: "Cadmium", baseValue: 15 },
@@ -197,6 +200,7 @@ export const nanValsDict = {
   ],
 
   Frigid: [
+    { name: "Hyfrost", baseValue: 1000 },
     { name: "Blue Ice", baseValue: 10 },
     { name: "Frostarium", baseValue: 10 },
     { name: "Anetrium", baseValue: 13 },
@@ -364,6 +368,7 @@ export const nanValsDict = {
   ],
 
   Quintessence: [
+    { name: "Lattiglass", baseValue: 60 },
     { name: "Aetherice", baseValue: 6 },
     { name: "Starniferus", baseValue: 8 },
     { name: "Ethanerite", baseValue: 8 },
