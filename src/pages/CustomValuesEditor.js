@@ -26,11 +26,15 @@ function CustomValuesEditor() {
     setValueMode,
     initializeCustomDict
   } = useContext(MiscContext);
+
+  const [localValues, setLocalValues] = useState({});
+
   // Return a custom dict or, if none exists, initialize one with NAN's vals
   const [editedDict, setEditedDict] = useState(() => {
     return customDict || initializeCustomDict('nan');
   });
-  // Change the value in the dictionary based on the number input
+
+  // Change the value in the dictionary based on the number input or fraction
   const handleValueChange = (layer, oreName, newValue) => {
     setEditedDict(prev => {
       const newDict = {...prev};
@@ -39,9 +43,20 @@ function CustomValuesEditor() {
         // Find the ore based on the layer and name, then set the baseValue
         const oreIndex = newDict[layer].findIndex(o => o.name === oreName);
         if (oreIndex >= 0) {
+          let decimalValue = 0;
+          // Check if the input is a fraction (contains '/')
+          if (newValue.includes('/')) {
+            const [numerator, denominator] = newValue.split('/').map(Number);
+            if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
+              decimalValue = numerator / denominator;
+            }
+          } else {
+            // Handle regular number input
+            decimalValue = parseFloat(newValue) || 0;
+          }
           newDict[layer][oreIndex] = {
             ...newDict[layer][oreIndex],
-            baseValue: parseFloat(newValue) || 0
+            baseValue: decimalValue
           };
         }
       }
@@ -53,7 +68,8 @@ function CustomValuesEditor() {
   const handleSave = () => {
     setCustomDict(editedDict);
     setValueMode('custom');
-    navigate(-1);
+    window.alert("Custom values successfully saved!")
+    //navigate(-1);
   };
 
   // Handle cancellation (navigate 1 page backward -> Value Chart)
@@ -63,7 +79,7 @@ function CustomValuesEditor() {
 
   // Handle resetting of the dictionary
   const handleReset = (source) => {
-    if (window.confirm(`Reset all values to '${source}' values? This cannot be undone.`)) {
+    if (window.confirm(`Reset all values to ${source.toUpperCase()} values? This cannot be undone.`)) {
       const newDict = initializeCustomDict(source);
       setEditedDict(newDict);
     }
@@ -110,7 +126,10 @@ function CustomValuesEditor() {
         </div>
       </div>
       {/* Value tables container - formatted similarly to the main Value Chart page */}
-      <div className="tables-container">
+      <div
+        className="tables-container"
+        style={{marginLeft:"-150px"}}
+      >
         {Object.entries(editedDict).map(([layerName, layerData]) => {
           const gradientKey = Object.keys(LayerGradients).find(key =>
             layerName.includes(key)
@@ -123,7 +142,7 @@ function CustomValuesEditor() {
             <div id={layerName.replace(/\s+/g, "-")}
               key={layerName}
               className="table-wrapper"
-              style={{maxWidth:"450px"}}
+              style={{maxWidth:"350px"}}
             >
               <h2
                 className="table-wrapper h2"
@@ -137,13 +156,16 @@ function CustomValuesEditor() {
                 <thead>
                   <tr>
                     <th>Ore Name</th>
-                    <th>/AV</th>
+                    <th style={{textAlign:"left"}}>Value (/AV)</th>
                   </tr>
                 </thead>
                 <tbody>
                   {layerData.map((item, index) => (
                     <tr key={index}>
-                      <td className={`name-column ${getOreClassName(item.name)}`} data-text={item.name}>
+                      <td 
+                        className={`name-column ${getOreClassName(item.name)}`} 
+                        data-text={item.name}
+                      >
                         {oreIcons[item.name.replace(/ /g, '_')] ? (
                           <img
                             src={oreIcons[item.name.replace(/ /g, '_')]}
@@ -163,13 +185,36 @@ function CustomValuesEditor() {
                       <td>
                         <input
                           type="number"
-                          step="1"
-                          min="0"
-                          value={item.baseValue}
-                          onChange={(e) =>
-                            handleValueChange(layerName, item.name, e.target.value)
-                          }
+                          step="any"
+                          value={localValues[`${layerName}-${item.name}`] !== undefined 
+                            ? localValues[`${layerName}-${item.name}`] 
+                            : item.baseValue}
+                          onChange={(e) => {
+                            setLocalValues(prev => ({
+                              ...prev,
+                              [`${layerName}-${item.name}`]: e.target.value
+                            }));
+                          }}
+                          onBlur={(e) => {
+                            handleValueChange(layerName, item.name, e.target.value);
+                            setLocalValues(prev => {
+                              const newValues = {...prev};
+                              delete newValues[`${layerName}-${item.name}`];
+                              return newValues;
+                            });
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              handleValueChange(layerName, item.name, e.target.value);
+                              setLocalValues(prev => {
+                                const newValues = {...prev};
+                                delete newValues[`${layerName}-${item.name}`];
+                                return newValues;
+                              });
+                            }
+                          }}
                           className="base-value-input"
+                          style={{textAlign:"left"}}
                         />
                       </td>
                     </tr>

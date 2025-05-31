@@ -6,27 +6,31 @@
 
 // Dictionaries for John and NAN values
 export const johnValsDict = {
-  Rares: [
-    { name: "Ambrosine", baseValue: 1.0 },
+  "True Rares": [
+
     { name: "Universallium", baseValue: 0.1 },
     { name: "Neutrine", baseValue: 0.01 },
     { name: "Torn Fabric", baseValue: 0.002 },
     { name: "Singularity", baseValue: 0.001 },
     { name: "Egg", baseValue: 0.02 },
-    { name: "Cindrasil", baseValue: 1/3 },
-    { name: "Zynulvinite", baseValue: 1.0 },
     { name: "Element V", baseValue: 0.2 },
-    { name: "Neutrino", baseValue: 1.0 },
-    { name: "Malbrane", baseValue: 1.0 },
     { name: "Dystranum", baseValue: 1/15 },
-    { name: "Ectokelyte", baseValue: 1/3 },
     { name: "Havicron", baseValue: 0.1 },
     { name: "Rhylazil", baseValue: 0.02 },
     { name: "Ubriniale", baseValue: 0.01 },
-    { name: "Nyrvinoris", baseValue: 1.0 },
-    { name: "Unobtainium", baseValue: 1.0 }
   ],
 
+  "Rares": [
+    { name: "Ambrosine", baseValue: 1.0 },
+    { name: "Zynulvinite", baseValue: 1.0 },
+    { name: "Cindrasil", baseValue: 1/3 },
+    { name: "Neutrino", baseValue: 1.0 },
+    { name: "Malbrane", baseValue: 1.0 },
+    { name: "Ectokelyte", baseValue: 1/3 },
+    { name: "Nyrvinoris", baseValue: 1.0 },
+    { name: "Unobtainium", baseValue: 1.0 },
+
+  ],
   Uniques: [
     { name: "Vicious Shard", baseValue: 1/180 },
     { name: "Jalabono", baseValue: 1.0 },

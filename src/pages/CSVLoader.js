@@ -245,7 +245,12 @@ function CSVLoader() {
                       setShowHistoryDropdown(false);
                     }}
                   >
-                    {entry.timestamp.toLocaleString()} -- {entry.totalAV.toFixed(1)} AV
+                    {new Date(entry.timestamp).toLocaleString()}
+                    <br />
+                    {entry.totalAV.toFixed(1)} AV
+                    <br />
+                    {entry.valueMode === 'custom'
+                      ? 'CUSTOM' : entry.valueMode.toUpperCase()}
                   </div>
                 ))
               )}

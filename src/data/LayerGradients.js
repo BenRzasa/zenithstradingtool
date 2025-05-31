@@ -6,9 +6,14 @@
 import "../styles/AllGradients.css";
 
 export const LayerGradients = {
-  Rares: {
+  "True Rares": {
     background:
       "linear-gradient(135deg, #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%, #edebd6 70%, #ecf9df 80%, #b7dce1 100%)",
+  },
+
+  Rares: {
+    background:
+      "linear-gradient(90deg, #ffcc66 0%, #f9f575 20%, #f07f53 42.2%, #ec82ff 80%, #b050eb 100%)",
   },
 
   Uniques: {

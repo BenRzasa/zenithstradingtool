@@ -227,13 +227,13 @@ td {
 }
 
 /* Proper inventory cell styling */
-.inventory-cell {
+.v-inventory-cell {
     position: relative;
     padding: 2px 6px;
 }
 
 /* Proper input styling */
-.inventory-input {
+.v-inventory-input {
     position: absolute;
     top: 0;
     left: 0;

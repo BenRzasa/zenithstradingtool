@@ -53,6 +53,10 @@ const emblemPerks = [
     description: "Increases minimum number of Nilidust able to be extracted from a Void Orb by 1. (also allows the Sculptor boss to spawn in Void caves, although this effect is currently disabled)."
   },
   {
+    name: "Periglise",
+    description: "Gives a major boost to walkspeed. (+7 Walkspeed)"
+  },
+  {
     name: "Phosphyll",
     description: "Mining the same ore gives an increasing bonus to your mining speed. (~0.107% minetime reduction per stack additively, caps at a ~47.3% minetime reduction, resets when you finish mining a different ore that isn't a  Stone variant.)"
   },

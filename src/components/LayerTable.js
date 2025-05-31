@@ -24,7 +24,7 @@ const LayerTable = ({
 }) => {
   const {
     csvData,
-    setCSVData,
+    updateCSVData
   } = useContext(MiscContext);
 
   // Check if CV is a multiple of NVs
@@ -160,7 +160,7 @@ const LayerTable = ({
     // Account for non-number values
     const numericValue = Math.max(0, isNaN(newValue) ? 0 : Number(newValue));
     // Update through context which will automatically persist to localStorage
-    setCSVData((prev) => ({
+    updateCSVData((prev) => ({
       ...prev,
       [itemName]: numericValue,
     }));
@@ -280,7 +280,7 @@ const LayerTable = ({
                 <td className={`percent-${Math.floor(percentage / 10) * 10}`}>
                   {percentage.toFixed(1)}%
                 </td>
-                <td className="inventory-cell">
+                <td className="v-inventory-cell">
                   {/* Wrapper div ensures stable layout during edits */}
                   <div className="inventory-wrapper">
                     {/* Visible display of the value (hidden during editing) */}
@@ -297,7 +297,7 @@ const LayerTable = ({
                       step="1" // Whole numbers only
                       value={inventory} // Controlled component
                       aria-label={`Edit ${item.name} quantity`}
-                      className="inventory-input"
+                      className="v-inventory-input"
                       /* Handle live changes while typing */
                       onChange={(e) => {
                         // Allow empty value during editing (shows placeholder)

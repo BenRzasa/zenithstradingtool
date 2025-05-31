@@ -194,7 +194,7 @@ function ValueChart() {
         tableCompletion += completion;
         itemCount++;
         // Track rare & unique totals individually
-        if (layerName.includes("Rare")) {
+        if (layerName.includes("True Rares") || layerName.includes("Rares")) {
           rareTotal += numV;
         } else if (layerName.includes("Unique")) {
           uniqueTotal += numV;
@@ -231,6 +231,7 @@ function ValueChart() {
     // Exclude outlier layers & ores
     const excludedOres = ["Stone", "Grimstone"];
     const excludedLayers = [
+      "True Rares",
       "Rares",
       "Uniques",
       "Compounds",
@@ -392,43 +393,43 @@ function ValueChart() {
         {isSummaryOpen && (
           <div className="summary-content">
             <p>
-              ❑ Total Ores:{" "}
+              ⛏ Total Ores:{" "}
               <span className="placeholder">
                 {totals.totalOres.toLocaleString()}
               </span>
             </p>
             <p>
-              ❑ Rare {modeStr}:{" "}
+              ⛏ Total Rare {modeStr}:{" "}
               <span className="placeholder">
                 {totals.rareTotal.toLocaleString()}
               </span>
             </p>
             <p>
-              ❑ Unique {modeStr}:{" "}
+              ⛏ Unique {modeStr}:{" "}
               <span className="placeholder">
                 {totals.uniqueTotal.toLocaleString()}
               </span>
             </p>
             <p>
-              ❑ Layer {modeStr}:{" "}
+              ⛏ Layer {modeStr}:{" "}
               <span className="placeholder">
                 {totals.layerTotal.toLocaleString()}
               </span>
             </p>
             <p>
-              ❑ Grand Total {modeStr}:{" "}
+              ⛏ Grand Total {modeStr}:{" "}
               <span className="placeholder">
                 {totals.grandTotal.toLocaleString()}
               </span>
             </p>
             <p>
-              ❑ Total {modeStr} Completion:{" "}
+              ⛏ Total {modeStr} Completion:{" "}
               <span className="placeholder">{totals.avgCompletion}%</span>
             </p>
             {moreStats && (
               <>
                 <p>
-                  ❑ Highest Value (Layer):
+                  ⮝ Highest Value (Layer):
                   <p>
                     <span className="placeholder">
                       {totals.maxLayer.name} (
@@ -437,7 +438,7 @@ function ValueChart() {
                   </p>
                 </p>
                 <p>
-                  ❑ Lowest Value (Layer):
+                  ⮟ Lowest Value (Layer):
                   <p>
                     <span className="placeholder">
                       {totals.minLayer.name} (
@@ -446,7 +447,7 @@ function ValueChart() {
                   </p>
                 </p>
                 <p>
-                  ❑ Highest Value (Ore):
+                  ⮝ Highest Value (Ore):
                   <p>
                     <span className="placeholder">
                       {totals.maxOre.name} (
@@ -455,7 +456,7 @@ function ValueChart() {
                   </p>
                 </p>
                 <p>
-                  ❑ Lowest Value (Ore):
+                  ⮟ Lowest Value (Ore):
                   <p>
                     <span className="placeholder">
                       {totals.minOre.name} (

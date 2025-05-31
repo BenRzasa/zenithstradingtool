@@ -81,43 +81,52 @@ export const MiscProvider = ({ children }) => {
     }
   });
 
-  // Update custom dict with NEW ORES
   const updateCustomDict = () => {
     if (!customDict) return false;
+    // Create a map of the current custom dictionary for reference
+    const currentLayers = new Map(Object.entries(customDict));
     let hasUpdates = false;
-    const updatedDict = JSON.parse(JSON.stringify(customDict));
-    // Check each layer in John's dictionary
+    // Build the new dictionary following John's exact structure
+    const updatedDict = {};
+    // Process John's dictionary in order
     for (const [layerName, johnOres] of Object.entries(johnValsDict)) {
-      if (!updatedDict[layerName]) {
-        // If layer doesn't exist in custom dict, add it completely
+      // Check if we need to update this layer
+      if (!currentLayers.has(layerName)) {
+        // New layer - add completely
         updatedDict[layerName] = JSON.parse(JSON.stringify(johnOres));
         hasUpdates = true;
         continue;
       }
-      // Create set of existing ore names for quick lookup
-      const existingOreNames = new Set(updatedDict[layerName].map(ore => ore.name));
-      // Find all new ores that need to be inserted
-      const newOres = johnOres.filter(johnOre => !existingOreNames.has(johnOre.name));
-      if (newOres.length === 0) continue;
-      hasUpdates = true;
-      // Rebuild the layer array with new ores in correct positions
-      const johnOrePositions = new Map(johnOres.map((ore, index) => [ore.name, index]));
-      const mergedOres = [...updatedDict[layerName]];
-      // Insert new ores at their original John's dictionary positions
-      for (const newOre of newOres) {
-        const targetPosition = johnOrePositions.get(newOre.name);
-        let insertPosition = 0;
-        // Find where to insert by counting how many John's ores come before this one
-        // that also exist in our custom dictionary
-        for (let i = 0; i < targetPosition; i++) {
-          const johnOreName = johnOres[i].name;
-          if (existingOreNames.has(johnOreName)) {
-            insertPosition++;
-          }
-        }
-        mergedOres.splice(insertPosition, 0, {...newOre});
+      // Compare existing layer with John's version
+      const currentOres = currentLayers.get(layerName);
+      const currentOreMap = new Map(currentOres.map(ore => [ore.name, ore]));
+      // Check if ores match exactly (same names in same order)
+      const johnOreNames = johnOres.map(ore => ore.name);
+      const currentOreNames = currentOres.map(ore => ore.name);
+      if (JSON.stringify(johnOreNames) !== JSON.stringify(currentOreNames)) {
+        // Ores don't match - rebuild layer exactly like John's
+        const rebuiltOres = johnOres.map(johnOre => {
+          // Preserve custom properties if this ore existed before
+          const existingOre = currentOreMap.get(johnOre.name);
+          return existingOre ? {...existingOre} : {...johnOre};
+        });
+        updatedDict[layerName] = rebuiltOres;
+        hasUpdates = true;
+      } else {
+        // Ores match exactly - copy as-is
+        updatedDict[layerName] = JSON.parse(JSON.stringify(currentOres));
       }
-      updatedDict[layerName] = mergedOres;
+    }
+    // Check for layers that were removed from John's dict
+    const currentLayerNames = [...currentLayers.keys()];
+    const johnLayerNames = Object.keys(johnValsDict);
+    if (currentLayerNames.some(name => !johnLayerNames.includes(name))) {
+      hasUpdates = true;
+      // We don't need to do anything else since updatedDict only contains John's layers
+    }
+    // Check if the layer order changed
+    if (JSON.stringify(Object.keys(updatedDict)) !== JSON.stringify(Object.keys(customDict))) {
+      hasUpdates = true;
     }
     if (hasUpdates) {
       setCustomDict(updatedDict);
@@ -187,10 +196,12 @@ export const MiscProvider = ({ children }) => {
       const newHistory = [
         {
           data: newData,
-          timestamp: now.toISOString(), // Store as ISO string for consistency
-          totalAV: totalAV
+          timestamp: now.toISOString(),
+          totalAV: totalAV,
+          valueMode: valueMode,
+          customMultiplier: customMultiplier
         },
-        ...prev.slice(0, 99) // Keep only last 100 entries
+        ...prev.slice(0, 999) // Keep last 1000 entries
       ];
       return newHistory;
     });
@@ -259,6 +270,11 @@ export const MiscProvider = ({ children }) => {
     
     try {
       setCSVData(historyEntry.data);
+      // Set the chart to the value mode used when saved
+      setValueMode(historyEntry.valueMode || 'john');
+      if (historyEntry.valueMode === 'custom' && historyEntry.customMultiplier) {
+        setCustomMultiplier(historyEntry.customMultiplier);
+      }
       // Ensure we have a valid date when loading from history
       const loadedDate = historyEntry.timestamp 
         ? new Date(historyEntry.timestamp)
