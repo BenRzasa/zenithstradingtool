@@ -7,8 +7,7 @@ export const johnPlaceholderOres = [
 ];
 
 export const nanPlaceholderOres = [
-  "Anaxinite", "Calcite", "Hyfrost", "Kreosyte", "Kronosilt",
-  "Lattiglass", "Nightmica", "Nilglass",
+  "Anaxinite", "Kreosyte", "Lattiglass"
 ];
 
 export const zenithPlaceholderOres = [];

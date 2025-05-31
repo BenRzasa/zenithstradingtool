@@ -67,9 +67,9 @@ function ValueChart() {
 
   // In your state initialization (replace the existing lastUpdatedDates state)
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    john: 'Jan 19 2025', // Default dates
-    nan: 'May 30 2025',
-    zenith: 'May 31 2025'
+    john: 'Jan 19, 2025', // Default dates
+    nan: 'May 30, 2025',
+    zenith: 'May 31, 2025'
   });
 
   // Modified checkForUpdates function
@@ -573,11 +573,11 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleValueMode("john")}
-              className={valueMode === "john" ? "color-template-pout" : ""}
+              onClick={() => toggleValueMode("zenith")}
+              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
             >
-              <span>John Vals</span>
-              <div className="v-last-updated">Updated: {lastUpdatedDates.john}</div>
+              <span>Zenith Vals</span>
+              <div className="v-last-updated">Updated: {lastUpdatedDates.zenith}</div>
             </button>
           </div>
           <div className="box-button">
@@ -591,13 +591,14 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleValueMode("zenith")}
-              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
+              onClick={() => toggleValueMode("john")}
+              className={valueMode === "john" ? "color-template-pout" : ""}
             >
-              <span>Zenith Vals</span>
-              <div className="v-last-updated">Updated: {lastUpdatedDates.zenith}</div>
+              <span>John Vals</span>
+              <div className="v-last-updated">Updated: {lastUpdatedDates.john}</div>
             </button>
           </div>
+
           <div className="box-button">
             <button
               onClick={() => {

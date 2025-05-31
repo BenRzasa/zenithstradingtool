@@ -75,10 +75,10 @@ export const MiscProvider = ({ children }) => {
     const savedCustomDict = localStorage.getItem('customDict');
     try {
       return savedCustomDict ? JSON.parse(savedCustomDict) :
-        JSON.parse(JSON.stringify(johnValsDict)); // Default to John's values copy
+        JSON.parse(JSON.stringify(zenithValsDict)); // Default to Zenith's values copy
     } catch (e) {
       console.error('Failed to parse customDict', e);
-      return JSON.parse(JSON.stringify(johnValsDict)); // Fallback
+      return JSON.parse(JSON.stringify(zenithValsDict)); // Fallback
     }
   });
 
@@ -87,29 +87,29 @@ export const MiscProvider = ({ children }) => {
     // Create a map of the current custom dictionary for reference
     const currentLayers = new Map(Object.entries(customDict));
     let hasUpdates = false;
-    // Build the new dictionary following John's exact structure
+    // Build the new dictionary following Zenith's exact structure
     const updatedDict = {};
-    // Process John's dictionary in order
-    for (const [layerName, johnOres] of Object.entries(johnValsDict)) {
+    // Process Zenith's dictionary in order
+    for (const [layerName, zenithOres] of Object.entries(zenithValsDict)) {
       // Check if we need to update this layer
       if (!currentLayers.has(layerName)) {
         // New layer - add completely
-        updatedDict[layerName] = JSON.parse(JSON.stringify(johnOres));
+        updatedDict[layerName] = JSON.parse(JSON.stringify(zenithOres));
         hasUpdates = true;
         continue;
       }
-      // Compare existing layer with John's version
+      // Compare existing layer with Zenith's version
       const currentOres = currentLayers.get(layerName);
       const currentOreMap = new Map(currentOres.map(ore => [ore.name, ore]));
       // Check if ores match exactly (same names in same order)
-      const johnOreNames = johnOres.map(ore => ore.name);
+      const zenithOreNames = zenithOres.map(ore => ore.name);
       const currentOreNames = currentOres.map(ore => ore.name);
-      if (JSON.stringify(johnOreNames) !== JSON.stringify(currentOreNames)) {
-        // Ores don't match - rebuild layer exactly like John's
-        const rebuiltOres = johnOres.map(johnOre => {
+      if (JSON.stringify(zenithOreNames) !== JSON.stringify(currentOreNames)) {
+        // Ores don't match - rebuild layer exactly like Zenith's
+        const rebuiltOres = zenithOres.map(zenithOre => {
           // Preserve custom properties if this ore existed before
-          const existingOre = currentOreMap.get(johnOre.name);
-          return existingOre ? {...existingOre} : {...johnOre};
+          const existingOre = currentOreMap.get(zenithOre.name);
+          return existingOre ? {...existingOre} : {...zenithOre};
         });
         updatedDict[layerName] = rebuiltOres;
         hasUpdates = true;
@@ -118,12 +118,12 @@ export const MiscProvider = ({ children }) => {
         updatedDict[layerName] = JSON.parse(JSON.stringify(currentOres));
       }
     }
-    // Check for layers that were removed from John's dict
+    // Check for layers that were removed from Zenith's dict
     const currentLayerNames = [...currentLayers.keys()];
-    const johnLayerNames = Object.keys(johnValsDict);
-    if (currentLayerNames.some(name => !johnLayerNames.includes(name))) {
+    const zenithLayerNames = Object.keys(zenithValsDict);
+    if (currentLayerNames.some(name => !zenithLayerNames.includes(name))) {
       hasUpdates = true;
-      // We don't need to do anything else since updatedDict only contains John's layers
+      // We don't need to do anything else since updatedDict only contains Zenith's layers
     }
     // Check if the layer order changed
     if (JSON.stringify(Object.keys(updatedDict)) !== JSON.stringify(Object.keys(customDict))) {
@@ -236,9 +236,11 @@ export const MiscProvider = ({ children }) => {
 
   // Initialize custom dictionary from a source
   const initializeCustomDict = (source) => {
-    const newCustomDict = source === 'zenith'
-      ? JSON.parse(JSON.stringify(johnValsDict))
-      : JSON.parse(JSON.stringify(nanValsDict));
+    const newCustomDict =
+        source === 'zenith' ? JSON.parse(JSON.stringify(zenithValsDict))
+      : source === 'nan' ? JSON.parse(JSON.stringify(nanValsDict))
+      : source === 'john' ? JSON.parse(JSON.stringify(johnValsDict))
+      : JSON.parse(JSON.stringify(zenithValsDict));
     setCustomDict(newCustomDict);
     setValueMode('custom');
     return newCustomDict;

@@ -352,7 +352,7 @@ function TradeTool() {
                 onClick={() => setValueMode('john')}
                 className={valueMode === 'john' ? "color-template-pout" : ""}
               >
-                <span>John Values</span>
+                <span>John Vals</span>
               </button>
             </div>
             <div className="box-button">
@@ -360,7 +360,15 @@ function TradeTool() {
                 onClick={() => setValueMode('nan')}
                 className={valueMode === 'nan' ? "color-template-diamond" : ""}
               >
-                <span>NAN Values</span>
+                <span>NAN Vals</span>
+              </button>
+            </div>
+            <div className="box-button">
+              <button
+                onClick={() => setValueMode("zenith")}
+                className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
+              >
+                <span>Zenith Vals</span>
               </button>
             </div>
             <div className="box-button">

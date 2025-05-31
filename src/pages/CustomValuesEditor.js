@@ -29,9 +29,9 @@ function CustomValuesEditor() {
 
   const [localValues, setLocalValues] = useState({});
 
-  // Return a custom dict or, if none exists, initialize one with NAN's vals
+  // Return a custom dict or, if none exists, initialize one with Zenith's vals
   const [editedDict, setEditedDict] = useState(() => {
-    return customDict || initializeCustomDict('nan');
+    return customDict || initializeCustomDict('zenith');
   });
 
   // Change the value in the dictionary based on the number input or fraction
@@ -109,6 +109,9 @@ function CustomValuesEditor() {
       <div className="editor-controls">
         {/* Reset buttons for NAN & John value dicts */}
         <div className="reset-buttons">
+          <button onClick={() => handleReset('zenith')} className="reset-zenith">
+            Reset to Zenith's Values
+          </button>
           <button onClick={() => handleReset('john')} className="reset-john">
             Reset to John's Values
           </button>
