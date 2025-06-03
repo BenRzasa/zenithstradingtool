@@ -6,7 +6,6 @@
 */
 import { useContext, useState, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
-import { johnValsDict } from "../data/JohnVals";
 
 import NavBar from "../components/NavBar";
 import ValueModeSelector from "../components/ValueModeSelector";
@@ -14,6 +13,7 @@ import RareRow from "../components/RareRow";
 import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import "../styles/RareFindsTracker.css";
+import { initialOreValsDict } from "../data/OreValues";
 
 const RareFindsTracker = () => {
   const {
@@ -22,6 +22,7 @@ const RareFindsTracker = () => {
     currentMode,
     setCurrentMode,
     customMultiplier,
+    getValueForMode
   } = useContext(MiscContext);
 
   /*
@@ -61,37 +62,37 @@ const RareFindsTracker = () => {
   });
 
   /*
-    Calculates the number of AV/NV/UV/RV/TV/SV for a given ore from baseValue
-    param float baseValue: the baseValue of the ore fetched from dict
+    Calculates the number of AV/NV/UV/RV/TV/SV for a given ore from value 
+    param float value: the value of the ore fetched from dict
     param int count: the quantity of the ore (in this case, number found)
     return float: number of Units for the given ore, fixed to 2 decimal places
   */
-  const calculateNumV = (baseValue, count) => {
+  const calculateNumV = (value, count) => {
     let numV = 0.0;
     switch (currentMode) {
       case 1:
-        numV = baseValue * 1;
+        numV = value * 1;
         break; // AV
       case 2:
-        numV = baseValue * 10;
+        numV = value * 10;
         break; // UV
       case 3:
-        numV = baseValue * 100;
+        numV = value * 100;
         break; // NV
       case 4:
-        numV = baseValue * 500;
+        numV = value * 500;
         break; // TV
       case 5:
-        numV = baseValue * 1000;
+        numV = value * 1000;
         break; // SV
       case 6:
-        numV = baseValue * 50;
+        numV = value * 50;
         break; // RV
       case 7:
-        numV = baseValue * customMultiplier;
+        numV = value * customMultiplier;
         break; // Custom
       default:
-        numV = baseValue;
+        numV = value;
     }
     return (count / numV).toFixed(2);
   };
@@ -106,7 +107,7 @@ const RareFindsTracker = () => {
   ];
 
   // Get rares data (bracket notation for string names)
-  const raresData = johnValsDict.Rares.concat(johnValsDict["True Rares"]);
+  const raresData = initialOreValsDict.Rares.concat(initialOreValsDict["True Rares"]);
 
   // Need to fix this - should NOT need to hard-code the gradients in...
   const raresGradient = `linear-gradient(90deg, #ffcc66 0%, #f9f575 20%,
@@ -138,7 +139,7 @@ const RareFindsTracker = () => {
   const totalRareVal = rareOres
     .reduce((sum, item) => {
       const count = rareFindsData[item.name] || 0;
-      return sum + parseFloat(calculateNumV(item.baseValue, count));
+      return sum + parseFloat(calculateNumV(getValueForMode(item), count));
     }, 0)
     .toFixed(2); // Apply toFixed AFTER reduce
 
@@ -146,7 +147,7 @@ const RareFindsTracker = () => {
   const totalSuperRareVal = superRares
     .reduce((sum, item) => {
       const count = rareFindsData[item.name] || 0;
-      return sum + parseFloat(calculateNumV(item.baseValue, count));
+      return sum + parseFloat(calculateNumV(getValueForMode(item), count));
     }, 0)
     .toFixed(2); // Apply toFixed AFTER reduce
 

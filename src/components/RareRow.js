@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { OreIcons } from "../data/OreIcons";
+import { MiscContext } from "../context/MiscContext";
 
 import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
@@ -25,6 +26,10 @@ const RareRow = ({
   calculateNumV,
   formatDate,
 }) => {
+  const {
+    getValueForMode,
+  } = useContext(MiscContext);
+
   return (
     <tr>
       {/* Ore name cell */}
@@ -84,7 +89,7 @@ const RareRow = ({
       </td>
 
       {/* NVs cell */}
-      <td>{calculateNumV(item.baseValue, count)}</td>
+      <td>{calculateNumV(getValueForMode(item), count)}</td>
 
       {/* Last found cell */}
       <td>{formatDate(lastUpdated)}</td>
