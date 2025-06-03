@@ -11,6 +11,7 @@ import NavBar from "../components/NavBar";
 import { MiscContext } from "../context/MiscContext";
 import CSVEditor from "../components/CSVEditor";
 import { OreNames } from "../data/OreNames";
+import { initialOreValsDict } from "../data/OreValues";
 
 import "../styles/CSVLoader.css";
 
@@ -24,9 +25,9 @@ function CSVLoader() {
     previousAmounts,
     lastUpdated,
     updateCSVData,
-    currentDict,
     valueMode,
     setValueMode,
+    getValueForMode,
     csvHistory,
     setCSVHistory,
     loadOldCSV,
@@ -136,21 +137,21 @@ function CSVLoader() {
     let totalGained = 0;
     let totalLost = 0;
     const changedOres = [];
-    // Get both value dictionaries
-    const valueDict = currentDict;
+    const valueDict = initialOreValsDict; // Use the current oreValsDict
     // Calculate changes for each ore
     OreNames.forEach((ore) => {
       const currentAmount = csvData[ore] || 0;
       const previousAmount = previousAmounts[ore] || 0;
       const quantityChange = currentAmount - previousAmount;
       // Only process if there's an actual change
-      if (quantityChange !== 0) {
+      if (quantityChange!== 0) {
         // Find the ore's base value from any layer
         let baseValue = 1; // Default if not found
         Object.values(valueDict).some(layer => {
           const oreData = layer.find(item => item.name === ore);
           if (oreData) {
-            baseValue = oreData.baseValue;
+            // Use the value based on the current value mode
+            baseValue = getValueForMode(oreData);
             return true;
           }
           return false;

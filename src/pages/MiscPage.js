@@ -16,19 +16,19 @@ import NavBar from "../components/NavBar";
 
 import searchFilters from "../data/SearchFilters";
 import emblemPerks from "../data/EmblemPerks";
-import { oreIcons } from "../data/oreIcons";
+import { OreIcons } from "../data/OreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
 import "../styles/AllGradients.css";
 import "../styles/MiscPage.css";
+import { initialOreValsDict } from "../data/OreValues";
 
 function MiscPage() {
-  // Grab the data, john boolean, and function from CSV context
   const {
     csvData,
     valueMode,
     setValueMode,
-    currentDict
+    getValueForMode,
   } = useContext(MiscContext);
 
   // Copy the search filter to the clipboard
@@ -44,13 +44,13 @@ function MiscPage() {
   };
 
   // Flatten all ore arrays from all categories into one array
-  const allOres = Object.values(currentDict).flat();
+  const allOres = Object.values(initialOreValsDict).flat();
 
   // Calculate and sort ores by number of NVs
   const sortedOres = allOres
     .map((ore) => {
       const inventory = csvData[ore.name] || 0;
-      const nvValue = ore.baseValue * 100;
+      const nvValue = getValueForMode(ore) * 100;
       const numNVs = nvValue > 0 ? inventory / nvValue : 0;
       // Return the ore objects, number of NVs per ore,
       // number in the inventory, and value per NV (unused for now,
@@ -180,9 +180,9 @@ function MiscPage() {
               <tr key={emblem.name}>
                 {/* Name column with gradient and icon */}
                 <td className={`name-column ${getOreClassName(emblem.name)}`} data-text={emblem.name}>
-                  {oreIcons[emblem.name.replace(/ /g, '_')] ? (
+                  {OreIcons[emblem.name.replace(/ /g, '_')] ? (
                     <img
-                      src={oreIcons[emblem.name.replace(/ /g, '_')]}
+                      src={OreIcons[emblem.name.replace(/ /g, '_')]}
                       alt={`${emblem.name} icon`}
                       className="ore-icon"
                       loading="lazy"

@@ -302,7 +302,7 @@ import Zilithorus from '../images/ore-icons/Zilithorus_Icon.webp';
 import Zinc from '../images/ore-icons/Zinc_Icon.webp';
 import Zynulvinite from '../images/ore-icons/Zynulvinite_Icon.webp';
 
-export const oreIcons = {
+export const OreIcons = {
   Abyssal_Sludge,
   Adamantite,
   Adrenilar,

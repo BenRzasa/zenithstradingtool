@@ -7,10 +7,8 @@
 */
 
 /* ZTT | Enhanced Context file with Custom Values support */
-import React, { createContext, useState, useEffect, useMemo } from 'react';
-import { johnValsDict } from '../data/JohnVals';
-import { nanValsDict } from '../data/NANVals';
-import { zenithValsDict } from '../data/ZenithVals';
+import React, { createContext, useState, useEffect } from 'react';
+import { initialOreValsDict } from '../data/OreValues';
 import { OreNames } from '../data/OreNames';
 
 export const MiscContext = createContext();
@@ -68,80 +66,12 @@ export const MiscProvider = ({ children }) => {
   const [customMultiplier, setCustomMultiplier] = useState(() => {
     const savedCustomMult = localStorage.getItem('customMultiplier');
     return savedCustomMult !== null ? JSON.parse(savedCustomMult) : 100; // Default
-  })
-
-  // Custom values dictionary
-  const [customDict, setCustomDict] = useState(() => {
-    const savedCustomDict = localStorage.getItem('customDict');
-    try {
-      return savedCustomDict ? JSON.parse(savedCustomDict) :
-        JSON.parse(JSON.stringify(zenithValsDict)); // Default to Zenith's values copy
-    } catch (e) {
-      console.error('Failed to parse customDict', e);
-      return JSON.parse(JSON.stringify(zenithValsDict)); // Fallback
-    }
   });
 
-  const updateCustomDict = () => {
-    if (!customDict) return false;
-    // Create a map of the current custom dictionary for reference
-    const currentLayers = new Map(Object.entries(customDict));
-    let hasUpdates = false;
-    // Build the new dictionary following Zenith's exact structure
-    const updatedDict = {};
-    // Process Zenith's dictionary in order
-    for (const [layerName, zenithOres] of Object.entries(zenithValsDict)) {
-      // Check if we need to update this layer
-      if (!currentLayers.has(layerName)) {
-        // New layer - add completely
-        updatedDict[layerName] = JSON.parse(JSON.stringify(zenithOres));
-        hasUpdates = true;
-        continue;
-      }
-      // Compare existing layer with Zenith's version
-      const currentOres = currentLayers.get(layerName);
-      const currentOreMap = new Map(currentOres.map(ore => [ore.name, ore]));
-      // Check if ores match exactly (same names in same order)
-      const zenithOreNames = zenithOres.map(ore => ore.name);
-      const currentOreNames = currentOres.map(ore => ore.name);
-      if (JSON.stringify(zenithOreNames) !== JSON.stringify(currentOreNames)) {
-        // Ores don't match - rebuild layer exactly like Zenith's
-        const rebuiltOres = zenithOres.map(zenithOre => {
-          // Preserve custom properties if this ore existed before
-          const existingOre = currentOreMap.get(zenithOre.name);
-          return existingOre ? {...existingOre} : {...zenithOre};
-        });
-        updatedDict[layerName] = rebuiltOres;
-        hasUpdates = true;
-      } else {
-        // Ores match exactly - copy as-is
-        updatedDict[layerName] = JSON.parse(JSON.stringify(currentOres));
-      }
-    }
-    // Check for layers that were removed from Zenith's dict
-    const currentLayerNames = [...currentLayers.keys()];
-    const zenithLayerNames = Object.keys(zenithValsDict);
-    if (currentLayerNames.some(name => !zenithLayerNames.includes(name))) {
-      hasUpdates = true;
-      // We don't need to do anything else since updatedDict only contains Zenith's layers
-    }
-    // Check if the layer order changed
-    if (JSON.stringify(Object.keys(updatedDict)) !== JSON.stringify(Object.keys(customDict))) {
-      hasUpdates = true;
-    }
-    if (hasUpdates) {
-      setCustomDict(updatedDict);
-      return true;
-    }
-    return false;
-  };
-
-  const currentDict = useMemo(() => {
-    return valueMode === 'john' ? johnValsDict :
-           valueMode === 'nan' ? nanValsDict :
-           valueMode === 'zenith' ? zenithValsDict :
-           customDict || zenithValsDict; // Fallback
-  }, [valueMode, customDict]);
+  const [oreValsDict, setOreValsDict] = useState(() => {
+    const savedOreVals = localStorage.getItem('oreValsDict');
+    return savedOreVals ? JSON.parse(savedOreVals) : initialOreValsDict;
+  });
 
   // Rare finds data state
   const [rareFindsData, setRareFindsData] = useState(() => {
@@ -177,12 +107,6 @@ export const MiscProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('customMultiplier', JSON.stringify(customMultiplier));
   }, [customMultiplier]);
-
-  useEffect(() => {
-    if (customDict) {
-      localStorage.setItem('customDict', JSON.stringify(customDict));
-    }
-  }, [customDict]);
 
   useEffect(() => {
     localStorage.setItem('rareFindsData', JSON.stringify(rareFindsData));
@@ -235,49 +159,50 @@ export const MiscProvider = ({ children }) => {
   };
 
   // Initialize custom dictionary from a source
-  const initializeCustomDict = (source) => {
-    const newCustomDict =
-        source === 'zenith' ? JSON.parse(JSON.stringify(zenithValsDict))
-      : source === 'nan' ? JSON.parse(JSON.stringify(nanValsDict))
-      : source === 'john' ? JSON.parse(JSON.stringify(johnValsDict))
-      : JSON.parse(JSON.stringify(zenithValsDict));
-    setCustomDict(newCustomDict);
+  const resetCustomValues = (source) => {
+    const newOreVals = JSON.parse(JSON.stringify(oreValsDict)); // Deep copy
+    for (const layerName in newOreVals) {
+      newOreVals[layerName] = newOreVals[layerName].map(ore => {
+        let newValue;
+        switch (source) {
+          case 'john': newValue = ore.johnVal; break;
+          case 'nan': newValue = ore.nanVal; break;
+          default: newValue = ore.zenithVal; // 'zenith' is default
+        }
+        return {
+          ...ore,
+          customVal: newValue
+        };
+      });
+    }
+    setOreValsDict(newOreVals);
     setValueMode('custom');
-    return newCustomDict;
+    return newOreVals;
   };
 
-  // Export custom dictionary
-  const exportCustomDict = () => {
-    if (!customDict) return null;
-    return JSON.stringify(customDict, null, 2);
-  };
-
-  // Import custom dictionary
-  const importCustomDict = (jsonString) => {
-    try {
-      const parsed = JSON.parse(jsonString);
-      setCustomDict(parsed);
-      setValueMode('custom');
-      return true;
-    } catch (e) {
-      console.error('Failed to import custom values:', e);
-      return false;
+  const getValueForMode = (oreData) => {
+    switch (valueMode) { // Using the state valueMode directly
+      case 'john': return oreData.johnVal;
+      case 'nan': return oreData.nanVal;
+      case 'custom': return oreData.customVal;
+      default: return oreData.zenithVal; // 'zenith' is default
     }
   };
 
   // Helper function to calculate total AV
   const calculateTotalAV = (data) => {
     if (!data) return 0;
-    
+
     let total = 0;
     OreNames.forEach(ore => {
       const amount = data[ore] || 0;
       // Find the ore's base value
       let baseValue = 1;
-      Object.values(currentDict).some(layer => {
+      Object.values(oreValsDict).some(layer => {
         const oreData = layer.find(item => item.name === ore);
         if (oreData) {
-          baseValue = oreData.baseValue;
+          // Use the value based on the current value mode
+          baseValue = getValueForMode(oreData);
           return true;
         }
         return false;
@@ -286,6 +211,12 @@ export const MiscProvider = ({ children }) => {
     });
     return total;
   };
+
+  useEffect(() => {
+    if (oreValsDict) {
+      localStorage.setItem('oreValsDict', JSON.stringify(oreValsDict));
+    }
+  }, [oreValsDict]);
 
   // Context value
   const contextValue = {
@@ -298,17 +229,14 @@ export const MiscProvider = ({ children }) => {
     loadOldCSV,
     valueMode,
     setValueMode,
+    getValueForMode,
     currentMode,
     setCurrentMode,
     customMultiplier,
     setCustomMultiplier,
-    currentDict,
-    customDict,
-    setCustomDict,
-    updateCustomDict,
-    initializeCustomDict,
-    exportCustomDict,
-    importCustomDict,
+    oreValsDict,
+    setOreValsDict,
+    resetCustomValues,
     rareFindsData,
     setRareFindsData
   };

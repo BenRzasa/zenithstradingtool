@@ -1,5 +1,5 @@
 import React from "react";
-import { oreIcons } from "../data/oreIcons";
+import { OreIcons } from "../data/OreIcons";
 
 import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
@@ -32,9 +32,9 @@ const RareRow = ({
         className={`name-column ${getOreClassName(item.name)}`}
         data-text={item.name}
       >
-        {oreIcons[item.name.replace(/ /g, "_")] ? (
+        {OreIcons[item.name.replace(/ /g, "_")] ? (
           <img
-            src={oreIcons[item.name.replace(/ /g, "_")]}
+            src={OreIcons[item.name.replace(/ /g, "_")]}
             alt={`${item.name} icon`}
             className="ore-icon"
             loading="lazy"

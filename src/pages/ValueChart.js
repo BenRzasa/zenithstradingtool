@@ -16,9 +16,6 @@ import NavBar from "../components/NavBar";
 import ValueModeSelector from "../components/ValueModeSelector";
 import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
-import { johnValsDict } from "../data/JohnVals";
-import { nanValsDict } from "../data/NANVals";
-import { zenithValsDict } from "../data/ZenithVals";
 import { LayerGradients } from "../data/LayerGradients";
 import searchFilters from "../data/SearchFilters";
 import {
@@ -40,30 +37,29 @@ function ValueChart() {
     customMultiplier,
     valueMode,
     setValueMode,
-    customDict,
-    setCustomDict,
-    updateCustomDict
+    getValueForMode,
+    oreValsDict,
+    setOreValsDict,
   } = useContext(MiscContext);
 
   const navigate = useNavigate();
 
   // Toggle between three value modes: john, nan, & custom
   const toggleValueMode = (mode) => {
-    if (mode === "custom" && !customDict) {
-      setShowCustomModal(true);
+    if (mode === "custom") {
+      // Check if we need to initialize custom values
+      const hasCustomValues = Object.values(oreValsDict).some(layer => 
+        layer.some(ore => ore.customVal !== undefined)
+      );
+      if (!hasCustomValues) {
+        setShowCustomModal(true);
+      } else {
+        setValueMode(mode);
+      }
     } else {
       setValueMode(mode);
     }
   };
-
-  const currentDict =
-    valueMode === "john"
-      ? johnValsDict
-      : valueMode === "nan"
-      ? nanValsDict
-      : valueMode === "zenith"
-      ? zenithValsDict
-      : customDict;
 
   // In your state initialization (replace the existing lastUpdatedDates state)
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
@@ -77,12 +73,12 @@ function ValueChart() {
     const checkDictionary = (dict, placeholderList, dictName) => {
       // Initialize stored ores if they don't exist
       if (!localStorage.getItem(`${dictName}Ores`)) {
-        const allOres = Object.values(dict).flat().map(item => item.name);
+        const allOres = Object.values(dict).flat().map(ore => ore.name);
         localStorage.setItem(`${dictName}Ores`, JSON.stringify(allOres));
         return false; // No update on first run
       }
       const storedOres = JSON.parse(localStorage.getItem(`${dictName}Ores`));
-      const currentOres = Object.values(dict).flat().map(item => item.name);
+      const currentOres = Object.values(dict).flat().map(ore => ore.name);
       const newNonPlaceholderOres = [];
       // Find new non-placeholder ores
       currentOres.forEach(ore => {
@@ -105,10 +101,10 @@ function ValueChart() {
       return false;
     };
 
-    checkDictionary(johnValsDict, johnPlaceholderOres, 'john');
-    checkDictionary(nanValsDict, nanPlaceholderOres, 'nan');
-    checkDictionary(zenithValsDict, zenithPlaceholderOres, 'zenith');
-  }, []);
+    checkDictionary(oreValsDict, johnPlaceholderOres, 'john');
+    checkDictionary(oreValsDict, nanPlaceholderOres, 'nan');
+    checkDictionary(oreValsDict, zenithPlaceholderOres, 'zenith');
+  }, [oreValsDict]);
 
   // Check for value updates for NAN, John, & Zenith dicts on mount
   useEffect(() => {
@@ -116,7 +112,7 @@ function ValueChart() {
   }, [checkForUpdates]);
 
   // UI control states
-  const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+  const [isSummaryOpen, setIsSummaryOpen] = useState(true);
   const [moreStats, setMoreStats] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   // Draggable summary states
@@ -173,9 +169,11 @@ function ValueChart() {
   }, [dragState.isDragging, handleMouseMove, handleMouseUp]);
 
   // List of table names for the dropdown
-  const tableNames = Object.keys(johnValsDict);
+  const tableNames = Object.keys(oreValsDict);
 
-  const calculateValue = (baseValue) => {
+  const calculateValue = (ore) => {
+    const baseValue = getValueForMode(ore);
+
     switch (currentMode) {
       case 1:
         return baseValue; // AV
@@ -224,9 +222,9 @@ function ValueChart() {
       ? `${customMultiplier / 100}NV`
       : "BAD";
 
-  // Calculate quick summary info
-  // 1. Calculate base totals (without exclusions)
-  const calculateBaseTotals = () => {
+    // Calculate quick summary info
+    // 1. Calculate base totals (without exclusions)
+    const calculateBaseTotals = () => {
     let rareTotal = 0;
     let uniqueTotal = 0;
     let layerTotal = 0;
@@ -234,19 +232,18 @@ function ValueChart() {
     let totalOres = Object.values(csvData).reduce((acc, val) => acc + val, 0);
     let tableCompletions = [];
 
-    Object.entries(currentDict).forEach(([layerName, layerData]) => {
+    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
       let tableCompletion = 0;
       let itemCount = 0;
       // For each layer, calculate its totals
-      layerData.forEach((item) => {
-        const inventory = csvData[item.name] || 0;
-        const perValue = calculateValue(item.baseValue).toFixed(
-          getPrecision(item.baseValue)
-        );
+      layerData.forEach((ore) => {
+        const inventory = csvData[ore.name] || 0;
+        const oreValue = calculateValue(ore);
+        const perValue = oreValue.toFixed(getPrecision(oreValue));
         const numV = parseFloat((inventory / perValue).toFixed(1));
         const completion = Math.min(
           1,
-          inventory / calculateValue(item.baseValue)
+          inventory / oreValue
         );
         // Update the ore count and table total completion
         tableCompletion += completion;
@@ -302,22 +299,23 @@ function ValueChart() {
     let maxOre = { value: -Infinity, name: "", layer: "" };
     const layerValues = {};
 
-    Object.entries(currentDict).forEach(([layerName, layerData]) => {
+    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
       if (excludedLayers.includes(layerName)) return;
 
       let layerSum = 0;
-      layerData.forEach((item) => {
-        if (excludedOres.includes(item.name)) return;
-        const inventory = csvData[item.name] || 0;
+      layerData.forEach((ore) => {
+        if (excludedOres.includes(ore.name)) return;
+        const inventory = csvData[ore.name] || 0;
+        const oreValue = calculateValue(ore);
         const numV = parseFloat(
-          (inventory / calculateValue(item.baseValue)).toFixed(1)
+          (inventory / oreValue).toFixed(1)
         );
         // Track individual ores
         if (numV < minOre.value) {
-          minOre = { value: numV, name: item.name, layer: layerName };
+          minOre = { value: numV, name: ore.name, layer: layerName };
         }
         if (numV > maxOre.value) {
-          maxOre = { value: numV, name: item.name, layer: layerName };
+          maxOre = { value: numV, name: ore.name, layer: layerName };
         }
         layerSum += numV;
       });
@@ -394,35 +392,28 @@ function ValueChart() {
 
   // Custom value mode states
   const [showCustomModal, setShowCustomModal] = useState(false);
-  // const [customDictSource] = useState(null); // 'john' or 'nan'
 
   // Initialize custom dict
-  const initializeCustomDict = (source) => {
-    const newCustomDict =
-      source === "zenith"
-        ? JSON.parse(JSON.stringify(zenithValsDict))
-        : JSON.parse(JSON.stringify(nanValsDict));
-    setCustomDict(newCustomDict);
-    setCurrentMode("custom");
-    setShowCustomModal(false);
-  };
-
-  // Function to export the custom dict
-  /*
-  const exportCustomDict = () => {
-    if (!customDict) return;
-    const dataStr = JSON.stringify(customDict, null, 2);
-    const dataUri =
-      "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-    const exportFileDefaultName = `custom_values_${customDictSource}_${new Date()
-      .toISOString()
-      .slice(0, 10)}.json`;
-    const linkElement = document.createElement("a");
-    linkElement.setAttribute("href", dataUri);
-    linkElement.setAttribute("download", exportFileDefaultName);
-    linkElement.click();
-  };
-  */
+  const initializeCustomValues = (source) => {
+      const newOreVals = JSON.parse(JSON.stringify(oreValsDict)); // Deep copy
+      for (const layerName in newOreVals) {
+        newOreVals[layerName] = newOreVals[layerName].map(ore => {
+          let newValue;
+          switch (source) {
+            case 'john': newValue = ore.johnVal; break;
+            case 'nan': newValue = ore.nanVal; break;
+            default: newValue = ore.zenithVal; // 'zenith' is default
+          }
+          return {
+            ...ore,
+            customVal: newValue
+          };
+        });
+      }
+      setOreValsDict(newOreVals);
+      setValueMode('custom');
+      setShowCustomModal(false);
+    };
 
   // Main page layout
   return (
@@ -537,13 +528,6 @@ function ValueChart() {
           fontSize:"18px",
         }}
       >
-        <ul>
-          <li>Click the "Quick Summary" dropdown to see your total inventory value!</li>
-          <li>The "More Stats" button gives you some more fun info about your inventory</li>
-          <li>To set a custom AV multiplier, select "Custom" mode in the second group of buttons, then enter a whole number</li>
-          <li>If you'd like to modify an existing set of values, select "Custom" in the first group of buttons, then "Update", then "Modify"</li>
-          <li>Values denoted with [P] represent placeholder values</li>
-        </ul>
       </div>
       <div>
         <NavBar />
@@ -562,13 +546,15 @@ function ValueChart() {
               onClick={() => {
                 const newState = !moreStats;
                 setMoreStats(newState);
-                setIsSummaryOpen(newState);
+                if (!isSummaryOpen) {
+                  setIsSummaryOpen(newState);
+                }
               }}
               className={moreStats ? "color-template-dystranum active" : ""}
               aria-pressed={moreStats && isSummaryOpen}
             >
               <span>More Stats {moreStats ? "▲" : "▼"}</span>
-              <div className="v-last-updated">Click for fun stats!</div>
+              <div className="v-last-updated">Click for fun info!</div>
             </button>
           </div>
           <div className="box-button">
@@ -577,7 +563,7 @@ function ValueChart() {
               className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
             >
               <span>Zenith Vals</span>
-              <div className="v-last-updated">Updated: {lastUpdatedDates.zenith}</div>
+              <div className="v-last-updated">Updated {lastUpdatedDates.zenith}</div>
             </button>
           </div>
           <div className="box-button">
@@ -586,7 +572,7 @@ function ValueChart() {
               className={valueMode === "nan" ? "color-template-diamond" : ""}
             >
               <span>NAN Vals</span>
-              <div className="v-last-updated">Updated: {lastUpdatedDates.nan}</div>
+              <div className="v-last-updated">Updated {lastUpdatedDates.nan}</div>
             </button>
           </div>
           <div className="box-button">
@@ -595,60 +581,40 @@ function ValueChart() {
               className={valueMode === "john" ? "color-template-pout" : ""}
             >
               <span>John Vals</span>
-              <div className="v-last-updated">Updated: {lastUpdatedDates.john}</div>
+              <div className="v-last-updated">Updated {lastUpdatedDates.john}</div>
             </button>
           </div>
 
           <div className="box-button">
             <button
-              onClick={() => {
-                if (!customDict) {
-                  // Initialize with John's values if none exists
-                  const newDict = JSON.parse(JSON.stringify(johnValsDict));
-                  setCustomDict(newDict);
-                  setValueMode("custom");
-                } else {
-                  setValueMode("custom");
-                }
-              }}
+              onClick={() => {setValueMode("custom")}}
               className={
-                valueMode === "custom" ? "color-template-havicron active" : ""
+                valueMode === "custom" ? "color-template-havicron" : ""
               }
             >
               <span>Custom</span>
-              <div className="v-last-updated">Your own values</div>
+              <div className="v-last-updated">Personal values</div>
             </button>
           </div>
 
-          {valueMode === "custom" && customDict && (
-            <>
-              <div className="box-button">
-              <button onClick={() => {
-                const updated = updateCustomDict();
-                if (updated) {
-                  alert("Custom values successfully updated with new ores!");
-                } else {
-                  alert("No new ores found - your custom values are already up to date.");
-                }
-              }}>
-                <span> [ Update ] </span>
-                <div className="v-last-updated">New ores/layers</div>
-              </button>
-            </div>
+          {valueMode === "custom" && (
             <div className="box-button">
               <button onClick={() => navigate("/customvalues")}>
                 <span>Modify</span>
+                <div className="v-last-updated">Change values</div>
               </button>
             </div>
-            </>
           )}
         </div>
+
         {/* Mode selection buttons */}
         <ValueModeSelector
           currentMode={currentMode}
           setCurrentMode={setCurrentMode}
         />
+
         <CustomMultiplierInput />
+
         {/* Back to Top button */}
         {showBackToTop && (
           // Should probably move this styling into the css.
@@ -696,22 +662,22 @@ function ValueChart() {
               <p>Choose which value set to use as a starting point:</p>
               <div className="modal-buttons">
                 <button
-                  onClick={() => initializeCustomDict("john")}
-                  className="color-template-pout"
+                  onClick={() => initializeCustomValues("zenith")}
+                  className="color-template-torn-fabric"
                 >
-                  John Vals
+                  Zenith Vals
                 </button>
                 <button
-                  onClick={() => initializeCustomDict("nan")}
+                  onClick={() => initializeCustomValues("nan")}
                   className="color-template-diamond"
                 >
                   NAN Vals
                 </button>
                 <button
-                  onClick={() => initializeCustomDict("zenith")}
-                  className="color-template-tornfabric"
+                  onClick={() => initializeCustomValues("john")}
+                  className="color-template-pout"
                 >
-                  Zenith Vals
+                  John Vals
                 </button>
               </div>
               <button
@@ -733,7 +699,7 @@ function ValueChart() {
             is passed in
         */}
         <div className="tables-container">
-          {Object.entries(currentDict).map(([layerName, layerData]) => {
+          {Object.entries(oreValsDict).map(([layerName, layerData]) => {
             const gradientKey = Object.keys(LayerGradients).find((key) =>
               layerName.includes(key)
             );
@@ -752,6 +718,7 @@ function ValueChart() {
                   csvData={csvData}
                   gradient={gradientStyle}
                   searchFilters={searchFilters}
+                  valueMode={valueMode}
                 />
               </div>
             );

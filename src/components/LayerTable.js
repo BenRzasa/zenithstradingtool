@@ -11,7 +11,7 @@ import {
   zenithPlaceholderOres
 } from '../data/PlaceholderOres';
 
-import { oreIcons } from "../data/oreIcons";
+import { OreIcons } from "../data/OreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
 import "../styles/AllGradients.css";
@@ -30,7 +30,8 @@ const LayerTable = ({
   const {
     csvData,
     updateCSVData,
-    valueMode
+    valueMode,
+    getValueForMode,
   } = useContext(MiscContext);
 
   // Check if CV is a multiple of NVs
@@ -54,7 +55,9 @@ const LayerTable = ({
   };
 
   // Function to calculate the value based on the current mode
-  const calculateValue = (baseValue) => {
+  const calculateValue = (ore) => {
+    const baseValue = getValueForMode(ore);
+
     switch (currentMode) {
       case 1: return baseValue * 1; // AV
       case 2: return baseValue * 10; // UV
@@ -68,8 +71,8 @@ const LayerTable = ({
   };
 
   // Function to calculate the percentage with bounds
-  const calculatePercentage = (baseValue, inventory) => {
-    const orePerUnit = calculateValue(baseValue);
+  const calculatePercentage = (ore, inventory) => {
+    const orePerUnit = calculateValue(ore);
     return orePerUnit > 0 ? Math.min(100, (inventory / orePerUnit) * 100) : 0;
   };
 
@@ -125,7 +128,7 @@ const LayerTable = ({
   const getAverageCompletion = () => {
     const totalCompletion = data.reduce((sum, item) => {
       const inventory = csvData[item.name] || 0;
-      const orePerUnit = calculateValue(item.baseValue);
+      const orePerUnit = calculateValue(item);
       const completion =
         orePerUnit > 0 ? Math.min(1, inventory / orePerUnit) : 0;
       return sum + completion;
@@ -138,7 +141,7 @@ const LayerTable = ({
   const getTotalValue = () => {
     const total = data.reduce((sum, item) => {
       const inventory = csvData[item.name] || 0;
-      const orePerUnit = calculateValue(item.baseValue);
+      const orePerUnit = calculateValue(item);
       return orePerUnit > 0 ? sum + inventory / orePerUnit : sum;
     }, 0);
     // Format string with the parsed total NV value, and mode string
@@ -150,7 +153,7 @@ const LayerTable = ({
     const highestItem = data.reduce(
       (max, item) => {
         const inventory = csvData[item.name] || 0;
-        const orePerUnit = calculateValue(item.baseValue);
+        const orePerUnit = calculateValue(item);
         const numV = orePerUnit > 0 ? inventory / orePerUnit : 0;
         // Gets the max number of NV/SV/etc value from the ores and returns it
         return numV > max.value ? { name: item.name, value: numV } : max;
@@ -260,11 +263,11 @@ const LayerTable = ({
               CSV data as they do so
             */
             const inventory = csvData[item.name] || 0;
-            const baseValue = item.baseValue;
-            const percentage = calculatePercentage(baseValue, inventory);
+            const baseValue = getValueForMode(item);
+            const percentage = calculatePercentage(item, inventory);
             const numV =
-              calculateValue(baseValue) > 0
-                ? (inventory / calculateValue(baseValue)).toFixed(2) // Round to 2 decimals here
+              calculateValue(item) > 0  // Changed from calculateValue(baseValue)
+                ? (inventory / calculateValue(item)).toFixed(2)
                 : "0";
 
 
@@ -274,9 +277,9 @@ const LayerTable = ({
                 <td
                   className={`name-column ${getOreClassName(item.name)}`}
                   data-text={item.name}>
-                  {oreIcons[item.name.replace(/ /g, '_')] ? (
+                  {OreIcons[item.name.replace(/ /g, '_')] ? (
                     <img
-                      src={oreIcons[item.name.replace(/ /g, '_')]}
+                      src={OreIcons[item.name.replace(/ /g, '_')]}
                       alt={`${item.name} icon`}
                       className="ore-icon"
                       loading="lazy"
@@ -312,7 +315,7 @@ const LayerTable = ({
                     <input
                       id={`inventory-${item.name.replace(/\W+/g, "-")}`}
                       name={`inventory-${index}`} // Name for form handling
-                      type="number"
+                      type="text"
                       min="0" // Prevent negative numbers
                       step="1" // Whole numbers only
                       value={inventory} // Controlled component

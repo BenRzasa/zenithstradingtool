@@ -76,7 +76,7 @@ export const zenithValsDict = {
     { name: "Peridot", baseValue: 6 },
     { name: "Amethyst", baseValue: 6 },
     { name: "Thallium", baseValue: 7 },
-    { name: "Tungsten", baseValue: 7 },
+    { name: "Tungsten", baseValue: 8 },
     { name: "Diamond", baseValue: 10 },
     { name: "Garnet", baseValue: 7 },
     { name: "Platinum", baseValue: 10 },
@@ -90,8 +90,8 @@ export const zenithValsDict = {
     { name: "Boomite", baseValue: 30 },
     { name: "Titanium", baseValue: 8 },
     { name: "Plutonium", baseValue: 10 },
-    { name: "Technetium", baseValue: 11 },
-    { name: "Uranium", baseValue: 14 },
+    { name: "Technetium", baseValue: 10 },
+    { name: "Uranium", baseValue: 12 },
     { name: "Caesium", baseValue: 9 },
     { name: "Osmium", baseValue: 10 },
     { name: "Hematite", baseValue: 60 }
@@ -100,7 +100,7 @@ export const zenithValsDict = {
   "Mystic / Inbetween": [
     { name: "Calcite", baseValue: 1000 },
     { name: "Rose Quartz", baseValue: 8 },
-    { name: "Rainbonite", baseValue: 3 },
+    { name: "Rainbonite", baseValue: 5 },
     { name: "Barium", baseValue: 6 },
     { name: "Chrysoprase", baseValue: 10 },
     { name: "Soul Crystal", baseValue: 15 },
@@ -150,8 +150,8 @@ export const zenithValsDict = {
 
   Dread: [
     { name: "Nightmica", baseValue: 1000 },
-    { name: "Crimstone", baseValue: 40 },
-    { name: "Horrorstone", baseValue: 11 },
+    { name: "Crimstone", baseValue: 65 },
+    { name: "Horrorstone", baseValue: 10 },
     { name: "Strange Matter", baseValue: 6 },
     { name: "Vermillium", baseValue: 9 },
     { name: "Magnetite", baseValue: 4 },
@@ -165,7 +165,7 @@ export const zenithValsDict = {
     { name: "Adamantite", baseValue: 3 },
     { name: "Eclipsium", baseValue: 6 },
     { name: "Ebonakite", baseValue: 10 },
-    { name: "Palladium", baseValue: 7 },
+    { name: "Palladium", baseValue: 8 },
     { name: "Neptunium", baseValue: 7 },
     { name: "Void Orb", baseValue: 8 },
     { name: "Nilidust", baseValue: 8 },
@@ -211,7 +211,7 @@ export const zenithValsDict = {
   Marine: [
     { name: "Nerolin", baseValue: 12 },
     { name: "Tenebris", baseValue: 8 },
-    { name: "Yilantibris", baseValue: 5 },
+    { name: "Yilantibris", baseValue: 6 },
     { name: "Aquamarine", baseValue: 12 },
     { name: "Hydrolyth", baseValue: 8 },
     { name: "Naquadah", baseValue: 10 },
@@ -224,7 +224,7 @@ export const zenithValsDict = {
     { name: "Cosmaline", baseValue: 10 },
     { name: "Astratine", baseValue: 6 },
     { name: "Starsteel", baseValue: 8 },
-    { name: "Stardust", baseValue: 5 },
+    { name: "Stardust", baseValue: 6 },
     { name: "Endotravine", baseValue: 7 }
   ],
 
@@ -235,14 +235,14 @@ export const zenithValsDict = {
     { name: "Cinnabar", baseValue: 12 },
     { name: "Liquid Gold", baseValue: 16 },
     { name: "Pyroscorium", baseValue: 9 },
-    { name: "Samarium", baseValue: 16 }
+    { name: "Samarium", baseValue: 12 }
   ],
 
   Serenity: [
     { name: "Bedrock", baseValue: 1000 },
     { name: "Jade", baseValue: 5 },
     { name: "Redsteel", baseValue: 5 },
-    { name: "Celesteel", baseValue: 3 },
+    { name: "Celesteel", baseValue: 4 },
     { name: "Cryoplasm", baseValue: 4 },
     { name: "Andrium", baseValue: 8 },
     { name: "Neutronium", baseValue: 8 },
@@ -255,7 +255,7 @@ export const zenithValsDict = {
 
   "Plasma Field": [
     { name: "Plasma", baseValue: 1000 },
-    { name: "Pyroplasm", baseValue: 7 },
+    { name: "Pyroplasm", baseValue: 6 },
     { name: "Crystalline Plasma", baseValue: 18 },
     { name: "Electrium", baseValue: 6 },
     { name: "Infernilus", baseValue: 8 },
@@ -276,7 +276,7 @@ export const zenithValsDict = {
     { name: "Bottom Quark", baseValue: 12 },
     { name: "Strange Quark", baseValue: 10 },
     { name: "Crystal Photon", baseValue: 10 },
-    { name: "Photalizine", baseValue: 6 }
+    { name: "Photalizine", baseValue: 7 }
   ],
 
   Stability: [
@@ -303,7 +303,7 @@ export const zenithValsDict = {
     { name: "Sinfurmium", baseValue: 10 },
     { name: "Gyrivarium", baseValue: 8 },
     { name: "Krazmite", baseValue: 7 },
-    { name: "Anaxinite", baseValue: 8 },
+    { name: "Anaxinite", baseValue: 7 },
     { name: "Tendrock", baseValue: 1000 },
     { name: "Dark Energy", baseValue: 8 },
     { name: "Corrodoil", baseValue: 30 },
@@ -339,7 +339,7 @@ export const zenithValsDict = {
   "Event Horizon": [
     { name: "Solarium", baseValue: 25 },
     { name: "Exotic Matter", baseValue: 45 },
-    { name: "Nebulinite", baseValue: 12 },
+    { name: "Nebulinite", baseValue: 11 },
     { name: "Arkivyll", baseValue: 12 },
     { name: "Chronon", baseValue: 45 },
     { name: "Aurorum", baseValue: 24 },
@@ -359,7 +359,7 @@ export const zenithValsDict = {
 
   "Inner Horizon": [
     { name: "Nihinoris", baseValue: 13 },
-    { name: "Infrarian", baseValue: 6 },
+    { name: "Infrarian", baseValue: 8 },
     { name: "Ultranium", baseValue: 7 },
     { name: "Auricallium", baseValue: 9 },
     { name: "Zeronian", baseValue: 5 },
@@ -402,8 +402,9 @@ export const zenithValsDict = {
     { name: "Xerutherum", baseValue: 7 },
     { name: "Mesmirian", baseValue: 12 }
   ],
+
   /*
-  Crush: [
+  Nadir: [
     { name: "Proxalith", baseValue: 103729 },
     { name: "Stygian Ooze", baseValue: 2769.722821272927392183769272727 },
     { name: "Antallizine", baseValue: 0.27 },

@@ -13,15 +13,6 @@ import React, { createContext, useState, useCallback, useEffect, useRef } from '
 export const TradeContext = createContext();
 
 export const TradeProvider = ({ children }) => {
-  /* Complete trade state structure:
-    - quantities: { [oreName]: amount }
-    - selectedOres: array of selected ore names/IDs
-    - tradeOres: array of ores with amounts >0 (for the summary table)
-    - valueMode: 'john' | 'nan' | 'custom'
-    - discount: number (0-100)
-    - batchQuantity: number
-    - tableNavigation: current table view state
-  */
   const persistState = useCallback((state) => {
     try {
       localStorage.setItem('tradeState', JSON.stringify(state));
@@ -64,7 +55,6 @@ export const TradeProvider = ({ children }) => {
     }
   });
 
-  // Use ref to track if we're mounting
   const isMounted = useRef(false);
 
   const persistentSetTradeState = useCallback((updater) => {
@@ -77,7 +67,7 @@ export const TradeProvider = ({ children }) => {
     });
   }, [persistState]);
 
-  // Update trade ores without causing loops
+  // Memoize the updateTradeOres function to prevent unnecessary recreations
   const updateTradeOres = useCallback((allOres) => {
     persistentSetTradeState(prev => {
       const newTradeOres = allOres
@@ -87,7 +77,7 @@ export const TradeProvider = ({ children }) => {
           amount: prev.quantities[ore.name] || 0
         }));
 
-      // Only update if something changed
+      // Only update if something actually changed
       if (JSON.stringify(newTradeOres) === JSON.stringify(prev.tradeOres)) {
         return prev;
       }

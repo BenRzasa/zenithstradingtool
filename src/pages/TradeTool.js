@@ -17,7 +17,7 @@ import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
 import NavBar from "../components/NavBar";
 import { MiscContext } from "../context/MiscContext";
 import { TradeContext } from "../context/TradeContext";
-import { oreIcons } from "../data/oreIcons";
+import { OreIcons } from "../data/OreIcons";
 import "../styles/TradeTool.css";
 import "../styles/AllGradients.css";
 
@@ -30,7 +30,13 @@ function TradeTool() {
     clearTradeSummary
   } = useContext(TradeContext);
 
-  const { csvData, valueMode, setValueMode, currentDict } = useContext(MiscContext);
+  const {
+    csvData,
+    valueMode,
+    setValueMode,
+    getValueForMode,
+    oreValsDict
+  } = useContext(MiscContext);
 
   // Extract data from trade context
   const { quantities, discount, selectedOres } = tradeState;
@@ -39,6 +45,7 @@ function TradeTool() {
   const [batchMode, setBatchMode] = useState('quantity'); // 'quantity' or 'av'
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
+   const [showDropdown, setShowDropdown] = useState(false);
 
   // Refs for DOM access
   const searchInputRef = useRef(null);
@@ -52,7 +59,7 @@ function TradeTool() {
   // Initialize state with all layers collapsed
   const [collapsedLayers, setCollapsedLayers] = useState(() => {
     const initialState = {};
-    Object.keys(currentDict).forEach(layer => {
+    Object.keys(oreValsDict).forEach(layer => {
       initialState[layer] = true; // true means collapsed
     });
     return initialState;
@@ -67,7 +74,7 @@ function TradeTool() {
   };
 
   /* Prepare complete ore list with layer information */
-  const allOresWithLayers = Object.entries(currentDict)
+  const allOresWithLayers = Object.entries(oreValsDict)
     .flatMap(([layerName, ores]) =>
       ores.map((ore) => ({
         ...ore,
@@ -76,7 +83,7 @@ function TradeTool() {
     );
 
   /* Group ores by layer for organized display */
-  const oresByLayer = Object.entries(currentDict).map(([layerName, ores]) => ({
+  const oresByLayer = Object.entries(oreValsDict).map(([layerName, ores]) => ({
     layer: layerName,
     ores: ores.map(ore => ({
       ...ore,
@@ -85,13 +92,24 @@ function TradeTool() {
   }));
 
   // Memoize the ores data
-  const memoizedOres = useMemo(() => allOresWithLayers, [allOresWithLayers])
-  // Update trade ores only when quantities change
+  const memoizedOres = useMemo(() => allOresWithLayers, [allOresWithLayers]);
+
+  // Track previous quantities to detect actual changes
+  const prevQuantitiesRef = useRef(tradeState.quantities);
+
   useEffect(() => {
     if (memoizedOres) {
-      updateTradeOres(memoizedOres);
+      const prevKeys = Object.keys(prevQuantitiesRef.current);
+      const currentKeys = Object.keys(tradeState.quantities);
+      // Only update if keys changed (ore added/removed) or quantities meaningfully changed
+      if (prevKeys.length !== currentKeys.length ||
+          !prevKeys.every(k => currentKeys.includes(k)) ||
+          !currentKeys.every(k => prevKeys.includes(k))) {
+        updateTradeOres(memoizedOres);
+      }
+      prevQuantitiesRef.current = tradeState.quantities;
     }
-  }, [tradeState.quantities, updateTradeOres, memoizedOres]);
+  }, [tradeState.quantities, memoizedOres, updateTradeOres]);
 
   /* Toggle ore selection */
   const toggleOreSelection = (oreName) => {
@@ -119,7 +137,7 @@ function TradeTool() {
       } else {
         // AV mode - calculate quantity needed to reach target AV
         const targetAV = tradeState.batchQuantity;
-        const oreValue = oreData.baseValue;
+        const oreValue = getValueForMode(oreData);
         const calculatedQuantity = Math.ceil(targetAV * oreValue);
         newQuantities[oreName] = Math.max(1, calculatedQuantity);
       }
@@ -176,7 +194,7 @@ function TradeTool() {
     const oreData = allOresWithLayers.find(ore => ore.name === oreName);
     if (!oreData) return "0.0";
     const quantity = quantities[oreName] ?? 0;
-    return (quantity / oreData.baseValue).toFixed(1);
+    return (quantity / getValueForMode(oreData)).toFixed(1);
   };
 
   /* Calculate totals */
@@ -184,7 +202,7 @@ function TradeTool() {
     return Object.entries(quantities).reduce((acc, [oreName, qty]) => {
       const oreData = allOresWithLayers.find(o => o?.name === oreName);
       if (!oreData) return acc;
-      const value = Number(oreData?.baseValue) || 1;
+      const value = oreData[valueMode + 'Val'];
       const quantity = Number(qty) || 0;
       return {
         totalOres: acc.totalOres + quantity,
@@ -333,16 +351,21 @@ function TradeTool() {
         {/* Left side - controls */}
         <div className="trade-controls-panel">
         <div className="trade-usage">
-          <h1>Usage Instructions:</h1>
-          <ul>
-            <li>Click ores to select multiple, then set their quantities below</li>
-            <li>Type ore or layer names in the search bar, and hit enter or click to add them to the current trade</li>
-            <li>Click the header for each layer to open the dropdown</li>
-            <li>Type in the quantity for each ore you'd like to trade</li>
-            <li>To add a discount to large orders, type the percent in the "Discount %" box</li>
-            <li>Click "Apply Quantity" to set the selected ores (highlighted blue) to the specified quantity</li>
-            <li>Click "Clear Table" to reset the trade table</li>
-          </ul>
+          <h1>Trade Tool</h1>
+          <button className="usage-button" onClick={() => setShowDropdown(!showDropdown)}>Usage Instructions</button>
+          {showDropdown && (
+            <div className="usage-dropdown">
+              <ul>
+                <li>Click ores to select multiple, then set their quantities below</li>
+                <li>Type ore or layer names in the search bar, and hit enter or click to add them to the current trade</li>
+                <li>Click the header for each layer to open the dropdown</li>
+                <li>Type in the quantity for each ore you'd like to trade</li>
+                <li>To add a discount to large orders, type the percent in the "Discount %" box</li>
+                <li>Click "Apply Quantity" to set the selected ores (highlighted blue) to the specified quantity</li>
+                <li>Click "Clear Table" to reset the trade table</li>
+              </ul>
+            </div>
+          )}
         </div>
 
           {/* Value mode selector */}
@@ -493,7 +516,7 @@ function TradeTool() {
 
           {/* Totals and inventory status */}
           <div className="trade-totals">
-            <p>➽ Total AV: <span>{totals.totalAV.toFixed(0)}</span></p>
+            <p>➽ Total AV: <span>{totals.totalAV.toFixed(1)}</span></p>
             {discount > 0 && (
               <p>➽ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
             )}
@@ -533,13 +556,17 @@ function TradeTool() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tradeState.tradeOres.map(ore => (
+                  {tradeState.tradeOres.sort((a, b) => a.name.localeCompare(b.name)).map(ore => (
                       <tr
                         key={ore.name}
                         className={isOreSelected(ore.name) ? "selected-row" : ""}
                         onClick={() => toggleOreSelection(ore.name)}
                       >
-                      <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
+                      <td 
+                        className={`tr-name-cell ${getOreClassName(ore.name)}`} 
+                        data-text={ore.name}
+                        style={{paddingRight:"10px"}}
+                      >
                         <button
                           className="delete-ore-button"
                           onClick={(e) => {
@@ -550,7 +577,7 @@ function TradeTool() {
                           ✖
                         </button>
                         <img
-                          src={oreIcons[ore.name.replace(/ /g, '_')]}
+                          src={OreIcons[ore.name.replace(/ /g, '_')]}
                           alt={`${ore.name} icon`}
                           className="t-ore-icon"
                         />
@@ -596,7 +623,7 @@ function TradeTool() {
             <button
               onClick={() => {
                 const allCollapsed = {};
-                Object.keys(currentDict).forEach(layer => {
+                Object.keys(oreValsDict).forEach(layer => {
                   allCollapsed[layer] = true;
                 });
                 setCollapsedLayers(allCollapsed);
@@ -608,7 +635,7 @@ function TradeTool() {
             <button
               onClick={() => {
                 const allExpanded = {};
-                Object.keys(currentDict).forEach(layer => {
+                Object.keys(oreValsDict).forEach(layer => {
                   allExpanded[layer] = false;
                 });
                 setCollapsedLayers(allExpanded);
@@ -700,7 +727,7 @@ function TradeTool() {
                           ✖
                         </button>
                         <img
-                          src={oreIcons[ore.name.replace(/ /g, '_')]}
+                          src={OreIcons[ore.name.replace(/ /g, '_')]}
                           alt={`${ore.name} icon`}
                           className="t-ore-icon"
                         />

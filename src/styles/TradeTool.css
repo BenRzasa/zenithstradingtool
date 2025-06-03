@@ -36,6 +36,15 @@
 .trade-tool-layout li {
     font-size: 18px;
 }
+
+.trade-usage {
+  position: relative;
+}
+
+.trade-usage:hover.usage-dropdown {
+  display: block;
+}
+
 /* Batch quantity controls */
 .batch-controls {
     margin: 20px 0;

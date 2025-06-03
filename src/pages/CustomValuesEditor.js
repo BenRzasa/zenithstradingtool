@@ -12,7 +12,7 @@ import { MiscContext } from '../context/MiscContext';
 import NavBar from '../components/NavBar';
 
 import { LayerGradients } from '../data/LayerGradients';
-import { oreIcons } from '../data/oreIcons';
+import { OreIcons } from '../data/OreIcons';
 
 import '../styles/CustomValuesEditor.css';
 import '../styles/AllGradients.css';
@@ -21,26 +21,21 @@ import '../styles/LayerTable.css';
 function CustomValuesEditor() {
   const navigate = useNavigate();
   const {
-    customDict,
-    setCustomDict,
+    oreValsDict,
+    setOreValsDict,
     setValueMode,
-    initializeCustomDict
+    resetCustomValues,
   } = useContext(MiscContext);
 
   const [localValues, setLocalValues] = useState({});
 
-  // Return a custom dict or, if none exists, initialize one with Zenith's vals
-  const [editedDict, setEditedDict] = useState(() => {
-    return customDict || initializeCustomDict('zenith');
-  });
-
-  // Change the value in the dictionary based on the number input or fraction
+  // Change the custom value in the dictionary
   const handleValueChange = (layer, oreName, newValue) => {
-    setEditedDict(prev => {
+    setOreValsDict(prev => {
       const newDict = {...prev};
       const layerIndex = Object.keys(newDict).indexOf(layer);
       if (layerIndex >= 0) {
-        // Find the ore based on the layer and name, then set the baseValue
+        // Find the ore based on the layer and name, then set the customVal
         const oreIndex = newDict[layer].findIndex(o => o.name === oreName);
         if (oreIndex >= 0) {
           let decimalValue = 0;
@@ -56,7 +51,7 @@ function CustomValuesEditor() {
           }
           newDict[layer][oreIndex] = {
             ...newDict[layer][oreIndex],
-            baseValue: decimalValue
+            customVal: decimalValue
           };
         }
       }
@@ -66,10 +61,9 @@ function CustomValuesEditor() {
 
   // Save the new dictionary
   const handleSave = () => {
-    setCustomDict(editedDict);
     setValueMode('custom');
     window.alert("Custom values successfully saved!")
-    //navigate(-1);
+    navigate('/valuechart');
   };
 
   // Handle cancellation (navigate 1 page backward -> Value Chart)
@@ -80,8 +74,7 @@ function CustomValuesEditor() {
   // Handle resetting of the dictionary
   const handleReset = (source) => {
     if (window.confirm(`Reset all values to ${source.toUpperCase()} values? This cannot be undone.`)) {
-      const newDict = initializeCustomDict(source);
-      setEditedDict(newDict);
+      resetCustomValues(source);
     }
   };
 
@@ -107,16 +100,16 @@ function CustomValuesEditor() {
           reset buttons, then click to confirm</li>
       </ul>
       <div className="editor-controls">
-        {/* Reset buttons for NAN & John value dicts */}
+        {/* Reset buttons for different value sources */}
         <div className="reset-buttons">
-          <button onClick={() => handleReset('zenith')} className="reset-zenith">
+          <button onClick={() => handleReset('zenith')} className="color-template-torn-fabric">
             Reset to Zenith's Values
           </button>
-          <button onClick={() => handleReset('john')} className="reset-john">
-            Reset to John's Values
-          </button>
-          <button onClick={() => handleReset('nan')} className="reset-nan">
+          <button onClick={() => handleReset('nan')} className="color-template-diamond">
             Reset to NAN's Values
+          </button>
+          <button onClick={() => handleReset('john')} className="color-template-pout">
+            Reset to John's Values
           </button>
         </div>
         <div className="editor-actions">
@@ -133,7 +126,7 @@ function CustomValuesEditor() {
         className="tables-container"
         style={{marginLeft:"-150px"}}
       >
-        {Object.entries(editedDict).map(([layerName, layerData]) => {
+        {Object.entries(oreValsDict).map(([layerName, layerData]) => {
           const gradientKey = Object.keys(LayerGradients).find(key =>
             layerName.includes(key)
           );
@@ -154,7 +147,7 @@ function CustomValuesEditor() {
               >
                 {layerName}
               </h2>
-              {/* Only needs the per AV column, since they're customizing the baseValue */}
+              {/* Only needs the per AV column, since they're customizing the customVal */}
               <table className="table">
                 <thead>
                   <tr>
@@ -169,9 +162,9 @@ function CustomValuesEditor() {
                         className={`name-column ${getOreClassName(item.name)}`} 
                         data-text={item.name}
                       >
-                        {oreIcons[item.name.replace(/ /g, '_')] ? (
+                        {OreIcons[item.name.replace(/ /g, '_')] ? (
                           <img
-                            src={oreIcons[item.name.replace(/ /g, '_')]}
+                            src={OreIcons[item.name.replace(/ /g, '_')]}
                             alt={`${item.name} icon`}
                             className="ore-icon"
                             loading="lazy"
@@ -191,7 +184,7 @@ function CustomValuesEditor() {
                           step="any"
                           value={localValues[`${layerName}-${item.name}`] !== undefined 
                             ? localValues[`${layerName}-${item.name}`] 
-                            : item.baseValue}
+                            : item.customVal}
                           onChange={(e) => {
                             setLocalValues(prev => ({
                               ...prev,

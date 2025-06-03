@@ -231,7 +231,46 @@ li {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
+.usage-button {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 25px;
+  font-family: 'Comfortaa';
+  transform:scale(1.25);
+  margin-bottom: 10px;
+}
 
+.usage-button:hover {
+  background-color: #3e6f8e;
+}
+
+.usage-dropdown {
+  position: absolute;
+  background-color: var(--background-color);
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border: 3px solid var(--table-outline);
+  z-index: 10000;
+}
+
+.usage-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.usage-dropdown li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.usage-dropdown li:last-child {
+  border-bottom: none;
+}
 /* Table Header Styles */
 th {
   background-color: var(--header-bg);
