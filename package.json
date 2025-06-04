@@ -24,8 +24,8 @@
     "bump:feat": "npm version minor --no-git-tag-version",
     "bump:fix": "npm version patch --no-git-tag-version",
     "predeploy": "npm run build",
-    "deploy": "gh-pages --dist build --branch gh-pages --clean --dotfiles",
-    "log-version": "echo 'Deployed version' && date"
+    "deploy": "gh-pages -d build && npm run log-version",
+    "log-version": "echo Successfully deployed to GitHub Pages"
   },
   "eslintConfig": {
     "extends": [
