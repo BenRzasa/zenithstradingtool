@@ -207,6 +207,7 @@ function CSVLoader() {
     {/* Nav Bar - remains fixed at top */}
     <NavBar />
     <div className="main-container">
+      <div className="csv-usage">
       {/* Usage instructions for the user */}
       <h1>CSV Loader Usage:</h1>
       <ol>
@@ -217,6 +218,7 @@ function CSVLoader() {
         <div className='placeholder'>
           Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</div>
       </ol>
+      </div>
 
       {/* Main content area with flex layout */}
       <div 

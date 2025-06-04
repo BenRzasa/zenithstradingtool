@@ -119,7 +119,7 @@ function ValueChart() {
   // State and handlers
   const [dragState, setDragState] = useState({
     isDragging: false,
-    position: { x: 90, y: 10 },
+    position: { x: 15, y: 10 },
     clickOffset: { x: 0, y: 0 },
   });
 
