@@ -5,24 +5,11 @@
     justify-content: left;
     align-items: flex-start;
     gap: 0px;
-    margin: 15px 0px 0px 15px;
+    margin: 25px 0px 0px 25px;
     width: calc(100% - 400px);
     max-width: 1400px;
-    transform: scale(0.95);
 }
 
-.csv-usage {
-    padding: 0px;
-    margin-left: 15px;
-    margin-top: 15px;
-    border: 3px solid var(--csv-outline);
-    border-radius: 25px;
-    background-color: var(--background-color);
-    width: fit-content;
-    padding-right: 50px;
-    transform: scale(0.95);
-    box-shadow: 0px 5px 10px #141414;
-}
 
 .main-container h1 {
     margin-left: 25px;
@@ -33,8 +20,8 @@
 }
 
 .main-container {
-    margin-left: 0px;
-    padding-top: 20px;
+    margin-left: 25px;
+    padding-top: 50px;
 }
 
 .main-container ol {
@@ -126,39 +113,38 @@
 .ore-changes-list {
     border: 2px solid var(--csv-outline);
     overflow-y: auto;
-    max-height: 150px;
+    max-height: 200px;
     text-align: left;
 }
 
 .ore-changes-list li {
     text-align: left;
     font-size: 18px;
-    margin-bottom: 3px;
 }
 
 .value-change-summary {
     display: flex;
     flex-direction: row;
-    margin: 25px 50px;
-    gap: 10px;
-    padding: 10px;
+    margin: 25px 55px;
+    gap: 15px;
+    padding: 15px;
     padding-top: 5px;
-    background-color: var(--background-color);
+    background: rgba(0,0,0,0.1);
     border-radius: 15px;
     width: fit-content;
     height: fit-content;
     outline: 3px solid var(--csv-outline);
-    box-shadow: 0px 5px 10px #141414;
 }
 
 .value-change-cards {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
     margin-top: 10px;
     font-size: 20px;
     max-width: 100%;
-    height: 200px;
+    height: 250px;
+
 }
 
 .value-card {
@@ -167,7 +153,6 @@
     flex: 1;
     padding: 10px;
     border-radius: 10px;
-    
 }
 
 .value-card.gained {
@@ -200,23 +185,22 @@
     overflow: hidden;
     overflow-x: auto ;
     overflow-y: scroll;
-    height: 525px;
+    height: 500px;
     min-width: 600px;
-    padding: 15px 15px 15px 15px;
-    margin-right: 10px;
+    padding: 25px 25px 25px 25px;
+    margin-right: 5px;
     box-shadow: inset 3px 5px 10px #000000;
 }
 
 /* Table Styles */
 .ore-list table {
     margin-top: 5px;
-    min-width: 580px;
+    min-width: 600px;
     width: 100%;
     font-size: 25px;
     border-collapse: collapse;
-    background-color: var(--background-color);
+    background-color: transparent;
     z-index: -1;
-
 }
 
 .ore-list td,
@@ -243,13 +227,12 @@
 /* CSV Input - Original preserved */
 .csv-input textarea {
     width: 100%;
-    height: 530px;
+    height: 520px;
     resize: vertical, horizontal;
     margin-bottom: 0px;
     font-size: 18px;
     border: 2px solid #000000;
     padding: 8px;
-    margin-left: 10px;
 }
 
 /* Responsive adjustments */

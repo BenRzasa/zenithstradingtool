@@ -351,6 +351,7 @@ function TradeTool() {
         {/* Left side - controls */}
         <div className="trade-controls-panel">
         <div className="trade-usage">
+          <h1>Trade Tool</h1>
           <button className="usage-button" onClick={() => setShowDropdown(!showDropdown)}>Usage Instructions</button>
           {showDropdown && (
             <div className="usage-dropdown">
@@ -459,6 +460,7 @@ function TradeTool() {
 
           {/* Search input */}
           <div className="search-container">
+            <h3>Add Ores to Trade ⤵</h3>
             <label htmlFor="search-input">
               <input
                 id="search-input"
@@ -495,6 +497,7 @@ function TradeTool() {
 
           {/* Discount input */}
           <div className="discount-container">
+            <h3>Enter Discount</h3>
           <label htmlFor="discount-input">
             <input
               id="discount-input"
@@ -511,7 +514,14 @@ function TradeTool() {
           </label>
           </div>
 
-
+          {/* Totals and inventory status */}
+          <div className="trade-totals">
+            <p>➽ Total AV: <span>{totals.totalAV.toFixed(1)}</span></p>
+            {discount > 0 && (
+              <p>➽ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
+            )}
+            <p>➽ Total # Ores: <span>{totals.totalOres}</span></p>
+          </div>
 
           {/* Inventory status */}
           {allOresAvailable ? (
@@ -536,14 +546,6 @@ function TradeTool() {
           {/* Trade Summary Table */}
           <div className="trade-summary">
             <h2>&nbsp;&nbsp;Current Trade</h2>
-            {/* Totals and inventory status */}
-            <div className="trade-totals">
-              <p>➽ Total AV: <span>{totals.totalAV.toFixed(1)}</span></p>
-              {discount > 0 && (
-                <p>➽ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
-              )}
-              <p>➽ Total # Ores: <span>{totals.totalOres}</span></p>
-            </div>
             {tradeState.tradeOres.length > 0 ? (
               <table className="trade-table">
                 <thead>

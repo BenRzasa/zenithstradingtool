@@ -1,8 +1,8 @@
 {
   "name": "zenithstradingtool",
-  "version": "7.9.0",
+  "version": "7.8.0",
   "private": true,
-  "homepage": "https://benrzasa.github.io/zenithstradingtool/",
+  "homepage": "https://benrzasa.github.io/zenithstradingtool",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -24,7 +24,7 @@
     "bump:feat": "npm version minor --no-git-tag-version",
     "bump:fix": "npm version patch --no-git-tag-version",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -f && npm run log-version",
+    "deploy": "gh-pages -d build && npm run log-version",
     "log-version": "echo Successfully deployed to GitHub Pages"
   },
   "eslintConfig": {
