@@ -2,7 +2,7 @@
 TODO.md
 ORE_TESTING.md
 # dependencies
-node_modules/
+/node_modules
 /.pnp
 .pnp.js
 
@@ -10,7 +10,7 @@ node_modules/
 /coverage
 
 # Production
-build/
+/build
 
 # misc
 /public/icons
