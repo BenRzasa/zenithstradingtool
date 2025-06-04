@@ -4,10 +4,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    padding: 25px;
+    padding: 5px;
     width: 100%;
     box-sizing: border-box;
     align-items: flex-start;
+    height: 100vh;
 }
 
 .trade-controls-panel {
@@ -52,7 +53,7 @@
     background-color: var(--background-color);
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
-    width: fit-content;
+    width: 500px;
 }
 
 .batch-quantity-container {
@@ -90,10 +91,12 @@
 .batch-apply-button {
     background-color: #4CAF50;
     color: white;
+    margin-top: 10px;
 }
 
 .batch-apply-button:disabled {
     background-color: #cccccc;
+    color: black;
     cursor: not-allowed;
 }
 
@@ -104,10 +107,12 @@
 .batch-clear-button {
     background-color: #f44336;
     color: white;
+    margin-top: 10px;
 }
 
 .batch-clear-button:disabled {
     background-color: #cccccc;
+    color: black;
     cursor: not-allowed;
 }
 
@@ -122,6 +127,7 @@
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
     padding-right: 20px;
+    margin-top: 5px;
     z-index: 1;
     overflow: hidden;
     box-shadow: 0 5px 9px rgba(0,0,0,0.5);
@@ -240,7 +246,7 @@
 }
 
 .search-input {
-    margin-top: -10px;
+    margin-top: 15px;
     margin-bottom: 5px;
     font-family: 'Comfortaa';
     width: 400px;
@@ -289,9 +295,8 @@
 }
 /* Table styling */
 .ore-table-panel {
-    flex: 2;
-    width: 10%;
-    max-height: 90vh;
+    flex: 1.5;
+    height: 99vh;
     overflow-y: auto;
     border-left: 1px solid var(--csv-outline);
     position: sticky;
@@ -299,13 +304,14 @@
 }
 
 .trade-table {
-    width: 60%;
+    width: 70%;
     border-collapse: collapse;
     font-size: 20px;
     margin-top: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
     overflow-y: auto;
+    background-color: var(--background-color);
 }
 
 .trade-table th {
@@ -446,17 +452,20 @@
 
 /* Totals Section */
 .trade-totals {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     margin-top: -10px;
     margin-left: 0px;
-    margin-bottom: -20px;
+    margin-bottom: -5px;
 }
 
 .trade-totals span {
     color: var(--accent-color);
 }
-
+.trade-totals p {
+    margin-bottom: -10px;
+    margin-left: 15px;
+}
 /* Status Messages */
 .global-checkmark {
     margin-top: 10px;
@@ -517,7 +526,7 @@
     font-family: 'Comfortaa';
     width: 50%;
     padding: 12px 20px;
-    margin-top: -10px;
+    margin-top: 25px;
     font-size: 20px;
     border: 2px solid var(--csv-outline);
     border-radius: 8px;

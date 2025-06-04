@@ -7,13 +7,15 @@
 */
 
 /* ZTT | Enhanced Context file with Custom Values support */
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useRef } from 'react';
 import { initialOreValsDict } from '../data/OreValues';
 import { OreNames } from '../data/OreNames';
 
 export const MiscContext = createContext();
 
 export const MiscProvider = ({ children }) => {
+  // Keep track of the initial dictionary version
+  const initialDictRef = useRef(initialOreValsDict);
   // Core CSV data state
   const [csvData, setCSVData] = useState(() => {
     const savedCSVData = localStorage.getItem('csvData');
@@ -39,7 +41,7 @@ export const MiscProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('csvHistory', JSON.stringify(csvHistory));
   }, [csvHistory]);
-
+  
   // Previous amounts for comparison
   const [previousAmounts, setPreviousAmounts] = useState(() => {
     const savedPreviousData = localStorage.getItem('csvPreviousData');
@@ -66,11 +68,6 @@ export const MiscProvider = ({ children }) => {
   const [customMultiplier, setCustomMultiplier] = useState(() => {
     const savedCustomMult = localStorage.getItem('customMultiplier');
     return savedCustomMult !== null ? JSON.parse(savedCustomMult) : 100; // Default
-  });
-
-  const [oreValsDict, setOreValsDict] = useState(() => {
-    const savedOreVals = localStorage.getItem('oreValsDict');
-    return savedOreVals ? JSON.parse(savedOreVals) : initialOreValsDict;
   });
 
   // Rare finds data state
@@ -211,6 +208,124 @@ export const MiscProvider = ({ children }) => {
     });
     return total;
   };
+
+  // Ore values dictionary state
+  const [oreValsDict, setOreValsDict] = useState(() => {
+    const savedOreVals = localStorage.getItem('oreValsDict');
+    // Only use saved values if the structure matches current initial dict
+    if (savedOreVals) {
+      try {
+        const parsed = JSON.parse(savedOreVals);
+        if (dictStructureMatches(initialOreValsDict, parsed)) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error('Failed to parse saved ore values', e);
+      }
+    }
+    return initialOreValsDict;
+  });
+
+  // Track previous values for change detection
+  const prevOreValsRef = useRef(oreValsDict);
+
+  // Effect to detect changes in initialOreValsDict
+  useEffect(() => {
+    if (!dictStructureMatches(initialDictRef.current, initialOreValsDict)) {
+      console.log('Detected changes in initialOreValsDict, updating structure...');
+      setOreValsDict(initialOreValsDict);
+      initialDictRef.current = initialOreValsDict;
+    }
+  }, []);
+
+  // Effect to track value changes and save to localStorage
+  useEffect(() => {
+    // Compare current values with previous values
+    const changes = findValueChanges(prevOreValsRef.current, oreValsDict);
+    if (changes.length > 0) {
+      console.log('Ore value changes detected:', changes);
+      // Here you could send these changes to an analytics service or do something else with them
+    }
+    // Save current values to localStorage
+    localStorage.setItem('oreValsDict', JSON.stringify(oreValsDict));
+    // Update the previous values reference
+    prevOreValsRef.current = oreValsDict;
+  }, [oreValsDict]);
+
+  // Helper function to compare dictionary structures
+  function dictStructureMatches(dict1, dict2) {
+    const layers1 = Object.keys(dict1);
+    const layers2 = Object.keys(dict2);
+    // Check if layer names match
+    if (layers1.length !== layers2.length || 
+        !layers1.every(layer => layers2.includes(layer))) {
+      return false;
+    }
+    // Check if ores in each layer match
+    for (const layer of layers1) {
+      const ores1 = dict1[layer].map(ore => ore.name);
+      const ores2 = dict2[layer].map(ore => ore.name);
+      if (ores1.length !== ores2.length || 
+          !ores1.every(ore => ores2.includes(ore))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // New function to find value changes between two ore dictionaries
+  function findValueChanges(prevDict, currentDict) {
+    const changes = [];
+    // Iterate through all layers
+    for (const layer in currentDict) {
+      if (prevDict[layer]) {
+        // Iterate through all ores in the layer
+        for (const currentOre of currentDict[layer]) {
+          const prevOre = prevDict[layer].find(o => o.name === currentOre.name);
+          if (prevOre) {
+            // Check each value type for changes
+            if (prevOre.zenithVal !== currentOre.zenithVal) {
+              changes.push({
+                layer,
+                ore: currentOre.name,
+                valueType: 'zenithVal',
+                from: prevOre.zenithVal,
+                to: currentOre.zenithVal
+              });
+            }
+            if (prevOre.johnVal !== currentOre.johnVal) {
+              changes.push({
+                layer,
+                ore: currentOre.name,
+                valueType: 'johnVal',
+                from: prevOre.johnVal,
+                to: currentOre.johnVal
+              });
+            }
+            if (prevOre.nanVal !== currentOre.nanVal) {
+              changes.push({
+                layer,
+                ore: currentOre.name,
+                valueType: 'nanVal',
+                from: prevOre.nanVal,
+                to: currentOre.nanVal
+              });
+            }
+            if (prevOre.customVal !== currentOre.customVal) {
+              changes.push({
+                layer,
+                ore: currentOre.name,
+                valueType: 'customVal',
+                from: prevOre.customVal,
+                to: currentOre.customVal
+              });
+            }
+          }
+        }
+      }
+    }
+    return changes;
+  }
 
   useEffect(() => {
     if (oreValsDict) {
