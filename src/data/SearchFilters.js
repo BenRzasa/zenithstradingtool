@@ -2,7 +2,9 @@
 // Search filters that the user can copy from the misc page or tables to use in-game
 // -> Exported as simple array of strings
 const searchFilters = [
-  "Rares: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ v/rhy/Cind/unob/nyrv/ sh",
+  "True Rares: sall/utrine/hav/dy/torn/ubri/singu/ v/rhy/egg",
+  "Rares: ambr/neutrino/ecto/malb/zyn/cind/unob/nyrv",
+  "All: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ v/rhy/Cind/unob/nyrv/ sh/",
   "Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ v/rhy/cind/ecto",
   "Torn Materials: qy/bla/chron/com/cons/dy/ok/ v/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
   "Useful Emblems: auri/boom/blast/bism/egg/ v/exod/hadr/isor/lept/malb/noise/nili/perig/phosp/posit/quark m/ed d/rhy/sola/th q/ult/unob/zyn",

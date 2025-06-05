@@ -18,11 +18,6 @@ import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import { LayerGradients } from "../data/LayerGradients";
 import searchFilters from "../data/SearchFilters";
-import {
-  johnPlaceholderOres,
-  nanPlaceholderOres,
-  zenithPlaceholderOres
-} from '../data/PlaceholderOres';
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
@@ -63,53 +58,10 @@ function ValueChart() {
 
   // In your state initialization (replace the existing lastUpdatedDates state)
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    john: 'Jan 19, 2025', // Default dates
+    zenith: 'June 3, 2025',
     nan: 'May 30, 2025',
-    zenith: 'May 31, 2025'
+    john: 'Jan 19, 2025', // Default dates
   });
-
-  // Modified checkForUpdates function
-  const checkForUpdates = useCallback(() => {
-    const checkDictionary = (dict, placeholderList, dictName) => {
-      // Initialize stored ores if they don't exist
-      if (!localStorage.getItem(`${dictName}Ores`)) {
-        const allOres = Object.values(dict).flat().map(ore => ore.name);
-        localStorage.setItem(`${dictName}Ores`, JSON.stringify(allOres));
-        return false; // No update on first run
-      }
-      const storedOres = JSON.parse(localStorage.getItem(`${dictName}Ores`));
-      const currentOres = Object.values(dict).flat().map(ore => ore.name);
-      const newNonPlaceholderOres = [];
-      // Find new non-placeholder ores
-      currentOres.forEach(ore => {
-        if (!placeholderList.includes(ore) && !storedOres.includes(ore)) {
-          newNonPlaceholderOres.push(ore);
-        }
-      });
-      // Only update if there are new non-placeholder ores
-      if (newNonPlaceholderOres.length > 0) {
-        localStorage.setItem(`${dictName}Ores`, JSON.stringify(currentOres));
-        const newDate = new Date().toLocaleString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric'
-        });
-        localStorage.setItem(`${dictName}LastUpdated`, newDate);
-        setLastUpdatedDates(prev => ({ ...prev, [dictName]: newDate }));
-        return true;
-      }
-      return false;
-    };
-
-    checkDictionary(oreValsDict, johnPlaceholderOres, 'john');
-    checkDictionary(oreValsDict, nanPlaceholderOres, 'nan');
-    checkDictionary(oreValsDict, zenithPlaceholderOres, 'zenith');
-  }, [oreValsDict]);
-
-  // Check for value updates for NAN, John, & Zenith dicts on mount
-  useEffect(() => {
-    checkForUpdates();
-  }, [checkForUpdates]);
 
   // UI control states
   const [isSummaryOpen, setIsSummaryOpen] = useState(true);

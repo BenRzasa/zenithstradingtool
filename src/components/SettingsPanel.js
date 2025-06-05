@@ -14,18 +14,20 @@ const SettingsPanel = ({
   onResetBg
 }) => {
   const panelRef = useRef(null);
+  const TOP_OFFSET = 70; // Adjust this value based on your toggle button's height/position
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isOpen && panelRef.current && !panelRef.current.contains(event.target)) {
-        onClose();
+        // Check if click is below our offset threshold
+        if (event.clientY > TOP_OFFSET) {
+          onClose();
+        }
       }
     };
 
-    // Add when the component mounts
     document.addEventListener('mousedown', handleClickOutside);
     
-    // Clean up when the component unmounts
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };

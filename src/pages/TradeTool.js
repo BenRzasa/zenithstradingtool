@@ -369,22 +369,7 @@ function TradeTool() {
 
           {/* Value mode selector */}
           <div className="t-button-container">
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('john')}
-                className={valueMode === 'john' ? "color-template-pout" : ""}
-              >
-                <span>John Vals</span>
-              </button>
-            </div>
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('nan')}
-                className={valueMode === 'nan' ? "color-template-diamond" : ""}
-              >
-                <span>NAN Vals</span>
-              </button>
-            </div>
+
             <div className="box-button">
               <button
                 onClick={() => setValueMode("zenith")}
@@ -393,6 +378,25 @@ function TradeTool() {
                 <span>Zenith Vals</span>
               </button>
             </div>
+
+            <div className="box-button">
+              <button
+                onClick={() => setValueMode('nan')}
+                className={valueMode === 'nan' ? "color-template-diamond" : ""}
+              >
+                <span>NAN Vals</span>
+              </button>
+            </div>
+
+            <div className="box-button">
+              <button
+                onClick={() => setValueMode('john')}
+                className={valueMode === 'john' ? "color-template-pout" : ""}
+              >
+                <span>John Vals</span>
+              </button>
+            </div>
+
             <div className="box-button">
               <button
                 onClick={() => setValueMode('custom')}
