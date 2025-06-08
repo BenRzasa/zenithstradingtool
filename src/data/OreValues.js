@@ -29,8 +29,6 @@ export const initialOreValsDict = {
     { name: "Neutrino", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Malbrane", zenithVal: 2, johnVal: 1, nanVal: 1, customVal: 1 },
     { name: "Ectokelyte", zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
-    { name: "Nyrvinoris", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Unobtainium", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
   ],
 
   Uniques: [
@@ -156,6 +154,7 @@ export const initialOreValsDict = {
     { name: "Vermillium", zenithVal: 9, johnVal: 9, nanVal: 7, customVal: 9 },
     { name: "Magnetite", zenithVal: 4, johnVal: 4, nanVal: 7, customVal: 4 },
     { name: "Dark Matter", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
+    { name: "Antimatter", zenithVal: 5, johnVal: 12, nanVal: 10, customVal: 12 },
     { name: "Surrenderock", zenithVal: 625, johnVal: 1250, nanVal: 500, customVal: 625},
   ],
 
@@ -164,7 +163,6 @@ export const initialOreValsDict = {
     { name: "Cometite", zenithVal: 7, johnVal: 7, nanVal: 8, customVal: 7 },
     { name: "Adamantite", zenithVal: 3, johnVal: 3, nanVal: 3, customVal: 3 },
     { name: "Eclipsium", zenithVal: 6, johnVal: 6, nanVal: 7, customVal: 6 },
-    { name: "Antimatter", zenithVal: 6, johnVal: 12, nanVal: 10, customVal: 12 },
     { name: "Ebonakite", zenithVal: 10, johnVal: 10, nanVal: 8, customVal: 10 },
     { name: "Palladium", zenithVal: 8, johnVal: 6.5, nanVal: 7, customVal: 8 },
     { name: "Neptunium", zenithVal: 7, johnVal: 5, nanVal: 6, customVal: 7 },
@@ -361,11 +359,13 @@ export const initialOreValsDict = {
 
   "Inner Horizon": [
     { name: "Nihinoris", zenithVal: 13, johnVal: 13.5, nanVal: 12, customVal: 13 },
+    { name: "Nyrvinoris", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Infrarian", zenithVal: 8, johnVal: 4.5, nanVal: 4, customVal: 8 },
     { name: "Ultranium", zenithVal: 7, johnVal: 7, nanVal: 8, customVal: 7 },
     { name: "Auricallium", zenithVal: 9, johnVal: 9, nanVal: 9, customVal: 9 },
     { name: "Zeronian", zenithVal: 5, johnVal: 4.5, nanVal: 4, customVal: 5 },
     { name: "Exodian", zenithVal: 9, johnVal: 9, nanVal: 8, customVal: 9 },
+    { name: "Unobtainium", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Lattiglass", zenithVal: 60, johnVal: 80, nanVal: 80, customVal: 60 },
   ],
 

@@ -9,7 +9,7 @@ export const johnPlaceholderOres = [
 ];
 
 export const nanPlaceholderOres = [
-  "Anaxinite", "Lattiglass", "Tantalum", "Altoplast", "Miramire",
+  "Tantalum", "Altoplast", "Miramire",
   "Starlite", "Antimatter", "Peridot",
 ];
 
