@@ -45,7 +45,7 @@
 .c-dropdown-container {
   position: relative;
   display: inline-block;
-  margin-left: 50px;
+  margin-left: 0px;
 }
 
 .history-dropdown {

@@ -210,7 +210,7 @@ td {
     color: black;
     font-size: 21px;
     font-weight: 650;
-    -webkit-text-stroke: 5px black;
+    -webkit-text-stroke: 4px black;
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeSpeed;

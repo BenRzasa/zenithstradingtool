@@ -29,7 +29,6 @@ function CSVLoader() {
     setValueMode,
     getValueForMode,
     csvHistory,
-    setCSVHistory,
     loadOldCSV,
   } = useContext(MiscContext);
 
@@ -187,21 +186,6 @@ function CSVLoader() {
     document.getElementById("csvInput").value = csvValues.join(",");
   };
 
-  // Clear all CSV history (only for use for bugged CSVs/emergencies)
-  const clearCSVHistory = () => {
-    const confirmed = window.confirm(
-      "⚠️ WARNING: This will PERMANENTLY delete ALL your saved CSV history.\n\n" +
-      "This includes all past ore amounts and timestamps.\n\n" +
-      "Are you absolutely sure?"
-    );
-
-    if (confirmed) {
-      setCSVHistory([]);
-      localStorage.removeItem('csvHistory');
-      alert("CSV history has been cleared.");
-    }
-  };
-
   return (
     <>
     {/* Nav Bar - remains fixed at top */}
@@ -225,50 +209,41 @@ function CSVLoader() {
         className="val-button-container"
         style={{
           justifyContent:"left",
-          marginLeft:"-15px",
+          marginLeft:"25px",
         }}
       >
-      <div className="box-button c-dropdown-container">
-          <button
-            className={showHistoryDropdown ? "color-template-stardust" : ""}
-            onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}>
-            <span>Load Past CSV</span>
-          </button>
-          {showHistoryDropdown && (
-            <div className="history-dropdown">
-              {csvHistory.length === 0 ? (
-                <div className="dropdown-item">No history yet</div>
-              ) : (
-                csvHistory.map((entry, index) => (
-                  <div
-                    key={index}
-                    className="dropdown-item"
-                    onClick={() => {
-                      loadOldCSV(index);
-                      setShowHistoryDropdown(false);
-                    }}
-                  >
-                    {new Date(entry.timestamp).toLocaleString()}
-                    <br />
-                    {entry.totalAV.toFixed(1)} AV
-                    <br />
-                    {entry.valueMode === 'custom'
-                      ? 'CUSTOM' : entry.valueMode.toUpperCase()}
-                  </div>
-                ))
-              )}
+        <div className="box-button">
+            <button
+              onClick={() => setValueMode("zenith")}
+              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
+            >
+              <span>Zenith Vals</span>
+            </button>
           </div>
-        )}
-      </div>
-      <div className="box-button">
-        <button
-          className="color-template-obliviril"
-          onClick={() => clearCSVHistory()}
-          disabled={csvHistory.length === 0}
-        >
-          <span>Clear History</span>
-        </button>
-      </div>
+          <div className="box-button">
+            <button
+              onClick={() => setValueMode('nan')}
+              className={valueMode === 'nan' ? "color-template-diamond" : ""}
+            >
+              <span>NAN Vals</span>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => setValueMode('john')}
+              className={valueMode === 'john' ? "color-template-pout" : ""}
+            >
+              <span>John Vals</span>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => setValueMode('custom')}
+              className={valueMode === 'custom' ? "color-template-havicron" : ""}
+            >
+              <span>Custom</span>
+            </button>
+          </div>
       </div>
 
       <div className="main-content">
@@ -351,37 +326,37 @@ function CSVLoader() {
               <span>Edit CSV</span>
             </button>
           </div>
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode("zenith")}
-              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
-            >
-              <span>Zenith Vals</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode('nan')}
-              className={valueMode === 'nan' ? "color-template-diamond" : ""}
-            >
-              <span>NAN Vals</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode('john')}
-              className={valueMode === 'john' ? "color-template-pout" : ""}
-            >
-              <span>John Vals</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode('custom')}
-              className={valueMode === 'custom' ? "color-template-havicron" : ""}
-            >
-              <span>Custom</span>
-            </button>
+            <div className="box-button c-dropdown-container">
+              <button
+                className={showHistoryDropdown ? "color-template-stardust" : ""}
+                onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}>
+                <span>Load Past CSV</span>
+              </button>
+              {showHistoryDropdown && (
+                <div className="history-dropdown">
+                  {csvHistory.length === 0 ? (
+                    <div className="dropdown-item">No history yet</div>
+                  ) : (
+                    csvHistory.map((entry, index) => (
+                      <div
+                        key={index}
+                        className="dropdown-item"
+                        onClick={() => {
+                          loadOldCSV(index);
+                          setShowHistoryDropdown(false);
+                        }}
+                      >
+                        {new Date(entry.timestamp).toLocaleString()}
+                        <br />
+                        {entry.totalAV.toFixed(1)} AV
+                        <br />
+                        {entry.valueMode === 'custom'
+                          ? 'CUSTOM' : entry.valueMode.toUpperCase()}
+                      </div>
+                    ))
+                  )}
+              </div>
+            )}
           </div>
         </div>
 

@@ -359,7 +359,7 @@
     color: black;
     font-size: 21px;
     font-weight: 700;
-    -webkit-text-stroke: 5px black;
+    -webkit-text-stroke: 4px black;
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeSpeed;
@@ -372,6 +372,7 @@
     vertical-align: middle;
     margin-left: 0px;
     margin-right: 8px;
+    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 /* Delete button styling */

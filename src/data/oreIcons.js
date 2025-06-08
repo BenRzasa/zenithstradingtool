@@ -4,6 +4,7 @@ import Adrenilar from '../images/ore-icons/Adrenilar_Icon.webp';
 import Aetherice from '../images/ore-icons/Aetherice_Icon.webp';
 import Ailmentin from '../images/ore-icons/Ailmentin_Icon.webp';
 import Alkanite from '../images/ore-icons/Alkanite_Icon.webp';
+import Altoplast from '../images/ore-icons/Altoplast_Icon.webp';
 import Aluminum from '../images/ore-icons/Aluminum_Icon.webp';
 import Amber from '../images/ore-icons/Amber_Icon.webp';
 import Ambrosine from '../images/ore-icons/Ambrosine_Icon.webp';
@@ -24,7 +25,6 @@ import Astratine from '../images/ore-icons/Astratine_Icon.webp';
 import Auricallium from '../images/ore-icons/Auricallium_Icon.webp';
 import Aurorum from '../images/ore-icons/Aurorum_Icon.webp';
 import Axion from '../images/ore-icons/Axion_Icon.webp';
-import Barium from '../images/ore-icons/Barium_Icon.webp';
 import Bedrock from '../images/ore-icons/Bedrock_Icon.webp';
 import Bismuth from '../images/ore-icons/Bismuth_Icon.webp';
 import Blastium from '../images/ore-icons/Blastium_Icon.webp';
@@ -40,7 +40,6 @@ import Celesteel from '../images/ore-icons/Celesteel_Icon.webp';
 import Centriale from '../images/ore-icons/Centriale_Icon.webp';
 import Chalcedony from '../images/ore-icons/Chalcedony_Icon.webp';
 import Charm_Quark from '../images/ore-icons/Charm_Quark_Icon.webp';
-import Chlorophyte from '../images/ore-icons/Chlorophyte_Icon.webp';
 import Chromium from '../images/ore-icons/Chromium_Icon.webp';
 import Chronon from '../images/ore-icons/Chronon_Icon.webp';
 import Chrysoprase from '../images/ore-icons/Chrysoprase_Icon.webp';
@@ -50,7 +49,6 @@ import Coal from '../images/ore-icons/Coal_Icon.webp';
 import Cobalt from '../images/ore-icons/Cobalt_Icon.webp';
 import Coin from '../images/ore-icons/Coin_Icon.webp';
 import Cometite from '../images/ore-icons/Cometite_Icon.webp';
-import Constellatium from '../images/ore-icons/Constellatium_Icon.webp';
 import Convectine from '../images/ore-icons/Convectine_Icon.webp';
 import Copper from '../images/ore-icons/Copper_Icon.webp';
 import Corium from '../images/ore-icons/Corium_Icon.webp';
@@ -92,7 +90,6 @@ import Fabric from '../images/ore-icons/Fabric_Icon.webp';
 import Ferozium from '../images/ore-icons/Ferozium_Icon.webp';
 import Firecrystal from '../images/ore-icons/Firecrystal_Icon.webp';
 import Formicite from '../images/ore-icons/Formicite_Icon.webp';
-import Frightstone from '../images/ore-icons/Frightstone_Icon.webp';
 import Frostarium from '../images/ore-icons/Frostarium_Icon.webp';
 import Frozen_Nitrogen from '../images/ore-icons/Frozen_Nitrogen_Icon.webp';
 import Gallium from '../images/ore-icons/Gallium_Icon.webp';
@@ -119,6 +116,7 @@ import Hydrolyth from '../images/ore-icons/Hydrolyth_Icon.webp';
 import Hyfrost from '../images/ore-icons/Hyfrost_Icon.webp';
 import Hyperium from '../images/ore-icons/Hyperium_Icon.webp';
 import Ichor from '../images/ore-icons/Ichor_Icon.webp';
+import Illusinium from '../images/ore-icons/Illusinium_Icon.webp';
 import Impervium from '../images/ore-icons/Impervium_Icon.webp';
 import Infernilus from '../images/ore-icons/Infernilus_Icon.webp';
 import Infrarian from '../images/ore-icons/Infrarian_Icon.webp';
@@ -158,6 +156,7 @@ import Mesmirian from '../images/ore-icons/Mesmirian_Icon.webp';
 import Mesonyte from '../images/ore-icons/Mesonyte_Icon.webp';
 import Meteorite from '../images/ore-icons/Meteorite_Icon.webp';
 import Mezihyrium from '../images/ore-icons/Mezihyrium_Icon.webp';
+import Miramire from '../images/ore-icons/Miramire_Icon.webp';
 import Mithril from '../images/ore-icons/Mithril_Icon.webp';
 import Molten_Iron from '../images/ore-icons/Molten_Iron_Icon.webp';
 import Moonstone from '../images/ore-icons/Moonstone_Icon.webp';
@@ -239,9 +238,9 @@ import Solarium from '../images/ore-icons/Solarium_Icon.webp';
 import Soul_Crystal from '../images/ore-icons/Soul_Crystal_Icon.webp';
 import Spiralium from '../images/ore-icons/Spiralium_Icon.webp';
 import Stardust from '../images/ore-icons/Stardust_Icon.webp';
+import Starlite from '../images/ore-icons/Starlite_Icon.webp';
 import Starniferus from '../images/ore-icons/Starniferus_Icon.webp';
 import Starsteel from '../images/ore-icons/Starsteel_Icon.webp';
-import Stellarite from '../images/ore-icons/Stellarite_Icon.webp';
 import Stellar_Sediment from '../images/ore-icons/Stellar_Sediment_Icon.webp';
 import Stone from '../images/ore-icons/Stone_Icon.webp';
 import Strange_Matter from '../images/ore-icons/Strange_Matter_Icon.webp';
@@ -254,6 +253,7 @@ import Supermatter from '../images/ore-icons/Supermatter_Icon.webp';
 import Surrenderock from '../images/ore-icons/Surrenderock_Icon.webp';
 import Swirlshine from '../images/ore-icons/Swirlshine_Icon.webp';
 import Tachyon from '../images/ore-icons/Tachyon_Icon.webp';
+import Tantalum from '../images/ore-icons/Tantalum_Icon.webp';
 import Taynalum from '../images/ore-icons/Taynalum_Icon.webp';
 import Technetium from '../images/ore-icons/Technetium_Icon.webp';
 import Tellurium from '../images/ore-icons/Tellurium_Icon.webp';
@@ -309,6 +309,7 @@ export const OreIcons = {
   Aetherice,
   Ailmentin,
   Alkanite,
+  Altoplast,
   Aluminum,
   Amber,
   Ambrosine,
@@ -329,7 +330,6 @@ export const OreIcons = {
   Auricallium,
   Aurorum,
   Axion,
-  Barium,
   Bedrock,
   Bismuth,
   Blastium,
@@ -345,7 +345,6 @@ export const OreIcons = {
   Centriale,
   Chalcedony,
   Charm_Quark,
-  Chlorophyte,
   Chromium,
   Chronon,
   Chrysoprase,
@@ -355,7 +354,6 @@ export const OreIcons = {
   Cobalt,
   Coin,
   Cometite,
-  Constellatium,
   Convectine,
   Copper,
   Corium,
@@ -397,7 +395,6 @@ export const OreIcons = {
   Ferozium,
   Firecrystal,
   Formicite,
-  Frightstone,
   Frostarium,
   Frozen_Nitrogen,
   Gallium,
@@ -424,6 +421,7 @@ export const OreIcons = {
   Hyfrost,
   Hyperium,
   Ichor,
+  Illusinium,
   Impervium,
   Infernilus,
   Infrarian,
@@ -463,6 +461,7 @@ export const OreIcons = {
   Mesonyte,
   Meteorite,
   Mezihyrium,
+  Miramire,
   Mithril,
   Molten_Iron,
   Moonstone,
@@ -544,9 +543,9 @@ export const OreIcons = {
   Soul_Crystal,
   Spiralium,
   Stardust,
+  Starlite,
   Starniferus,
   Starsteel,
-  Stellarite,
   Stellar_Sediment,
   Stone,
   Strange_Matter,
@@ -559,6 +558,7 @@ export const OreIcons = {
   Surrenderock,
   Swirlshine,
   Tachyon,
+  Tantalum,
   Taynalum,
   Technetium,
   Tellurium,

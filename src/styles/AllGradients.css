@@ -62,10 +62,6 @@
     background: #49c11e;
 }
 
-.color-template-chlorophyte {
-    background: #43ca25;
-}
-
 .color-template-peridot {
     background: #89e34d;
 }
@@ -160,10 +156,6 @@
 
 .color-template-rainbonite {
     background: linear-gradient(110deg, #f9726d 0%, #f2a856 15%, #f9fb80 30%, #a4feaf 50%, #8bffee 65%, #85c8ff 75%, #817fff 85%, #efafff 100%);
-}
-
-.color-template-barium {
-    background: #4f625a;
 }
 
 .color-template-chrysoprase {
@@ -294,12 +286,15 @@
     background: #626262;
 }
 
-.color-template-frightstone {
-    background: #a21b6c;
+.color-template-altoplast {
+    background: #c8baff;
+}
+.color-template-illusinium {
+    background: #94355c;
 }
 
-.color-template-stellarite {
-    background: #75d3ff;
+.color-template-starlite {
+    background: #211a21;
 }
 
 .color-template-prismaline {
@@ -310,8 +305,12 @@
     background: linear-gradient(120deg, #92d6e7 0%, #aef2ee 40%, #6da8f7 45%, #4476d2 50%, #1841ab 65%, #180449 100%);
 }
 
-.color-template-constellatium {
-    background: #b64ad4;
+.color-template-miramire {
+    background: #d4c4f2;
+}
+
+.color-template-tantalum {
+    background: #c1b4d6;
 }
 
 .color-template-stratocrit {
@@ -319,7 +318,7 @@
 }
 
 .color-template-dark-matter {
-    background: #662fbd;
+    background: #8c4bc9;
 }
 
 .color-template-nightmica {
@@ -564,7 +563,7 @@ background: linear-gradient(75deg, #dffcf7 0%, #a5def7 15%, #7b73f7 30%, #ce6ade
 }
 
 .color-template-nickel {
-    background: #8d8d8d;
+    background: #aea3a3;
 }
 
 .color-template-molten-iron {
@@ -1134,7 +1133,7 @@ background: linear-gradient(75deg, #dffcf7 0%, #a5def7 15%, #7b73f7 30%, #ce6ade
 }
 
 .color-template-torn-fabric {
-    background: linear-gradient(123deg, #feffff 0%, #ccffff 13.8%, #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%, #a17cc3 64.4%, #403e68 84.3%, #171c41 100%);
+    background: linear-gradient(123deg, #feffff 0%, #ccffff 20%, #8ec5d8 30%, #476ccc 40%, #887dc5 50%, #a17cc3 60%, #403e68 84.3%, #171c41 100%);
 }
 
 .color-template-singularity {

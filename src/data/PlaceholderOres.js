@@ -4,10 +4,13 @@
 export const johnPlaceholderOres = [
   "Anaxinite", "Calcite", "Eidoliphyll", "Hyfrost", "Irulisteel",
   "Kreosyte", "Kronosilt", "Lattiglass", "Nightmica", "Nilglass",
+  "Tantalum", "Altoplast", "Miramire", "Starlite", "Antimatter",
+  "Peridot",
 ];
 
 export const nanPlaceholderOres = [
-  "Anaxinite", "Kreosyte", "Lattiglass"
+  "Anaxinite", "Lattiglass", "Tantalum", "Altoplast", "Miramire",
+  "Starlite", "Antimatter", "Peridot",
 ];
 
 export const zenithPlaceholderOres = [];

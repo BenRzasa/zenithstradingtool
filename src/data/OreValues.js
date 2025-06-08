@@ -68,14 +68,13 @@ export const initialOreValsDict = {
     { name: "Silver", zenithVal: 150, johnVal: 75, nanVal: 200, customVal: 150 },
     { name: "Zinc", zenithVal: 100, johnVal: 75, nanVal: 100, customVal: 100 },
     { name: "Gold", zenithVal: 16, johnVal: 18, nanVal: 20, customVal: 16 },
-    { name: "Chlorophyte", zenithVal: 8, johnVal: 9, nanVal: 8, customVal: 8 },
     { name: "Sapphire", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10}
   ],
 
   "Caverns / Dusk": [
     { name: "Ruby", zenithVal: 10, johnVal: 11, nanVal: 10, customVal: 10 },
     { name: "Emerald", zenithVal: 24, johnVal: 24, nanVal: 25, customVal: 24 },
-    { name: "Peridot", zenithVal: 6, johnVal: 6, nanVal: 6, customVal: 6 },
+    { name: "Peridot", zenithVal: 7, johnVal: 6, nanVal: 6, customVal: 6 },
     { name: "Amethyst", zenithVal: 6, johnVal: 4, nanVal: 6, customVal: 6 },
     { name: "Thallium", zenithVal: 7, johnVal: 7, nanVal: 6, customVal: 7 },
     { name: "Tungsten", zenithVal: 8, johnVal: 7, nanVal: 8, customVal: 8 },
@@ -103,7 +102,6 @@ export const initialOreValsDict = {
     { name: "Calcite", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Rose Quartz", zenithVal: 8, johnVal: 8, nanVal: 7, customVal: 8 },
     { name: "Rainbonite", zenithVal: 5, johnVal: 2.5, nanVal: 4, customVal: 5 },
-    { name: "Barium", zenithVal: 6, johnVal: 6.5, nanVal: 6, customVal: 6 },
     { name: "Chrysoprase", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
     { name: "Soul Crystal", zenithVal: 15, johnVal: 15, nanVal: 15, customVal: 15 },
     { name: "Cobalt", zenithVal: 7, johnVal: 7, nanVal: 10, customVal: 7 },
@@ -141,13 +139,13 @@ export const initialOreValsDict = {
   ],
 
   "Mirage": [
-    { name: "Frightstone", zenithVal: 40, johnVal: 40, nanVal: 35, customVal: 40 },
-    { name: "Stellarite", zenithVal: 4, johnVal: 4.5, nanVal: 3, customVal: 4 },
+    { name: "Altoplast", zenithVal: 40, johnVal: 40, nanVal: 35, customVal: 40 },
+    { name: "Illusinium", zenithVal: 40, johnVal: 40, nanVal: 35, customVal: 40 },
+    { name: "Starlite", zenithVal: 10, johnVal: 4.5, nanVal: 3, customVal: 4 },
     { name: "Prismaline", zenithVal: 4, johnVal: 4, nanVal: 4, customVal: 4 },
-    { name: "Antimatter", zenithVal: 12, johnVal: 12, nanVal: 10, customVal: 12 },
-    { name: "Constellatium", zenithVal: 5, johnVal: 5.5, nanVal: 6, customVal: 5 },
+    { name: "Miramire", zenithVal: 10, johnVal: 10, nanVal: 6, customVal: 5 },
     { name: "Stratocrit", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 6 },
-    { name: "Dark Matter", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10}
+    { name: "Tantalum", zenithVal: 4, johnVal: 4, nanVal: 2, customval: 4 },
   ],
 
   "Dread": [
@@ -157,8 +155,8 @@ export const initialOreValsDict = {
     { name: "Strange Matter", zenithVal: 6, johnVal: 6, nanVal: 7, customVal: 6 },
     { name: "Vermillium", zenithVal: 9, johnVal: 9, nanVal: 7, customVal: 9 },
     { name: "Magnetite", zenithVal: 4, johnVal: 4, nanVal: 7, customVal: 4 },
-    { name: "Iridium", zenithVal: 800, johnVal: 1600, nanVal: 500, customVal: 800 },
-    { name: "Surrenderock", zenithVal: 625, johnVal: 1250, nanVal: 500, customVal: 625}
+    { name: "Dark Matter", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
+    { name: "Surrenderock", zenithVal: 625, johnVal: 1250, nanVal: 500, customVal: 625},
   ],
 
   "Void": [
@@ -166,6 +164,7 @@ export const initialOreValsDict = {
     { name: "Cometite", zenithVal: 7, johnVal: 7, nanVal: 8, customVal: 7 },
     { name: "Adamantite", zenithVal: 3, johnVal: 3, nanVal: 3, customVal: 3 },
     { name: "Eclipsium", zenithVal: 6, johnVal: 6, nanVal: 7, customVal: 6 },
+    { name: "Antimatter", zenithVal: 6, johnVal: 12, nanVal: 10, customVal: 12 },
     { name: "Ebonakite", zenithVal: 10, johnVal: 10, nanVal: 8, customVal: 10 },
     { name: "Palladium", zenithVal: 8, johnVal: 6.5, nanVal: 7, customVal: 8 },
     { name: "Neptunium", zenithVal: 7, johnVal: 5, nanVal: 6, customVal: 7 },
@@ -177,7 +176,7 @@ export const initialOreValsDict = {
   "Achrothesi / Whitespace": [
     { name: "Kronosilt", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Nilglass", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
-    { name: "Kreosyte", zenithVal: 6, johnVal: 8, nanVal: 8, customVal: 6 },
+    { name: "Kreosyte", zenithVal: 6, johnVal: 8, nanVal: 6, customVal: 6 },
     { name: "Cadmium", zenithVal: 15, johnVal: 12, nanVal: 15, customVal: 15 },
     { name: "Chromium", zenithVal: 15, johnVal: 9, nanVal: 15, customVal: 15 },
     { name: "Null", zenithVal: 16, johnVal: 8, nanVal: 16, customVal: 16 },
@@ -227,7 +226,8 @@ export const initialOreValsDict = {
     { name: "Astratine", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 6 },
     { name: "Starsteel", zenithVal: 8, johnVal: 8, nanVal: 6, customVal: 8 },
     { name: "Stardust", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 6 },
-    { name: "Endotravine", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7}
+    { name: "Endotravine", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7},
+    { name: "Iridium", zenithVal: 800, johnVal: 1600, nanVal: 500, customVal: 800 },
   ],
 
   Molten: [
@@ -339,11 +339,11 @@ export const initialOreValsDict = {
   ],
 
   "Event Horizon": [
-    { name: "Solarium", zenithVal: 25, johnVal: 29.5, nanVal: 20, customVal: 25 },
-    { name: "Exotic Matter", zenithVal: 45, johnVal: 41.5, nanVal: 30, customVal: 45 },
+    { name: "Solarium", zenithVal: 28, johnVal: 29.5, nanVal: 20, customVal: 25 },
+    { name: "Exotic Matter", zenithVal: 42, johnVal: 41.5, nanVal: 30, customVal: 45 },
     { name: "Nebulinite", zenithVal: 11, johnVal: 11.5, nanVal: 10, customVal: 11 },
     { name: "Arkivyll", zenithVal: 12, johnVal: 12, nanVal: 10, customVal: 12 },
-    { name: "Chronon", zenithVal: 45, johnVal: 11, nanVal: 30, customVal: 45 },
+    { name: "Chronon", zenithVal: 42, johnVal: 11, nanVal: 30, customVal: 45 },
     { name: "Aurorum", zenithVal: 24, johnVal: 24.5, nanVal: 15, customVal: 24 },
     { name: "Korenil", zenithVal: 12, johnVal: 12, nanVal: 6, customVal: 12 },
     { name: "Stellar Sediment", zenithVal: 2000, johnVal: 2000, nanVal: 1500, customVal: 2000 },
@@ -389,12 +389,12 @@ export const initialOreValsDict = {
 
   Empyrean: [
     { name: "Evrasalt", zenithVal: 100, johnVal: 200, nanVal: 100, customVal: 100 },
-    { name: "Qylicryst", zenithVal: 5, johnVal: 5, nanVal: 3, customVal: 5 },
+    { name: "Qylicryst", zenithVal: 4, johnVal: 5, nanVal: 3, customVal: 5 },
     { name: "Kafsium", zenithVal: 16, johnVal: 16, nanVal: 12, customVal: 16 },
     { name: "Zetaslime", zenithVal: 15, johnVal: 15.5, nanVal: 12, customVal: 15 },
     { name: "Ochistrite", zenithVal: 18, johnVal: 19.5, nanVal: 15, customVal: 18 },
     { name: "Reithum", zenithVal: 6, johnVal: 6, nanVal: 6, customVal: 6 },
-    { name: "Vorazylith", zenithVal: 8, johnVal: 7.5, nanVal: 5, customVal: 8 },
+    { name: "Vorazylith", zenithVal: 7, johnVal: 7.5, nanVal: 5, customVal: 8 },
     { name: "Truth Quark", zenithVal: 8, johnVal: 8.5, nanVal: 6, customVal: 8 },
     { name: "Wish Alloy", zenithVal: 10, johnVal: 13, nanVal: 7, customVal: 10 },
     { name: "Phantasmorite", zenithVal: 9, johnVal: 8.5, nanVal: 5, customVal: 9 },

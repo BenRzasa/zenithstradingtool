@@ -56,11 +56,11 @@ function ValueChart() {
     }
   };
 
-  // In your state initialization (replace the existing lastUpdatedDates state)
+  // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: 'June 3, 2025',
-    nan: 'May 30, 2025',
-    john: 'Jan 19, 2025', // Default dates
+    zenith: 'June 7, 2025',
+    nan: 'June 7, 2025',
+    john: 'Jan 19, 2025',
   });
 
   // UI control states
