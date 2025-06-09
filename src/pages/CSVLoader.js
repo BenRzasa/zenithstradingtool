@@ -37,8 +37,8 @@ function CSVLoader() {
 
     // State for sorting configuration
     const [sortConfig, setSortConfig] = useState({
-      key: 'ore',       // Current column being sorted 'ore', 'amount', 'change'
-      direction: 'asc'  // Current direction 'asc' or 'desc'
+      key: 'change',       // Current column being sorted 'ore', 'amount', 'change'
+      direction: 'desc'  // Current direction 'asc' or 'desc'
     });
 
     // State for CSV editor popup

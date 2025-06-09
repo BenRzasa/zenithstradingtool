@@ -297,6 +297,28 @@ td {
 .table-footer li {
     margin-bottom: -5px;
 }
+
+.completion-toggle {
+    margin-top: 10px;
+  margin-bottom: 5px;
+  transform:scale(1.25);
+  margin-left: 40px;
+}
+
+.completion-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.completion-toggle input {
+  margin: 0;
+  cursor: pointer;
+}
+
 .copy-filter-container {
     display: flex;
     flex-direction: column;

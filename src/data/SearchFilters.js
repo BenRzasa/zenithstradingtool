@@ -18,7 +18,7 @@ const searchFilters = [
   "Irradiated / Caustic: toxi/rad/tellu/new/yun/thori/lead/blas/coro/triti/polo/zyn",
   "Mirage: alto/illus/starl/prism/miram/strato/tanta",
   "Dread: nigh/crims/rorst/ge m/milli/netite/irid/surre/ v/antim/dark m",
-  "Void: antim/vant/pall/nili/asth/nep/ecl/adam/com/void/ebo",
+  "Void: vant/pall/nili/asth/nep/ecl/adam/com/void/ebo",
   "Achrothesi / Whitespace: krono/nilg/kreo/cadm/chrom/null/geom/inve/navi/myri/argi/peril/nois",
   "Grayscale: gall/amn/w q/glows/graph/quicks/y m",
   "Frigid: hyf/e i/frost/anet/veril/cryon/soima/diam/verg/kyan",

@@ -46,6 +46,11 @@ export const MiscProvider = ({ children }) => {
     return savedTime ? new Date(savedTime) : null;
   });
 
+  const [capCompletion, setCapCompletion] = useState(() => {
+    const savedCapComp = localStorage.getItem('capCompletion');
+    return savedCapComp !== null ? JSON.parse(savedCapComp) : true;
+  });
+
   // Value calculation settings
   const [valueMode, setValueMode] = useState(() => {
     const savedValueMode = localStorage.getItem('valueMode');
@@ -95,6 +100,7 @@ export const MiscProvider = ({ children }) => {
       localStorage.setItem('csvLastUpdated', lastUpdated.toISOString());
     }
   }, [lastUpdated]);
+  useEffect(() => localStorage.setItem('capCompletion', JSON.stringify(capCompletion)), [capCompletion]);
   useEffect(() => localStorage.setItem('valueMode', JSON.stringify(valueMode)), [valueMode]);
   useEffect(() => localStorage.setItem('currentMode', JSON.stringify(currentMode)), [currentMode]);
   useEffect(() => localStorage.setItem('customMultiplier', JSON.stringify(customMultiplier)), [customMultiplier]);
@@ -193,6 +199,8 @@ export const MiscProvider = ({ children }) => {
     csvHistory,
     setCSVHistory,
     loadOldCSV,
+    capCompletion,
+    setCapCompletion,
     valueMode,
     setValueMode,
     getValueForMode,

@@ -35,6 +35,8 @@ function ValueChart() {
     getValueForMode,
     oreValsDict,
     setOreValsDict,
+    capCompletion,
+    setCapCompletion,
   } = useContext(MiscContext);
 
   const navigate = useNavigate();
@@ -152,6 +154,7 @@ function ValueChart() {
     const decimalPart = number.toString().split(".")[1];
     return decimalPart ? decimalPart.length : 0;
   };
+
   // Bool for NVs
   const isNV = customMultiplier % 100 === 0;
   // For displaying the current mode dynamically
@@ -174,9 +177,9 @@ function ValueChart() {
       ? `${customMultiplier / 100}NV`
       : "BAD";
 
-    // Calculate quick summary info
-    // 1. Calculate base totals (without exclusions)
-    const calculateBaseTotals = () => {
+  // Calculate quick summary info
+  // 1. Calculate base totals (without exclusions)
+  const calculateBaseTotals = () => {
     let rareTotal = 0;
     let uniqueTotal = 0;
     let layerTotal = 0;
@@ -187,20 +190,18 @@ function ValueChart() {
     Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
       let tableCompletion = 0;
       let itemCount = 0;
-      // For each layer, calculate its totals
       layerData.forEach((ore) => {
         const inventory = csvData[ore.name] || 0;
         const oreValue = calculateValue(ore);
         const perValue = oreValue.toFixed(getPrecision(oreValue));
         const numV = parseFloat((inventory / perValue).toFixed(1));
-        const completion = Math.min(
-          1,
-          inventory / oreValue
-        );
-        // Update the ore count and table total completion
+        const completion = capCompletion 
+          ? Math.min(1, inventory / oreValue)
+          : inventory / oreValue;
+        
         tableCompletion += completion;
         itemCount++;
-        // Track rare & unique totals individually
+        
         if (layerName.includes("True Rares") || layerName.includes("Rares")) {
           rareTotal += numV;
         } else if (layerName.includes("Unique")) {
@@ -210,12 +211,11 @@ function ValueChart() {
         }
         grandTotal += numV;
       });
-      // Calculate the avg completion for one table
       const tableAvgCompletion =
         itemCount > 0 ? tableCompletion / itemCount : 0;
-      tableCompletions.push(Math.min(1, tableAvgCompletion));
+      tableCompletions.push(capCompletion ? Math.min(1, tableAvgCompletion) : tableAvgCompletion);
     });
-    // Calculate the average completion percentage from all layers
+    
     const avgCompletion =
       tableCompletions.length > 0
         ? (tableCompletions.reduce((sum, comp) => sum + comp, 0) /
@@ -228,7 +228,7 @@ function ValueChart() {
       uniqueTotal,
       layerTotal,
       grandTotal,
-      avgCompletion: Math.min(100, avgCompletion).toFixed(3),
+      avgCompletion: capCompletion ? Math.min(100, avgCompletion).toFixed(3) : avgCompletion.toFixed(3),
       totalOres,
     };
   };
@@ -493,6 +493,15 @@ function ValueChart() {
           }}
         >
           {/* More stats button - expands quick summary & enables more info */}
+          <div className="box-button">
+            <button
+              onClick={() => setCapCompletion(!capCompletion)}
+              className={!capCompletion ? "color-template-rainbonite active" : ""}
+            >
+              <span>{modeStr}% {capCompletion ? "Capped" : "Uncapped"}</span>
+              <div className="v-last-updated">Toggle 100% max</div>
+            </button>
+          </div>
           <div className="box-button">
             <button
               onClick={() => {

@@ -215,7 +215,7 @@
     font-size: 25px;
     border-collapse: collapse;
     background-color: var(--background-color);
-    z-index: -1;
+    z-index: 10;
 
 }
 

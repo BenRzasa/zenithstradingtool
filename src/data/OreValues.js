@@ -27,7 +27,7 @@ export const initialOreValsDict = {
     { name: "Zynulvinite", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Cindrasil", zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
     { name: "Neutrino", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Malbrane", zenithVal: 2, johnVal: 1, nanVal: 1, customVal: 1 },
+    { name: "Malbrane", zenithVal: 1, johnVal: 1, nanVal: 1, customVal: 1 },
     { name: "Ectokelyte", zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
   ],
 

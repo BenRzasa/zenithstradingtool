@@ -2,7 +2,6 @@
   - Modular table component that works with any dictionary of values
   given the layer name, ore names, and a base value. And the gradient!
 */
-
 import React, { useContext, useState } from "react";
 import { MiscContext } from "../context/MiscContext";
 import {
@@ -32,6 +31,8 @@ const LayerTable = ({
     updateCSVData,
     valueMode,
     getValueForMode,
+    capCompletion,
+    setCapCompletion,
   } = useContext(MiscContext);
 
   // Check if CV is a multiple of NVs
@@ -73,9 +74,12 @@ const LayerTable = ({
   // Function to calculate the percentage with bounds
   const calculatePercentage = (ore, inventory) => {
     const orePerUnit = calculateValue(ore);
-    return orePerUnit > 0 ? Math.min(100, (inventory / orePerUnit) * 100) : 0;
+    return orePerUnit > 0 
+      ? (capCompletion 
+          ? Math.min(100, (inventory / orePerUnit) * 100)
+          : (inventory / orePerUnit) * 100)
+      : 0;
   };
-
   // Preserve original precision exactly as in baseValue
   // Now, add a K at the end, truncating all leading zeroes,
   // if the number is above 1000. Also, remove trailing zeroes
@@ -129,11 +133,13 @@ const LayerTable = ({
     const totalCompletion = data.reduce((sum, item) => {
       const inventory = csvData[item.name] || 0;
       const orePerUnit = calculateValue(item);
-      const completion =
-        orePerUnit > 0 ? Math.min(1, inventory / orePerUnit) : 0;
+      const completion = orePerUnit > 0 
+        ? (capCompletion 
+            ? Math.min(1, inventory / orePerUnit)
+            : inventory / orePerUnit)
+        : 0;
       return sum + completion;
     }, 0);
-    // Divide the total percentage by number of ores in the table and fix to .1
     return ((totalCompletion / data.length) * 100).toFixed(2);
   };
 
@@ -388,6 +394,16 @@ const LayerTable = ({
             ➜ Highest {modeStr}:{" "}
             <span className="placeholder">{getHighestValue()}</span>
           </li>
+          <div className="completion-toggle">
+          <label>
+            <input 
+              type="checkbox" 
+              checked={capCompletion}
+              onChange={() => setCapCompletion(!capCompletion)}
+            />
+            Cap at 100%
+          </label>
+        </div>
         </ul>
         {/* Copy search filter button section */}
         <div className="copy-filter-container">
