@@ -15,7 +15,7 @@ export const initialOreValsDict = {
     { name: "Torn Fabric", zenithVal: 0.002, johnVal: 0.002, nanVal: 0.002, customVal: 0.002 },
     { name: "Singularity", zenithVal: 0.001, johnVal: 0.001, nanVal: 0.001, customVal: 0.001 },
     { name: "Egg", zenithVal: 0.02, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
-    { name: "Element V", zenithVal: 0.2, johnVal: 0.2, nanVal: 0.2, customVal: 0.2 },
+    { name: "Violecil", zenithVal: 0.2, johnVal: 0.2, nanVal: 0.2, customVal: 0.2 },
     { name: "Dystranum", zenithVal: 1/15, johnVal: 1/15, nanVal: 1/15, customVal: 1/15 },
     { name: "Havicron", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
     { name: "Rhylazil", zenithVal: 1/60, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },

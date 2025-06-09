@@ -77,7 +77,6 @@ import Ectokelyte from '../images/ore-icons/Ectokelyte_Icon.webp';
 import Egg from '../images/ore-icons/Egg_Icon.webp';
 import Eidoliphyll from '../images/ore-icons/Eidoliphyll_Icon.webp';
 import Electrium from '../images/ore-icons/Electrium_Icon.webp';
-import Element_V from '../images/ore-icons/Element_V_Icon.webp';
 import Emerald from '../images/ore-icons/Emerald_Icon.webp';
 import Enceladrum from '../images/ore-icons/Enceladrum_Icon.webp';
 import Endotravine from '../images/ore-icons/Endotravine_Icon.webp';
@@ -287,6 +286,7 @@ import Verglazium from '../images/ore-icons/Verglazium_Icon.webp';
 import Vermillion from '../images/ore-icons/Vermillion_Icon.webp';
 import Vermillium from '../images/ore-icons/Vermillium_Icon.webp';
 import Vicious_Shard from '../images/ore-icons/Vicious_Shard_Icon.webp';
+import Violecil from '../images/ore-icons/Violecil_Icon.webp';
 import Vitalinyn from '../images/ore-icons/Vitalinyn_Icon.webp';
 import Void_Orb from '../images/ore-icons/Void_Orb_Icon.webp';
 import Vorazylith from '../images/ore-icons/Vorazylith_Icon.webp';
@@ -382,7 +382,6 @@ export const OreIcons = {
   Egg,
   Eidoliphyll,
   Electrium,
-  Element_V,
   Emerald,
   Enceladrum,
   Endotravine,
@@ -592,6 +591,7 @@ export const OreIcons = {
   Vermillion,
   Vermillium,
   Vicious_Shard,
+  Violecil,
   Vitalinyn,
   Void_Orb,
   Vorazylith,
