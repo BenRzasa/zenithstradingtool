@@ -9,8 +9,7 @@ export const johnPlaceholderOres = [
 ];
 
 export const nanPlaceholderOres = [
-  "Tantalum", "Altoplast", "Miramire",
-  "Starlite", "Antimatter", "Peridot",
+
 ];
 
 export const zenithPlaceholderOres = [];

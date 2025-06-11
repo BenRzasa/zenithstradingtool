@@ -249,8 +249,13 @@ const LayerTable = ({
             <th>{modeStr}%</th>
             <th>[ # ]</th>
             <th>{modeStr}s</th>
-            <th>/AV</th>
-            <th>/{modeStr}</th>
+            {!(["Rares", "True Rares"].includes(title)) && (
+              <th>1 AV</th>
+            )}
+            {["Rares", "True Rares"].includes(title) && (
+              <th>AV</th>
+            )}
+            <th>1 {modeStr}</th>
           </tr>
         </thead>
         <tbody>
@@ -306,74 +311,73 @@ const LayerTable = ({
                   )}
                   {item.name}
                 </td>
-                <td className={`percent-${Math.floor(percentage / 10) * 10}`}>
+                {/* Percentage column */}
+                <td
+                  className={percentage <= 100.00 ? `percent-${Math.floor(percentage / 10) * 10}` : "percent-over100"}>
                   {percentage.toFixed(1)}%
                 </td>
+                {/* Inventory column - editable */}
                 <td className="v-inventory-cell">
-                  {/* Wrapper div ensures stable layout during edits */}
                   <div className="inventory-wrapper">
-                    {/* Visible display of the value (hidden during editing) */}
-                    {/* Uses aria-hidden because screen readers should focus on the input */}
                     <span className="value-display" aria-hidden="true">
                       {inventory.toLocaleString()}
                     </span>
-                    {/* Editable input - absolutely positioned over the display */}
+                    {/* Editable input */}
                     <input
                       id={`inventory-${item.name.replace(/\W+/g, "-")}`}
-                      name={`inventory-${index}`} // Name for form handling
+                      name={`inventory-${index}`}
                       type="text"
-                      min="0" // Prevent negative numbers
-                      step="1" // Whole numbers only
-                      value={inventory} // Controlled component
+                      min="0"
+                      step="1"
+                      value={inventory}
                       aria-label={`Edit ${item.name} quantity`}
                       className="v-inventory-input"
-                      /* Handle live changes while typing */
                       onChange={(e) => {
-                        // Allow empty value during editing (shows placeholder)
                         if (e.target.value === "") return;
-                        // Convert to number and ensure it's not negative
                         const numericValue = Math.max(
                           0,
                           parseInt(e.target.value) || 0
                         );
                         handleInventoryChange(item.name, numericValue);
                       }}
-                      /* Select all text when focused for easy editing */
                       onFocus={(e) => {
-                        e.target.select(); // Highlight current value
-                        e.target.dataset.prevValue = e.target.value; // Store for comparison
+                        e.target.select();
+                        e.target.dataset.prevValue = e.target.value;
                       }}
-                      /* Finalize changes when leaving the field */
                       onBlur={(e) => {
                         const newValue =
                           e.target.value === ""
                             ? 0 // Treat empty as zero
-                            : Math.max(0, parseInt(e.target.value) || 0); // Ensure valid number
-                        // Only update if value actually changed
+                            : Math.max(0, parseInt(e.target.value) || 0);
                         if (
                           newValue !== parseInt(e.target.dataset.prevValue || 0)
                         ) {
                           handleInventoryChange(item.name, newValue);
                         }
-                        // Ensure field always shows a value (even if cleared during edit)
                         if (e.target.value === "") e.target.value = "0";
                       }}
-                      /* Special key handling */
                       onKeyDown={(e) => {
-                        // Allow complete clearing with backspace/delete
                         if (["Backspace", "Delete"].includes(e.key)) {
                           if (e.target.value.length === 1) {
-                            e.target.value = ""; // Clear completely when last character removed
+                            e.target.value = "";
                           }
                         }
-                        // Submit on Enter key
                         if (e.key === "Enter") e.target.blur();
                       }}
                     />
                   </div>
                 </td>
+                {/* Number of NV's etc. */}
                 <td>{numV}</td>
-                <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
+                {/* Value per AV(base value) */}
+                {!(["Rares", "True Rares"].includes(title)) && (
+                  <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
+                )}
+                { /* AV per ore (rares & true rares ONLY) */}
+                {["Rares", "True Rares"].includes(title) && (
+                  <td>{1 / baseValue}</td>
+                )}
+                {/* Value per NV/other*/}
                 <td>{formatDisplayValue(baseValue, currentMode)}</td>
               </tr>
             );

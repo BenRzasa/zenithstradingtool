@@ -42,6 +42,11 @@
     background-color: #0091ff;
 }
 
+.percent-over100 {
+    background: linear-gradient(90deg, #ff61d5 0%, #8ea8ff 20%, #61ffb0 40%, #ffd863 60%, #ff7e7e 80%, #937dff 100%);
+    text-shadow: 1px 2px 2px white;
+}
+
 /* Percentage column adjustments */
 .percent-0,
 .percent-10,
@@ -53,7 +58,8 @@
 .percent-70,
 .percent-80,
 .percent-90,
-.percent-100 {
+.percent-100,
+.percent-over100 {
     width: 50px !important;
     color: black !important;
     font-weight: bold;

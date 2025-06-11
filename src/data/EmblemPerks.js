@@ -21,7 +21,7 @@ const emblemPerks = [
     description: "Increases maximum amount of ores dropped by Eggs by 3."
   },
   {
-    name: "Element V",
+    name: "Violecil",
     description: "Wisps of Violence do not attack the player, and enemies that touch them take damage."
   },
   {
