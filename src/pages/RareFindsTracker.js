@@ -203,12 +203,18 @@ const RareFindsTracker = () => {
 
   // Format date for display
   const formatDate = (dateString) => {
+    const SECONDS_IN_DAY = 1000 * 60 * 60 * 24
     if (!dateString) return "Never found";
     const date = new Date(dateString);
+    const currentDate = new Date(); // current date to subtract days from
+    const timeDifference = currentDate.getTime() - date.getTime();
+    const daysPassed = Math.floor(timeDifference / SECONDS_IN_DAY)
     return (
       date.toLocaleDateString() +
       " " +
-      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + 
+      " " +
+      `(${daysPassed} days ago)`
     );
   };
 
