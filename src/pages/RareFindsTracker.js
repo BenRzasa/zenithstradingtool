@@ -209,12 +209,15 @@ const RareFindsTracker = () => {
     const currentDate = new Date(); // current date to subtract days from
     const timeDifference = currentDate.getTime() - date.getTime();
     const daysPassed = Math.floor(timeDifference / SECONDS_IN_DAY)
+    const daysString = daysPassed === 0 ? "(Today)"
+                     : daysPassed === 1 ? `(${daysPassed} day ago)` 
+                     : `(${daysPassed} days ago)`
     return (
       date.toLocaleDateString() +
       " " +
       date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + 
       " " +
-      `(${daysPassed} days ago)`
+      `${daysString}`
     );
   };
 
@@ -264,7 +267,10 @@ const RareFindsTracker = () => {
       </div>
       <div className="r-tables-container">
         {/* Regular rares table */}
-        <div className="table-wrapper" style={{ width: "700px" }}>
+        <div
+          className="table-wrapper"
+          style={{ width: "800px" }}
+        >
           <h2
             className="table-wrapper h2"
             style={{ background: raresGradient }}
@@ -272,7 +278,10 @@ const RareFindsTracker = () => {
           >
             Regular Rares
           </h2>
-          <table className="table-comp">
+          <table
+            className="rare-table"
+            style={{id:"test"}}
+          >
             <thead>
               <tr>
                 <th>Ore Name</th>
@@ -312,7 +321,7 @@ const RareFindsTracker = () => {
           >
             Super Rares
           </h2>
-          <table className="table-comp">
+          <table className="rare-table">
             <thead>
               <tr>
                 <th>Ore Name</th>

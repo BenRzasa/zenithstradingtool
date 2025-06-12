@@ -20,6 +20,7 @@ import { TradeContext } from "../context/TradeContext";
 import { OreIcons } from "../data/OreIcons";
 import "../styles/TradeTool.css";
 import "../styles/AllGradients.css";
+import "../styles/LayerTable.css";
 
 function TradeTool() {
   /* Context hooks */
@@ -254,10 +255,8 @@ function TradeTool() {
     setTradeState(prev => {
       const newQuantities = { ...prev.quantities };
       delete newQuantities[oreObj.name];
-      
       // Also remove from selected ores if it was selected
       const newSelectedOres = prev.selectedOres.filter(name => name !== oreObj.name);
-      
       return {
         ...prev,
         quantities: newQuantities,
@@ -343,6 +342,18 @@ function TradeTool() {
     // Update trade summary
     updateTradeOres(allOresWithLayers);
   };
+
+  const [copiedFilter, setCopiedFilter] = useState(null);
+
+  const generateSearchFilter = () => {
+    let searchFilterString =
+      tradeState.tradeOres.map(ore => ore.name).join("/")
+      navigator.clipboard.writeText(searchFilterString).then(() => {
+        setCopiedFilter(searchFilterString);
+        // Clear the filter after 2 seconds
+        setTimeout(() => setCopiedFilter(null), 2000);
+      });
+  }
 
   return (
     <div>
@@ -542,11 +553,31 @@ function TradeTool() {
             <h2>&nbsp;&nbsp;Current Trade</h2>
             {/* Totals and inventory status */}
             <div className="trade-totals">
-              <p>➽ Total AV: <span>{totals.totalAV.toFixed(1)}</span></p>
+              <p>💲Total AV: <span>{totals.totalAV.toFixed(1)}</span></p>
               {discount > 0 && (
-                <p>➽ Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
+                <p>💲Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
               )}
-              <p>➽ Total # Ores: <span>{totals.totalOres}</span></p>
+              <p>⛏️Total # Ores: <span>{totals.totalOres}</span></p>
+              <button
+                className="copy-filter-btn"
+                onClick={generateSearchFilter}
+                title="Generate and copy search filter"
+                style={{
+                  marginTop:"25px",
+                  marginLeft:"20px",
+                  justifyContent:"left",
+                }}
+              >
+                Generate Search Filter
+              </button>
+              {copiedFilter && (
+                <div 
+                  className="copy-confirmation"
+                  style={{
+                    marginLeft:"35px",
+                  }}
+                >✓ Copied to clipboard!</div>
+              )}
             </div>
             {tradeState.tradeOres.length > 0 ? (
               <table className="trade-table">

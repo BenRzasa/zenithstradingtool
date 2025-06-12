@@ -145,7 +145,16 @@
   font-size: 0.7rem;
   color: #aaa;
   margin-top: 4px;
-  text-align: center;
+  text-align: left;
+}
+
+.rare-table th {
+  padding-top: 12px;
+}
+
+.rare-table td:nth-child(4) {
+  text-align: left;
+  padding-left: 10px;
 }
 
 /* Responsive adjustments */
