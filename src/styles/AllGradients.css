@@ -511,7 +511,15 @@
 }
 
 .color-template-yilantibris {
-    background: linear-gradient(135deg, #fff293 0%, #ff6a00 20%, #ff3179 30%, #990024 50%, #ff3179 70%, #ff6a00 80%, #fff293 100%);
+    background: linear-gradient(
+        90deg,
+        #fff298 0%,
+        #ffffe6 15%,
+        #fff298 30%,
+        #e87973 50%,
+        #d25782 70%,
+        #531426 100%
+    );
 }
 
 .color-template-aquamarine {
@@ -716,7 +724,13 @@ background: linear-gradient(75deg, #dffcf7 0%, #a5def7 15%, #7b73f7 30%, #ce6ade
 }
 
 .color-template-photalizine {
-    background: linear-gradient(115deg, #fff2e9 0%, #ffdf95 25%, #ff9ef5 70%, #a454c3 100%);
+    background: linear-gradient(
+        115deg,
+        #e6cbb7 0%, #fffcb5 20%,
+        #fffff4 30%, #fffcb5 40%,
+        #e6cbb7 55%, #bd8388 65%,
+        #a3577c 100%
+    );
 }
 
 .color-template-strange-quark {

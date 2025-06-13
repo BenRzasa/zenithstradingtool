@@ -4,7 +4,7 @@
   - As well as a running total of the value of their rare finds
   and total amounts of rares and super rares found
 */
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState, useMemo, useEffect } from "react";
 import { MiscContext } from "../context/MiscContext";
 
 import NavBar from "../components/NavBar";
@@ -201,21 +201,37 @@ const RareFindsTracker = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("Rare Tracker loaded.")
+  }, []);
+
   // Format date for display
   const formatDate = (dateString) => {
-    const SECONDS_IN_DAY = 1000 * 60 * 60 * 24
     if (!dateString) return "Never found";
-    const date = new Date(dateString);
-    const currentDate = new Date(); // current date to subtract days from
-    const timeDifference = currentDate.getTime() - date.getTime();
-    const daysPassed = Math.floor(timeDifference / SECONDS_IN_DAY)
-    const daysString = daysPassed === 0 ? "(Today)"
-                     : daysPassed === 1 ? `(${daysPassed} day ago)` 
-                     : `(${daysPassed} days ago)`
+
+    const newDate = new Date(dateString);
+    const currentDate = new Date();
+
+    // Set both dates to midnight to ensure accurate day comparison
+    newDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+    const daysPassed = Math.round(Math.abs(newDate.getTime() - currentDate.getTime()) / MILLISECONDS_IN_DAY);
+
+    let daysString = "";
+    if (daysPassed === 0) {
+      daysString = "(today)";
+    } else if (daysPassed === 1) {
+      daysString = "(yesterday)";
+    } else {
+      daysString = `(${daysPassed} days ago)`;
+    }
+
     return (
-      date.toLocaleDateString() +
+      newDate.toLocaleDateString() +
       " " +
-      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + 
+      new Date(dateString).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
       " " +
       `${daysString}`
     );
