@@ -43,6 +43,7 @@ npm version major --no-git-tag-version -m "[PAGE] Bump to %s"
 ### DONE -- CSV Loader -- Sort by AV gained
 ### DONE -- Rare Finds Tracker
 ### DONE -- CSV Editor
+### DONE -- Value Chart Page - background transparency/opacity overlay of some sort
 
 ### Misc Page -- Box containing "Useful tips & tricks" - link to another card-style page?
  - List of all emblems with perks (+ icons)
@@ -52,9 +53,6 @@ npm version major --no-git-tag-version -m "[PAGE] Bump to %s"
 
 ### Custom font setting?
  - Might just apply to headers/ore names... or the entire thing fuck it we ball
-
-### Value Chart Page - background transparency/opacity overlay of some sort
- - Pop-up that the user can have (Maybe just make a settings page at this point...)
 
 ### Grind Strats - List some of mine and others' favorite grind strats for various ores
  - Format prettily, include drop-down sections for the strategies, categories to open,

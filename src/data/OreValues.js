@@ -71,7 +71,7 @@ export const initialOreValsDict = {
 
   "Caverns / Dusk": [
     { name: "Ruby", zenithVal: 10, johnVal: 11, nanVal: 10, customVal: 10 },
-    { name: "Emerald", zenithVal: 24, johnVal: 24, nanVal: 25, customVal: 24 },
+    { name: "Emerald", zenithVal: 23, johnVal: 24, nanVal: 25, customVal: 24 },
     { name: "Peridot", zenithVal: 7, johnVal: 6, nanVal: 6, customVal: 6 },
     { name: "Amethyst", zenithVal: 6, johnVal: 4, nanVal: 6, customVal: 6 },
     { name: "Thallium", zenithVal: 7, johnVal: 7, nanVal: 6, customVal: 7 },

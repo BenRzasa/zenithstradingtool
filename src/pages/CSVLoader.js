@@ -37,7 +37,7 @@ function CSVLoader() {
 
     // State for sorting configuration
     const [sortConfig, setSortConfig] = useState({
-      key: 'change',       // Current column being sorted 'ore', 'amount', 'change'
+      key: 'change',     // Current column being sorted 'ore', 'amount', 'change'
       direction: 'desc'  // Current direction 'asc' or 'desc'
     });
 
