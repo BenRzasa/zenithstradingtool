@@ -195,7 +195,7 @@ td {
     font-family: 'Segoe UI';
     position: relative;
     text-align: left;
-    padding-left: 37px !important;
+    padding-left: 40px !important;
     width: fit-content !important;
     vertical-align: middle;
     padding-right: 5px;
@@ -211,7 +211,7 @@ td {
 .name-column::before {
     content: attr(data-text);
     position: absolute;
-    left: 37px;
+    left: 42px;
     z-index: -1;
     color: black;
     font-size: 21px;
@@ -226,7 +226,7 @@ td {
     width: 30px;
     height: 30px;
     margin-left: -35px;
-    margin-right: 5px;
+    margin-right: 7px;
     margin-top: -6px;
     vertical-align: middle;
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));

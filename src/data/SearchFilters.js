@@ -39,7 +39,7 @@ const searchFilters = [
   "Inner Horizon: nyr/nih/ult/infr/auri/unob/zero/exod/latti",
   "Quintessence: aeth/nif/etha/lume/impe/kryp/vyth",
   "Interstice: neth/raw/obl/for/enc/havi/ecto",
-  "Empyrean: qy/rei/vor/tru/wi/pha/prof/ogl/proti/xe/mesm",
+  "Empyrean: evra/zeta/kafsi/ochis/qy/rei/vor/tru/wi/pha/prof/ogl/proti/xe/mesm",
 ];
 
 export default searchFilters;
