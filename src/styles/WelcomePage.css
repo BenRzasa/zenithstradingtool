@@ -1,9 +1,3 @@
-/*
-    Welcome Page Styling
-    --------------------------------------------------
-    Scoped with .welcome-page to prevent style leakage
-*/
-
 .welcome-page * {
   box-sizing: border-box;
 }
@@ -23,15 +17,11 @@
   display: none;
 }
 
-/*--------------------------------------------------
-  Main Structure & Corner images
---------------------------------------------------*/
 .welcome-page {
   background-color: transparent;
   margin: 0;
   color: #212121;
-  transition: background-color 1s cubic-bezier(0.46, 0.03, 0.52, 0.96);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Comfortaa";
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,80 +29,18 @@
   z-index: 0;
 }
 
-.corner-images-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 100;
-}
-
-.corner-image {
-  position: fixed;
-  width: 150px;
-  height: 150px;
-}
-
-.corner-image.top-left {
-  top: 85px;
-  left: 85px;
-}
-
-.corner-image.top-right {
-  top: 85px;
-  right: 85px;
-}
-
-.corner-image.bottom-left {
-  bottom: 85px;
-  left: 85px;
-}
-
-.corner-image.bottom-right {
-  bottom: 85px;
-  right: 85px;
-}
-
-/*--------------------------------------------------
-  Square
---------------------------------------------------*/
 .welcome-page .square {
   padding: 120px;
-  width: 100%;
-  height: 100%;
+  width: 85%;
+  height: 80%;
   transform: translate3d(-50%,-50%,0);
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Torn
-  background: linear-gradient(123deg,
-      #feffff 0%, #ccffff 13.8%,
-      #8ec5d8 26.1%, #476ccc 33.7%, #887dc5 47.1%,
-      #a17cc3 64.4%, #403e68 84.3%, #171c41 100%);
-  */
-  background: linear-gradient(135deg,
-  #fdfcef 0%, #d3f8f8 20%, #faedfd 30%,
-  #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%,
-   #edebd6 70%, #ecf9df 80%, #b7dce1 100%);
-  background-clip: content-box;
-  background-size: 800% 800%;
-  border-color: currentColor;
-  animation: partytime 20s cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-  transition:
-      padding 1s cubic-bezier(0.215, 0.61, 0.355, 1),
-      background-position 0.8s cubic-bezier(0.39, 0.58, 0.57, 1);
-  will-change: transform, background-position;
+  opacity: 0.5;
+  border-radius: 25px;
+  background: var(--background-color);
   z-index: 1 !important;
-}
-
-@keyframes partytime {
-  0% { background-position: 0% 50% }
-  25% { background-position: 50% 100% }
-  50% { background-position: 100% 50% }
-  75% { background-position: 50% 0% }
-  100% { background-position: 0% 50% }
 }
 
 .welcome-page .wcard {
@@ -125,9 +53,6 @@
   z-index: 100;
 }
 
-/*--------------------------------------------------
-  Button Container & Buttons 
---------------------------------------------------*/
 .welcome-page .button-container {
   position: fixed;
   top: 70%;
@@ -140,16 +65,13 @@
   z-index: 9999;
 }
 
-/*--------------------------------------------------
-  Title/name/copyright
---------------------------------------------------*/
 .welcome-page .title {
   margin-top: 150px;
   font-size: 4em;
   letter-spacing: 0.0em;
   font-weight: 900;
   overflow: hidden;
-  color: black;
+  color: var(--welcome-text);
   position: relative;
   max-width: 750px;
 }
@@ -183,12 +105,17 @@
 }
 
 .welcome-page .copy-wrap {
-  font-family: 'Montserrat';
+  font-family: 'Segoe UI';
   display: block;
   text-align: center;
+  letter-spacing: 2px;;
   margin-top: 0px;
   transition: all 0.7s 0s ease-in-out;
   position: relative;
+}
+
+.welcome-page .title .copy-wrap {
+    font-family: 'Caprasimo';
 }
 
 .welcome-page .copyright {

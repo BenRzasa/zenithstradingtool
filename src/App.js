@@ -57,7 +57,12 @@ function App() {
     const applyBackground = () => {
         if (customBg) {
             setBackground(customBg);
-            localStorage.setItem('ztt-background', customBg);
+            try {
+                localStorage.setItem('ztt-background', customBg);
+            } catch(err) {
+                window.alert("Local storage full. Image may be too large. Resetting...")
+                resetBackground();
+            }
             setCustomBg('');
         }
     };
