@@ -201,11 +201,11 @@ export const initialOreValsDict = {
   Frigid: [
     { name: "Hyfrost", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Blue Ice", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
-    { name: "Frostarium", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
+    { name: "Frostarium", zenithVal: 10, johnVal: 10, nanVal: 12, customVal: 10 },
     { name: "Anetrium", zenithVal: 13, johnVal: 13.5, nanVal: 15, customVal: 12 },
     { name: "Polarveril", zenithVal: 2, johnVal: 2, nanVal: 2, customVal: 2 },
     { name: "Cryonine", zenithVal: 3, johnVal: 3.5, nanVal: 3, customVal: 3 },
-    { name: "Soimabarium", zenithVal: 8, johnVal: 8, nanVal: 8, customVal: 8}
+    { name: "Soimabarium", zenithVal: 8, johnVal: 8, nanVal: 10, customVal: 8}
   ],
 
   Marine: [
@@ -221,9 +221,9 @@ export const initialOreValsDict = {
 
   Cosmic: [
     { name: "Cosmic Glass", zenithVal: 16, johnVal: 17.5, nanVal: 15, customVal: 16 },
-    { name: "Cosmaline", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
-    { name: "Astratine", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 6 },
-    { name: "Starsteel", zenithVal: 8, johnVal: 8, nanVal: 6, customVal: 8 },
+    { name: "Cosmaline", zenithVal: 10, johnVal: 10, nanVal: 12, customVal: 10 },
+    { name: "Astratine", zenithVal: 6, johnVal: 6, nanVal: 7, customVal: 6 },
+    { name: "Starsteel", zenithVal: 8, johnVal: 8, nanVal: 7, customVal: 8 },
     { name: "Stardust", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 6 },
     { name: "Endotravine", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7},
   ],
