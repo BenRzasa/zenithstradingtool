@@ -2,15 +2,15 @@
 // Search filters that the user can copy from the misc page or tables to use in-game
 // -> Exported as simple array of strings
 const searchFilters = [
-  "True Rares: sall/utrine/hav/dy/torn/ubri/singu/ v/rhy/egg",
-  "Rares: ambr/neutrino/ecto/malb/zyn/cind/unob/nyrv",
-  "All: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ v/rhy/Cind/unob/nyrv/ sh/",
+  "True Rares: sall/utrine/hav/dy/torn/ubri/singu/viol/rhy/egg",
+  "Rares: ambr/neutrino/ecto/malb/zyn/cind",
+  "All: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/viol/rhy/Cind/unob/nyrv/ sh/",
   "Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ v/rhy/cind/ecto",
-  "Torn Materials: qy/bla/chron/com/cons/dy/ok/ v/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
+  "Torn Materials: qy/bla/chron/com/cons/dy/ok/viol/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
   "Useful Emblems: auri/boom/blast/bism/egg/ v/exod/hadr/isor/lept/malb/noise/nili/perig/phosp/posit/quark m/ed d/rhy/sola/th q/ult/unob/zyn",
   "Uniques: sh/ñ/vergl/holle/ambe/onyx/chalc/suns/pano/mete",
   "Compounds: quark m/iso/perig/eq",
-  "Surface / Shallow: coal/moon/kyan/opaz/opal/minu/copp/iron/silver/sulfur/zinc/gold/sapph",
+  "Surface / Shallow: coal/moon/kyan/opaz/opal/minu/copp/iron/silver/sulf/zinc/gold/sapph",
   "Caverns / Dusk: ruby/emer/perid/amet/thall/tung/diam/garn/plat/mala/lithi/boro",
   "Volatile: shal/boom/tita/plut/techn/urani/caes/osmiu/hemat",
   "Mystic / Inbetween: calc/ose q/rainb/chry/l c/coba/lapi/bism/demon/mith",
@@ -33,12 +33,12 @@ const searchFilters = [
   "Upper Instability: ailm/terr/sinf/gyri/kraz/anax/tendro/rk e/corro/antir/hype/therm/alkan",
   "Lower Instability: gri/phos/vrim/zili/rimr/und/cyt/icho/cen/neur/trina/adre/mac",
   "Murk: lep/mez/tay/thul/rhy",
-  "Event Horizon: r s/nebu/arki/non/auro/kore/apia/ecto/havi/solar",
+  "Event Horizon: r s/nebu/arki/non/auro/kore/apia/solar",
   "Sediment: rhy/ubri/havi/ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
   "Abyss: l s/prim/modi/hexf/tetr/maur/ecto/havi",
   "Inner Horizon: nyr/nih/ult/infr/auri/unob/zero/exod/latti",
   "Quintessence: aeth/nif/etha/lume/impe/kryp/vyth",
-  "Interstice: neth/raw/obl/for/enc/havi/ecto",
+  "Interstice: exod/neth/raw/obl/for/enc/vyth",
   "Empyrean: evra/zeta/kafsi/ochis/qy/rei/vor/tru/wi/pha/prof/ogl/proti/xe/mesm",
 ];
 

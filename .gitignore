@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Project files
 TODO.md
-ORE_TESTING.md
+ORE_VALUES.md
+CHANGELOG.md
 
 # Dependencies
 /node_modules

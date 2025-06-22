@@ -82,7 +82,6 @@ export const MiscProvider = ({ children }) => {
   // Effect to immediately update when initialOreValsDict changes
   useEffect(() => {
     if (currentInitialDictRef.current !== initialOreValsDict) {
-      console.log('Updating ore values to latest initial dictionary');
       setOreValsDict(initialOreValsDict);
       currentInitialDictRef.current = initialOreValsDict;
     }

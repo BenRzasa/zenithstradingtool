@@ -61,7 +61,7 @@ export const LayerGradients = {
       "linear-gradient(180deg,rgb(85, 85, 85) 0%,rgb(187, 187, 187) 100%)",
   },
 
-  "Achrothesi / Whitespace": {
+  "Achrothesi": {
     background: "linear-gradient(45deg, #090724 0%,rgb(255, 255, 255) 100%)",
   },
 

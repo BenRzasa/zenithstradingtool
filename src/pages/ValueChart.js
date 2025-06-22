@@ -39,6 +39,10 @@ function ValueChart() {
     setCapCompletion,
   } = useContext(MiscContext);
 
+  if(!csvData || !oreValsDict) {
+    window.alert("No CSV/Inventory data detected! Please head back to the CSV Loader page and enter your string.")
+  }
+
   const navigate = useNavigate();
 
   // Toggle between three value modes: john, nan, & custom
@@ -60,8 +64,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: 'June 7, 2025',
-    nan: 'June 7, 2025',
+    zenith: 'June 21, 2025',
+    nan: 'June 20, 2025',
     john: 'Jan 19, 2025',
   });
 
@@ -180,59 +184,70 @@ function ValueChart() {
   // Calculate quick summary info
   // 1. Calculate base totals (without exclusions)
   const calculateBaseTotals = () => {
-    let rareTotal = 0;
-    let uniqueTotal = 0;
-    let layerTotal = 0;
-    let grandTotal = 0;
-    let totalOres = Object.values(csvData).reduce((acc, val) => acc + val, 0);
-    let tableCompletions = [];
+      let rareTotal = 0;
+      let uniqueTotal = 0;
+      let layerTotal = 0;
+      let grandTotal = 0;
+      let totalOres = Object.values(csvData).reduce((acc, val) => acc + val, 0);
+      let tableCompletions = [];
+      let calculatedOres = [];
 
-    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
-      let tableCompletion = 0;
-      let itemCount = 0;
-      layerData.forEach((ore) => {
-        const inventory = csvData[ore.name] || 0;
-        const oreValue = calculateValue(ore);
-        const perValue = oreValue.toFixed(getPrecision(oreValue));
-        const numV = parseFloat((inventory / perValue).toFixed(1));
-        const completion = capCompletion 
-          ? Math.min(1, inventory / oreValue)
-          : inventory / oreValue;
-        
-        tableCompletion += completion;
-        itemCount++;
-        
-        if (layerName.includes("True Rares") || layerName.includes("Rares")) {
-          rareTotal += numV;
-        } else if (layerName.includes("Unique")) {
-          uniqueTotal += numV;
-        } else {
-          layerTotal += numV;
-        }
-        grandTotal += numV;
+      Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+        let tableCompletion = 0;
+        let itemCount = 0;
+
+        layerData.forEach((ore) => {
+          // Check if this ore name has already been calculated
+          if(calculatedOres.includes(ore.name)) {
+            return; // skip this iteration
+          }
+
+          // calculate the stats normally
+          const inventory = csvData[ore.name] || 0;
+          const oreValue = calculateValue(ore);
+          const perValue = oreValue.toFixed(getPrecision(oreValue));
+          const numV = parseFloat((inventory / perValue).toFixed(1));
+          const completion = capCompletion
+            ? Math.min(1, inventory / oreValue)
+            : inventory / oreValue;
+
+          tableCompletion += completion;
+          itemCount++;
+
+          if (layerName.includes("True Rares") || layerName.includes("Rares")) {
+            rareTotal += numV;
+          } else if (layerName.includes("Unique")) {
+            uniqueTotal += numV;
+          } else {
+            layerTotal += numV;
+          }
+          grandTotal += numV;
+
+          // Mark this ore as calculated
+          calculatedOres.push(ore.name);
+        });
+
+        const tableAvgCompletion =
+          itemCount > 0 ? tableCompletion / itemCount : 0;
+        tableCompletions.push(capCompletion ? Math.min(1, tableAvgCompletion) : tableAvgCompletion);
       });
-      const tableAvgCompletion =
-        itemCount > 0 ? tableCompletion / itemCount : 0;
-      tableCompletions.push(capCompletion ? Math.min(1, tableAvgCompletion) : tableAvgCompletion);
-    });
-    
-    const avgCompletion =
-      tableCompletions.length > 0
-        ? (tableCompletions.reduce((sum, comp) => sum + comp, 0) /
-            tableCompletions.length) *
-          100
-        : 0;
 
-    return {
-      rareTotal,
-      uniqueTotal,
-      layerTotal,
-      grandTotal,
-      avgCompletion: capCompletion ? Math.min(100, avgCompletion).toFixed(3) : avgCompletion.toFixed(3),
-      totalOres,
+      const avgCompletion =
+        tableCompletions.length > 0
+          ? (tableCompletions.reduce((sum, comp) => sum + comp, 0) /
+              tableCompletions.length) *
+            100
+          : 0;
+
+      return {
+        rareTotal,
+        uniqueTotal,
+        layerTotal,
+        grandTotal,
+        avgCompletion: capCompletion ? Math.min(100, avgCompletion).toFixed(3) : avgCompletion.toFixed(3),
+        totalOres,
+      };
     };
-  };
-
   // 2. Calculate min/max info (with exclusions)
   const calculateExtremes = () => {
     // Exclude outlier layers & ores

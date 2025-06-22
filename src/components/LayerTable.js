@@ -232,6 +232,7 @@ const LayerTable = ({
 
   return (
     <div className="table-wrapper">
+      <pre>
       <h2
         className="table-wrapper h2"
         style={{ background: gradient }}
@@ -242,6 +243,7 @@ const LayerTable = ({
           <span className="nv-comp-check">✓</span>
         )}
       </h2>
+      </pre>
       <table className="table-comp">
         <thead>
           <tr>
