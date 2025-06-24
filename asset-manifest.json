@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.1cab4f9b.css",
+    "main.css": "/zenithstradingtool/static/css/main.bf67bae6.css",
     "main.js": "/zenithstradingtool/static/js/main.797296f6.js",
     "static/media/Ectokelyte_Icon.webp": "/zenithstradingtool/static/media/Ectokelyte_Icon.25a43f20bdf4f8c35469.webp",
     "static/media/Kryposilus_Icon.webp": "/zenithstradingtool/static/media/Kryposilus_Icon.26d53b76cab792117add.webp",
@@ -307,11 +307,11 @@
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
     "static/media/Red_Diamond_Icon.webp": "/zenithstradingtool/static/media/Red_Diamond_Icon.15f999b7100b1173c9fd.webp",
     "static/media/Nilglass_Icon.webp": "/zenithstradingtool/static/media/Nilglass_Icon.d13f9c99294b923b0eaa.webp",
-    "main.1cab4f9b.css.map": "/zenithstradingtool/static/css/main.1cab4f9b.css.map",
+    "main.bf67bae6.css.map": "/zenithstradingtool/static/css/main.bf67bae6.css.map",
     "main.797296f6.js.map": "/zenithstradingtool/static/js/main.797296f6.js.map"
   },
   "entrypoints": [
-    "static/css/main.1cab4f9b.css",
+    "static/css/main.bf67bae6.css",
     "static/js/main.797296f6.js"
   ]
 }
