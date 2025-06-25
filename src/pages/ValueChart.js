@@ -253,11 +253,11 @@ function ValueChart() {
     // Exclude outlier layers & ores
     const excludedOres = ["Stone", "Grimstone"];
     const excludedLayers = [
-      "True Rares",
-      "Rares",
-      "Uniques",
-      "Compounds",
-      "Surface / Shallow",
+      "True Rares\n1/25000 or Rarer",
+      "Rares\nMore Common Than 1/24999",
+      "Uniques\nNon-Standard Obtainment",
+      "Compounds\nCrafted via Synthesis",
+      "Surface / Shallow\n[0m-74m]"
     ];
 
     let minLayer = { value: Infinity, name: "", ore: "" };
@@ -321,7 +321,13 @@ function ValueChart() {
       ...extremes,
       excluded: {
         ores: ["Stone", "Grimstone"],
-        layers: ["True Rares", "Rares", "Uniques", "Compounds", "Surface / Shallow"],
+        layers:
+          [
+            "True Rares\n1/25000 or Rarer",
+            "Rares\nMore Common Than 1/24999",
+            "Uniques\nNon-Standard Obtainment", 
+            "Compounds\nCrafted via Synthesis", 
+            "Surface / Shallow\n[0m-74m]"],
       },
     };
   };

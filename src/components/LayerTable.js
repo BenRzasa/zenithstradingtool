@@ -251,10 +251,10 @@ const LayerTable = ({
             <th>{modeStr}%</th>
             <th>[ # ]</th>
             <th>{modeStr}s</th>
-            {!(["Rares", "True Rares"].includes(title)) && (
+            {!(title.includes("Rares" || "True Rares")) && (
               <th>1 AV</th>
             )}
-            {["Rares", "True Rares"].includes(title) && (
+            {(title.includes("Rares" || "True Rares")) && (
               <th>AV</th>
             )}
             <th>1 {modeStr}</th>
@@ -372,11 +372,11 @@ const LayerTable = ({
                 {/* Number of NV's etc. */}
                 <td>{numV}</td>
                 {/* Value per AV(base value) */}
-                {!(["Rares", "True Rares"].includes(title)) && (
+                {!(title.includes("Rares" || "True Rares")) && (
                   <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
                 )}
                 { /* AV per ore (rares & true rares ONLY) */}
-                {["Rares", "True Rares"].includes(title) && (
+                {(title.includes("Rares" || "True Rares")) && (
                   <td>{1 / baseValue}</td>
                 )}
                 {/* Value per NV/other*/}
@@ -389,15 +389,15 @@ const LayerTable = ({
       <div className="table-footer">
         <ul className="info-list">
           <li>
-            ➜ {modeStr} Completion:{" "}
+            ⛏ {modeStr} Completion:{" "}
             <span className="placeholder">{getAverageCompletion()}%</span>
           </li>
           <li>
-            ➜ Total {modeStr}:{" "}
+            ⛏ Total {modeStr}:{" "}
             <span className="placeholder">{getTotalValue()}</span>
           </li>
           <li>
-            ➜ Highest {modeStr}:{" "}
+            ⛏ Highest {modeStr}:{" "}
             <span className="placeholder">{getHighestValue()}</span>
           </li>
           <div className="completion-toggle">

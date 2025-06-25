@@ -362,17 +362,23 @@ function TradeTool() {
         {/* Left side - controls */}
         <div className="trade-controls-panel">
         <div className="trade-usage">
-          <button className="usage-button" onClick={() => setShowDropdown(!showDropdown)}>Usage Instructions</button>
+          <button
+            className="usage-button"
+            onClick={() => setShowDropdown(!showDropdown)}
+            >Click For Usage Instructions
+          </button>
           {showDropdown && (
             <div className="usage-dropdown">
               <ul>
-                <li>Click ores to select multiple, then set their quantities below</li>
-                <li>Type ore or layer names in the search bar, and hit enter or click to add them to the current trade</li>
-                <li>Click the header for each layer to open the dropdown</li>
-                <li>Type in the quantity for each ore you'd like to trade</li>
-                <li>To add a discount to large orders, type the percent in the "Discount %" box</li>
-                <li>Click "Apply Quantity" to set the selected ores (highlighted blue) to the specified quantity</li>
-                <li>Click "Clear Table" to reset the trade table</li>
+                <li>⛏ Click the header for each layer to open the dropdown.</li>
+                <li>⛏ Click ores to select multiple, then set their quantities below.</li>
+                <li>⛏ To remove an individual ore, click the red X button beside the ore, in either the "Current Trade" table or the layer table to the right.</li>
+                <li>⛏ Type ore or layer names in the search bar, and hit enter or click to add them to the current trade. You can use the arrow keys to navigate up and down the results.</li>
+                <li>⛏ Type in the quantity for each ore you'd like to trade.</li>
+                <li>⛏ To add a discount to large orders, type the percent in the "Discount %" box.</li>
+                <li>⛏ The Batch Quantity box (below the value buttons) can set either the AV of all selected ores, or the quantity. Click the green button to switch between them.</li>
+                <li>⛏ Click "Apply Quantity" to set the selected ores (highlighted blue) to the specified quantity.</li>
+                <li>⛏ Click "Clear Table" to reset the trade table.</li>
               </ul>
             </div>
           )}
@@ -501,7 +507,7 @@ function TradeTool() {
                       index === selectedIndex ? "selected" : ""
                     }`}
                   >
-                    {ore.name} ({ore.layer})
+                    {ore.name}
                   </li>
                 ))}
               </ul>
@@ -695,7 +701,7 @@ function TradeTool() {
                     onClick={() => toggleLayerCollapse(layer)}
                   >
                     <td colSpan="3">
-                      {layer}
+                      {layer.substring(0, layer.indexOf('\n'))}
                       <span className="collapse-icon">
                         {collapsedLayers[layer] ? '▶' : '▼'}
                       </span>
@@ -726,7 +732,7 @@ function TradeTool() {
                               });
                             }}
                           >
-                            Select All in {layer}
+                            Select All in {layer.substring(0, layer.indexOf('\n'))}
                           </button>
                           <button
                             className="deselect-all-button"

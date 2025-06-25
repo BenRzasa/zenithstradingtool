@@ -213,6 +213,29 @@ function MiscPage() {
         </table>
         </div>,
     },
+    /*
+    {
+      id: "card4",
+      title: "All ores",
+      content:
+        <table className="ore-table">
+          <thead>
+            <tr>
+              <th>Ore Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(initialOreValsDict).flatMap(([category, ores]) =>
+              ores.map((ore, index) => (
+                <tr key={`${category}-${index}`}>
+                  <td>{ore.name}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+    },
+    */
   ];
 
   return (

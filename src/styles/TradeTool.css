@@ -21,7 +21,6 @@
     max-width: 40%;
 }
 
-/* Table styling */
 .ore-table-panel {
     flex: 2;
     height: 99vh;
@@ -56,6 +55,11 @@
 
 .trade-usage:hover.usage-dropdown {
   display: block;
+  margin-left: -50px;
+}
+
+.trade-usage .usage-dropdown li {
+    margin-top: -10px;
 }
 
 /* Batch quantity controls */
@@ -309,7 +313,7 @@
 }
 
 .trade-table {
-    max-width: 60%;
+    max-width: 55%;
     border-collapse: collapse;
     font-size: 20px;
     margin-top: 20px;

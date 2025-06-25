@@ -107,7 +107,7 @@ const RareFindsTracker = () => {
   ];
 
   // Get rares data (bracket notation for string names)
-  const raresData = initialOreValsDict.Rares.concat(initialOreValsDict["True Rares"]);
+  const raresData = (initialOreValsDict["Rares\nMore Common Than 1/24999"].concat(initialOreValsDict["True Rares\n1/25000 or Rarer"]));
 
   // Need to fix this - should NOT need to hard-code the gradients in...
   const raresGradient = `linear-gradient(90deg, #ffcc66 0%, #f9f575 20%,

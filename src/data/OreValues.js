@@ -9,7 +9,7 @@
 // - NAN's
 // - John's
 export const initialOreValsDict = {
-  "True Rares": [
+  "True Rares\n1/25000 or Rarer": [
     { name: "Universallium", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
     { name: "Neutrine", zenithVal: 0.01, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
     { name: "Torn Fabric", zenithVal: 0.002, johnVal: 0.002, nanVal: 0.002, customVal: 0.002 },
@@ -22,7 +22,7 @@ export const initialOreValsDict = {
     { name: "Ubriniale", zenithVal: 1/125, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
   ],
 
-  Rares: [
+  "Rares\nMore Common Than 1/24999": [
     { name: "Ambrosine", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Zynulvinite", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Cindrasil", zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
@@ -31,7 +31,7 @@ export const initialOreValsDict = {
     { name: "Ectokelyte", zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
   ],
 
-  Uniques: [
+  "Uniques\nNon-Standard Obtainment": [
     { name: "Vicious Shard", zenithVal: 1/180, johnVal: 1/180, nanVal: 1/180, customVal: 1/180 },
     { name: "Jalabono", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Hollevite", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
@@ -45,7 +45,7 @@ export const initialOreValsDict = {
     { name: "Onyx", zenithVal: 2.5, johnVal: 2.5, nanVal: 2.5, customVal: 2.5}
   ],
 
-  Compounds: [
+  "Compounds\nCrafted via Synthesis": [
     { name: "Equilibrium", zenithVal: 4, johnVal: 4.5, nanVal: 2.5, customVal: 4 },
     { name: "Quark Matter", zenithVal: 2, johnVal: 2.5, nanVal: 2, customVal: 2 },
     { name: "Periglise", zenithVal: 2, johnVal: 2.5, nanVal: 2, customVal: 2 },
@@ -173,7 +173,7 @@ export const initialOreValsDict = {
     { name: "Asthenocrit", zenithVal: 6, johnVal: 6.5, nanVal: 6, customVal: 6}
   ],
 
-  "Achrothesi [5500m-5999m]\nWhitespace (Achrothesi Sublayer)": [
+  "Achrothesi / Whitespace\n[5500-5999m]": [
     { name: "Kronosilt", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Nilglass", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Kreosyte", zenithVal: 6, johnVal: 8, nanVal: 6, customVal: 6 },
