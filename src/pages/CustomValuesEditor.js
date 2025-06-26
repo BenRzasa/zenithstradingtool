@@ -49,35 +49,24 @@ function CustomValuesEditor() {
     return initialValues;
   });
 
-  // Validate all values on mount and after resets
+  // Effect to immediately update localValues when oreValsDict changes
   useEffect(() => {
-    setLocalValues(prev => {
-      const validatedValues = {...prev};
-      let needsUpdate = false;
-
-      Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
-        layerData?.forEach(item => {
-          const key = `${layerName}-${item.name}`;
-          if (validatedValues[key] === undefined || validatedValues[key] === 'undefined') {
-            const fallbackValue = parseNumber(item.customVal);
-            validatedValues[key] = fallbackValue.toString();
-            needsUpdate = true;
-          }
-        });
+    const newValues = {};
+    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+      layerData?.forEach(item => {
+        const key = `${layerName}-${item.name}`;
+        newValues[key] = item.customVal?.toString() || '1';
       });
-
-      return needsUpdate ? validatedValues : prev;
     });
-  }, [oreValsDict]);
+    setLocalValues(newValues);
+  }, [oreValsDict]); // This will trigger on reset
 
-  // Change the custom value in the dictionary (no fraction handling)
+  // Change the custom value in the dictionary
   const handleValueChange = (layer, oreName, newValue) => {
     setOreValsDict(prev => {
       const newDict = {...prev};
       const layerData = newDict[layer];
-      
       if (!layerData) return prev;
-
       return {
         ...prev,
         [layer]: layerData.map(ore => {
@@ -106,9 +95,12 @@ function CustomValuesEditor() {
   };
 
   // Handle resetting of the dictionary
-  const handleReset = (source) => {
-    if (window.confirm(`Reset all values to ${source.toUpperCase()} values? This cannot be undone.`)) {
-      resetCustomValues(source);
+  // Enhanced reset handler
+  const handleReset = async (source) => {
+    if (window.confirm(`Reset all values to ${source.toUpperCase()} values?`)) {
+      // Reset and wait for completion
+      await resetCustomValues(source);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -177,9 +169,9 @@ function CustomValuesEditor() {
               <h2
                 className="table-wrapper h2"
                 style={{ background: gradientStyle }}
-                data-text={layerName}
+                data-text={layerName.substring(0, layerName.indexOf('\n'))}
               >
-                {layerName}
+                {layerName.substring(0, layerName.indexOf('\n'))}
               </h2>
               {/* Only needs the per AV column, since they're customizing the customVal */}
               <table className="table">
@@ -216,9 +208,11 @@ function CustomValuesEditor() {
                         <input
                           type="number"
                           step="any"
-                          value={localValues[`${layerName}-${item.name}`] !== undefined 
+                          value={
+                            localValues[`${layerName}-${item.name}`] !== undefined 
                             ? localValues[`${layerName}-${item.name}`] 
-                            : item.customVal }
+                            : item.customVal
+                          }
                           onChange={(e) => {
                             setLocalValues(prev => ({
                               ...prev,

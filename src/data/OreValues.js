@@ -91,7 +91,7 @@ export const initialOreValsDict = {
     { name: "Titanium", zenithVal: 8, johnVal: 8, nanVal: 8, customVal: 8 },
     { name: "Plutonium", zenithVal: 12, johnVal: 10, nanVal: 12, customVal: 12 },
     { name: "Technetium", zenithVal: 7.5, johnVal: 11, nanVal: 10, customVal: 10 },
-    { name: "Uranium", zenithVal: 14, johnVal: 14, nanVal: 9, customVal: 14 },
+    { name: "Uranium", zenithVal: 14, johnVal: 14, nanVal: 10, customVal: 14 },
     { name: "Caesium", zenithVal: 9, johnVal: 9, nanVal: 8, customVal: 9 },
     { name: "Osmium", zenithVal: 9, johnVal: 10, nanVal: 9, customVal: 9 },
     { name: "Hematite", zenithVal: 62, johnVal: 117.5, nanVal: 90, customVal: 62}
@@ -149,7 +149,7 @@ export const initialOreValsDict = {
 
   "Dread\n[4500m-4999m]": [
     { name: "Nightmica", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
-    { name: "Crimstone", zenithVal: 65, johnVal: 70.5, nanVal: 100, customVal: 65 },
+    { name: "Crimstone", zenithVal: 65, johnVal: 70.5, nanVal: 500, customVal: 65 },
     { name: "Horrorstone", zenithVal: 10, johnVal: 11, nanVal: 10, customVal: 10 },
     { name: "Strange Matter", zenithVal: 6, johnVal: 6, nanVal: 7, customVal: 6 },
     { name: "Vermillium", zenithVal: 9, johnVal: 9, nanVal: 7, customVal: 9 },
@@ -230,9 +230,9 @@ export const initialOreValsDict = {
   ],
 
   "Molten\n[8000m-8499m]": [
-    { name: "Nickel", zenithVal: 48, johnVal: 48, nanVal: 45, customVal: 48 },
+    { name: "Nickel", zenithVal: 48, johnVal: 48, nanVal: 50, customVal: 48 },
     { name: "Molten Iron", zenithVal: 15, johnVal: 15.5, nanVal: 15, customVal: 15 },
-    { name: "Corium", zenithVal: 9, johnVal: 9, nanVal: 9, customVal: 9 },
+    { name: "Corium", zenithVal: 9, johnVal: 9, nanVal: 7, customVal: 9 },
     { name: "Cinnabar", zenithVal: 12, johnVal: 16, nanVal: 12, customVal: 12 },
     { name: "Liquid Gold", zenithVal: 16, johnVal: 16, nanVal: 15, customVal: 16 },
     { name: "Pyroscorium", zenithVal: 9, johnVal: 9, nanVal: 7, customVal: 9 },
@@ -390,19 +390,19 @@ export const initialOreValsDict = {
 
   "Empyrean\n[12250m-12999m]": [
     { name: "Evrasalt", zenithVal: 100, johnVal: 200, nanVal: 100, customVal: 100 },
-    { name: "Qylicryst", zenithVal: 5, johnVal: 5, nanVal: 3, customVal: 5 },
+    { name: "Qylicryst", zenithVal: 6, johnVal: 5, nanVal: 3, customVal: 6 },
     { name: "Kafsium", zenithVal: 16, johnVal: 16, nanVal: 12, customVal: 16 },
-    { name: "Zetaslime", zenithVal: 15, johnVal: 15.5, nanVal: 12, customVal: 15 },
-    { name: "Ochistrite", zenithVal: 18, johnVal: 19.5, nanVal: 15, customVal: 18 },
+    { name: "Zetaslime", zenithVal: 16, johnVal: 15.5, nanVal: 12, customVal: 16 },
+    { name: "Ochistrite", zenithVal: 20, johnVal: 19.5, nanVal: 15, customVal: 20 },
     { name: "Reithum", zenithVal: 6, johnVal: 6, nanVal: 6, customVal: 6 },
-    { name: "Vorazylith", zenithVal: 7, johnVal: 7.5, nanVal: 5, customVal: 8 },
-    { name: "Truth Quark", zenithVal: 8, johnVal: 8.5, nanVal: 6, customVal: 8 },
-    { name: "Wish Alloy", zenithVal: 12, johnVal: 13, nanVal: 7, customVal: 12 },
+    { name: "Vorazylith", zenithVal: 8, johnVal: 7.5, nanVal: 5, customVal: 8 },
+    { name: "Truth Quark", zenithVal: 9, johnVal: 8.5, nanVal: 6, customVal: 9 },
+    { name: "Wish Alloy", zenithVal: 14, johnVal: 13, nanVal: 7, customVal: 14 },
     { name: "Phantasmorite", zenithVal: 9, johnVal: 8.5, nanVal: 5, customVal: 9 },
-    { name: "Profelis", zenithVal: 11, johnVal: 11.5, nanVal: 7, customVal: 11 },
+    { name: "Profelis", zenithVal: 12, johnVal: 11.5, nanVal: 7, customVal: 12 },
     { name: "Ogleum", zenithVal: 7, johnVal: 7, nanVal: 4, customVal: 7 },
-    { name: "Protireal", zenithVal: 20, johnVal: 20, nanVal: 14, customVal: 20 },
+    { name: "Protireal", zenithVal: 16, johnVal: 20, nanVal: 14, customVal: 16 },
     { name: "Xerutherum", zenithVal: 7, johnVal: 7.5, nanVal: 4, customVal: 7 },
-    { name: "Mesmirian", zenithVal: 12, johnVal: 13, nanVal: 7, customVal: 12}
+    { name: "Mesmirian", zenithVal: 13, johnVal: 13, nanVal: 7, customVal: 13 }
   ]
 };

@@ -23,11 +23,7 @@ export const MiscProvider = ({ children }) => {
   const [csvHistory, setCSVHistory] = useState(() => {
     const savedHistory = localStorage.getItem('csvHistory');
     try {
-      const parsed = savedHistory ? JSON.parse(savedHistory) : [];
-      return parsed.map(entry => ({
-        ...entry,
-        timestamp: new Date(entry.timestamp)
-      }));
+      return savedHistory ? JSON.parse(savedHistory) : [];
     } catch (e) {
       console.error('Failed to parse CSV history', e);
       return [];
@@ -45,6 +41,42 @@ export const MiscProvider = ({ children }) => {
     const savedTime = localStorage.getItem('csvLastUpdated');
     return savedTime ? new Date(savedTime) : null;
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('csvData', JSON.stringify(csvData));
+    } catch (e) {
+      console.error('Failed to save csvData to localStorage', e);
+    }
+  }, [csvData]);
+
+  useEffect(() => {
+    try {
+      if (Object.keys(previousAmounts).length > 0) {
+        localStorage.setItem('csvPreviousData', JSON.stringify(previousAmounts));
+      }
+    } catch (e) {
+      console.error('Failed to save previousAmounts to localStorage', e);
+    }
+  }, [previousAmounts]);
+
+  useEffect(() => {
+    try {
+      if (lastUpdated) {
+        localStorage.setItem('csvLastUpdated', lastUpdated.toISOString());
+      }
+    } catch (e) {
+      console.error('Failed to save lastUpdated to localStorage', e);
+    }
+  }, [lastUpdated]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('csvHistory', JSON.stringify(csvHistory));
+    } catch (e) {
+      console.error('Failed to save csvHistory to localStorage', e);
+    }
+  }, [csvHistory]);
 
   const [capCompletion, setCapCompletion] = useState(() => {
     const savedCapComp = localStorage.getItem('capCompletion');
@@ -137,11 +169,11 @@ export const MiscProvider = ({ children }) => {
   useEffect(() => localStorage.setItem('rareFindsData', JSON.stringify(rareFindsData)), [rareFindsData]);
   useEffect(() => localStorage.setItem('oreValsDict', JSON.stringify(oreValsDict)), [oreValsDict]);
 
-  // Helper function to update data
   const updateCSVData = (newData) => {
     const now = new Date();
     const totalAV = calculateTotalAV(newData);
-    
+    setPreviousAmounts(csvData);
+    setCSVData(newData);
     setCSVHistory(prev => [
       {
         data: newData,
@@ -152,9 +184,6 @@ export const MiscProvider = ({ children }) => {
       },
       ...prev.slice(0, 999)
     ]);
-    
-    setPreviousAmounts(csvData);
-    setCSVData(newData);
     setLastUpdated(now);
   };
 
@@ -163,27 +192,30 @@ export const MiscProvider = ({ children }) => {
     if (index < 0 || index >= csvHistory.length) return;
     const historyEntry = csvHistory[index];
     if (!historyEntry) return;
-    
     setCSVData(historyEntry.data);
     setValueMode(historyEntry.valueMode || 'zenith');
     if (historyEntry.valueMode === 'custom' && historyEntry.customMultiplier) {
       setCustomMultiplier(historyEntry.customMultiplier);
     }
-    setLastUpdated(new Date(historyEntry.timestamp));
+    setLastUpdated(new Date(historyEntry.timestamp)); // Convert ISO string to Date
   };
 
   // Initialize custom dictionary from a source
   const resetCustomValues = (source) => {
-    const newOreVals = JSON.parse(JSON.stringify(oreValsDict));
+    const newOreVals = JSON.parse(JSON.stringify(initialOreValsDict));
+
+    // Apply the selected source's values
     for (const layerName in newOreVals) {
       newOreVals[layerName] = newOreVals[layerName].map(ore => ({
         ...ore,
         customVal: source === 'john' ? ore.johnVal : 
-                   source === 'nan' ? ore.nanVal : 
-                   ore.zenithVal
+                  source === 'nan' ? ore.nanVal : 
+                  ore.zenithVal
       }));
     }
+    // Force immediate update and save
     setOreValsDict(newOreVals);
+    localStorage.setItem('oreValsDict', JSON.stringify(newOreVals));
     setValueMode('custom');
     return newOreVals;
   };
