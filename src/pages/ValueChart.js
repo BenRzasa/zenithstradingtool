@@ -39,10 +39,6 @@ function ValueChart() {
     setCapCompletion,
   } = useContext(MiscContext);
 
-  if(!csvData || !oreValsDict) {
-    window.alert("No CSV/Inventory data detected! Please head back to the CSV Loader page and enter your string.")
-  }
-
   const navigate = useNavigate();
 
   // Toggle between three value modes: john, nan, & custom
@@ -569,7 +565,7 @@ function ValueChart() {
 
           <div className="box-button">
             <button
-              onClick={() => {setValueMode("custom")}}
+              onClick={() => {toggleValueMode("custom")}}
               className={
                 valueMode === "custom" ? "color-template-havicron" : ""
               }

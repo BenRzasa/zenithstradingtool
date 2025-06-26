@@ -6,7 +6,7 @@
   - Saving or cancelling will result in immediate navigation to the Value Chart page
 */
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MiscContext } from '../context/MiscContext';
 import NavBar from '../components/NavBar';
@@ -27,35 +27,69 @@ function CustomValuesEditor() {
     resetCustomValues,
   } = useContext(MiscContext);
 
-  const [localValues, setLocalValues] = useState({});
+  // Simplified number parser - only handles decimals
+  const parseNumber = (value) => {
+    if (typeof value === 'number') return value;
+    if (typeof value !== 'string') return 0;
+    const number = parseFloat(value);
+    return isNaN(number) ? 0 : number;
+  };
 
-  // Change the custom value in the dictionary
+  // Initialize localValues with proper fallbacks
+  const [localValues, setLocalValues] = useState(() => {
+    const initialValues = {};
+    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+      layerData?.forEach(item => {
+        const key = `${layerName}-${item.name}`;
+        // Convert any existing fractions to decimals during initialization
+        const value = parseNumber(item.customVal);
+        initialValues[key] = value.toString();
+      });
+    });
+    return initialValues;
+  });
+
+  // Validate all values on mount and after resets
+  useEffect(() => {
+    setLocalValues(prev => {
+      const validatedValues = {...prev};
+      let needsUpdate = false;
+
+      Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+        layerData?.forEach(item => {
+          const key = `${layerName}-${item.name}`;
+          if (validatedValues[key] === undefined || validatedValues[key] === 'undefined') {
+            const fallbackValue = parseNumber(item.customVal);
+            validatedValues[key] = fallbackValue.toString();
+            needsUpdate = true;
+          }
+        });
+      });
+
+      return needsUpdate ? validatedValues : prev;
+    });
+  }, [oreValsDict]);
+
+  // Change the custom value in the dictionary (no fraction handling)
   const handleValueChange = (layer, oreName, newValue) => {
     setOreValsDict(prev => {
       const newDict = {...prev};
-      const layerIndex = Object.keys(newDict).indexOf(layer);
-      if (layerIndex >= 0) {
-        // Find the ore based on the layer and name, then set the customVal
-        const oreIndex = newDict[layer].findIndex(o => o.name === oreName);
-        if (oreIndex >= 0) {
-          let decimalValue = 0;
-          // Check if the input is a fraction (contains '/')
-          if (newValue.includes('/')) {
-            const [numerator, denominator] = newValue.split('/').map(Number);
-            if (!isNaN(numerator) && !isNaN(denominator) && denominator !== 0) {
-              decimalValue = numerator / denominator;
-            }
-          } else {
-            // Handle regular number input
-            decimalValue = parseFloat(newValue) || 0;
+      const layerData = newDict[layer];
+      
+      if (!layerData) return prev;
+
+      return {
+        ...prev,
+        [layer]: layerData.map(ore => {
+          if (ore.name === oreName) {
+            return {
+              ...ore,
+              customVal: parseNumber(newValue)
+            };
           }
-          newDict[layer][oreIndex] = {
-            ...newDict[layer][oreIndex],
-            customVal: decimalValue
-          };
-        }
-      }
-      return newDict;
+          return ore;
+        })
+      };
     });
   };
 
@@ -184,7 +218,7 @@ function CustomValuesEditor() {
                           step="any"
                           value={localValues[`${layerName}-${item.name}`] !== undefined 
                             ? localValues[`${layerName}-${item.name}`] 
-                            : item.customVal}
+                            : item.customVal }
                           onChange={(e) => {
                             setLocalValues(prev => ({
                               ...prev,

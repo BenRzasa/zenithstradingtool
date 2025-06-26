@@ -73,8 +73,39 @@ export const MiscProvider = ({ children }) => {
     return savedRareFinds ? JSON.parse(savedRareFinds) : {};
   });
 
-  // Ore values dictionary state - ALWAYS use the latest initialOreValsDict
-  const [oreValsDict, setOreValsDict] = useState(initialOreValsDict);
+  // Initialize oreValsDict with saved custom values
+  const [oreValsDict, setOreValsDict] = useState(() => {
+    try {
+      const savedDict = localStorage.getItem('oreValsDict');
+      return savedDict ? JSON.parse(savedDict) : initialOreValsDict;
+    } catch (e) {
+      console.error('Failed to parse saved oreValsDict', e);
+      return initialOreValsDict;
+    }
+  });
+
+  // Add this effect to handle initialOreValsDict updates while preserving custom values
+  useEffect(() => {
+    if (currentInitialDictRef.current !== initialOreValsDict) {
+      setOreValsDict(prev => {
+        // Merge custom values with new initial dict
+        const mergedDict = JSON.parse(JSON.stringify(initialOreValsDict));
+        
+        // Preserve existing custom values
+        Object.keys(prev).forEach(layerName => {
+          if (mergedDict[layerName]) {
+            mergedDict[layerName] = mergedDict[layerName].map(newOre => {
+              const existingOre = prev[layerName]?.find(o => o.name === newOre.name);
+              return existingOre ? { ...newOre, customVal: existingOre.customVal } : newOre;
+            });
+          }
+        });
+        
+        return mergedDict;
+      });
+      currentInitialDictRef.current = initialOreValsDict;
+    }
+  }, []);
 
   // Track the current version of initialOreValsDict
   const currentInitialDictRef = useRef(initialOreValsDict);
