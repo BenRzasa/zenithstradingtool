@@ -32,7 +32,7 @@ const NavBar = () => {
           <li><Link to="/misc"
             onClick={() => setIsOpen(false)}>Miscellaneous</Link></li>
           <li><a
-            href="https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki"
+            href="https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki"
             target="_blank" rel="noreferrer">
               TCC Wiki
             </a>

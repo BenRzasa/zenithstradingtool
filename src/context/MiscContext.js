@@ -105,15 +105,9 @@ export const MiscProvider = ({ children }) => {
     return savedRareFinds ? JSON.parse(savedRareFinds) : {};
   });
 
-  // Initialize oreValsDict with saved custom values
   const [oreValsDict, setOreValsDict] = useState(() => {
-    try {
       const savedDict = localStorage.getItem('oreValsDict');
-      return savedDict ? JSON.parse(savedDict) : initialOreValsDict;
-    } catch (e) {
-      console.error('Failed to parse saved oreValsDict', e);
-      return initialOreValsDict;
-    }
+      return savedDict ? JSON.parse(savedDict) : oreValsDict;
   });
 
   useEffect(() => {
@@ -213,6 +207,7 @@ export const MiscProvider = ({ children }) => {
 
   const getValueForMode = (oreData) => {
     switch (valueMode) {
+      case 'zenith': return oreData.zenithVal;
       case 'john': return oreData.johnVal;
       case 'nan': return oreData.nanVal;
       case 'custom': return oreData.customVal;

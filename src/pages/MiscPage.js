@@ -128,6 +128,7 @@ function MiscPage() {
                 <span>NAN Vals</span>
               </button>
             </div>
+            {/*
             <div className="box-button">
               <button
                 onClick={() => setValueMode('john')}
@@ -136,6 +137,7 @@ function MiscPage() {
                 <span>John Vals</span>
               </button>
             </div>
+            */}
             <div className="box-button">
               <button
                 onClick={() => setValueMode('custom')}

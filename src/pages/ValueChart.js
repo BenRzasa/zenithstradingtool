@@ -60,8 +60,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: 'June 21, 2025',
-    nan: 'June 20, 2025',
+    zenith: 'June 27, 2025',
+    nan: 'June 26, 2025',
     john: 'Jan 19, 2025',
   });
 
@@ -537,7 +537,9 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleValueMode("zenith")}
+              onClick={() => {
+                toggleValueMode("zenith");
+              }}
               className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
             >
               <span>Zenith Vals</span>
@@ -553,6 +555,7 @@ function ValueChart() {
               <div className="v-last-updated">Updated {lastUpdatedDates.nan}</div>
             </button>
           </div>
+          {/*
           <div className="box-button">
             <button
               onClick={() => toggleValueMode("john")}
@@ -562,13 +565,11 @@ function ValueChart() {
               <div className="v-last-updated">Updated {lastUpdatedDates.john}</div>
             </button>
           </div>
-
+          */}
           <div className="box-button">
             <button
-              onClick={() => {toggleValueMode("custom")}}
-              className={
-                valueMode === "custom" ? "color-template-havicron" : ""
-              }
+              onClick={() => toggleValueMode("custom")}
+              className={valueMode === "custom" ? "color-template-havicron" : ""}
             >
               <span>Custom</span>
               <div className="v-last-updated">Personal values</div>

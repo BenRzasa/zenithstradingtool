@@ -126,9 +126,11 @@ function CustomValuesEditor() {
           <button onClick={() => handleReset('nan')} className="color-template-diamond">
             Reset to NAN's Values
           </button>
+          {/*
           <button onClick={() => handleReset('john')} className="color-template-pout">
             Reset to John's Values
           </button>
+          */}
           <button onClick={() => handleReset('custom')} className="color-template-obliviril">
             Reset to Default
           </button>

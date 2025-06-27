@@ -199,7 +199,10 @@ function CSVLoader() {
         <li>Click "Update Amounts" button to load your CSV data into the website.</li>
         <li>Navigate to the Value Chart by clicking on the link in the top right corner.</li>
         {/* Show the time & date when the CSV data was last updated */}
-        <div className='placeholder'>
+        <div 
+          className='placeholder'
+          style={{fontSize:"25px"}}
+        >
           Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</div>
       </ol>
       </div>
@@ -228,6 +231,7 @@ function CSVLoader() {
               <span>NAN Vals</span>
             </button>
           </div>
+          {/*
           <div className="box-button">
             <button
               onClick={() => setValueMode('john')}
@@ -236,6 +240,7 @@ function CSVLoader() {
               <span>John Vals</span>
             </button>
           </div>
+          */}
           <div className="box-button">
             <button
               onClick={() => setValueMode('custom')}

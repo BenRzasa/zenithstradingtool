@@ -313,7 +313,7 @@
 }
 
 .trade-table {
-    max-width: 55%;
+    width: 650px;
     border-collapse: collapse;
     font-size: 20px;
     margin-top: 20px;

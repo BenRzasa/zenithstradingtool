@@ -45,7 +45,7 @@ function WelcomePage() {
         </div>
         <div className="box-button">
         <button
-          onClick={() => window.open('https://the-celestial-caverns.fandom.com/wiki/The_Celestial_Caverns_Wiki', "_blank")}
+          onClick={() => window.open('https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki', "_blank")}
         >📝TCC Wiki📕</button>
         </div>
       </div>
