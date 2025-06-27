@@ -376,8 +376,11 @@ const LayerTable = ({
                   <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
                 )}
                 { /* AV per ore (rares & true rares ONLY) */}
-                {(title.includes("Rares" || "True Rares")) && (
-                  <td>{1 / baseValue}</td>
+                {title.includes("True Rares") && (
+                  <td>{(1 / baseValue)}</td>
+                )}
+                {title.includes("Rares\nMore") && (
+                  <td>{(1 / baseValue).toFixed(2)}</td>
                 )}
                 {/* Value per NV/other*/}
                 <td>{formatDisplayValue(baseValue, currentMode)}</td>

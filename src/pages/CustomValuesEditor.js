@@ -27,13 +27,6 @@ function CustomValuesEditor() {
     resetCustomValues,
   } = useContext(MiscContext);
 
-  // Simplified number parser - only handles decimals
-  const parseNumber = (value) => {
-    if (typeof value === 'number') return value;
-    if (typeof value !== 'string') return 0;
-    const number = parseFloat(value);
-    return isNaN(number) ? 0 : number;
-  };
 
   // Initialize localValues with proper fallbacks
   const [localValues, setLocalValues] = useState(() => {
@@ -41,9 +34,8 @@ function CustomValuesEditor() {
     Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
       layerData?.forEach(item => {
         const key = `${layerName}-${item.name}`;
-        // Convert any existing fractions to decimals during initialization
-        const value = parseNumber(item.customVal);
-        initialValues[key] = value.toString();
+        const value = item.customVal;
+        initialValues[key] = value;
       });
     });
     return initialValues;
@@ -55,11 +47,11 @@ function CustomValuesEditor() {
     Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
       layerData?.forEach(item => {
         const key = `${layerName}-${item.name}`;
-        newValues[key] = item.customVal?.toString() || '1';
+        newValues[key] = item.customVal;
       });
     });
     setLocalValues(newValues);
-  }, [oreValsDict]); // This will trigger on reset
+  }, [oreValsDict]);
 
   // Change the custom value in the dictionary
   const handleValueChange = (layer, oreName, newValue) => {
@@ -73,7 +65,7 @@ function CustomValuesEditor() {
           if (ore.name === oreName) {
             return {
               ...ore,
-              customVal: parseNumber(newValue)
+              customVal: newValue
             };
           }
           return ore;
@@ -136,6 +128,9 @@ function CustomValuesEditor() {
           </button>
           <button onClick={() => handleReset('john')} className="color-template-pout">
             Reset to John's Values
+          </button>
+          <button onClick={() => handleReset('custom')} className="color-template-obliviril">
+            Reset to Default
           </button>
         </div>
         <div className="editor-actions">

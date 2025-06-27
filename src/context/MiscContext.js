@@ -116,13 +116,11 @@ export const MiscProvider = ({ children }) => {
     }
   });
 
-  // Add this effect to handle initialOreValsDict updates while preserving custom values
   useEffect(() => {
     if (currentInitialDictRef.current !== initialOreValsDict) {
       setOreValsDict(prev => {
         // Merge custom values with new initial dict
         const mergedDict = JSON.parse(JSON.stringify(initialOreValsDict));
-        
         // Preserve existing custom values
         Object.keys(prev).forEach(layerName => {
           if (mergedDict[layerName]) {
@@ -132,7 +130,6 @@ export const MiscProvider = ({ children }) => {
             });
           }
         });
-        
         return mergedDict;
       });
       currentInitialDictRef.current = initialOreValsDict;
@@ -141,14 +138,6 @@ export const MiscProvider = ({ children }) => {
 
   // Track the current version of initialOreValsDict
   const currentInitialDictRef = useRef(initialOreValsDict);
-
-  // Effect to immediately update when initialOreValsDict changes
-  useEffect(() => {
-    if (currentInitialDictRef.current !== initialOreValsDict) {
-      setOreValsDict(initialOreValsDict);
-      currentInitialDictRef.current = initialOreValsDict;
-    }
-  }, []);
 
   // Persist all data changes
   useEffect(() => localStorage.setItem('csvData', JSON.stringify(csvData)), [csvData]);
@@ -210,7 +199,9 @@ export const MiscProvider = ({ children }) => {
         ...ore,
         customVal: source === 'john' ? ore.johnVal : 
                   source === 'nan' ? ore.nanVal : 
-                  ore.zenithVal
+                  source === 'zenith' ? ore.zenithVal :
+                  source === 'custom' ? ore.customVal :
+                  ore.customVal
       }));
     }
     // Force immediate update and save
