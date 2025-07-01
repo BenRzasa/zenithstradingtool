@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.8d019997.css",
-    "main.js": "/zenithstradingtool/static/js/main.a4e9fa81.js",
+    "main.css": "/zenithstradingtool/static/css/main.11b3d7b6.css",
+    "main.js": "/zenithstradingtool/static/js/main.b0d92e43.js",
     "static/media/Ectokelyte_Icon.webp": "/zenithstradingtool/static/media/Ectokelyte_Icon.25a43f20bdf4f8c35469.webp",
     "static/media/Kryposilus_Icon.webp": "/zenithstradingtool/static/media/Kryposilus_Icon.26d53b76cab792117add.webp",
     "static/media/Auricallium_Icon.webp": "/zenithstradingtool/static/media/Auricallium_Icon.558c2fa5e434e2141c95.webp",
@@ -283,11 +283,11 @@
     "static/media/Graphene_Icon.webp": "/zenithstradingtool/static/media/Graphene_Icon.14da877bb93159b8063a.webp",
     "static/media/Platinum_Icon.webp": "/zenithstradingtool/static/media/Platinum_Icon.46b7bb433901162dccda.webp",
     "static/media/Gallium_Icon.webp": "/zenithstradingtool/static/media/Gallium_Icon.d7cd24811b53518081c3.webp",
-    "index.html": "/zenithstradingtool/index.html",
     "static/media/Silver_Icon.webp": "/zenithstradingtool/static/media/Silver_Icon.95afc9bf516c440ac009.webp",
     "static/media/Quicksilver_Icon.webp": "/zenithstradingtool/static/media/Quicksilver_Icon.06239e2924f6736df02f.webp",
     "static/media/Boron_Icon.webp": "/zenithstradingtool/static/media/Boron_Icon.c343b1ed538602441d58.webp",
     "static/media/Shadow_Quartz_Icon.webp": "/zenithstradingtool/static/media/Shadow_Quartz_Icon.85ceade454c367b8c3bd.webp",
+    "index.html": "/zenithstradingtool/index.html",
     "static/media/Exodian_Icon.webp": "/zenithstradingtool/static/media/Exodian_Icon.22dd968b5d37753c80ed.webp",
     "static/media/Onyx_Icon.webp": "/zenithstradingtool/static/media/Onyx_Icon.29ef387e13f99afae103.webp",
     "static/media/Amber_Icon.webp": "/zenithstradingtool/static/media/Amber_Icon.e27f593fdb875efc824b.webp",
@@ -307,11 +307,11 @@
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
     "static/media/Red_Diamond_Icon.webp": "/zenithstradingtool/static/media/Red_Diamond_Icon.15f999b7100b1173c9fd.webp",
     "static/media/Nilglass_Icon.webp": "/zenithstradingtool/static/media/Nilglass_Icon.d13f9c99294b923b0eaa.webp",
-    "main.8d019997.css.map": "/zenithstradingtool/static/css/main.8d019997.css.map",
-    "main.a4e9fa81.js.map": "/zenithstradingtool/static/js/main.a4e9fa81.js.map"
+    "main.11b3d7b6.css.map": "/zenithstradingtool/static/css/main.11b3d7b6.css.map",
+    "main.b0d92e43.js.map": "/zenithstradingtool/static/js/main.b0d92e43.js.map"
   },
   "entrypoints": [
-    "static/css/main.8d019997.css",
-    "static/js/main.a4e9fa81.js"
+    "static/css/main.11b3d7b6.css",
+    "static/js/main.b0d92e43.js"
   ]
 }
