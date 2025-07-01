@@ -66,7 +66,7 @@ function WelcomePage() {
         </div>
 
         <h2 className="copyright">
-          <span className="copy-wrap">20&nbsp;&nbsp;&nbsp;&nbsp;25</span>
+          Copyright ©2025
         </h2>
     </div>
   );

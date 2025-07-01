@@ -105,18 +105,20 @@ function CustomValuesEditor() {
     <>
     <NavBar />
     <div className="custom-editor">
-      <h1>Custom Values Editor</h1>
-      <h2>Usage Instructions:</h2>
-      <ul>
-        <li>Here, you can customize values to your heart's content</li>
-        <li>First, find the ore you want, then change the "/AV" (ore per AV) number</li>
-        <li>Something like "0.001" means that the ore is worth 1000 Ambrosine
-          This can be determined by "1 / 0.001" </li>
-        <li>When you're done customizing values, click "Save Changes" to set
-          the values and navigate back to the value chart page</li>
-        <li>If you make a mistake, or want to start over, click one of the two
-          reset buttons, then click to confirm</li>
-      </ul>
+      <div className="custom-usage">
+        <h1>Custom Values Editor</h1>
+        <h2>Usage Instructions:</h2>
+        <ul>
+          <li>Here, you can customize values to your heart's content</li>
+          <li>First, find the ore you want, then change the "/AV" (ore per AV) number</li>
+          <li>Something like "0.001" means that the ore is worth 1000 Ambrosine
+            This can be determined by "1 / 0.001" </li>
+          <li>When you're done customizing values, click "Save Changes" to set
+            the values and navigate back to the value chart page</li>
+          <li>If you make a mistake, or want to start over, click one of the two
+            reset buttons, then click to confirm</li>
+        </ul>
+      </div>
       <div className="editor-controls">
         {/* Reset buttons for different value sources */}
         <div className="reset-buttons">

@@ -563,19 +563,21 @@ function TradeTool() {
               {discount > 0 && (
                 <p>💲Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
               )}
-              <p>⛏️Total # Ores: <span>{totals.totalOres}</span></p>
+              <p>⛏️Total # Ores: <span>{totals.totalOres}</span></p>'
+              {totals.totalAV > 0.00 && (
               <button
                 className="copy-filter-btn"
                 onClick={generateSearchFilter}
                 title="Generate and copy search filter"
                 style={{
-                  marginTop:"25px",
-                  marginLeft:"20px",
+                  marginTop:"10px",
+                  marginLeft:"30px",
                   justifyContent:"left",
                 }}
               >
                 Generate Search Filter
               </button>
+              )}
               {copiedFilter && (
                 <div 
                   className="copy-confirmation"

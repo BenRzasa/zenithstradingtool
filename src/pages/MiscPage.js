@@ -75,7 +75,7 @@ function MiscPage() {
   const cards = [
     {
       id: "card1",
-      title: "Search Filters (Copy & Paste in your inventory search bar)",
+      title: "Search Filters (Click the Icon to Copy & Paste in your inventory search bar)",
       content: (
         <div className="search-filters">
           {searchFilters.map((category, index) => {

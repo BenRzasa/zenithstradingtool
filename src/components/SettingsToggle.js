@@ -1,19 +1,18 @@
-// SettingsToggle.js
 import React from 'react';
 
 const SettingsToggle = ({ onClick }) => {
   return (
-    <button 
+    <button type="image"
       onClick={onClick}
       style={{
-        scale:'1.5',
+        scale:'1.25',
         position: 'fixed',
-        top: '15px',
-        right: '30px',
-        background:'none',
-        color: 'black',
-        border: 'none',
-        borderRadius: '50%',
+        top: '20px',
+        right: '20px',
+        background: 'var(--background-color)',
+        color: 'var(--switch-outline)',
+        border: '2.25px solid var(--switch-outline)',
+        borderRadius: '12px',
         width: '40px',
         height: '40px',
         fontSize: '25px',
@@ -24,7 +23,14 @@ const SettingsToggle = ({ onClick }) => {
         zIndex: 1001
       }}
     >
-      ⚙️
+    {/*
+    <img
+      src={settingIcon}
+      alt="Settings toggle"
+      loading="lazy"
+    ></img>
+    */}
+    <i class="fas fa-gear"></i>
     </button>
   );
 };

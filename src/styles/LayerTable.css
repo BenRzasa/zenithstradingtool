@@ -116,12 +116,12 @@ th {
     position: absolute;
     top: -1;
     left: 0;
-    width: 100%; 
+    width: 100%;
     z-index: -1;
     color: black;
     font-size: 21px;
     font-weight: bolder;
-    -webkit-text-stroke: 5px black; 
+    -webkit-text-stroke: 5px black;
     -webkit-font-smoothing: antialiased;
     paint-order: stroke fill;
     text-rendering: optimizeLegibility;
@@ -141,11 +141,9 @@ th {
     font-size: 16px;
     font-weight: bold;
     vertical-align: middle;
-    outline: 2px solid black;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    outline: 2px solid var(--switch-outline);
 }
 
-/* Other cell formatting */
 td {
     border: 2px solid var(--table-outline) !important;
     vertical-align: middle;
@@ -153,10 +151,9 @@ td {
     line-height: 1.5;
 }
 
-/* Table header adjustments */
 .table-comp th {
     padding-top: 11px;
-    padding-bottom: 8px;
+    padding-bottom: 9px;
     white-space: nowrap;
 }
 
@@ -178,17 +175,6 @@ td {
 .placeholder {
     color: var(--accent-color);
     font-weight: bold;
-}
-
-
-:root {
-    --accent-color: #5b42f3;
-
-}
-
-[data-theme="dark"] {
-    --accent-color: #33add6;
-
 }
 
 .name-column {
@@ -292,7 +278,7 @@ td {
 
 /* Copy button formatting */
 .table-footer {
-    padding: 10px 15px;
+    padding: 5px 15px;
     border-top: 1px solid var(--table-outline);
     margin-top: 0px;
     display: flex;
@@ -306,23 +292,23 @@ td {
 
 .completion-toggle {
     margin-top: 10px;
-  margin-bottom: 5px;
-  transform:scale(1.25);
-  margin-left: 40px;
+    margin-bottom: 5px;
+    transform:scale(1.25);
+    margin-left: 40px;
 }
 
 .completion-toggle label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #ddd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-col);
 }
 
 .completion-toggle input {
-  margin: 0;
-  cursor: pointer;
+    margin: 0;
+    cursor: pointer;
 }
 
 .copy-filter-container {
@@ -332,10 +318,14 @@ td {
 }
 
 .copy-filter-btn {
+    font-family: 'Montserrat';
+    transform: scale(1.15);
     background: none;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
     padding: 5px 10px;
+    margin-right: 5px;
+    margin-top: 5px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9em;

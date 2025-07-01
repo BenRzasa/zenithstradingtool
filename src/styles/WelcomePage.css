@@ -108,7 +108,7 @@
   font-family: 'Segoe UI';
   display: block;
   text-align: center;
-  letter-spacing: 2px;;
+  letter-spacing: 2px;
   margin-top: 0px;
   transition: all 0.7s 0s ease-in-out;
   position: relative;
@@ -119,6 +119,7 @@
 }
 
 .welcome-page .copyright {
+  font-family: 'Segoe UI';
   bottom: 20px;
   overflow: hidden;
   height: 72px;

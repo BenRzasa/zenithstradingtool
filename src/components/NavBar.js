@@ -13,7 +13,7 @@ const NavBar = () => {
     <div className="dropdown-container"
 
     >
-    <span className="nav-h">[ Navigation ☰ ]</span>
+    <span className="nav-h">Navigation&nbsp;&nbsp;&nbsp;<i class="fas fa-bars"></i></span>
 
       {isOpen && (
         <ul className="dropdown-menu">

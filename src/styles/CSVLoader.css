@@ -15,7 +15,7 @@
     padding: 0px;
     margin-left: 15px;
     margin-top: 15px;
-    border: 3px solid var(--csv-outline);
+    border: 3px solid var(--switch-outline);
     border-radius: 25px;
     background-color: var(--background-color);
     width: fit-content;
@@ -124,7 +124,7 @@
 }
 
 .ore-changes-list {
-    border: 2px solid var(--csv-outline);
+    border: 2px solid var(--switch-outline);
     overflow-y: auto;
     max-height: 150px;
     text-align: left;
@@ -132,6 +132,7 @@
 
 .ore-changes-list li {
     text-align: left;
+    margin-left: -15px;
     font-size: 18px;
     margin-bottom: 3px;
 }
@@ -147,7 +148,7 @@
     border-radius: 15px;
     width: fit-content;
     height: fit-content;
-    outline: 3px solid var(--csv-outline);
+    outline: 3px solid var(--switch-outline);
     box-shadow: 0px 5px 10px #141414;
 }
 
@@ -202,9 +203,8 @@
     overflow-y: scroll;
     height: 525px;
     min-width: 600px;
-    padding: 15px 15px 15px 15px;
     margin-right: 10px;
-    box-shadow: inset 3px 5px 10px #000000;
+    outline: 3px solid var(--switch-outline);
 }
 
 /* Table Styles */

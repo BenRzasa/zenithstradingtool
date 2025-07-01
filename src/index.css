@@ -125,17 +125,46 @@ li {
   margin-bottom: 10px;
 }
 
-/* Light Theme */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 20px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6353d0;
+}
+
 :root {
   --switch-outline: #000000;
   --background-color: #ffffff;
   --text-color: #000000;
+  --accent-color: #5b42f3;
 }
 
-/* Dark Theme */
+[data-theme="light"] {
+  --text-col: #000000;
+  --table-outline: #333;
+  --background-color: #ffffff;
+  
+}
+
 [data-theme="dark"] {
-  --switch-outline: #ffffff;
+  --text-col: #ffffff;
+  --table-outline: #3a3a3a;
   --background-color: #121212;
+  --accent-color: #33add6;
+  --switch-outline: #ffffff;
   --text-color: #ffffff;
 }
 

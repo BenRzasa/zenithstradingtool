@@ -36,7 +36,7 @@ export const initialOreValsDict = {
   "Uniques\nNon-Standard Obtainment":
   [
     { name: "Vicious Shard", zenithVal: 1/180, johnVal: 1/180, nanVal: 1/180, customVal: 1/180 },
-    { name: "Jalabono", zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Jalabono", zenithVal: 1, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Hollevite", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Verglazium", zenithVal: 2.0, johnVal: 2.0, nanVal: 2.0, customVal: 2.0 },
     { name: "Meteorite", zenithVal: 2.0, johnVal: 2.0, nanVal: 2.0, customVal: 2.0 },
@@ -81,7 +81,7 @@ export const initialOreValsDict = {
     { name: "Peridot", zenithVal: 7, johnVal: 6, nanVal: 6, customVal: 6 },
     { name: "Amethyst", zenithVal: 4, johnVal: 4, nanVal: 6, customVal: 4 },
     { name: "Thallium", zenithVal: 6, johnVal: 7, nanVal: 6, customVal: 6 },
-    { name: "Tungsten", zenithVal: 7, johnVal: 7, nanVal: 8, customVal: 7 },
+    { name: "Tungsten", zenithVal: 8, johnVal: 7, nanVal: 8, customVal: 7 },
     { name: "Diamond", zenithVal: 12, johnVal: 10, nanVal: 10, customVal: 12 },
     { name: "Garnet", zenithVal: 7, johnVal: 7, nanVal: 8, customVal: 7 },
     { name: "Platinum", zenithVal: 9, johnVal: 9, nanVal: 12, customVal: 9 },

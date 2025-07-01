@@ -328,13 +328,15 @@ function ValueChart() {
     };
   };
 
+  const [tableSelected, setTableSelected] = useState("");
   // Function to handle dropdown selection
   const handleTableSelect = (e) => {
-    const tableId = e.target.value;
+    let tableId = e.target.value;
     if (tableId) {
       const element = document.getElementById(tableId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
+        setTableSelected("");
       }
     }
   };
@@ -619,7 +621,7 @@ function ValueChart() {
           <select
             id="table-select"
             onChange={handleTableSelect}
-            defaultValue=""
+            value={tableSelected}
           >
             <option value="" disabled>
               Select a table...

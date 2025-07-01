@@ -13,24 +13,33 @@ const SettingsPanel = ({
   onApplyBg,
   onResetBg
 }) => {
+
   const panelRef = useRef(null);
-  const TOP_OFFSET = 70; // Adjust this value based on your toggle button's height/position
+  const settingsIconRef = useRef(null);
+  const TOP_OFFSET = 60;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isOpen && panelRef.current && !panelRef.current.contains(event.target)) {
-        // Check if click is below our offset threshold
-        if (event.clientY > TOP_OFFSET) {
+      if (!isOpen || !panelRef.current) return;
+      
+      const isClickOnIcon = settingsIconRef.current?.contains(event.target);
+      const isClickInPanel = panelRef.current.contains(event.target);
+      const panelRect = panelRef.current.getBoundingClientRect();
+
+      if (isClickOnIcon) {
+        // Close immediately if settings icon is clicked
+        onClose();
+      } else if (!isClickInPanel) {
+        // Check if click is outside panel horizontally AND below top offset
+        const isOutsideHorizontally = event.clientX < panelRect.left || event.clientX > panelRect.right;
+        if (isOutsideHorizontally || event.clientY > TOP_OFFSET) {
           onClose();
         }
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onClose]);
 
   return (
@@ -78,23 +87,23 @@ const SettingsPanel = ({
           <label htmlFor="bg-upload" className="upload-button">
             📁 Upload Background Image
           </label>
-          
+          <div className="action-buttons">
           {customBg && (
-            <div className="action-buttons">
-              <button 
+              <button
                 onClick={onApplyBg}
                 className="apply-button"
               >
                 Apply Background
               </button>
-              <button 
-                onClick={onResetBg}
-                className="reset-button"
-              >
-                Reset
-              </button>
-            </div>
+
           )}
+          <button
+            onClick={onResetBg}
+            className="reset-button"
+          >
+            Reset
+          </button>
+          </div>
         </div>
       </div>
     </div>
