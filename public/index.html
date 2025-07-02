@@ -17,17 +17,6 @@
     <script src="https://kit.fontawesome.com/b5518de26d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="index.css">
 </head>
-<script>
-  fetch('package.json')
-    .then(response => response.json())
-    .then(data => {
-      const versionElement = document.getElementById('app-version');
-      if (versionElement) {
-        versionElement.textContent = `v${data.version}`;
-      }
-    })
-    .catch(error => console.error('Error loading version:', error));
-</script>
 <body>
     <div id="root"></div>
 </body>

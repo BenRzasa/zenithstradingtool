@@ -405,8 +405,9 @@ const LayerTable = ({
           </li>
           <div className="completion-toggle">
           <label>
-            <input 
-              type="checkbox" 
+            <input
+              type="checkbox"
+              id={`percentage-checkbox-${title}`}
               checked={capCompletion}
               onChange={() => setCapCompletion(!capCompletion)}
             />

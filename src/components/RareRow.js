@@ -66,6 +66,7 @@ const RareRow = ({
           </button>
           <div className="count-input-wrapper">
             <input
+              id={`count-input-${item.name}`}
               type="number"
               value={count === 0 ? "" : count}
               min="0"

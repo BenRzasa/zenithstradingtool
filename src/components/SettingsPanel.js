@@ -21,7 +21,6 @@ const SettingsPanel = ({
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!isOpen || !panelRef.current) return;
-      
       const isClickOnIcon = settingsIconRef.current?.contains(event.target);
       const isClickInPanel = panelRef.current.contains(event.target);
       const panelRect = panelRef.current.getBoundingClientRect();
@@ -64,23 +63,23 @@ const SettingsPanel = ({
         <div className="opacity-control">
           <label className="opacity-label">
             Background Opacity: {Math.round(opacity * 100)}%
-          </label>
-          <input 
-            type="range" 
-            min="0" 
-            max="1" 
-            step="0.01" 
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
             value={opacity}
             onChange={onOpacityChange}
             className="opacity-slider"
           />
+          </label>
         </div>
-        
+
         <div>
-          <input 
-            type="file" 
-            accept="image/*" 
-            onChange={onBgChange} 
+          <input
+            type="file"
+            accept="image/*"
+            onChange={onBgChange}
             className="file-input"
             id="bg-upload"
           />

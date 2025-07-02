@@ -2,9 +2,10 @@ import React from 'react';
 
 const SettingsToggle = ({ onClick }) => {
   return (
-    <button type="image"
+    <button
       onClick={onClick}
       style={{
+        title:'Settings icon',
         scale:'1.25',
         position: 'fixed',
         top: '20px',

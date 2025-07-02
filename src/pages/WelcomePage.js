@@ -3,50 +3,56 @@
 */
 
 import React from "react";
+import { GetVersion } from '../utils/GetVersion';
 import { useNavigate } from "react-router-dom";
-import packageJson from '../../package.json'; // or use process.env.REACT_APP_VERSION
 
 import "../styles/WelcomePage.css";
 
 function WelcomePage() {
+  const version = GetVersion();
   let navigate = useNavigate();
   return (
     <div className="welcome-page">
       <div className="button-container">
         <div className="box-button">
-        <button
-          onClick={() => navigate('/csvloader')}
-        >⭐CSV Loader⭐</button>
+          <button
+            onClick={() => navigate('/csvloader')}
+          >⭐START HERE!⭐</button>
         </div>
         <div className="box-button">
-        <button
-          onClick={() => navigate('/valuechart')}
-        >Value Chart</button>
+          <button
+            onClick={() => navigate('/valuechart')}
+          >Value Chart</button>
         </div>
         <div className="box-button">
-        <button
-          onClick={() => navigate('/tradetool')}
-        >💲Trade Tool💲</button>
+          <button
+            onClick={() => navigate('/tradetool')}
+          >💲Trade Tool💲</button>
         </div>
         <div className="box-button">
-        <button
-          onClick={() => navigate('/customvalues')}
-        >Custom Values</button>
+          <button
+            onClick={() => navigate('/customvalues')}
+          >Custom Values</button>
         </div>
         <div className="box-button">
-        <button
-          onClick={() => navigate('/misc')}
-        >Miscellaneous</button>
+          <button
+            onClick={() => navigate('/misc')}
+          >Miscellaneous</button>
         </div>
         <div className="box-button">
-        <button
-          onClick={() => navigate('/findtracker')}
-        >Rare Tracker</button>
+          <button
+            onClick={() => navigate('/findtracker')}
+          >Rare Tracker</button>
         </div>
         <div className="box-button">
-        <button
-          onClick={() => window.open('https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki', "_blank")}
-        >📝TCC Wiki📕</button>
+          <button
+            onClick={() => window.open('https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki', "_blank")}
+          >📝TCC Wiki📕</button>
+        </div>
+        <div className="box-button">
+          <button
+            onClick={() => window.open('https://ko-fi.com/zenithflare', "_blank")}
+          >🍵Buy Me a Coffee💖</button>
         </div>
       </div>
       <div>
@@ -59,7 +65,7 @@ function WelcomePage() {
         <div className="wcard">
             <h1 className="title">
               <span className="copy-wrap">
-                Welcome to ZenithFlare's Trading Tool v{packageJson.version}!
+                Welcome to ZenithFlare's Trading Tool v{version}!
               </span>
             </h1>
           </div>

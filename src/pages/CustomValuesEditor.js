@@ -136,8 +136,6 @@ function CustomValuesEditor() {
           <button onClick={() => handleReset('custom')} className="color-template-obliviril">
             Reset to Default
           </button>
-        </div>
-        <div className="editor-actions">
           <button onClick={handleSave} className="save-button">
             Save Changes
           </button>
@@ -149,7 +147,7 @@ function CustomValuesEditor() {
       {/* Value tables container - formatted similarly to the main Value Chart page */}
       <div
         className="tables-container"
-        style={{marginLeft:"-150px"}}
+        style={{marginLeft:"-125px"}}
       >
         {Object.entries(oreValsDict).map(([layerName, layerData]) => {
           const gradientKey = Object.keys(LayerGradients).find(key =>
@@ -205,6 +203,7 @@ function CustomValuesEditor() {
                       </td>
                       <td>
                         <input
+                          id={`custom-value-input-${item.name}`}
                           type="number"
                           step="any"
                           value={
@@ -213,12 +212,17 @@ function CustomValuesEditor() {
                             : item.customVal
                           }
                           onChange={(e) => {
+                            console.log("Change")
                             setLocalValues(prev => ({
                               ...prev,
                               [`${layerName}-${item.name}`]: e.target.value
                             }));
                           }}
                           onBlur={(e) => {
+                            if (e.target.value <= 0 || e.target.value > 10000) {
+                              window.alert("Please enter a value between 1 and 10000. Defaulting to '1'...");
+                              e.target.value = 1;
+                            }
                             handleValueChange(layerName, item.name, e.target.value);
                             setLocalValues(prev => {
                               const newValues = {...prev};

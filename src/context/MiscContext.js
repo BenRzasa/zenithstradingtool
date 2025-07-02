@@ -106,8 +106,8 @@ export const MiscProvider = ({ children }) => {
   });
 
   const [oreValsDict, setOreValsDict] = useState(() => {
-      const savedDict = localStorage.getItem('oreValsDict');
-      return savedDict ? JSON.parse(savedDict) : oreValsDict;
+    const savedDict = localStorage.getItem('oreValsDict');
+    return savedDict ? JSON.parse(savedDict) : initialOreValsDict;
   });
 
   useEffect(() => {

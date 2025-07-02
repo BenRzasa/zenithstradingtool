@@ -36,6 +36,7 @@ const ThemeSwitch = () => {
         type="checkbox"
         aria-label="Toggle dark/light theme"
         title="Toggle theme"
+        id="Theme switch"
       />
       <span className="slider">
         <div className="star star_1"></div>
