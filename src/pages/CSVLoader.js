@@ -28,6 +28,8 @@ function CSVLoader() {
     valueMode,
     setValueMode,
     getValueForMode,
+    useObtainRateVals,
+    setUseObtainRateVals,
     csvHistory,
     loadOldCSV,
   } = useContext(MiscContext);
@@ -247,6 +249,14 @@ function CSVLoader() {
               className={valueMode === 'custom' ? "color-template-havicron" : ""}
             >
               <span>Custom</span>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
+              className={useObtainRateVals === true ? "color-template-singularity" : ""}
+            >
+              <span>Use Obtain Rate</span>
             </button>
           </div>
       </div>

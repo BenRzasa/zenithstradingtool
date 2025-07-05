@@ -167,7 +167,7 @@ const LayerTable = ({
       { name: "", value: 0 }
     );
     // Format the max value ore with one decimal and the mode string after
-    return `${highestItem.name} (${highestItem.value.toFixed(1)} ${modeStr})`;
+    return `${highestItem.name} (${highestItem.value.toFixed(2)} ${modeStr})`;
   };
 
   // Handle inventory changes

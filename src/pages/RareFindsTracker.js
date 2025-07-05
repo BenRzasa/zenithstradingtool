@@ -4,7 +4,7 @@
   - As well as a running total of the value of their rare finds
   and total amounts of rares and super rares found
 */
-import { useContext, useState, useMemo, useEffect } from "react";
+import { useContext, useState, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
 
 import NavBar from "../components/NavBar";
@@ -22,7 +22,9 @@ const RareFindsTracker = () => {
     currentMode,
     setCurrentMode,
     customMultiplier,
-    getValueForMode
+    getValueForMode,
+    useObtainRateVals,
+    setUseObtainRateVals
   } = useContext(MiscContext);
 
   /*
@@ -42,22 +44,14 @@ const RareFindsTracker = () => {
   // eslint-disable-next-line
   const modeStr = useMemo(() => {
     switch (currentMode) {
-      case 1:
-        return "AV"; // AV
-      case 2:
-        return "UV"; // UV
-      case 3:
-        return "NV"; // NV
-      case 4:
-        return "TV"; // TV
-      case 5:
-        return "SV"; // SV
-      case 6:
-        return "RV"; // RV
-      case 7:
-        return "CV";  // Custom
-      default:
-        return "AV"; // Default to AV
+      case 1: return "AV"; // AV
+      case 2: return "UV"; // UV
+      case 3: return "NV"; // NV
+      case 4: return "TV"; // TV
+      case 5: return "SV"; // SV
+      case 6: return "RV"; // RV
+      case 7: return "CV";  // Custom
+      default: return "AV"; // Default to AV
     }
   });
 
@@ -107,7 +101,7 @@ const RareFindsTracker = () => {
   ];
 
   // Get rares data (bracket notation for string names)
-  const raresData = (initialOreValsDict["Rares\nMore Common Than 1/24999"].concat(initialOreValsDict["True Rares\n1/25000 or Rarer"]));
+  const raresData = (initialOreValsDict["Rares\nMore Common Than 1/33,333"].concat(initialOreValsDict["True Rares\n1/33,333 or Rarer"]));
 
   // Need to fix this - should NOT need to hard-code the gradients in...
   const raresGradient = `linear-gradient(90deg, #ffcc66 0%, #f9f575 20%,
@@ -139,7 +133,8 @@ const RareFindsTracker = () => {
   const totalRareVal = rareOres
     .reduce((sum, item) => {
       const count = rareFindsData[item.name] || 0;
-      return sum + parseFloat(calculateNumV(getValueForMode(item), count));
+      const value = useObtainRateVals ? item.obtainVal : getValueForMode(item);
+      return sum + parseFloat(calculateNumV(value, count));
     }, 0)
     .toFixed(2); // Apply toFixed AFTER reduce
 
@@ -147,7 +142,8 @@ const RareFindsTracker = () => {
   const totalSuperRareVal = superRares
     .reduce((sum, item) => {
       const count = rareFindsData[item.name] || 0;
-      return sum + parseFloat(calculateNumV(getValueForMode(item), count));
+      const value = useObtainRateVals ? item.obtainVal : getValueForMode(item);
+      return sum + parseFloat(calculateNumV(value, count));
     }, 0)
     .toFixed(2); // Apply toFixed AFTER reduce
 
@@ -186,24 +182,42 @@ const RareFindsTracker = () => {
     updateLastUpdated(itemName);
   };
 
-  // ` = template literal (enables multi-lining)
-  const resetMsg = `WARNING: This will permanently delete all your rare finds data.
-  \nThis cannot be undone!
-  \nAre you sure you want to reset?`;
+  // Reset rare finds data with options
+  const resetRareFinds = (resetType = 'all') => {
+    const messages = {
+      all: `WARNING: This will permanently delete ALL your rare finds data.\nThis cannot be undone!\nAre you sure you want to reset?`,
+      rares: `WARNING: This will permanently delete your REGULAR RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`,
+      superRares: `WARNING: This will permanently delete your SUPER RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`
+    };
 
-  // Reset all rare finds data
-  const resetAllRareFinds = () => {
-    if (window.confirm(resetMsg)) {
+    if (!window.confirm(messages[resetType])) return;
+
+    if (resetType === 'all') {
       setRareFindsData({});
       setLastUpdatedDates({});
       localStorage.removeItem("rareFindsData");
       localStorage.removeItem("rareFindsLastUpdated");
+      return;
     }
-  };
 
-  useEffect(() => {
-    console.log("Rare Tracker loaded.")
-  }, []);
+    setRareFindsData(prev => {
+      const newData = {...prev};
+      const oresToDelete = resetType === 'rares' ? rareOres : superRares;
+      oresToDelete.forEach(ore => delete newData[ore.name]);
+      return newData;
+    });
+
+    setLastUpdatedDates(prev => {
+      const newDates = {...prev};
+      const oresToDelete = resetType === 'rares' ? rareOres : superRares;
+      oresToDelete.forEach(ore => delete newDates[ore.name]);
+      return newDates;
+    });
+
+    // Update localStorage with modified data
+    localStorage.setItem("rareFindsData", JSON.stringify(rareFindsData));
+    localStorage.setItem("rareFindsLastUpdated", JSON.stringify(lastUpdatedDates));
+  };
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -252,10 +266,30 @@ const RareFindsTracker = () => {
         setCurrentMode={setCurrentMode}
       />
       <CustomMultiplierInput />
-      <div className="box-button">
-        <button className="reset-btn" onClick={resetAllRareFinds}>
-          Reset All
-        </button>
+      <div className="button-container">
+        <div className="box-button">
+          <button
+            onClick={() => setUseObtainRateVals(!useObtainRateVals)}
+            className={useObtainRateVals === true ? "color-template-singularity" : ""}
+          >
+            <span>Use Obtain Rate</span>
+          </button>
+        </div>
+        <div className="box-button">
+          <button className="reset-btn" onClick={() => resetRareFinds('rares')}>
+            Reset Rares
+          </button>
+        </div>
+        <div className="box-button">
+          <button className="reset-btn" onClick={() => resetRareFinds('superRares')}>
+            Reset Super Rares
+          </button>
+        </div>
+        <div className="box-button">
+          <button className="reset-btn" onClick={() => resetRareFinds('all')}>
+            Reset All Finds
+          </button>
+        </div>
       </div>
 
       {/* Totals display */}

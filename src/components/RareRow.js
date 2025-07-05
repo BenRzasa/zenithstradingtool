@@ -59,6 +59,7 @@ const RareRow = ({
         <div className="count-controls">
           <button
             className="count-btn decrement"
+            tabindex="-1"
             onClick={() => decrementValue(item.name)}
             aria-label={`Decrement ${item.name}`}
           >
@@ -81,6 +82,7 @@ const RareRow = ({
           </div>
           <button
             className="count-btn increment"
+            tabindex="-1"
             onClick={() => incrementValue(item.name)}
             aria-label={`Increment ${item.name}`}
           >

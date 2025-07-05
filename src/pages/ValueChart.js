@@ -33,6 +33,8 @@ function ValueChart() {
     valueMode,
     setValueMode,
     getValueForMode,
+    useObtainRateVals,
+    setUseObtainRateVals,
     oreValsDict,
     setOreValsDict,
     capCompletion,
@@ -129,22 +131,14 @@ function ValueChart() {
     const baseValue = getValueForMode(ore);
 
     switch (currentMode) {
-      case 1:
-        return baseValue; // AV
-      case 2:
-        return baseValue * 10; // UV
-      case 3:
-        return baseValue * 100; // NV
-      case 4:
-        return baseValue * 500; // TV
-      case 5:
-        return baseValue * 1000; // SV
-      case 6:
-        return baseValue * 50; // RV
-      case 7:
-        return baseValue * customMultiplier; // Custom value (AV #)
-      default:
-        return baseValue; // Default to AV
+      case 1: return baseValue; // AV
+      case 2: return baseValue * 10; // UV
+      case 3: return baseValue * 100; // NV
+      case 4: return baseValue * 500; // TV
+      case 5: return baseValue * 1000; // SV
+      case 6: return baseValue * 50; // RV
+      case 7: return baseValue * customMultiplier; // Custom value (AV #)
+      default: return baseValue; // Default to AV
     }
   };
 
@@ -511,7 +505,7 @@ function ValueChart() {
             flexDirection: "row",
           }}
         >
-          {/* More stats button - expands quick summary & enables more info */}
+          {/* Cap completion % button - uncaps and caps the completion % to 100*/}
           <div className="box-button">
             <button
               onClick={() => setCapCompletion(!capCompletion)}
@@ -521,6 +515,7 @@ function ValueChart() {
               <div className="v-last-updated">Toggle 100% max</div>
             </button>
           </div>
+          {/* More stats button - expands quick summary & enables more info */}
           <div className="box-button">
             <button
               onClick={() => {
@@ -575,6 +570,15 @@ function ValueChart() {
             >
               <span>Custom</span>
               <div className="v-last-updated">Personal values</div>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
+              className={useObtainRateVals === true ? "color-template-singularity" : ""}
+            >
+              <span>Use Obtain Rate</span>
+              <div className="v-last-updated">(Standard Rates for Rares)</div>
             </button>
           </div>
 
@@ -687,7 +691,7 @@ function ValueChart() {
 
             const gradientStyle = gradientKey
               ? LayerGradients[gradientKey].background
-              : "linear-gradient(90deg, #667eea 0%, #764ba2 100%)";
+              : "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
 
             return (
               <div id={layerName.replace(/\s+/g, "-")} key={layerName}>

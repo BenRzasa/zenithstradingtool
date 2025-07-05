@@ -287,7 +287,9 @@ td {
 }
 
 .table-footer li {
-    margin-bottom: -5px;
+    font-size: 18px;
+    margin-bottom: -3px;
+    margin-left: -5px;
 }
 
 .completion-toggle {

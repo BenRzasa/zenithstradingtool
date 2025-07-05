@@ -9,28 +9,28 @@
 // - NAN's
 // - John's
 export const initialOreValsDict = {
-  "True Rares\n1/25000 or Rarer":
+  "True Rares\n1/33,333 or Rarer":
   [
-    { name: "Universallium", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
-    { name: "Neutrine", zenithVal: 0.01, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
-    { name: "Torn Fabric", zenithVal: 0.002, johnVal: 0.002, nanVal: 0.002, customVal: 0.002 },
-    { name: "Singularity", zenithVal: 0.001, johnVal: 0.001, nanVal: 0.001, customVal: 0.001 },
-    { name: "Egg", zenithVal: 0.02, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
-    { name: "Violecil", zenithVal: 0.2, johnVal: 0.2, nanVal: 0.2, customVal: 0.2 },
-    { name: "Dystranum", zenithVal: 1/15, johnVal: 1/15, nanVal: 1/15, customVal: 1/15 },
-    { name: "Havicron", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
-    { name: "Rhylazil", zenithVal: 1/60, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
-    { name: "Ubriniale", zenithVal: 1/125, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
+    { name: "Universallium", obtainVal: 0.1, zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
+    { name: "Neutrine", obtainVal: 0.01, zenithVal: 0.01, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
+    { name: "Torn Fabric", obtainVal: 0.002, zenithVal: 0.002, johnVal: 0.002, nanVal: 0.002, customVal: 0.002 },
+    { name: "Singularity", obtainVal: 0.001, zenithVal: 0.001, johnVal: 0.001, nanVal: 0.001, customVal: 0.001 },
+    { name: "Egg", obtainVal: 0.025, zenithVal: 0.02, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
+    { name: "Violecil", obtainVal: 0.2, zenithVal: 0.2, johnVal: 0.2, nanVal: 0.2, customVal: 0.2 },
+    { name: "Dystranum", obtainVal: 1/15, zenithVal: 1/15, johnVal: 1/15, nanVal: 1/15, customVal: 1/15 },
+    { name: "Havicron", obtainVal: 0.1, zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
+    { name: "Rhylazil", obtainVal: 0.02, zenithVal: 1/60, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
+    { name: "Ubriniale", obtainVal: 0.01, zenithVal: 1/125, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
   ],
 
-  "Rares\nMore Common Than 1/24999":
+  "Rares\nMore Common Than 1/33,333":
   [
-    { name: "Ambrosine", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Zynulvinite", zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Cindrasil", zenithVal: 0.25, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
-    { name: "Neutrino", zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Malbrane", zenithVal: 1.5, johnVal: 1, nanVal: 1, customVal: 1 },
-    { name: "Ectokelyte", zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
+    { name: "Ambrosine", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Zynulvinite", obtainVal: 1.0, zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Cindrasil", obtainVal: 1/3, zenithVal: 0.25, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
+    { name: "Neutrino", obtainVal: 1.0, zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Malbrane", obtainVal: 1.0, zenithVal: 1, johnVal: 1, nanVal: 1, customVal: 1 },
+    { name: "Ectokelyte", obtainVal: 1/3, zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
   ],
 
   "Uniques\nNon-Standard Obtainment":

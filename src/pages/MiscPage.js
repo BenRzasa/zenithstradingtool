@@ -29,6 +29,8 @@ function MiscPage() {
     valueMode,
     setValueMode,
     getValueForMode,
+    useObtainRateVals,
+    setUseObtainRateVals
   } = useContext(MiscContext);
 
   // Copy the search filter to the clipboard
@@ -50,7 +52,8 @@ function MiscPage() {
   const sortedOres = allOres
     .map((ore) => {
       const inventory = csvData[ore.name] || 0;
-      const nvValue = getValueForMode(ore) * 100;
+      const value = getValueForMode(ore);
+      const nvValue = value * 100;
       const numNVs = nvValue > 0 ? inventory / nvValue : 0;
       // Return the ore objects, number of NVs per ore,
       // number in the inventory, and value per NV (unused for now,
@@ -148,6 +151,14 @@ function MiscPage() {
                 <span>Custom</span>
               </button>
             </div>
+            <div className="box-button">
+            <button
+              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
+              className={useObtainRateVals === true ? "color-template-singularity" : ""}
+            >
+              <span>Use Obtain Rate</span>
+            </button>
+          </div>
           </div>
 
           {/* Ore list */}

@@ -36,6 +36,8 @@ function TradeTool() {
     valueMode,
     setValueMode,
     getValueForMode,
+    useObtainRateVals,
+    setUseObtainRateVals,
     oreValsDict
   } = useContext(MiscContext);
 
@@ -46,7 +48,7 @@ function TradeTool() {
   const [batchMode, setBatchMode] = useState('quantity'); // 'quantity' or 'av'
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
-   const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // Refs for DOM access
   const searchInputRef = useRef(null);
@@ -195,7 +197,8 @@ function TradeTool() {
     const oreData = allOresWithLayers.find(ore => ore.name === oreName);
     if (!oreData) return "0.0";
     const quantity = quantities[oreName] ?? 0;
-    return (quantity / getValueForMode(oreData)).toFixed(1);
+    const value = getValueForMode(oreData);
+    return (quantity / value).toFixed(1);
   };
 
   /* Calculate totals */
@@ -203,7 +206,7 @@ function TradeTool() {
     return Object.entries(quantities).reduce((acc, [oreName, qty]) => {
       const oreData = allOresWithLayers.find(o => o?.name === oreName);
       if (!oreData) return acc;
-      const value = oreData[valueMode + 'Val'];
+      const value = getValueForMode(oreData);
       const quantity = Number(qty) || 0;
       return {
         totalOres: acc.totalOres + quantity,
@@ -422,6 +425,14 @@ function TradeTool() {
                 <span>Custom</span>
               </button>
             </div>
+            <div className="box-button">
+            <button
+              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
+              className={useObtainRateVals === true ? "color-template-singularity" : ""}
+            >
+              <span>Use Obtain Rate</span>
+            </button>
+          </div>
             <div className="box-button" onClick={clearTable}>
               <button>
                 <span className="button">Clear Table</span>
@@ -603,13 +614,15 @@ function TradeTool() {
                         className={isOreSelected(ore.name) ? "selected-row" : ""}
                         onClick={() => toggleOreSelection(ore.name)}
                       >
-                      <td 
-                        className={`tr-name-cell ${getOreClassName(ore.name)}`} 
+                      <td
+                        className={`tr-name-cell ${getOreClassName(ore.name)}`}
                         data-text={ore.name}
                         style={{paddingRight:"10px"}}
                       >
                         <button
                           className="delete-ore-button"
+                          tabIndex="-1"
+                          aria-label="Clear ore from trade"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleRemoveOre(ore);
@@ -626,7 +639,10 @@ function TradeTool() {
                       </td>
                       <td>
                         <div className="quantity-cell-container">
-                          <div className={`inventory-check ${hasEnoughOre(ore) ? "has-enough" : "not-enough"}`}>
+                          <div
+                            className={`inventory-check ${hasEnoughOre(ore) ? "has-enough" : "not-enough"}`}
+                            tabIndex="-1"
+                          >
                               {hasEnoughOre(ore) ? "✓" : "✖"}
                           </div>
                           <div className="inventory-count">
@@ -636,6 +652,7 @@ function TradeTool() {
                           <label htmlFor={`quantity-${ore.name}`} className="quantity-label">
                             <input
                               id={`quantity-${ore.name}`}
+                              aria-label="Ore quantity input"
                               type="number"
                               value={quantities[ore.name] ?? ""}
                               onChange={(e) => handleQuantityChange(ore.name, e.target.value)}
@@ -662,6 +679,8 @@ function TradeTool() {
           <div className="ore-table-panel">
           <div className="layer-controls">
             <button
+              className="collapse-button"
+              tabIndex="-1"
               onClick={() => {
                 const allCollapsed = {};
                 Object.keys(oreValsDict).forEach(layer => {
@@ -669,11 +688,12 @@ function TradeTool() {
                 });
                 setCollapsedLayers(allCollapsed);
               }}
-              className="collapse-button"
             >
               Collapse All
             </button>
             <button
+              className="expand-button"
+              tabIndex="-1"
               onClick={() => {
                 const allExpanded = {};
                 Object.keys(oreValsDict).forEach(layer => {
@@ -681,7 +701,6 @@ function TradeTool() {
                 });
                 setCollapsedLayers(allExpanded);
               }}
-              className="expand-button"
             >
               Expand All
             </button>
@@ -718,6 +737,7 @@ function TradeTool() {
                         <td colSpan="3">
                           <button
                             className="select-all-button"
+                            tabIndex="-1"
                             onClick={(e) => {
                               e.stopPropagation();
                               setTradeState(prev => {
@@ -738,6 +758,7 @@ function TradeTool() {
                           </button>
                           <button
                             className="deselect-all-button"
+                            tabIndex="-1"
                             onClick={(e) => {
                               e.stopPropagation();
                               setTradeState(prev => ({
@@ -760,6 +781,8 @@ function TradeTool() {
                       <td className={`tr-name-cell ${getOreClassName(ore.name)}`} data-text={ore.name}>
                         <button
                           className="delete-ore-button"
+                          aria-label="Clear ore from trade"
+                          tabIndex="-1"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleRemoveOre(ore);
