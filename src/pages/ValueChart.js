@@ -243,8 +243,8 @@ function ValueChart() {
     // Exclude outlier layers & ores
     const excludedOres = ["Stone", "Grimstone"];
     const excludedLayers = [
-      "True Rares\n1/25000 or Rarer",
-      "Rares\nMore Common Than 1/24999",
+      "True Rares\n1/33,333 or Rarer",
+      "Rares\nMore Common Than 1/33,333",
       "Uniques\nNon-Standard Obtainment",
       "Compounds\nCrafted via Synthesis",
       "Surface / Shallow\n[0m-74m]"
@@ -313,11 +313,12 @@ function ValueChart() {
         ores: ["Stone", "Grimstone"],
         layers:
           [
-            "True Rares\n1/25000 or Rarer",
-            "Rares\nMore Common Than 1/24999",
+            "True Rares\n1/33,333 or Rarer",
+            "Rares\nMore Common Than 1/33,333",
             "Uniques\nNon-Standard Obtainment", 
             "Compounds\nCrafted via Synthesis", 
-            "Surface / Shallow\n[0m-74m]"],
+            "Surface / Shallow\n[0m-74m]"
+          ],
       },
     };
   };

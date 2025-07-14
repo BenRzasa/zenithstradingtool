@@ -22,11 +22,13 @@ export const MiscProvider = ({ children }) => {
     return savedCSVData ? JSON.parse(savedCSVData) : {};
   });
 
-  // CSV History state
+  // CSV History state - added cleanup
   const [csvHistory, setCSVHistory] = useState(() => {
     const savedHistory = localStorage.getItem('csvHistory');
     try {
-      return savedHistory ? JSON.parse(savedHistory) : [];
+      const parsed = savedHistory ? JSON.parse(savedHistory) : [];
+      // Filter out any entries without oreValsDict
+      return parsed.filter(entry => entry.oreValsDict);
     } catch (e) {
       console.error('Failed to parse CSV history', e);
       return [];
@@ -147,9 +149,10 @@ export const MiscProvider = ({ children }) => {
         timestamp: now.toISOString(),
         totalAV: totalAV,
         valueMode: valueMode,
-        customMultiplier: customMultiplier
+        customMultiplier: customMultiplier,
+        oreValsDict: oreValsDict,
       },
-      ...prev.slice(0, 999)
+      ...prev.slice(0, 99)
     ]);
     setLastUpdated(now);
   };
@@ -157,12 +160,21 @@ export const MiscProvider = ({ children }) => {
   const loadOldCSV = (index) => {
     if (index < 0 || index >= csvHistory.length) return;
     const historyEntry = csvHistory[index];
-    if (!historyEntry) return;
+
+    // Double-check we have a valid entry with oreValsDict
+    if (!historyEntry || !historyEntry.oreValsDict) {
+      console.error('Attempted to load invalid history entry');
+      return;
+    }
+
+    setOreValsDict(historyEntry.oreValsDict);
     setCSVData(historyEntry.data);
     setValueMode(historyEntry.valueMode || 'zenith');
+
     if (historyEntry.valueMode === 'custom' && historyEntry.customMultiplier) {
       setCustomMultiplier(historyEntry.customMultiplier);
     }
+
     setLastUpdated(new Date(historyEntry.timestamp));
   };
 
@@ -197,15 +209,17 @@ export const MiscProvider = ({ children }) => {
     }
   };
 
-  const calculateTotalAV = (data) => {
+  const calculateTotalAV = (data, useHistoricalOreVals = null) => {
     if (!data) return 0;
 
     let total = 0;
+    const oreValuesToUse = useHistoricalOreVals || oreValsDict;
+
     OreNames.forEach(ore => {
       const amount = data[ore] || 0;
       let baseValue = 1;
-      
-      Object.values(oreValsDict).some(layer => {
+
+      Object.values(oreValuesToUse).some(layer => {
         const oreData = layer.find(item => item.name === ore);
         if (oreData) {
           baseValue = getValueForMode(oreData);
@@ -213,7 +227,7 @@ export const MiscProvider = ({ children }) => {
         }
         return false;
       });
-      
+
       total += amount / baseValue;
     });
     return total;

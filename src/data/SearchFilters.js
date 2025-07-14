@@ -21,7 +21,7 @@ const searchFilters = [
   "Void: vant/pall/nili/asth/nep/ecl/adam/com/void/ebo",
   "Achrothesi / Whitespace: krono/nilg/kreo/cadm/chrom/null/geom/inve/navi/myri/argi/peril/nois",
   "Grayscale: gall/amn/w q/glows/graph/quicks/y m",
-  "Frigid: hyf/e i/frost/anet/veril/cryon/soima/diam/verg/kyan",
+  "Frigid: hyf/larim/frost/anet/veril/cryon/soima/diam/verg/kyan",
   "Marine: nero/tene/yil/aquam/naq/hyd/pea/eid",
   "Cosmic: c g/cosma/astra/arst/ardu/endot",
   "Molten: nic/mol/cori/liq/cinn/sam/cind/zyn",

@@ -28,7 +28,6 @@ import Axion from '../images/ore-icons/Axion_Icon.webp';
 import Bedrock from '../images/ore-icons/Bedrock_Icon.webp';
 import Bismuth from '../images/ore-icons/Bismuth_Icon.webp';
 import Blastium from '../images/ore-icons/Blastium_Icon.webp';
-import Blue_Ice from '../images/ore-icons/Blue_Ice_Icon.webp';
 import Boomite from '../images/ore-icons/Boomite_Icon.webp';
 import Boron from '../images/ore-icons/Boron_Icon.webp';
 import Bottom_Quark from '../images/ore-icons/Bottom_Quark_Icon.webp';
@@ -136,6 +135,7 @@ import Kronosilt from '../images/ore-icons/Kronosilt_Icon.webp';
 import Kryposilus from '../images/ore-icons/Kryposilus_Icon.webp';
 import Kyanite from '../images/ore-icons/Kyanite_Icon.webp';
 import Lapis from '../images/ore-icons/Lapis_Icon.webp';
+import Larimar from '../images/ore-icons/Larimar_Icon.webp';
 import Lattiglass from '../images/ore-icons/Lattiglass_Icon.webp';
 import Lead from '../images/ore-icons/Lead_Icon.webp';
 import Leptonyte from '../images/ore-icons/Leptonyte_Icon.webp';
@@ -333,7 +333,6 @@ export const OreIcons = {
   Bedrock,
   Bismuth,
   Blastium,
-  Blue_Ice,
   Boomite,
   Boron,
   Bottom_Quark,
@@ -441,6 +440,7 @@ export const OreIcons = {
   Kryposilus,
   Kyanite,
   Lapis,
+  Larimar,
   Lattiglass,
   Lead,
   Leptonyte,

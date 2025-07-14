@@ -30,22 +30,65 @@ function App() {
 
     useEffect(() => {
         document.title = `Zenith's Trading Tool v${packageJson.version}`;
-        // Load saved settings
+
         const savedBg = localStorage.getItem('ztt-background');
         const savedOpacity = localStorage.getItem('ztt-bg-opacity');
-        if (savedBg) setBackground(savedBg);
         if (savedOpacity) setOpacity(parseFloat(savedOpacity));
-    }, []);
+        if (savedBg && savedBg.startsWith('data:image/webp')) {
+            setBackground(savedBg);
+        } else if (savedBg) {
+            // Convert existing non-WebP backgrounds
+            const img = new Image();
+            img.onload = async () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(async (blob) => {
+                const webpURL = await convertToWebP(blob);
+                localStorage.setItem('ztt-background', webpURL);
+                setBackground(webpURL);
+            }, 'image/webp');
+            };
+            img.src = savedBg;
+        }
+        }, []);
 
-    const handleBgChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
+    const convertToWebP = (file, quality = 0.8) => {
+        return new Promise((resolve) => {
             const reader = new FileReader();
             reader.onload = (event) => {
-                setCustomBg(event.target.result);
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(
+                (blob) => {
+                    const webpReader = new FileReader();
+                    webpReader.onload = () => resolve(webpReader.result);
+                    webpReader.readAsDataURL(blob);
+                },
+                'image/webp',
+                quality
+                );
+            };
+            img.src = event.target.result;
             };
             reader.readAsDataURL(file);
-        }
+        });
+    };
+
+    const handleBgChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Convert to WebP first
+        const webpData = await convertToWebP(file);
+        setCustomBg(webpData); // Store the WebP version for preview
     };
 
     const handleOpacityChange = (e) => {
@@ -58,7 +101,11 @@ function App() {
         if (customBg) {
             setBackground(customBg);
             try {
+                localStorage.removeItem('ztt-background');
+                // Store ONLY the new background (as Base64)
                 localStorage.setItem('ztt-background', customBg);
+                setBackground(customBg);
+                setCustomBg(''); // Clear the temp preview
             } catch(err) {
                 window.alert("Local storage full. Image may be too large. Resetting...")
                 resetBackground();
