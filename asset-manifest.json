@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.b2a45bd3.css",
-    "main.js": "/zenithstradingtool/static/js/main.db229841.js",
+    "main.css": "/zenithstradingtool/static/css/main.b2c15e07.css",
+    "main.js": "/zenithstradingtool/static/js/main.31f13903.js",
     "static/media/Ectokelyte_Icon.webp": "/zenithstradingtool/static/media/Ectokelyte_Icon.25a43f20bdf4f8c35469.webp",
     "static/media/Kryposilus_Icon.webp": "/zenithstradingtool/static/media/Kryposilus_Icon.26d53b76cab792117add.webp",
     "static/media/Auricallium_Icon.webp": "/zenithstradingtool/static/media/Auricallium_Icon.558c2fa5e434e2141c95.webp",
@@ -97,7 +97,7 @@
     "static/media/Arkivyll_Icon.webp": "/zenithstradingtool/static/media/Arkivyll_Icon.8b38a5b675c7dd597280.webp",
     "static/media/Scorched_Bedrock_Icon.webp": "/zenithstradingtool/static/media/Scorched_Bedrock_Icon.dc46e8b4f65fa669e598.webp",
     "static/media/Enceladrum_Icon.webp": "/zenithstradingtool/static/media/Enceladrum_Icon.6289a514db41bbd7e291.webp",
-    "static/media/Blue_Ice_Icon.webp": "/zenithstradingtool/static/media/Blue_Ice_Icon.bf3d938765bf65383222.webp",
+    "static/media/Larimar_Icon.webp": "/zenithstradingtool/static/media/Larimar_Icon.bf3d938765bf65383222.webp",
     "static/media/Pyroplasm_Icon.webp": "/zenithstradingtool/static/media/Pyroplasm_Icon.c8d3e6c1719000975339.webp",
     "static/media/Thermisine_Icon.webp": "/zenithstradingtool/static/media/Thermisine_Icon.1734f1810c2fe87166e5.webp",
     "static/media/Neutrino_Icon.webp": "/zenithstradingtool/static/media/Neutrino_Icon.feda4054161dfba197bf.webp",
@@ -307,11 +307,11 @@
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
     "static/media/Red_Diamond_Icon.webp": "/zenithstradingtool/static/media/Red_Diamond_Icon.15f999b7100b1173c9fd.webp",
     "static/media/Nilglass_Icon.webp": "/zenithstradingtool/static/media/Nilglass_Icon.d13f9c99294b923b0eaa.webp",
-    "main.b2a45bd3.css.map": "/zenithstradingtool/static/css/main.b2a45bd3.css.map",
-    "main.db229841.js.map": "/zenithstradingtool/static/js/main.db229841.js.map"
+    "main.b2c15e07.css.map": "/zenithstradingtool/static/css/main.b2c15e07.css.map",
+    "main.31f13903.js.map": "/zenithstradingtool/static/js/main.31f13903.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2a45bd3.css",
-    "static/js/main.db229841.js"
+    "static/css/main.b2c15e07.css",
+    "static/js/main.31f13903.js"
   ]
 }
