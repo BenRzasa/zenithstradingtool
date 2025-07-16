@@ -32,7 +32,7 @@ const searchFilters = [
   "Planck: string/hadr/axio/viton/meso/tachy/desme",
   "Upper Instability: ailm/terr/sinf/gyri/kraz/anax/tendro/rk e/corro/antir/hype/therm/alkan",
   "Lower Instability: gri/phos/vrim/zili/rimr/und/cyt/icho/cen/neur/trina/adre/mac",
-  "Murk: lep/mez/tay/thul/rhy",
+  "Murk: lep/mez/tay/thul",
   "Event Horizon: r s/nebu/arki/non/auro/kore/apia/solar",
   "Sediment: rhy/ubri/havi/ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
   "Abyss: l s/prim/modi/hexf/tetr/maur/ecto/havi",
