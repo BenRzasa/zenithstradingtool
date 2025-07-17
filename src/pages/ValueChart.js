@@ -62,20 +62,20 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: 'June 27, 2025',
-    nan: 'June 26, 2025',
+    zenith: 'July 16, 2025',
+    nan: 'July 16, 2025',
     john: 'Jan 19, 2025',
   });
 
   // UI control states
-  const [isSummaryOpen, setIsSummaryOpen] = useState(true);
+  const [isSummaryOpen, setIsSummaryOpen] = useState(false);
   const [moreStats, setMoreStats] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   // Draggable summary states
   // State and handlers
   const [dragState, setDragState] = useState({
     isDragging: false,
-    position: { x: 15, y: 10 },
+    position: { x: 15, y: 15 },
     clickOffset: { x: 0, y: 0 },
   });
 

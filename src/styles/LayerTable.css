@@ -240,7 +240,6 @@ td {
     margin: 0;
 }
 
-/* Hidden span maintains cell sizing */
 .value-display {
     visibility: hidden;
     display: inline-block;

@@ -21,7 +21,7 @@ const SettingsToggle = ({ onClick }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 1001
+        zIndex: "10001",
       }}
     >
     {/*

@@ -581,8 +581,9 @@ function TradeTool() {
                 onClick={generateSearchFilter}
                 title="Generate and copy search filter"
                 style={{
-                  marginTop:"10px",
+                  marginTop:"0px",
                   marginLeft:"30px",
+                  marginBottom:"30px",
                   justifyContent:"left",
                 }}
               >

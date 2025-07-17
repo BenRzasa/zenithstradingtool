@@ -1,7 +1,10 @@
 /* Custom Editor Styles */
 .custom-editor {
-  padding: 50px;
-  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 25px;
+  width: 85vw;
   font-size: 18px;
   margin: 0 auto;
 }
@@ -58,20 +61,12 @@
   color: var(--accent-color);
 }
 
-.e-table-wrapper {
-    flex: 1 1 calc(33.333% -10px);
-    width: 575px;
-    overflow-x: auto;
-    border: 4px solid var(--table-outline);
-    border-radius: 25px;
-    padding-top: 6px;
-    height: fit-content;
-    position: relative;
-    z-index: 500;
-    margin: 0px;
-    margin-bottom: 30px;
-    background: var(--background-color);
-    overflow: hidden;
+.editor-tables-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .editor-table h2 {

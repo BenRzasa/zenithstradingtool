@@ -145,10 +145,7 @@ function CustomValuesEditor() {
         </div>
       </div>
       {/* Value tables container - formatted similarly to the main Value Chart page */}
-      <div
-        className="tables-container"
-        style={{marginLeft:"-125px"}}
-      >
+      <div className="editor-tables-container">
         {Object.entries(oreValsDict).map(([layerName, layerData]) => {
           const gradientKey = Object.keys(LayerGradients).find(key =>
             layerName.includes(key)

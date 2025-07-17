@@ -1,14 +1,14 @@
 .editor-popup {
   position: fixed;
-  left: 2%;
   top: 20%;
+  margin-left: -15px;
   z-index: 10000;
-  background-color: rgb(40, 37, 37);
-  color: rgb(253, 212, 212);
-  width: 660px;
-  height: 750px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  width: fit-content;
+  height: fit-content;
   border-radius: 20px;
-  border: 3px solid var(--table-outline);
+  border: 3px solid var(--switch-outline);
 }
 
 .editor-header {
@@ -29,34 +29,15 @@
 /* CSV output */
 .csv-output textarea {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 55vw;
+  height: 45vh;
   resize: vertical, horizontal;
   margin-bottom: 0px;
-  font-size: 18px;
+  font-size: 1.5em;
   border: 2px solid #000000;
 }
 
 .editor-buttons {
-  display:flex;
+  display: flex;
   flex-direction: row;
-}
-
-.close-button {
-  background: rgb(212, 9, 9);
-  border-radius: 10px;
-  border: none;
-  font-size: 2.5rem;
-  cursor: pointer;
-  padding: 5px 5px;
-  margin-top: 5px;
-  margin-right: 5px;
-  height: 50px;
-  width: 50px;
-  color: #ffffff;
-}
-
-.close-button:hover {
-  color: #ffffff;
-  background: rgb(249, 48, 48);
 }

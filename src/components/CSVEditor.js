@@ -71,9 +71,30 @@ function CSVEditor({ onClose }) { // onClose component to allow closing the popu
     <div className="editor-popup">
       <div className="editor-header">
       <h1>CSV Editor</h1>
-      <button className="close-button" onClick={onClose}>
-        ×
-      </button>
+      <div
+        className="box-button"
+        style={{
+          width:"50px",
+          height:"50px",
+          background:"red"
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            width:"50px",
+            height:"50px",
+            background:"red",
+            display:"flex",
+            fontSize:"3em",
+            color:"white",
+            justifyContent:"center",
+            alignItems:"center"
+          }}
+        >
+          ×
+        </button>
+      </div>
       </div>
         <div className="csv-output">
           {/* CSV output Box */}

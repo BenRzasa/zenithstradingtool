@@ -1,5 +1,6 @@
 .misc-page {
-    padding: 150px;
+    padding-left: 3vw;
+    padding-top: 3vh;
     font-family: 'Comfortaa';
     display: flex;
     flex-direction: column;
@@ -11,16 +12,16 @@
 .cards-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
     gap: 30px;
-    width: 90%;
-    transform: scale(1.15);
+    width: 97%;
     margin-top: 5px;
     margin-left: 0px;
 }
 
 .card {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     height: 500px;
     background-image: linear-gradient(135deg, #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%, #edebd6 70%, #ecf9df 80%, #b7dce1 100%);
     border-radius: 20px;
@@ -94,6 +95,7 @@
 .emblems-table {
     margin-top: 15px;
 }
+
 .description-column {
     text-align: left;
     padding-left: 5px;
@@ -131,7 +133,7 @@
     cursor: pointer;
     font-size: 0.9em;
     padding: 2px 5px;
-    opacity: 0.5;
+    opacity: 1;
     transform: scale(2);
     transition: opacity 0.2s;
 }
@@ -150,22 +152,22 @@
 }
 
 .mode-selector {
-    margin-left: -100px;
-    transform: scale(0.8);
+    transform: scale(1);
     display: flex;
     gap: 10px;
     margin-bottom: 5px;
 }
 
 .ore-list {
+    width: fit-content;
     margin-left: 5px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 8px;
 }
 
 .ore-item {
-    width: 230px;
+    width: 250px;
     justify-content: space-between;
     display: flex;
     padding: 8px 12px;

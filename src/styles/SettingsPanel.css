@@ -1,14 +1,14 @@
-/* SettingsPanel.css */
+
 .settings-panel {
   position: fixed;
   top: 0;
-  right: -25%;
-  width: 25%;
+  right: -40vw;
+  width: 40vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
-  z-index: 1000;
-  transition: right 0.3s ease-in-out;
+  z-index: 10000;
+  transition: right 0.1s ease-in-out;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;

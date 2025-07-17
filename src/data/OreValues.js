@@ -421,9 +421,9 @@ export const initialOreValsDict = {
 
   "Empyrean\n[12250m-12999m]":
   [
-    { name: "Evrasalt", zenithVal: 1000, johnVal: 200, nanVal: 300, customVal: 1000 },
+    { name: "Evrasalt", zenithVal: 300, johnVal: 200, nanVal: 300, customVal: 300 },
     { name: "Qylicryst", zenithVal: 6, johnVal: 5, nanVal: 3, customVal: 5 },
-    { name: "Kafsium", zenithVal: 16, johnVal: 16, nanVal: 12, customVal: 16 },
+    { name: "Kafsium", zenithVal: 30, johnVal: 16, nanVal: 12, customVal: 30 },
     { name: "Zetaslime", zenithVal: 16, johnVal: 15.5, nanVal: 12, customVal: 16 },
     { name: "Ochistrite", zenithVal: 20, johnVal: 19.5, nanVal: 15, customVal: 20 },
     { name: "Reithum", zenithVal: 6, johnVal: 6, nanVal: 6, customVal: 6 },
@@ -435,6 +435,6 @@ export const initialOreValsDict = {
     { name: "Ogleum", zenithVal: 8, johnVal: 7, nanVal: 4, customVal: 8 },
     { name: "Protireal", zenithVal: 18, johnVal: 20, nanVal: 14, customVal: 18 },
     { name: "Xerutherum", zenithVal: 7, johnVal: 7.5, nanVal: 4, customVal: 7 },
-    { name: "Mesmirian", zenithVal: 15, johnVal: 13, nanVal: 7, customVal: 15 }
+    { name: "Mesmirian", zenithVal: 14, johnVal: 13, nanVal: 7, customVal: 14 }
   ]
 };

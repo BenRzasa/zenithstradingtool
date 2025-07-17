@@ -214,7 +214,8 @@ function CSVLoader() {
         className="val-button-container"
         style={{
           justifyContent:"left",
-          marginLeft:"25px",
+          marginTop:"0px",
+          flexWrap:"wrap",
         }}
       >
         <div className="box-button">
@@ -259,62 +260,7 @@ function CSVLoader() {
               <span>Use Obtain Rate</span>
             </button>
           </div>
-      </div>
-
-      <div className="main-content">
-        {/* Ore list table - now part of flex layout */}
-        <div className="ore-table-parent">
-          <div className="ore-list">
-            <table>
-              <thead>
-                <tr>
-                  <th onClick={() => handleSort('ore')}
-                      className="sortable-header">
-                    Ore{displaySortArrow('ore')}
-                  </th>
-                  <th onClick={() => handleSort('amount')}
-                      className="sortable-header">
-                    Amount{displaySortArrow('amount')}
-                  </th>
-                  <th onClick={() => handleSort('change')}
-                      className="sortable-header">
-                    Change{displaySortArrow('change')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {/*
-                    Map all ores from OreNames, with the corresponding
-                    amount from the user's inventory CSV string.
-                    Now includes sorting based on the current sort chosen
-                     - User can interact with the header by clicking to sort in ascending/
-                       descending order
-                */}
-                {sortedOres.map((ore) => {
-                  const currentAmount = csvData[ore] || 0;
-                  const previousAmount = previousAmounts[ore] || 0;
-                  const change = currentAmount - previousAmount;
-                  return (
-                    <tr key={ore}>
-                      <td>{ore}</td>
-                      <td>{currentAmount}</td>
-                      <td
-                        className={
-                          change > 0 ? 'positive-change'
-                          : change < 0 ? 'negative-change'
-                          : ''
-                        }>
-                        {change !== 0 ? (change > 0 ? `+${change}` : change) : ''}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        {/* CSV Input Section */}
-        <div className="button-container">
+          {/* CSV update section */}
           <div className="box-button">
             {/* Update the amounts, sort by Change # and descending */}
               <button onClick={() => {
@@ -373,12 +319,64 @@ function CSVLoader() {
               </div>
             )}
           </div>
-        </div>
 
         {showCSVEditor && (
           <CSVEditor onClose={() => setShowCSVEditor(false)}/>
         )}
+      </div>
 
+      <div className="main-content">
+        {/* Ore list table - now part of flex layout */}
+        <div className="ore-table-parent">
+          <div className="ore-list">
+            <table>
+              <thead>
+                <tr>
+                  <th onClick={() => handleSort('ore')}
+                      className="sortable-header">
+                    Ore{displaySortArrow('ore')}
+                  </th>
+                  <th onClick={() => handleSort('amount')}
+                      className="sortable-header">
+                    Amount{displaySortArrow('amount')}
+                  </th>
+                  <th onClick={() => handleSort('change')}
+                      className="sortable-header">
+                    Change{displaySortArrow('change')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {/*
+                    Map all ores from OreNames, with the corresponding
+                    amount from the user's inventory CSV string.
+                    Now includes sorting based on the current sort chosen
+                     - User can interact with the header by clicking to sort in ascending/
+                       descending order
+                */}
+                {sortedOres.map((ore) => {
+                  const currentAmount = csvData[ore] || 0;
+                  const previousAmount = previousAmounts[ore] || 0;
+                  const change = currentAmount - previousAmount;
+                  return (
+                    <tr key={ore}>
+                      <td>{ore}</td>
+                      <td>{currentAmount}</td>
+                      <td
+                        className={
+                          change > 0 ? 'positive-change'
+                          : change < 0 ? 'negative-change'
+                          : ''
+                        }>
+                        {change !== 0 ? (change > 0 ? `+${change}` : change) : ''}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div className="csv-input">
           {/* CSV Input Box */}
           <textarea

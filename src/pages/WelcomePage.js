@@ -13,7 +13,14 @@ function WelcomePage() {
   let navigate = useNavigate();
   return (
     <div className="welcome-page">
-      <div className="button-container">
+      <div>
+        <h1 className="name">
+          <span className="copy-wrap">
+            Created by ZenithFlare for The Celestial Caverns
+          </span>
+        </h1>
+        <div className="square"></div>
+              <div className="button-container">
         <div className="box-button">
           <button
             onClick={() => navigate('/csvloader')}
@@ -55,13 +62,6 @@ function WelcomePage() {
           >🍵Buy Me a Coffee💖</button>
         </div>
       </div>
-      <div>
-        <h1 className="name">
-          <span className="copy-wrap">
-            Created by ZenithFlare for The Celestial Caverns
-          </span>
-        </h1>
-        <div className="square"></div>
         <div className="wcard">
             <h1 className="title">
               <span className="copy-wrap">

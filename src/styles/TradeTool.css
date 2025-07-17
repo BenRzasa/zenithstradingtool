@@ -32,15 +32,14 @@
 }
 
 .t-button-container {
-    transform: scale(0.9);
     position: relative;
     max-width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin-top: -5px;
-    margin-left: -25px;
+    margin-left: -5px;
     margin-bottom: -15px;
-    gap: 10px;
+    gap: 0.3vw;
     justify-content: left;
 }
 
@@ -50,12 +49,7 @@
 
 .trade-usage {
   position: relative;
-  margin-left: 25px;
-}
-
-.trade-usage:hover.usage-dropdown {
-  display: block;
-  margin-left: -50px;
+  margin-left: 5px;
 }
 
 .trade-usage .usage-dropdown li {
@@ -64,13 +58,12 @@
 
 /* Batch quantity controls */
 .batch-controls {
-    margin: 20px 0;
+    margin: 2vw 0;
     padding: 15px;
     background-color: var(--background-color);
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
-    width: 500px;
-    max-width: 95%;
+    width: fit-content;
 }
 
 .batch-quantity-container {
@@ -140,18 +133,15 @@
 .trade-summary {
     position: relative;
     width: fit-content;
-    max-width: 95%;
+    max-width: 100vw;
     background-color: var(--background-color);
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
-    padding-right: 20px;
-    margin-top: 5px;
+    float: right;
     z-index: 1;
     overflow: hidden;
-    box-shadow: 0 5px 9px rgba(0,0,0,0.5);
 }
 
-/* Selected row styling */
 .selected-row {
     background-color: rgba(255, 255, 255, 0.6) !important;
 }
@@ -160,13 +150,11 @@
     background-color: rgba(100, 180, 255, 0.6) !important;
 }
 
-/* Table row hover */
 .trade-table tbody tr:not(.layer-header):hover {
     background-color: rgba(100, 180, 255, 0.1);
     cursor: pointer;
 }
 
-/* Layer controls styling */
 .layer-controls {
     display: flex;
     gap: 10px;
@@ -267,7 +255,7 @@
     margin-top: 15px;
     margin-bottom: 5px;
     font-family: 'Comfortaa';
-    width: 400px;
+    width: 75%;
     padding: 12px 20px;
     font-size: 20px;
     border: 2px solid var(--csv-outline);
@@ -280,9 +268,9 @@
 .search-results {
     position: absolute;
     top: 100%;
-    margin-top: -1px;
+    margin-top: -6px;
     left: 0;
-    width: 400px;
+    width: 70%;
     border: 2px solid var(--csv-outline);
     border-top: none;
     list-style: none;
@@ -313,12 +301,9 @@
 }
 
 .trade-table {
-    width: 650px;
+    width: 40vw;
     border-collapse: collapse;
     font-size: 20px;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
     overflow-y: auto;
     background-color: var(--background-color);
 }
@@ -418,7 +403,7 @@
 }
 
 .quantity-input {
-    width: 100px;
+    width: 85px;
     padding: 8px;
     margin-right: 5px;
     font-size: 20px;
@@ -476,6 +461,7 @@
     margin-bottom: -10px;
     margin-left: 15px;
 }
+
 /* Status Messages */
 .global-checkmark {
     margin-top: 10px;
@@ -529,12 +515,12 @@
     margin-top: -25px;
     margin-left: 0px;
     flex: 1;
-    min-width: 100px;
+    width: 60%;
 }
 
 .discount-input {
     font-family: 'Comfortaa';
-    width: 50%;
+    width: 100%;
     padding: 12px 20px;
     margin-top: 25px;
     font-size: 20px;
@@ -547,27 +533,4 @@
 
 .totals-and-clear-container {
     margin: 20px 0;
-}
-
-@media (max-width: 1600px) {
-  .trade-tool-layout {
-    flex-direction: column;
-  }
-
-  .ore-table-panel {
-    width: 100%;
-    min-width: 100%;
-    border-left: none;
-    border-top: 1px solid var(--csv-outline);
-    padding-left: 0;
-    padding-top: 30px;
-  }
-
-  .trade-summary {
-    position: relative;
-    width: 100%;
-    right: auto;
-    top: auto;
-    margin-top: 20px;
-  }
 }

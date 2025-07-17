@@ -27,18 +27,6 @@
     border: 5px var(--table-outline);
 }
 
-/* Value button styles */
-.val-button-container {
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 6px;
-    margin: 15px;
-    max-width: 800px;
-    transform:scale(0.9);
-}
-
 .v-last-updated {
   font-size: 0.7em;
   opacity: 0.8;
@@ -251,7 +239,7 @@
     padding: 0px;
     width: 115%;
     justify-content: center;
-    transform: scale(0.85);
+    transform: scale(0.875);
     transform-origin: top;
 }
 
