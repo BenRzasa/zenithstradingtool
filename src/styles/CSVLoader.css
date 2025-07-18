@@ -19,6 +19,14 @@
     transform: scale(0.9);
 }
 
+.b-container {
+    display: flex;
+    gap: 1vw;
+    flex-direction: row;
+    margin-left: 5vw;
+    margin-bottom: 1vw;
+}
+
 .main-container h1 {
     margin-left: 25px;
 }

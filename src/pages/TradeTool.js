@@ -33,11 +33,7 @@ function TradeTool() {
 
   const {
     csvData,
-    valueMode,
-    setValueMode,
     getValueForMode,
-    useObtainRateVals,
-    setUseObtainRateVals,
     oreValsDict
   } = useContext(MiscContext);
 
@@ -364,9 +360,8 @@ function TradeTool() {
       <div className="trade-tool-layout">
         {/* Left side - controls */}
         <div className="trade-controls-panel">
-        <div className="trade-usage">
+        <div className="box-button">
           <button
-            className="usage-button"
             onClick={() => setShowDropdown(!showDropdown)}
             >Click For Usage Instructions
           </button>
@@ -387,58 +382,11 @@ function TradeTool() {
           )}
         </div>
 
-          {/* Value mode selector */}
-          <div className="t-button-container">
-
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode("zenith")}
-                className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
-              >
-                <span>Zenith Vals</span>
-              </button>
-            </div>
-
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('nan')}
-                className={valueMode === 'nan' ? "color-template-diamond" : ""}
-              >
-                <span>NAN Vals</span>
-              </button>
-            </div>
-            {/*
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('john')}
-                className={valueMode === 'john' ? "color-template-pout" : ""}
-              >
-                <span>John Vals</span>
-              </button>
-            </div>
-            */}
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('custom')}
-                className={valueMode === 'custom' ? "color-template-havicron" : ""}
-              >
-                <span>Custom</span>
-              </button>
-            </div>
-            <div className="box-button">
-            <button
-              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
-              className={useObtainRateVals === true ? "color-template-singularity" : ""}
-            >
-              <span>Use Obtain Rate</span>
-            </button>
-          </div>
             <div className="box-button" onClick={clearTable}>
               <button>
                 <span className="button">Clear Table</span>
               </button>
             </div>
-          </div>
 
           {/* Batch quantity controls */}
           <div className="batch-controls">

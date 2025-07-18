@@ -8,6 +8,8 @@
 
 import React, { useContext, useState } from "react";
 import NavBar from "../components/NavBar";
+import ValueModeSelector from "../components/ValueModeSelector";
+import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import { MiscContext } from "../context/MiscContext";
 import CSVEditor from "../components/CSVEditor";
 import { OreNames } from "../data/OreNames";
@@ -22,100 +24,116 @@ function CSVLoader() {
   // Fetch the current data and the set function from context
   const {
     csvData,
+    oreValsDict,
     previousAmounts,
     lastUpdated,
     updateCSVData,
+    currentMode,
+    setCurrentMode,
+    customMultiplier,
+    capCompletion,
     valueMode,
-    setValueMode,
     getValueForMode,
-    useObtainRateVals,
-    setUseObtainRateVals,
     csvHistory,
     loadOldCSV,
   } = useContext(MiscContext);
 
-    // State for dropdown visibility
-    const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
+  const allValues = MiscValueFunctions({
+    csvData,
+    valueMode,
+    currentMode,
+    setCurrentMode,
+    getValueForMode,
+    oreValsDict,
+  });
 
-    // State for sorting configuration
-    const [sortConfig, setSortConfig] = useState({
-      key: 'change',     // Current column being sorted 'ore', 'amount', 'change'
-      direction: 'desc'  // Current direction 'asc' or 'desc'
-    });
+  const {
+    grandTotal,
+    avgCompletion,
+  } = allValues;
 
-    // State for CSV editor popup
-    const [ showCSVEditor, setShowCSVEditor ] = useState(false);
+  // State for dropdown visibility
+  const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
 
-    // Function to handle header clicks and toggle sorting
-    const handleSort = (columnKey) => {
-      let direction = 'asc';
-      // If clicking the same column, toggle the direction
-      if (sortConfig.key === columnKey) {
-        direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
-      }
-      setSortConfig({ key: columnKey, direction });
-    };
+  // State for sorting configuration
+  const [sortConfig, setSortConfig] = useState({
+    key: 'change',     // Current column being sorted 'ore', 'amount', 'change'
+    direction: 'desc'  // Current direction 'asc' or 'desc'
+  });
 
-    // Get sort indicator for a column
-    const displaySortArrow = (columnKey) => {
-      if (sortConfig.key !== columnKey) return null;
-      return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
-    };
+  // State for CSV editor popup
+  const [ showCSVEditor, setShowCSVEditor ] = useState(false);
 
-    // Memoized sorted ores
-    const sortedOres = React.useMemo(() => {
-      const sortableOres = [...ORE_NAMES];
+  // Function to handle header clicks and toggle sorting
+  const handleSort = (columnKey) => {
+    let direction = 'asc';
+    // If clicking the same column, toggle the direction
+    if (sortConfig.key === columnKey) {
+      direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
+    }
+    setSortConfig({ key: columnKey, direction });
+  };
 
-      sortableOres.sort((a, b) => {
-        // Handle change column cases - requires some nitpicking to format nicely
-        if (sortConfig.key === 'change') {
-          const changeA = (csvData[a] || 0) - (previousAmounts[a] || 0);
-          const changeB = (csvData[b] || 0) - (previousAmounts[b] || 0);
-          // Handle zeros first (they should always be last)
-          if (changeA === 0 && changeB === 0) return 0;
-          if (changeA === 0) return 1;
-          if (changeB === 0) return -1;
-          if (sortConfig.direction === 'asc') {
-            // ASCENDING: Negative increasing then Positive increasing
-            if (changeA < 0 && changeB < 0) return changeA - changeB;
-            if (changeA < 0 && changeB > 0) return -1;
-            if (changeA > 0 && changeB < 0) return 1;
-            if (changeA > 0 && changeB > 0) return changeA - changeB;
-          } else {
-            // DESCENDING: Positive decreasing then Negative decreasing
-            if (changeA > 0 && changeB > 0) return changeB - changeA;
-            if (changeA > 0 && changeB < 0) return -1;
-            if (changeA < 0 && changeB > 0) return 1;
-            if (changeA < 0 && changeB < 0) return changeB - changeA;
-          }
-          return 0;
-        }
+  // Get sort indicator for a column
+  const displaySortArrow = (columnKey) => {
+    if (sortConfig.key !== columnKey) return null;
+    return sortConfig.direction === 'asc' ? ' ▲' : ' ▼';
+  };
 
-        // Get values to compare based on sort column
-        let aValue, bValue;
+  // Memoized sorted ores
+  const sortedOres = React.useMemo(() => {
+    const sortableOres = [...ORE_NAMES];
 
-        switch (sortConfig.key) {
-          case 'amount':
-            aValue = csvData[a] || 0;
-            bValue = csvData[b] || 0;
-            break;
-          default: // 'ore'
-            aValue = a;
-            bValue = b;
-            break;
-        }
-
-        // Compare values
-        if (aValue < bValue) {
-          return sortConfig.direction === 'asc' ? -1 : 1;
-        }
-        if (aValue > bValue) {
-          return sortConfig.direction === 'asc' ? 1 : -1;
+    sortableOres.sort((a, b) => {
+      // Handle change column cases - requires some nitpicking to format nicely
+      if (sortConfig.key === 'change') {
+        const changeA = (csvData[a] || 0) - (previousAmounts[a] || 0);
+        const changeB = (csvData[b] || 0) - (previousAmounts[b] || 0);
+        // Handle zeros first (they should always be last)
+        if (changeA === 0 && changeB === 0) return 0;
+        if (changeA === 0) return 1;
+        if (changeB === 0) return -1;
+        if (sortConfig.direction === 'asc') {
+          // ASCENDING: Negative increasing then Positive increasing
+          if (changeA < 0 && changeB < 0) return changeA - changeB;
+          if (changeA < 0 && changeB > 0) return -1;
+          if (changeA > 0 && changeB < 0) return 1;
+          if (changeA > 0 && changeB > 0) return changeA - changeB;
+        } else {
+          // DESCENDING: Positive decreasing then Negative decreasing
+          if (changeA > 0 && changeB > 0) return changeB - changeA;
+          if (changeA > 0 && changeB < 0) return -1;
+          if (changeA < 0 && changeB > 0) return 1;
+          if (changeA < 0 && changeB < 0) return changeB - changeA;
         }
         return 0;
-    });
-      return sortableOres;
-    }, [csvData, previousAmounts, sortConfig]);
+      }
+
+      // Get values to compare based on sort column
+      let aValue, bValue;
+
+      switch (sortConfig.key) {
+        case 'amount':
+          aValue = csvData[a] || 0;
+          bValue = csvData[b] || 0;
+          break;
+        default: // 'ore'
+          aValue = a;
+          bValue = b;
+          break;
+      }
+
+      // Compare values
+      if (aValue < bValue) {
+        return sortConfig.direction === 'asc' ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortConfig.direction === 'asc' ? 1 : -1;
+      }
+      return 0;
+  });
+    return sortableOres;
+  }, [csvData, previousAmounts, sortConfig]);
 
   const updateOreAmounts = () => {
     // Process the CSV data
@@ -133,12 +151,54 @@ function CSVLoader() {
     updateCSVData(updatedData);
   };
 
+  const isNV = customMultiplier % 100 === 0;
+  // For displaying the current mode dynamically
+  const modeStr =
+    currentMode === 1 ? "AV"
+  : currentMode === 2 ? "UV"
+  : currentMode === 3 ? "NV"
+  : currentMode === 4 ? "TV"
+  : currentMode === 5 ? "SV"
+  : currentMode === 6 ? "RV"
+  : !isNV && currentMode === 7 ? "CV"
+  : isNV && currentMode === 7 ? `${customMultiplier / 100}NV`
+  : "BAD";
+
   // Calculate total value change from last update
   const calculateValueChanges = () => {
+    let multiplier = 0;
+
+    switch(currentMode) {
+      case 1:
+        multiplier = 1;
+        break;
+      case 2:
+        multiplier = 10;
+        break;
+      case 3:
+        multiplier = 100;
+        break;
+      case 4:
+        multiplier = 500;
+        break;
+      case 5:
+        multiplier = 1000
+        break;
+      case 6:
+        multiplier = 50;
+        break;
+      case 7:
+        multiplier = customMultiplier;
+        break;
+      default:
+        multiplier = 1;
+        break;
+    }
+
     let totalGained = 0;
     let totalLost = 0;
     const changedOres = [];
-    const valueDict = initialOreValsDict; // Use the current oreValsDict
+    const valueDict = initialOreValsDict;
     // Calculate changes for each ore
     OreNames.forEach((ore) => {
       const currentAmount = csvData[ore] || 0;
@@ -157,8 +217,8 @@ function CSVLoader() {
           }
           return false;
         });
-        // Calculate the value change using ONLY the base value (AV)
-        const valueChange = quantityChange / baseValue;
+        // Calculate the value change
+        const valueChange = quantityChange / (baseValue * multiplier);
         if (valueChange > 0) {
           totalGained += valueChange;
         } else {
@@ -172,6 +232,7 @@ function CSVLoader() {
         });
       }
     });
+
     return {
       totalGained,
       totalLost,
@@ -195,131 +256,79 @@ function CSVLoader() {
     <div className="main-container">
       <div className="csv-usage">
       {/* Usage instructions for the user */}
-      <h1>CSV Loader Usage:</h1>
+      <h1>CSV Loader Usage</h1>
       <ol>
         <li>Copy & Paste your CSV string from Settings ➜ Other (in TCC) in the box below.</li>
         <li>Click "Update Amounts" button to load your CSV data into the website.</li>
         <li>Navigate to the Value Chart by clicking on the link in the top right corner.</li>
         {/* Show the time & date when the CSV data was last updated */}
-        <div 
+        <div
           className='placeholder'
           style={{fontSize:"25px"}}
         >
           Last Updated: { lastUpdated ? lastUpdated.toLocaleString() : "Never"}</div>
       </ol>
       </div>
-
-      {/* Main content area with flex layout */}
-      <div 
-        className="val-button-container"
-        style={{
-          justifyContent:"left",
-          marginTop:"0px",
-          flexWrap:"wrap",
-        }}
-      >
-        <div className="box-button">
-            <button
-              onClick={() => setValueMode("zenith")}
-              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
-            >
-              <span>Zenith Vals</span>
-            </button>
+      <div className="b-container" style={{marginLeft:""}}>
+      {/* CSV update section */}
+      <div className="box-button">
+        {/* Update the amounts, sort by Change # and descending */}
+          <button onClick={() => {
+            updateOreAmounts();
+            // Force sort by change
+            setSortConfig({
+              key: 'change',
+              direction: 'desc'
+            });
+          }}>
+            <span>Update</span>
+          </button>
+      </div>
+      <div className="box-button">
+          <button onClick={exportCSV}>
+            <span>Export CSV</span>
+          </button>
+      </div>
+      <div className="box-button">
+        <button
+          onClick={() => setShowCSVEditor(!showCSVEditor)}
+          className={showCSVEditor ? "color-template-protireal" : ""}
+        >
+          <span>Edit CSV</span>
+        </button>
+      </div>
+        <div className="box-button c-dropdown-container">
+          <button
+            className={showHistoryDropdown ? "color-template-stardust" : ""}
+            onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}>
+            <span>Load Past CSV</span>
+          </button>
+          {showHistoryDropdown && (
+            <div className="history-dropdown">
+              {csvHistory.length === 0 ? (
+                <div className="dropdown-item">No history yet</div>
+              ) : (
+                csvHistory.map((entry, index) => (
+                  <div
+                    key={index}
+                    className="dropdown-item"
+                    onClick={() => {
+                      loadOldCSV(index);
+                      setShowHistoryDropdown(false);
+                    }}
+                  >
+                    {new Date(entry.timestamp).toLocaleString()}
+                    <br />
+                    {entry.totalAV.toFixed(1)} AV
+                    <br />
+                    {entry.valueMode === 'custom'
+                      ? 'CUSTOM' : entry.valueMode.toUpperCase()}
+                  </div>
+                ))
+              )}
           </div>
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode('nan')}
-              className={valueMode === 'nan' ? "color-template-diamond" : ""}
-            >
-              <span>NAN Vals</span>
-            </button>
-          </div>
-          {/*
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode('john')}
-              className={valueMode === 'john' ? "color-template-pout" : ""}
-            >
-              <span>John Vals</span>
-            </button>
-          </div>
-          */}
-          <div className="box-button">
-            <button
-              onClick={() => setValueMode('custom')}
-              className={valueMode === 'custom' ? "color-template-havicron" : ""}
-            >
-              <span>Custom</span>
-            </button>
-          </div>
-          <div className="box-button">
-            <button
-              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
-              className={useObtainRateVals === true ? "color-template-singularity" : ""}
-            >
-              <span>Use Obtain Rate</span>
-            </button>
-          </div>
-          {/* CSV update section */}
-          <div className="box-button">
-            {/* Update the amounts, sort by Change # and descending */}
-              <button onClick={() => {
-                updateOreAmounts();
-                // Force sort by change
-                setSortConfig({
-                  key: 'change',
-                  direction: 'desc'
-                });
-              }}>
-                <span>Update</span>
-              </button>
-          </div>
-          <div className="box-button">
-              <button onClick={exportCSV}>
-                <span>Export CSV</span>
-              </button>
-          </div>
-          <div className="box-button">
-            <button
-              onClick={() => setShowCSVEditor(!showCSVEditor)}
-              className={showCSVEditor ? "color-template-protireal" : ""}
-            >
-              <span>Edit CSV</span>
-            </button>
-          </div>
-            <div className="box-button c-dropdown-container">
-              <button
-                className={showHistoryDropdown ? "color-template-stardust" : ""}
-                onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}>
-                <span>Load Past CSV</span>
-              </button>
-              {showHistoryDropdown && (
-                <div className="history-dropdown">
-                  {csvHistory.length === 0 ? (
-                    <div className="dropdown-item">No history yet</div>
-                  ) : (
-                    csvHistory.map((entry, index) => (
-                      <div
-                        key={index}
-                        className="dropdown-item"
-                        onClick={() => {
-                          loadOldCSV(index);
-                          setShowHistoryDropdown(false);
-                        }}
-                      >
-                        {new Date(entry.timestamp).toLocaleString()}
-                        <br />
-                        {entry.totalAV.toFixed(1)} AV
-                        <br />
-                        {entry.valueMode === 'custom'
-                          ? 'CUSTOM' : entry.valueMode.toUpperCase()}
-                      </div>
-                    ))
-                  )}
-              </div>
-            )}
-          </div>
-
+        )}
+      </div>
         {showCSVEditor && (
           <CSVEditor onClose={() => setShowCSVEditor(false)}/>
         )}
@@ -392,11 +401,11 @@ function CSVLoader() {
       <div className="value-change-cards">
         <div className="value-card gained">
           <span>Value Gained:</span>
-          <span> +{calculateValueChanges().totalGained.toFixed(1)}</span> AV
+          <span> +{calculateValueChanges().totalGained.toFixed(1)}</span> {modeStr}
         </div>
         <div className="value-card lost">
           <span>Value Lost:</span>
-          <span> -{calculateValueChanges().totalLost.toFixed(1)}</span> AV
+          <span> -{calculateValueChanges().totalLost.toFixed(1)}</span> {modeStr}
         </div>
         <div className={`value-card net ${
           calculateValueChanges().netChange >= 0 ? 'positive' : 'negative'
@@ -405,7 +414,7 @@ function CSVLoader() {
           <span>
             {calculateValueChanges().netChange >= 0 ? ' +' : ' '}
             {calculateValueChanges().netChange.toFixed(1)}
-          </span> AV
+          </span> {modeStr}
         </div>
       </div>
       {/* Show detailed changes per ore */}
@@ -418,12 +427,16 @@ function CSVLoader() {
             .map(({ore, valueChange}) => (
             <li key={ore}>
               {ore}: <span className={valueChange > 0 ? 'positive-change' : 'negative-change'}>
-                {(valueChange > 0 ? ' +' : ' ') + valueChange.toFixed(2)} AV
+                {(valueChange > 0 ? ' +' : ' ') + valueChange.toFixed(2)} {modeStr}
               </span>
             </li>
           ))}
         </ul>
         </div>
+      </div>
+      <div className="ore-changes-details">
+      <h3>⛏ {modeStr} % Gained:{" "}</h3>
+        <span className="placeholder">PLACEHOLDER %</span>
       </div>
     </div>
     )}

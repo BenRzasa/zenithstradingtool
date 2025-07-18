@@ -170,7 +170,7 @@ li {
 .button-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content:center;
+  justify-content: center;
   gap: 0.75vw;
   margin: 0px auto;
   max-width: 60vw;
@@ -232,17 +232,16 @@ li {
     flex-direction: row;
     align-items: center;
     gap: 0.5vw;
-    margin: 15px;
     max-width: 60vw;
     transform:scale(0.9);
 
     .box-button {
-      width: 14vw;
+      width: 8vw;
       height: 5vh;
     }
 
     button {
-      width: 14vw;
+      width: 8vw;
       height: 4.9vh;
       padding: 0 auto;
     }

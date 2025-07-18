@@ -5,8 +5,10 @@
   right: -40vw;
   width: 40vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: white;
+  background-color: var(--background-color);
+  opacity: 1;
+  box-shadow: -5px 0px 25px 1px #000000;
+  color: var(--text-color);
   z-index: 10000;
   transition: right 0.1s ease-in-out;
   padding: 20px;
@@ -34,6 +36,8 @@
 }
 
 .section-title {
+  color: var(--accent-color);
+  font-family: 'Montserrat';
   border-bottom: 1px solid #444;
   padding-bottom: 5px;
 }

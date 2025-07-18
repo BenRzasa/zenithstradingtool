@@ -1,7 +1,11 @@
 // SettingsPanel.js
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
+import { MiscContext } from '../context/MiscContext';
+import ValueModeSelector from './ValueModeSelector';
+import ValueButtons from './ValueButtons';
 import ThemeSwitch from './ThemeSwitch';
 import '../styles/SettingsPanel.css';
+import '../styles/Switch.css';
 
 const SettingsPanel = ({
   isOpen,
@@ -13,6 +17,16 @@ const SettingsPanel = ({
   onApplyBg,
   onResetBg
 }) => {
+  const {
+    currentMode,
+    setCurrentMode,
+    valueMode,
+    setValueMode,
+    useObtainRateVals,
+    setUseObtainRateVals
+  } = useContext(MiscContext)
+
+  const toggleObtainRate = () => setUseObtainRateVals(!useObtainRateVals);
 
   const panelRef = useRef(null);
   const settingsIconRef = useRef(null);
@@ -51,7 +65,53 @@ const SettingsPanel = ({
       </div>
 
       <div className="settings-section">
-        <h3 className="section-title">Theme</h3>
+        <h2 className="section-title">Value Mode (Click to Select)</h2>
+          <ValueModeSelector
+            currentMode={currentMode}
+            setCurrentMode={setCurrentMode}
+          />
+          <ul>
+            <li>AV = Ambrosine Value</li>
+            <li>UV = Universallium Value (10 AV)</li>
+            <li>RV = Rhylazil Value (50 AV)</li>
+            <li>NV = Neutrine Value (100 AV)</li>
+            <li>TV = Torn Value (500 AV)</li>
+            <li>SV = Singularity Value (1000 AV)</li>
+            <li>CUSTOM = Your custom multiplier (adjusted in the value chart page)</li>
+          </ul>
+      </div>
+
+      <div className="settings-section">
+        <h2 className="section-title">Value Set Selector (Click to Select)</h2>
+        <h4>Pick from one of two value sets maintained by the two current largest traders, or feel free to use your custom values!</h4>
+          <ValueButtons
+            valueMode={valueMode}
+            setValueMode={setValueMode}
+          />
+          <ul>
+            <li><span className="placeholder">Zenith:</span> ZenithFlare, an active grinder and one of the main traders in TCC. (Also, I made this tool! Sup!)</li>
+            <li><span className="placeholder">NAN:</span> NAN4736, a long-time player, active grinder and one of the largest traders in TCC.</li>
+            <li><span className="placeholder">Custom:</span> Your custom values, modified from the Value Chart page or the "Custom Values" page.</li>
+          </ul>
+      </div>
+      <div className="settings-section">
+        <h2 className="section-title">Miscellaneous Settings</h2>
+        <h3>Toggle Obtain Rate Values for Rares</h3>
+        <div className="theme-control">
+          <label className="sswitch">
+            <input
+              type="checkbox"
+              checked={useObtainRateVals}
+              onChange={toggleObtainRate}
+            />
+            <span className="sslider"></span>
+          </label>
+          <span><p>[{useObtainRateVals === true ? "ENABLED" : "DISABLED"}] This switch will toggle between obtain rate values for rares (community-agreed standard), or user-specific values.</p></span>
+          </div>
+      </div>
+
+      <div className="settings-section">
+        <h2 className="section-title">Theme</h2>
         <div className="theme-control">
           <span>🔆Dark/Light Mode Toggle</span>
           <ThemeSwitch />
@@ -59,7 +119,7 @@ const SettingsPanel = ({
       </div>
 
       <div className="settings-section">
-        <h3 className="section-title">Background</h3>
+        <h2 className="section-title">Background</h2>
         <div className="opacity-control">
           <label className="opacity-label">
             Background Opacity: {Math.round(opacity * 100)}%

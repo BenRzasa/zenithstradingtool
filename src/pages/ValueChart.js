@@ -11,9 +11,9 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { MiscContext } from "../context/MiscContext";
 
+import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import LayerTable from "../components/LayerTable";
 import NavBar from "../components/NavBar";
-import ValueModeSelector from "../components/ValueModeSelector";
 import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import { LayerGradients } from "../data/LayerGradients";
@@ -28,7 +28,6 @@ function ValueChart() {
   const {
     csvData,
     currentMode,
-    setCurrentMode,
     customMultiplier,
     valueMode,
     setValueMode,
@@ -40,6 +39,29 @@ function ValueChart() {
     capCompletion,
     setCapCompletion,
   } = useContext(MiscContext);
+
+  const allValues = MiscValueFunctions({
+    csvData,
+    currentMode,
+    customMultiplier,
+    valueMode,
+    getValueForMode,
+    oreValsDict,
+    capCompletion
+  });
+
+  const {
+    rareTotal,
+    uniqueTotal,
+    layerTotal,
+    grandTotal,
+    avgCompletion,
+    totalOres,
+    minLayer,
+    maxLayer,
+    minOre,
+    maxOre,
+  } = allValues;
 
   const navigate = useNavigate();
 
@@ -127,201 +149,18 @@ function ValueChart() {
   // List of table names for the dropdown
   const tableNames = Object.keys(oreValsDict);
 
-  const calculateValue = (ore) => {
-    const baseValue = getValueForMode(ore);
-
-    switch (currentMode) {
-      case 1: return baseValue; // AV
-      case 2: return baseValue * 10; // UV
-      case 3: return baseValue * 100; // NV
-      case 4: return baseValue * 500; // TV
-      case 5: return baseValue * 1000; // SV
-      case 6: return baseValue * 50; // RV
-      case 7: return baseValue * customMultiplier; // Custom value (AV #)
-      default: return baseValue; // Default to AV
-    }
-  };
-
-  // Get the correct precision dynamically
-  const getPrecision = (number) => {
-    if (typeof number !== "number" || Number.isInteger(number)) return 1;
-    const decimalPart = number.toString().split(".")[1];
-    return decimalPart ? decimalPart.length : 0;
-  };
-
-  // Bool for NVs
   const isNV = customMultiplier % 100 === 0;
   // For displaying the current mode dynamically
   const modeStr =
-    currentMode === 1
-      ? "AV"
-      : currentMode === 2
-      ? "UV"
-      : currentMode === 3
-      ? "NV"
-      : currentMode === 4
-      ? "TV"
-      : currentMode === 5
-      ? "SV"
-      : currentMode === 6
-      ? "RV"
-      : !isNV && currentMode === 7
-      ? "CV"
-      : isNV && currentMode === 7
-      ? `${customMultiplier / 100}NV`
-      : "BAD";
-
-  // Calculate quick summary info
-  // 1. Calculate base totals (without exclusions)
-  const calculateBaseTotals = () => {
-      let rareTotal = 0;
-      let uniqueTotal = 0;
-      let layerTotal = 0;
-      let grandTotal = 0;
-      let totalOres = Object.values(csvData).reduce((acc, val) => acc + val, 0);
-      let tableCompletions = [];
-      let calculatedOres = [];
-
-      Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
-        let tableCompletion = 0;
-        let itemCount = 0;
-
-        layerData.forEach((ore) => {
-          // Check if this ore name has already been calculated
-          if(calculatedOres.includes(ore.name)) {
-            return; // skip this iteration
-          }
-
-          // calculate the stats normally
-          const inventory = csvData[ore.name] || 0;
-          const oreValue = calculateValue(ore);
-          const perValue = oreValue.toFixed(getPrecision(oreValue));
-          const numV = parseFloat((inventory / perValue).toFixed(1));
-          const completion = capCompletion
-            ? Math.min(1, inventory / oreValue)
-            : inventory / oreValue;
-
-          tableCompletion += completion;
-          itemCount++;
-
-          if (layerName.includes("True Rares") || layerName.includes("Rares")) {
-            rareTotal += numV;
-          } else if (layerName.includes("Unique")) {
-            uniqueTotal += numV;
-          } else {
-            layerTotal += numV;
-          }
-          grandTotal += numV;
-
-          // Mark this ore as calculated
-          calculatedOres.push(ore.name);
-        });
-
-        const tableAvgCompletion =
-          itemCount > 0 ? tableCompletion / itemCount : 0;
-        tableCompletions.push(capCompletion ? Math.min(1, tableAvgCompletion) : tableAvgCompletion);
-      });
-
-      const avgCompletion =
-        tableCompletions.length > 0
-          ? (tableCompletions.reduce((sum, comp) => sum + comp, 0) /
-              tableCompletions.length) *
-            100
-          : 0;
-
-      return {
-        rareTotal,
-        uniqueTotal,
-        layerTotal,
-        grandTotal,
-        avgCompletion: capCompletion ? Math.min(100, avgCompletion).toFixed(3) : avgCompletion.toFixed(3),
-        totalOres,
-      };
-    };
-  // 2. Calculate min/max info (with exclusions)
-  const calculateExtremes = () => {
-    // Exclude outlier layers & ores
-    const excludedOres = ["Stone", "Grimstone"];
-    const excludedLayers = [
-      "True Rares\n1/33,333 or Rarer",
-      "Rares\nMore Common Than 1/33,333",
-      "Uniques\nNon-Standard Obtainment",
-      "Compounds\nCrafted via Synthesis",
-      "Surface / Shallow\n[0m-74m]"
-    ];
-
-    let minLayer = { value: Infinity, name: "", ore: "" };
-    let maxLayer = { value: -Infinity, name: "", ore: "" };
-    let minOre = { value: Infinity, name: "", layer: "" };
-    let maxOre = { value: -Infinity, name: "", layer: "" };
-    const layerValues = {};
-
-    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
-      if (excludedLayers.includes(layerName)) return;
-
-      let layerSum = 0;
-      layerData.forEach((ore) => {
-        if (excludedOres.includes(ore.name)) return;
-        const inventory = csvData[ore.name] || 0;
-        const oreValue = calculateValue(ore);
-        const numV = parseFloat(
-          (inventory / oreValue).toFixed(1)
-        );
-        // Track individual ores
-        if (numV < minOre.value) {
-          minOre = { value: numV, name: ore.name, layer: layerName };
-        }
-        if (numV > maxOre.value) {
-          maxOre = { value: numV, name: ore.name, layer: layerName };
-        }
-        layerSum += numV;
-      });
-
-      layerValues[layerName] = layerSum;
-      // Track layers
-      if (layerSum < minLayer.value) {
-        minLayer = { value: layerSum, name: layerName };
-      }
-      if (layerSum > maxLayer.value) {
-        maxLayer = { value: layerSum, name: layerName };
-      }
-    });
-
-    // Just in case, handle nonexistent/wrong data
-    const handleDefault = (obj) =>
-      obj.value === Infinity || obj.value === -Infinity
-        ? { ...obj, value: 0, name: "N/A" }
-        : obj;
-
-    return {
-      minLayer: handleDefault(minLayer),
-      maxLayer: handleDefault(maxLayer),
-      minOre: handleDefault(minOre),
-      maxOre: handleDefault(maxOre),
-    };
-  };
-
-  // 3. Combined function
-  const calculateGrandTotals = () => {
-    const baseTotals = calculateBaseTotals();
-    const extremes = calculateExtremes();
-
-    return {
-      ...baseTotals,
-      ...extremes,
-      excluded: {
-        ores: ["Stone", "Grimstone"],
-        layers:
-          [
-            "True Rares\n1/33,333 or Rarer",
-            "Rares\nMore Common Than 1/33,333",
-            "Uniques\nNon-Standard Obtainment", 
-            "Compounds\nCrafted via Synthesis", 
-            "Surface / Shallow\n[0m-74m]"
-          ],
-      },
-    };
-  };
+    currentMode === 1 ? "AV"
+  : currentMode === 2 ? "UV"
+  : currentMode === 3 ? "NV"
+  : currentMode === 4 ? "TV"
+  : currentMode === 5 ? "SV"
+  : currentMode === 6 ? "RV"
+  : !isNV && currentMode === 7 ? "CV"
+  : isNV && currentMode === 7 ? `${customMultiplier / 100}NV`
+  : "BAD";
 
   const [tableSelected, setTableSelected] = useState("");
   // Function to handle dropdown selection
@@ -353,8 +192,6 @@ function ValueChart() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch the total values object
-  const totals = calculateGrandTotals();
 
   // Custom value mode states
   const [showCustomModal, setShowCustomModal] = useState(false);
@@ -410,74 +247,74 @@ function ValueChart() {
             <p>
               ⛏ Total Ores:{" "}
               <span className="placeholder">
-                {totals.totalOres.toLocaleString()}
+                {totalOres.toLocaleString()}
               </span>
             </p>
             <p>
               ⛏ Total Rare {modeStr}:{" "}
               <span className="placeholder">
-                {totals.rareTotal.toLocaleString()}
+                {rareTotal.toLocaleString()}
               </span>
             </p>
             <p>
               ⛏ Unique {modeStr}:{" "}
               <span className="placeholder">
-                {totals.uniqueTotal.toLocaleString()}
+                {uniqueTotal.toLocaleString()}
               </span>
             </p>
             <p>
               ⛏ Layer {modeStr}:{" "}
               <span className="placeholder">
-                {totals.layerTotal.toLocaleString()}
+                {layerTotal.toLocaleString()}
               </span>
             </p>
             <p>
               ⛏ Grand Total {modeStr}:{" "}
               <span className="placeholder">
-                {totals.grandTotal.toLocaleString()}
+                {grandTotal.toLocaleString()}
               </span>
             </p>
             <p>
               ⛏ Total {modeStr} Completion:{" "}
-              <span className="placeholder">{totals.avgCompletion}%</span>
+              <span className="placeholder">{avgCompletion}%</span>
             </p>
             {moreStats && (
               <>
                 <p>
                   ⮝ Highest Value (Layer):
-                  <p>
+                  <div>
                     <span className="placeholder">
-                      {totals.maxLayer.name} (
-                      {totals.maxLayer.value.toLocaleString()} {modeStr})
+                      {maxLayer.name} (
+                      {maxLayer.value.toLocaleString()} {modeStr})
                     </span>
-                  </p>
+                  </div>
                 </p>
                 <p>
                   ⮟ Lowest Value (Layer):
-                  <p>
+                  <div>
                     <span className="placeholder">
-                      {totals.minLayer.name} (
-                      {totals.minLayer.value.toLocaleString()} {modeStr})
+                      {minLayer.name} (
+                      {minLayer.value.toLocaleString()} {modeStr})
                     </span>
-                  </p>
+                  </div>
                 </p>
                 <p>
                   ⮝ Highest Value (Ore):
-                  <p>
+                  <div>
                     <span className="placeholder">
-                      {totals.maxOre.name} (
-                      {totals.maxOre.value.toLocaleString()} {modeStr})
+                      {maxOre.name} (
+                      {maxOre.value.toLocaleString()} {modeStr})
                     </span>
-                  </p>
+                  </div>
                 </p>
                 <p>
                   ⮟ Lowest Value (Ore):
-                  <p>
+                  <div>
                     <span className="placeholder">
-                      {totals.minOre.name} (
-                      {totals.minOre.value.toLocaleString()} {modeStr})
+                      {minOre.name} (
+                      {minOre.value.toLocaleString()} {modeStr})
                     </span>
-                  </p>
+                  </div>
                 </p>
               </>
             )}
@@ -592,12 +429,6 @@ function ValueChart() {
             </div>
           )}
         </div>
-
-        {/* Mode selection buttons */}
-        <ValueModeSelector
-          currentMode={currentMode}
-          setCurrentMode={setCurrentMode}
-        />
 
         <CustomMultiplierInput />
 
