@@ -15,10 +15,8 @@
     align-items: center;
     padding: 10px;
     position: relative;
-    padding-bottom: 100px;
 }
 
-/* Header Section */
 .header {
     display: flex;
     justify-content: space-between;
@@ -87,7 +85,7 @@
     cursor: pointer;
     user-select: none;
     transition: none !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2); /* Visual feedback */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .summary-header {
@@ -144,7 +142,6 @@
     font-size: 0.9em;
 }
 
-/* Table navigation styles */
 .table-navigation {
     margin: 20px 0;
     text-align: center;
@@ -234,13 +231,14 @@
 .tables-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px;
     margin: 0px 0px 0px 0px;
     padding: 0px;
     width: 115%;
     justify-content: center;
     transform: scale(0.875);
     transform-origin: top;
+    margin-bottom: -50%;
 }
 
 .table-wrapper {
@@ -248,7 +246,7 @@
     width: 625px;
     overflow-x: auto;
     border: 4px solid var(--table-outline);
-    border-radius: 25px;
+    border-radius: 30px;
     height: fit-content;
     position: relative;
     z-index: 500;

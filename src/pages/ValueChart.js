@@ -276,7 +276,7 @@ function ValueChart() {
             </p>
             <p>
               ⛏ Total {modeStr} Completion:{" "}
-              <span className="placeholder">{avgCompletion}%</span>
+              <span className="placeholder">{avgCompletion.toFixed(3)}%</span>
             </p>
             {moreStats && (
               <>

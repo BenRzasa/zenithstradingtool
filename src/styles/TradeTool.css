@@ -47,13 +47,15 @@
     font-size: 18px;
 }
 
-.trade-usage {
-  position: relative;
-  margin-left: 5px;
+.usage-dropdown {
+    margin-left: -3px;
+    position: relative;
+    width: 20vw;
 }
 
-.trade-usage .usage-dropdown li {
+.usage-dropdown li {
     margin-top: -10px;
+    text-align: left;
 }
 
 /* Batch quantity controls */
@@ -138,7 +140,7 @@
     border: 2px solid var(--csv-outline);
     border-radius: 8px;
     float: right;
-    z-index: 1;
+    z-index: 0;
     overflow: hidden;
 }
 

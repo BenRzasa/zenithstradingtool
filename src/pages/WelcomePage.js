@@ -8,11 +8,23 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/WelcomePage.css";
 
+import logo from "../images/misc/TCC_Logo.png";
+
 function WelcomePage() {
   const version = GetVersion();
   let navigate = useNavigate();
   return (
     <div className="welcome-page">
+        <img
+          src={logo}
+          alt="tcc logo"
+          style={{
+            position:"absolute",
+            opacity:"1",
+            marginTop:"50vh",
+            width:"40vh", height:"40vh"
+          }}
+        />
       <div>
         <h1 className="name">
           <span className="copy-wrap">
@@ -20,7 +32,7 @@ function WelcomePage() {
           </span>
         </h1>
         <div className="square"></div>
-              <div className="button-container">
+      <div className="button-container">
         <div className="box-button">
           <button
             onClick={() => navigate('/csvloader')}
@@ -59,7 +71,7 @@ function WelcomePage() {
         <div className="box-button">
           <button
             onClick={() => window.open('https://ko-fi.com/zenithflare', "_blank")}
-          >🍵Buy Me a Coffee💖</button>
+          >🍵Buy Me a Coffee</button>
         </div>
       </div>
         <div className="wcard">

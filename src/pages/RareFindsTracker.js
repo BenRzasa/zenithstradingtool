@@ -15,6 +15,8 @@ import CustomMultiplierInput from "../components/CustomMultiplierInput";
 import "../styles/RareFindsTracker.css";
 import { initialOreValsDict } from "../data/OreValues";
 
+import patik from "../images/misc/patik.png";
+
 const RareFindsTracker = () => {
   const {
     rareFindsData,
@@ -183,41 +185,46 @@ const RareFindsTracker = () => {
   };
 
   // Reset rare finds data with options
-  const resetRareFinds = (resetType = 'all') => {
-    const messages = {
-      all: `WARNING: This will permanently delete ALL your rare finds data.\nThis cannot be undone!\nAre you sure you want to reset?`,
-      rares: `WARNING: This will permanently delete your REGULAR RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`,
-      superRares: `WARNING: This will permanently delete your SUPER RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`
-    };
-
-    if (!window.confirm(messages[resetType])) return;
-
-    if (resetType === 'all') {
-      setRareFindsData({});
-      setLastUpdatedDates({});
-      localStorage.removeItem("rareFindsData");
-      localStorage.removeItem("rareFindsLastUpdated");
-      return;
-    }
-
-    setRareFindsData(prev => {
-      const newData = {...prev};
-      const oresToDelete = resetType === 'rares' ? rareOres : superRares;
-      oresToDelete.forEach(ore => delete newData[ore.name]);
-      return newData;
-    });
-
-    setLastUpdatedDates(prev => {
-      const newDates = {...prev};
-      const oresToDelete = resetType === 'rares' ? rareOres : superRares;
-      oresToDelete.forEach(ore => delete newDates[ore.name]);
-      return newDates;
-    });
-
-    // Update localStorage with modified data
-    localStorage.setItem("rareFindsData", JSON.stringify(rareFindsData));
-    localStorage.setItem("rareFindsLastUpdated", JSON.stringify(lastUpdatedDates));
+ const resetRareFinds = (resetType = 'all') => {
+  const messages = {
+    all: `WARNING: This will permanently delete ALL your rare finds data.\nThis cannot be undone!\nAre you sure you want to reset?`,
+    rares: `WARNING: This will permanently delete your REGULAR RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`,
+    superRares: `WARNING: This will permanently delete your SUPER RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`
   };
+
+  if (!window.confirm(messages[resetType])) return;
+
+  if (resetType === 'all') {
+    // Clear both state and localStorage directly
+    setRareFindsData({});
+    setLastUpdatedDates({});
+    localStorage.removeItem("rareFindsData");
+    localStorage.removeItem("rareFindsLastUpdated");
+    return;
+  }
+
+  // For partial resets, create new objects without the specified ores
+  const oresToDelete = resetType === 'rares' ? rareOres : superRares;
+  setRareFindsData(prev => {
+    const newData = {...prev};
+    oresToDelete.forEach(ore => delete newData[ore.name]);
+    // Update localStorage after state is updated
+    setTimeout(() => {
+      localStorage.setItem("rareFindsData", JSON.stringify(newData));
+    }, 0);
+    return newData;
+  });
+
+  setLastUpdatedDates(prev => {
+    const newDates = {...prev};
+    oresToDelete.forEach(ore => delete newDates[ore.name]);
+    // Update localStorage after state is updated
+    setTimeout(() => {
+      localStorage.setItem("rareFindsLastUpdated", JSON.stringify(newDates));
+    }, 0);
+    return newDates;
+  });
+}; 
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -258,6 +265,14 @@ const RareFindsTracker = () => {
 
   return (
   <>
+    <img
+      src={patik}
+      alt="patik"
+      style={{
+        position:"absolute",
+        opacity:"0.04"
+      }}
+    />
   <NavBar />
     <div className="rare-finds-tracker">
       {/* Mode selection buttons */}

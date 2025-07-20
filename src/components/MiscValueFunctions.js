@@ -89,7 +89,7 @@ export const MiscValueFunctions = ({
       uniqueTotal,
       layerTotal,
       grandTotal,
-      avgCompletion: capCompletion ? Math.min(100, avgCompletion).toFixed(3) : avgCompletion.toFixed(3),
+      avgCompletion: capCompletion ? Math.min(100, avgCompletion) : avgCompletion, 
       totalOres,
       tableCompletions,
     };

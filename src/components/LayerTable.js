@@ -295,7 +295,6 @@ const LayerTable = ({
                       src={OreIcons[item.name.replace(/ /g, '_')]}
                       alt={`${item.name} icon`}
                       className="ore-icon"
-                      loading="lazy"
                       onError={(e) => {
                         console.error(`Missing icon for: ${item.name}`);
                         e.target.style.display = 'none';
@@ -307,7 +306,6 @@ const LayerTable = ({
                         src={missingIcon}
                         alt={"Missing icon"}
                         className="ore-icon"
-                        loading="lazy"
                       ></img>
                     </span>
                   )}
@@ -403,17 +401,19 @@ const LayerTable = ({
             ⛏ Highest {modeStr}:{" "}
             <span className="placeholder">{getHighestValue()}</span>
           </li>
-          <div className="completion-toggle">
-          <label>
-            <input
-              type="checkbox"
-              id={`percentage-checkbox-${title}`}
-              checked={capCompletion}
-              onChange={() => setCapCompletion(!capCompletion)}
-            />
-            Cap at 100%
-          </label>
-        </div>
+          <li>
+            <div className="completion-toggle">
+              <label>
+                <input
+                  type="checkbox"
+                  id={`percentage-checkbox-${title}`}
+                  checked={capCompletion}
+                  onChange={() => setCapCompletion(!capCompletion)}
+                />
+                Cap at 100%
+              </label>
+            </div>
+          </li>
         </ul>
         {/* Copy search filter button section */}
         <div className="copy-filter-container">

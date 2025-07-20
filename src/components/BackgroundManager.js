@@ -22,7 +22,7 @@ const BackgroundManager = ({ children, background, opacity }) => {
     opacity: opacity // This controls ONLY the image opacity
   };
 
-  // Theme overlay now has fixed opacity (0.1 for subtle effect)
+
   const themeOverlayStyle = {
     position: 'fixed',
     top: 0,
@@ -30,7 +30,7 @@ const BackgroundManager = ({ children, background, opacity }) => {
     width: '100%',
     height: '100%',
     backgroundColor: 'var(--theme-overlay-color)',
-    opacity: 0.1, // Fixed opacity for theme overlay
+    opacity: 0.1,
     zIndex: -1,
     pointerEvents: 'none'
   };

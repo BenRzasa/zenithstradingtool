@@ -101,6 +101,7 @@ const SettingsPanel = ({
           <label className="sswitch">
             <input
               type="checkbox"
+              id="sswitch-input"
               checked={useObtainRateVals}
               onChange={toggleObtainRate}
             />

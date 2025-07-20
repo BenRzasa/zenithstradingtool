@@ -50,7 +50,7 @@ export const initialOreValsDict = {
 
   "Compounds\nCrafted via Synthesis":
   [
-    { name: "Equilibrium", zenithVal: 4, johnVal: 4.5, nanVal: 2.5, customVal: 4 },
+    { name: "Equilibrium", zenithVal: 4, johnVal: 4.5, nanVal: 5, customVal: 4 },
     { name: "Quark Matter", zenithVal: 2.5, johnVal: 2.5, nanVal: 2, customVal: 2.5 },
     { name: "Periglise", zenithVal: 2.5, johnVal: 2.5, nanVal: 2, customVal: 2.5 },
     { name: "Isoronil", zenithVal: 1, johnVal: 1, nanVal: 1, customVal: 1 },
@@ -289,13 +289,13 @@ export const initialOreValsDict = {
   "Quantum\n[9000m-9150m]":
   [
     { name: "Gluonium", zenithVal: 2, johnVal: 2.5, nanVal: 2, customVal: 2 },
-    { name: "Up Quark", zenithVal: 22, johnVal: 20, nanVal: 15, customVal: 22 },
-    { name: "Down Quark", zenithVal: 25, johnVal: 24, nanVal: 15, customVal: 25 },
-    { name: "Positron", zenithVal: 25, johnVal: 60.5, nanVal: 15, customVal: 25 },
-    { name: "Supermatter", zenithVal: 12, johnVal: 13.5, nanVal: 9, customVal: 12 },
-    { name: "Charm Quark", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
+    { name: "Up Quark", zenithVal: 22, johnVal: 20, nanVal: 20, customVal: 22 },
+    { name: "Down Quark", zenithVal: 25, johnVal: 24, nanVal: 20, customVal: 25 },
+    { name: "Positron", zenithVal: 25, johnVal: 60.5, nanVal: 20, customVal: 25 },
+    { name: "Supermatter", zenithVal: 12, johnVal: 13.5, nanVal: 11, customVal: 12 },
+    { name: "Charm Quark", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
     { name: "Top Quark", zenithVal: 14, johnVal: 15, nanVal: 10, customVal: 14 },
-    { name: "Bottom Quark", zenithVal: 14, johnVal: 15, nanVal: 10, customVal: 14 },
+    { name: "Bottom Quark", zenithVal: 14, johnVal: 15, nanVal: 12, customVal: 14 },
     { name: "Strange Quark", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
     { name: "Crystal Photon", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
     { name: "Photalizine", zenithVal: 8, johnVal: 7.5, nanVal: 5, customVal: 8 }
@@ -421,7 +421,7 @@ export const initialOreValsDict = {
 
   "Empyrean\n[12250m-12999m]":
   [
-    { name: "Evrasalt", zenithVal: 300, johnVal: 200, nanVal: 300, customVal: 300 },
+    { name: "Evrasalt", zenithVal: 300, johnVal: 200, nanVal: 250, customVal: 300 },
     { name: "Qylicryst", zenithVal: 6, johnVal: 5, nanVal: 3, customVal: 5 },
     { name: "Kafsium", zenithVal: 30, johnVal: 16, nanVal: 12, customVal: 30 },
     { name: "Zetaslime", zenithVal: 16, johnVal: 15.5, nanVal: 12, customVal: 16 },

@@ -360,7 +360,7 @@ function TradeTool() {
       <div className="trade-tool-layout">
         {/* Left side - controls */}
         <div className="trade-controls-panel">
-        <div className="box-button">
+        <div className="box-button" style={{zIndex:"10000"}}>
           <button
             onClick={() => setShowDropdown(!showDropdown)}
             >Click For Usage Instructions

@@ -6,9 +6,8 @@
   across sessions
 */
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import NavBar from "../components/NavBar";
-import ValueModeSelector from "../components/ValueModeSelector";
 import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import { MiscContext } from "../context/MiscContext";
 import CSVEditor from "../components/CSVEditor";
@@ -30,8 +29,8 @@ function CSVLoader() {
     updateCSVData,
     currentMode,
     setCurrentMode,
-    customMultiplier,
     capCompletion,
+    customMultiplier,
     valueMode,
     getValueForMode,
     csvHistory,
@@ -45,20 +44,54 @@ function CSVLoader() {
     setCurrentMode,
     getValueForMode,
     oreValsDict,
+    capCompletion
   });
 
   const {
     grandTotal,
     avgCompletion,
+    totalOres,
   } = allValues;
+
+// Initialize completionChange from localStorage or default to 0
+const [completionChange, setCompletionChange] = useState(() => {
+  const savedChange = localStorage.getItem('completionChange');
+  const parsed = parseFloat(savedChange);
+  return !isNaN(parsed) ? parsed : 0;
+});
+
+// Store previous completion in ref
+const prevCompletionRef = useRef(() => {
+  const savedPrev = localStorage.getItem('prevCompletion');
+  const parsed = parseFloat(savedPrev);
+  return !isNaN(parsed) ? parsed : avgCompletion;
+});
+
+// Update completion change only when we have valid data
+useEffect(() => {
+  if (typeof avgCompletion === 'number' && !isNaN(avgCompletion)) {
+    const current = capCompletion ? Math.min(100, avgCompletion) : avgCompletion;
+    const previous = capCompletion ? Math.min(100, prevCompletionRef.current) : prevCompletionRef.current;
+
+    // Only calculate change if previous was a valid number
+    if (typeof previous === 'number' && !isNaN(previous)) {
+      const change = current - previous;
+      setCompletionChange(change);
+      prevCompletionRef.current = current;
+
+      localStorage.setItem('completionChange', change.toString());
+      localStorage.setItem('prevCompletion', current.toString());
+    }
+  }
+}, [avgCompletion, capCompletion]);
 
   // State for dropdown visibility
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
 
   // State for sorting configuration
   const [sortConfig, setSortConfig] = useState({
-    key: 'change',     // Current column being sorted 'ore', 'amount', 'change'
-    direction: 'desc'  // Current direction 'asc' or 'desc'
+    key: 'change',
+    direction: 'desc'
   });
 
   // State for CSV editor popup
@@ -136,19 +169,23 @@ function CSVLoader() {
   }, [csvData, previousAmounts, sortConfig]);
 
   const updateOreAmounts = () => {
-    // Process the CSV data
     const csvInput = document.getElementById("csvInput").value;
     if (!csvInput) return;
+    // Store current completion as previous before updating
+    prevCompletionRef.current = avgCompletion;
     const newAmounts = csvInput.split(",").map(Number);
     const updatedData = {};
-    // Process in alphabetical order to ensure consistency
     OreNames.sort((a, b) => a.localeCompare(b)).forEach((ore, index) => {
       updatedData[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
         ? newAmounts[index]
         : 0;
     });
-    // Update the CSV data
     updateCSVData(updatedData);
+    // Force sort by change
+    setSortConfig({
+      key: 'change',
+      direction: 'desc'
+    });
   };
 
   const isNV = customMultiplier % 100 === 0;
@@ -199,19 +236,16 @@ function CSVLoader() {
     let totalLost = 0;
     const changedOres = [];
     const valueDict = initialOreValsDict;
-    // Calculate changes for each ore
     OreNames.forEach((ore) => {
       const currentAmount = csvData[ore] || 0;
       const previousAmount = previousAmounts[ore] || 0;
       const quantityChange = currentAmount - previousAmount;
-      // Only process if there's an actual change
       if (quantityChange!== 0) {
         // Find the ore's base value from any layer
         let baseValue = 1; // Default if not found
         Object.values(valueDict).some(layer => {
           const oreData = layer.find(item => item.name === ore);
           if (oreData) {
-            // Use the value based on the current value mode
             baseValue = getValueForMode(oreData);
             return true;
           }
@@ -243,9 +277,7 @@ function CSVLoader() {
 
   // Export the CSV data and put it in the input box
   const exportCSV = () => {
-    // Create an array of values in the same order as OreNames
     const csvValues = OreNames.map(ore => csvData[ore] || 0);
-    // Join with commas and put in textarea
     document.getElementById("csvInput").value = csvValues.join(",");
   };
 
@@ -401,11 +433,11 @@ function CSVLoader() {
       <div className="value-change-cards">
         <div className="value-card gained">
           <span>Value Gained:</span>
-          <span> +{calculateValueChanges().totalGained.toFixed(1)}</span> {modeStr}
+          <span> +{calculateValueChanges().totalGained.toFixed(2)}</span> {modeStr}
         </div>
         <div className="value-card lost">
           <span>Value Lost:</span>
-          <span> -{calculateValueChanges().totalLost.toFixed(1)}</span> {modeStr}
+          <span> -{calculateValueChanges().totalLost.toFixed(2)}</span> {modeStr}
         </div>
         <div className={`value-card net ${
           calculateValueChanges().netChange >= 0 ? 'positive' : 'negative'
@@ -413,17 +445,17 @@ function CSVLoader() {
           <span>Net Change:</span>
           <span>
             {calculateValueChanges().netChange >= 0 ? ' +' : ' '}
-            {calculateValueChanges().netChange.toFixed(1)}
+            {calculateValueChanges().netChange.toFixed(2)}
           </span> {modeStr}
         </div>
       </div>
       {/* Show detailed changes per ore */}
       <div className="ore-changes-details">
-        <h3>Changed Ores:</h3>
+        <h4>Changed Ores:</h4>
         <div className="ore-changes-list">
         <ul>
           {calculateValueChanges().changedOres
-            .sort((a, b) => b.valueChange - a.valueChange) // Sort by valueChange descending
+            .sort((a, b) => b.valueChange - a.valueChange)
             .map(({ore, valueChange}) => (
             <li key={ore}>
               {ore}: <span className={valueChange > 0 ? 'positive-change' : 'negative-change'}>
@@ -435,8 +467,12 @@ function CSVLoader() {
         </div>
       </div>
       <div className="ore-changes-details">
-      <h3>⛏ {modeStr} % Gained:{" "}</h3>
-        <span className="placeholder">PLACEHOLDER %</span>
+      <h3>⛏ {modeStr} % {completionChange === 0 ? "Change: " : completionChange > 0 ? "Gained: +" : "Lost: "}
+        <span className={completionChange === 0 ? '' : completionChange > 0 ? 'positive-change' : 'negative-change'}>{completionChange.toFixed(3)}%</span>
+      </h3>
+      <h3>⛏ Current {modeStr} %: <span className="placeholder">{avgCompletion.toFixed(3)}%</span></h3>
+      <h3>⛏ Grand Total {modeStr}: <span className="placeholder">{grandTotal.toFixed(2)}</span></h3>
+      <h3>⛏ Total Ores:<span className="placeholder"> {totalOres}</span></h3>
       </div>
     </div>
     )}
