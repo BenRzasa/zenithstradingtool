@@ -218,13 +218,12 @@ td {
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
 
-/* Proper inventory cell styling */
 .v-inventory-cell {
     position: relative;
     padding: 2px 6px;
 }
 
-/* Proper input styling */
+
 .v-inventory-input {
     position: absolute;
     top: 0;
@@ -246,26 +245,16 @@ td {
     padding: inherit;
 }
 
-/* Hide number spinner in other browsers */
-.inventory-input::-webkit-outer-spin-button,
-.inventory-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Focus state */
 .inventory-input:focus {
     outline: 3px solid (--accent-color);
     outline-offset: 0px;
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Hover state */
 .inventory-input:hover:not(:focus) {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Ensure the input takes the exact same space as the cell would */
 .inventory-input {
     display: block;
     position: absolute;
@@ -275,7 +264,6 @@ td {
     bottom: 0;
 }
 
-/* Copy button formatting */
 .table-footer {
     padding: 5px 15px;
     border-top: 1px solid var(--table-outline);

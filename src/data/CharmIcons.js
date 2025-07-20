@@ -1,0 +1,45 @@
+import Astral_Ring from '../images/charms/Astral_Ring.webp';
+import Auroral_Ring from '../images/charms/Auroral_Ring.webp';
+import Cursed_Necklace from '../images/charms/Cursed_Necklace.webp';
+import Emerald_Necklace from '../images/charms/Emerald_Necklace.webp';
+import Exonil_Ring from '../images/charms/Exonil_Ring.webp';
+import Gilded_Ultranium_Band from '../images/charms/Gilded_Ultranium_Band.webp';
+import Isoronil_Necklace from '../images/charms/Isoronil_Necklace.webp';
+import Jasper_Ring from '../images/charms/Jasper_Ring.webp';
+import Lunar_Ring from '../images/charms/Lunar_Ring.webp';
+import Neutronium_Necklace from '../images/charms/Neutronium_Necklace.webp';
+import Pearl_Necklace from '../images/charms/Pearl_Necklace.webp';
+import Periglise_Bracelet from '../images/charms/Periglise_Bracelet.webp';
+import Perilium_Necklace from '../images/charms/Perilium_Necklace.webp';
+import Platinum_Ring from '../images/charms/Platinum_Ring.webp';
+import Quicksilver_Band from '../images/charms/Quicksilver_Band.webp';
+import Red_Diamond_Ring from '../images/charms/Red_Diamond_Ring.webp';
+import Solar_Necklace from '../images/charms/Solar_Necklace.webp';
+import Sunstone_Ring from '../images/charms/Sunstone_Ring.webp';
+import Tachyon_Band from '../images/charms/Tachyon_Band.webp';
+import Thulinyl_Ring from '../images/charms/Thulinyl_Ring.webp';
+import Unobtainium_Necklace from '../images/charms/Unobtainium_Necklace.webp';
+
+export const CharmIcons = {
+  Astral_Ring,
+  Auroral_Ring,
+  Cursed_Necklace,
+  Emerald_Necklace,
+  Exonil_Ring,
+  Gilded_Ultranium_Band,
+  Isoronil_Necklace,
+  Jasper_Ring,
+  Lunar_Ring,
+  Neutronium_Necklace,
+  Pearl_Necklace,
+  Periglise_Bracelet,
+  Perilium_Necklace,
+  Platinum_Ring,
+  Quicksilver_Band,
+  Red_Diamond_Ring,
+  Solar_Necklace,
+  Sunstone_Ring,
+  Tachyon_Band,
+  Thulinyl_Ring,
+  Unobtainium_Necklace
+};

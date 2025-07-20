@@ -321,7 +321,6 @@
     z-index: 10000;
 }
 
-  /* Ore name cell with gradient background */
 .tr-name-cell {
     font-family:
         "Segoe UI",                /* Windows */
@@ -361,7 +360,6 @@
     text-rendering: optimizeSpeed;
 }
 
-/* Table Cells */
 .t-ore-icon {
     width: 30px;
     height: 30px;
@@ -371,7 +369,6 @@
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
 
-/* Delete button styling */
 .delete-ore-button {
     position: absolute;
     left: 8px;
@@ -396,9 +393,9 @@
     background-color: #cc0000;
 }
 
-/* Quantity Cell Alignment */
 .quantity-cell-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 8px;
     width: 100%;
@@ -418,27 +415,21 @@
     margin-left: auto;
 }
 
-/* Inventory Status */
-.inventory-check {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    font-size: 12px;
-    margin-right: auto;
-}
-
-.inventory-check.has-enough {
+.add-all-button {
+    font-family: 'Comfortaa';
+    padding: 2px 6px;
     background-color: #4CAF50;
     color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
-.inventory-check.not-enough {
-    background-color: #f44336;
-    color: white;
+.add-all-button:hover {
+  background-color: #45a049;
 }
 
 .inventory-count {
@@ -447,7 +438,6 @@
     min-width: 50px;
 }
 
-/* Totals Section */
 .trade-totals {
     font-size: 24px;
     font-weight: bold;

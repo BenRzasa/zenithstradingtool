@@ -15,8 +15,8 @@ import { MiscContext } from "../context/MiscContext";
 import NavBar from "../components/NavBar";
 
 import searchFilters from "../data/SearchFilters";
-import emblemPerks from "../data/EmblemPerks";
-import { OreIcons } from "../data/OreIcons";
+import charmPerks from "../data/CharmPerks";
+import { CharmIcons } from "../data/CharmIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
 import "../styles/AllGradients.css";
@@ -25,13 +25,11 @@ import { initialOreValsDict } from "../data/OreValues";
 
 function MiscPage() {
   const {
-    csvData,
-    valueMode,
-    setValueMode,
+    getCurrentCSV,
     getValueForMode,
-    useObtainRateVals,
-    setUseObtainRateVals
   } = useContext(MiscContext);
+
+  const csvData = getCurrentCSV();
 
   // Copy the search filter to the clipboard
   const copyFilter = (filterText) => {
@@ -109,58 +107,6 @@ function MiscPage() {
       title: "Ores by Number of NVs (Least to Most)",
       content: (
         <div className="numNV">
-          {/* Mode selector buttons */}
-          <div className="mode-selector">
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('zenith')}
-                className={
-                  valueMode === 'zenith' ? "color-template-torn-fabric" : ""
-                }
-              >
-                <span>Zenith Vals</span>
-              </button>
-            </div>
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('nan')}
-                className={
-                  valueMode === 'nan' ? "color-template-diamond" : ""
-                }
-              >
-                <span>NAN Vals</span>
-              </button>
-            </div>
-            {/*
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('john')}
-                className={valueMode === 'john' ? "color-template-pout" : ""}
-              >
-                <span>John Vals</span>
-              </button>
-            </div>
-            */}
-            <div className="box-button">
-              <button
-                onClick={() => setValueMode('custom')}
-                className={
-                  valueMode === 'custom' ? "color-template-havicron" : ""
-                }
-              >
-                <span>Custom</span>
-              </button>
-            </div>
-            <div className="box-button">
-            <button
-              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
-              className={useObtainRateVals === true ? "color-template-singularity" : ""}
-            >
-              <span>Use Obtain Rate</span>
-            </button>
-          </div>
-          </div>
-
           {/* Ore list */}
           <div className="ore-list">
             {sortedOres.map((ore, index) => (
@@ -178,29 +124,32 @@ function MiscPage() {
     },
     {
       id: "card3",
-      title: "Useful Emblems with Perks",
+      title: "Charms (Ordered by Usefulness)",
       content:
-        <div className="emblems-box">
-          <table className="emblems-table">
+        <div className="charms-box">
+          <table className="charms-table">
             <thead>
             <tr>
-              <th>Ore Name</th>
-              <th>Emblem Perk</th>
+              <th>Charm Name</th>
+              <th>Charm Perk</th>
             </tr>
           </thead>
           <tbody>
-            {emblemPerks.map((emblem) => (
-              <tr key={emblem.name}>
-                {/* Name column with gradient and icon */}
-                <td className={`name-column ${getOreClassName(emblem.name)}`} data-text={emblem.name}>
-                  {OreIcons[emblem.name.replace(/ /g, '_')] ? (
+            {charmPerks.map((charm) => (
+              <tr key={charm.name}>
+                <td
+                  className={`name-column ${getOreClassName(charm.ore)}`}
+                  data-text={charm.name}
+                  style={{padding:"5px"}}
+                >
+                  {CharmIcons[charm.name.replace(/ /g, '_')] ? (
                     <img
-                      src={OreIcons[emblem.name.replace(/ /g, '_')]}
-                      alt={`${emblem.name} icon`}
+                      src={CharmIcons[charm.name.replace(/ /g, '_')]}
+                      alt={`${charm.name} icon`}
                       className="ore-icon"
-                      loading="lazy"
+                      id={`${charm.name}-icon`}
                       onError={(e) => {
-                        console.error(`Missing icon for: ${emblem.name}`);
+                        console.error(`Missing icon for: ${charm.name}`);
                         e.target.style.display = 'none';
                       }}
                     />
@@ -214,11 +163,10 @@ function MiscPage() {
                       />
                     </span>
                   )}
-                  {emblem.name}
+                  {charm.name}
                 </td>
-                {/* Description column */}
                 <td className="description-column">
-                  {emblem.description}
+                  {charm.description}
                 </td>
               </tr>
             ))}
@@ -226,29 +174,6 @@ function MiscPage() {
         </table>
         </div>,
     },
-    /*
-    {
-      id: "card4",
-      title: "All ores",
-      content:
-        <table className="ore-table">
-          <thead>
-            <tr>
-              <th>Ore Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(initialOreValsDict).flatMap(([category, ores]) =>
-              ores.map((ore, index) => (
-                <tr key={`${category}-${index}`}>
-                  <td>{ore.name}</td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-    },
-    */
   ];
 
   return (

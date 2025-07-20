@@ -32,10 +32,12 @@ function TradeTool() {
   } = useContext(TradeContext);
 
   const {
-    csvData,
+    getCurrentCSV,
     getValueForMode,
     oreValsDict
   } = useContext(MiscContext);
+
+  const csvData = getCurrentCSV();
 
   // Extract data from trade context
   const { quantities, discount, selectedOres } = tradeState;
@@ -399,6 +401,32 @@ function TradeTool() {
                 >
                   {batchMode === 'quantity' ? 'Switch to AV Mode' : 'Switch to Quantity Mode'}
                 </button>
+                <button
+                  className="add-all-button" style={{marginLeft: "0px", marginTop:"10px", padding:"10px", fontSize:"14px"}}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newQuantities = { ...tradeState.quantities };
+                    tradeState.selectedOres.forEach(oreName => {
+                      const oreData = allOresWithLayers.find(ore => ore.name === oreName);
+                      if (!oreData) return;
+                      const availableAmount = getAvailableAmount(oreData);
+                      if (availableAmount > 0) {
+                        newQuantities[oreName] = availableAmount;
+                      }
+                    });
+
+                    setTradeState(prev => ({
+                      ...prev,
+                      quantities: newQuantities
+                    }));
+
+                    updateTradeOres(allOresWithLayers);
+                  }}
+                  disabled={tradeState.selectedOres.length === 0}
+                  title="Add all available quantities for selected ores"
+                >
+                + Max Quantity of Selected
+                </button>
               </div>
               <div className="batch-input-container">
                 <label htmlFor="batch-quantity">
@@ -588,12 +616,19 @@ function TradeTool() {
                       </td>
                       <td>
                         <div className="quantity-cell-container">
-                          <div
-                            className={`inventory-check ${hasEnoughOre(ore) ? "has-enough" : "not-enough"}`}
-                            tabIndex="-1"
+                          <button
+                            className="add-all-button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const availableAmount = getAvailableAmount(ore);
+                              if (availableAmount > 0) {
+                                handleQuantityChange(ore.name, availableAmount);
+                              }
+                            }}
+                            title={`Add all available ${ore.name} to trade`}
                           >
-                              {hasEnoughOre(ore) ? "✓" : "✖"}
-                          </div>
+                          + All
+                          </button>
                           <div className="inventory-count">
                             {getAvailableAmount(ore)}/
                             {quantities[ore.name] || 0}
@@ -748,9 +783,17 @@ function TradeTool() {
                       </td>
                       <td>
                         <div className="quantity-cell-container">
-                          <div className={`inventory-check ${hasEnoughOre(ore) ? "has-enough" : "not-enough"}`}>
-                              {hasEnoughOre(ore) ? "✓" : "✖"}
-                          </div>
+                          <button
+                            className="add-all-button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const availableAmount = getAvailableAmount(ore);
+                              if (availableAmount > 0) {
+                                handleQuantityChange(ore.name, availableAmount);
+                              }
+                            }}
+                            title={`Add all available ${ore.name} to trade`}
+                          >+ All</button>
                           <div className="inventory-count">
                             {getAvailableAmount(ore)}/
                             {quantities[ore.name] || 0}

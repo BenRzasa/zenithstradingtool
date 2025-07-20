@@ -13,16 +13,14 @@ import { OreNames } from '../data/OreNames';
 export const MiscContext = createContext();
 
 export const MiscProvider = ({ children }) => {
-  // Track the current version of initialOreValsDict
   const initialDictRef = useRef(initialOreValsDict);
-  
+
   // Core CSV data state
   const [csvData, setCSVData] = useState(() => {
     const savedCSVData = localStorage.getItem('csvData');
     return savedCSVData ? JSON.parse(savedCSVData) : {};
   });
 
-  // CSV History state - added cleanup
   const [csvHistory, setCSVHistory] = useState(() => {
     const savedHistory = localStorage.getItem('csvHistory');
     try {
@@ -33,6 +31,16 @@ export const MiscProvider = ({ children }) => {
       console.error('Failed to parse CSV history', e);
       return [];
     }
+  });
+
+  const [secondaryCSVData, setSecondaryCSVData] = useState(() => {
+    const savedSecondaryCSV = localStorage.getItem('secondaryCSVData');
+    return savedSecondaryCSV ? JSON.parse(savedSecondaryCSV) : null;
+  });
+
+  const [useSecondaryCSV, setUseSecondaryCSV] = useState(() => {
+    const savedUseSecondary = localStorage.getItem('useSecondaryCSV');
+    return savedUseSecondary !== null ? JSON.parse(savedUseSecondary) : false;
   });
 
   // Previous amounts for comparison
@@ -129,6 +137,8 @@ export const MiscProvider = ({ children }) => {
     }
   }, [lastUpdated]);
 
+  useEffect(() => localStorage.setItem('secondaryCSVData', JSON.stringify(secondaryCSVData)), [secondaryCSVData]);
+  useEffect(() => localStorage.setItem('useSecondaryCSV', JSON.stringify(useSecondaryCSV)), [useSecondaryCSV]);
   useEffect(() => localStorage.setItem('csvHistory', JSON.stringify(csvHistory)), [csvHistory]);
   useEffect(() => localStorage.setItem('capCompletion', JSON.stringify(capCompletion)), [capCompletion]);
   useEffect(() => localStorage.setItem('valueMode', JSON.stringify(valueMode)), [valueMode]);
@@ -192,7 +202,7 @@ export const MiscProvider = ({ children }) => {
                   ore.customVal
       }));
     }
-    
+
     setOreValsDict(newOreVals);
     setValueMode('custom');
     return newOreVals;
@@ -234,8 +244,10 @@ export const MiscProvider = ({ children }) => {
   };
 
   const contextValue = {
-    csvData,
     updateCSVData, previousAmounts, lastUpdated,
+    secondaryCSVData, setSecondaryCSVData,
+    useSecondaryCSV, setUseSecondaryCSV,
+    getCurrentCSV: () => useSecondaryCSV ? secondaryCSVData : csvData,
     csvHistory, setCSVHistory, loadOldCSV,
     capCompletion, setCapCompletion,
     valueMode, setValueMode, getValueForMode,

@@ -15,6 +15,7 @@ import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import LayerTable from "../components/LayerTable";
 import NavBar from "../components/NavBar";
 import CustomMultiplierInput from "../components/CustomMultiplierInput";
+import SecondaryCSVPopup from "../components/SecondaryCSVPopup";
 
 import { LayerGradients } from "../data/LayerGradients";
 import searchFilters from "../data/SearchFilters";
@@ -26,7 +27,6 @@ import "../styles/AllGradients.css";
 function ValueChart() {
   // Import CSV data to ensure persistency
   const {
-    csvData,
     currentMode,
     customMultiplier,
     valueMode,
@@ -37,11 +37,15 @@ function ValueChart() {
     oreValsDict,
     setOreValsDict,
     capCompletion,
-    setCapCompletion,
+    secondaryCSVData,
+    setSecondaryCSVData,
+    useSecondaryCSV,
+    setUseSecondaryCSV,
+    getCurrentCSV,
   } = useContext(MiscContext);
 
   const allValues = MiscValueFunctions({
-    csvData,
+    csvData: getCurrentCSV(),
     currentMode,
     customMultiplier,
     valueMode,
@@ -64,12 +68,13 @@ function ValueChart() {
   } = allValues;
 
   const navigate = useNavigate();
+  const csvData = getCurrentCSV();
 
-  // Toggle between three value modes: john, nan, & custom
+  const [showSecondaryCSVPopup, setShowSecondaryCSVPopup] = useState(false);
+
   const toggleValueMode = (mode) => {
     if (mode === "custom") {
-      // Check if we need to initialize custom values
-      const hasCustomValues = Object.values(oreValsDict).some(layer => 
+      const hasCustomValues = Object.values(oreValsDict).some(layer =>
         layer.some(ore => ore.customVal !== undefined)
       );
       if (!hasCustomValues) {
@@ -84,8 +89,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: 'July 16, 2025',
-    nan: 'July 16, 2025',
+    zenith: 'July 20, 2025',
+    nan: 'July 19, 2025',
     john: 'Jan 19, 2025',
   });
 
@@ -235,7 +240,7 @@ function ValueChart() {
       >
         <div
           className="summary-header"
-          onClick={() => setIsSummaryOpen(!isSummaryOpen)} // Click handler for toggle
+          onClick={() => setIsSummaryOpen(!isSummaryOpen)}
         >
           <h2>Quick Summary</h2>
           <span className={`dropdown-arrow ${isSummaryOpen ? "open" : ""}`}>
@@ -340,19 +345,9 @@ function ValueChart() {
         <div
           className="button-container"
           style={{
-            flexDirection: "row",
+            flexDirection: "row", marginBottom:"20px"
           }}
         >
-          {/* Cap completion % button - uncaps and caps the completion % to 100*/}
-          <div className="box-button">
-            <button
-              onClick={() => setCapCompletion(!capCompletion)}
-              className={!capCompletion ? "color-template-rainbonite active" : ""}
-            >
-              <span>{modeStr}% {capCompletion ? "Capped" : "Uncapped"}</span>
-              <div className="v-last-updated">Toggle 100% max</div>
-            </button>
-          </div>
           {/* More stats button - expands quick summary & enables more info */}
           <div className="box-button">
             <button
@@ -390,17 +385,6 @@ function ValueChart() {
               <div className="v-last-updated">Updated {lastUpdatedDates.nan}</div>
             </button>
           </div>
-          {/*
-          <div className="box-button">
-            <button
-              onClick={() => toggleValueMode("john")}
-              className={valueMode === "john" ? "color-template-pout" : ""}
-            >
-              <span>John Vals</span>
-              <div className="v-last-updated">Updated {lastUpdatedDates.john}</div>
-            </button>
-          </div>
-          */}
           <div className="box-button">
             <button
               onClick={() => toggleValueMode("custom")}
@@ -420,6 +404,46 @@ function ValueChart() {
             </button>
           </div>
 
+          <div className="box-button">
+            <button
+              onClick={() => {
+                if (!secondaryCSVData) {
+                  setShowSecondaryCSVPopup(true);
+                } else {
+                  setUseSecondaryCSV(!useSecondaryCSV);
+                }
+              }}
+              className={useSecondaryCSV ? "color-template-protireal active" : ""}
+            >
+              <span>{useSecondaryCSV ? "Using 2nd CSV" : secondaryCSVData ? "Toggle 2nd CSV" : "Add 2nd CSV"}</span>
+              <div className="v-last-updated">
+                {secondaryCSVData ? "Switch between CSV sets" : "Add alternate inventory"}
+              </div>
+            </button>
+          </div>
+          {useSecondaryCSV && (
+            <>
+              <div className="box-button">
+                <button
+                  onClick={() => setShowSecondaryCSVPopup(true)}
+                >
+                  <span>Modify 2nd CSV</span>
+                </button>
+              </div>
+            <div className="box-button">
+              <button
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to delete the 2nd CSV data?")) {
+                    setSecondaryCSVData(null);
+                    setUseSecondaryCSV(false);
+                  }
+                }}
+              >
+                <span>Delete 2nd CSV</span>
+              </button>
+            </div>
+            </>
+          )}
           {valueMode === "custom" && (
             <div className="box-button">
               <button onClick={() => navigate("/customvalues")}>
@@ -429,6 +453,10 @@ function ValueChart() {
             </div>
           )}
         </div>
+
+        {showSecondaryCSVPopup && (
+          <SecondaryCSVPopup onClose={() => setShowSecondaryCSVPopup(false)} />
+        )}
 
         <CustomMultiplierInput />
 

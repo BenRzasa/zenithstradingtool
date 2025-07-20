@@ -124,6 +124,12 @@ li {
   margin-bottom: 10px;
 }
 
+::-webkit-outer-spin-button,
+::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 ::-webkit-scrollbar {
   width: 15px;
   height: 20px;

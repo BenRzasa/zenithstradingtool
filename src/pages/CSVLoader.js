@@ -22,7 +22,7 @@ const ORE_NAMES = Object.freeze([...OreNames]);
 function CSVLoader() {
   // Fetch the current data and the set function from context
   const {
-    csvData,
+    getCurrentCSV,
     oreValsDict,
     previousAmounts,
     lastUpdated,
@@ -38,7 +38,7 @@ function CSVLoader() {
   } = useContext(MiscContext);
 
   const allValues = MiscValueFunctions({
-    csvData,
+    csvData: getCurrentCSV,
     valueMode,
     currentMode,
     setCurrentMode,
@@ -52,6 +52,8 @@ function CSVLoader() {
     avgCompletion,
     totalOres,
   } = allValues;
+
+  const csvData = getCurrentCSV();
 
 // Initialize completionChange from localStorage or default to 0
 const [completionChange, setCompletionChange] = useState(() => {
@@ -472,7 +474,7 @@ useEffect(() => {
       </h3>
       <h3>⛏ Current {modeStr} %: <span className="placeholder">{avgCompletion.toFixed(3)}%</span></h3>
       <h3>⛏ Grand Total {modeStr}: <span className="placeholder">{grandTotal.toFixed(2)}</span></h3>
-      <h3>⛏ Total Ores:<span className="placeholder"> {totalOres}</span></h3>
+      <h3>⛏ Total Ores:<span className="placeholder"> {totalOres.toLocaleString()}</span></h3>
       </div>
     </div>
     )}

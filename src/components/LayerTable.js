@@ -27,13 +27,15 @@ const LayerTable = ({
   searchFilters,
 }) => {
   const {
-    csvData,
+    getCurrentCSV,
     updateCSVData,
     valueMode,
     getValueForMode,
     capCompletion,
     setCapCompletion,
   } = useContext(MiscContext);
+
+  const csvData = getCurrentCSV();
 
   // Check if CV is a multiple of NVs
   const isNV = customMultiplier % 100 === 0;

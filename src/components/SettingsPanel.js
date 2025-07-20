@@ -18,6 +18,8 @@ const SettingsPanel = ({
   onResetBg
 }) => {
   const {
+    capCompletion,
+    setCapCompletion,
     currentMode,
     setCurrentMode,
     valueMode,
@@ -27,6 +29,7 @@ const SettingsPanel = ({
   } = useContext(MiscContext)
 
   const toggleObtainRate = () => setUseObtainRateVals(!useObtainRateVals);
+  const toggleCapCompletion = () => setCapCompletion(!capCompletion);
 
   const panelRef = useRef(null);
   const settingsIconRef = useRef(null);
@@ -108,6 +111,19 @@ const SettingsPanel = ({
             <span className="sslider"></span>
           </label>
           <span><p>[{useObtainRateVals === true ? "ENABLED" : "DISABLED"}] This switch will toggle between obtain rate values for rares (community-agreed standard), or user-specific values.</p></span>
+        </div>
+        <h3>Toggle Completion % Cap</h3>
+        <div className="theme-control">
+          <label className="sswitch">
+            <input
+              type="checkbox"
+              id="sswitch-input"
+              checked={capCompletion}
+              onChange={toggleCapCompletion}
+            />
+            <span className="sslider"></span>
+          </label>
+          <span><p>[{capCompletion === true ? "ENABLED" : "DISABLED"}] This switch will toggle the completion % between being capped at 100% and uncapped.</p></span>
           </div>
       </div>
 

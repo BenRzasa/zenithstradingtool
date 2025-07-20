@@ -270,7 +270,7 @@ const RareFindsTracker = () => {
       alt="patik"
       style={{
         position:"absolute",
-        opacity:"0.04"
+        opacity:"0.025"
       }}
     />
   <NavBar />

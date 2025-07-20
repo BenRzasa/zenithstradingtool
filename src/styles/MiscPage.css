@@ -11,6 +11,7 @@
 
 .cards-container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: left;
     gap: 30px;
@@ -76,23 +77,23 @@
     max-height: 500px;
     overflow-y: auto;
     padding-right: 8px;
-    margin-top: -15px;
+    margin-top: -5px;
     margin-bottom: 0px;
     font-size: 0.8em;
     line-height: 1.4;
 }
 
-.emblems-box {
+.charms-box {
     margin-top: -15px;
-    max-height: 700px;
     overflow-y: auto;
+    max-width: 1000px;
     padding-right: 8px;
     font-size: 0.8em;
     line-height: 1.4;
     margin-bottom: 0px;
 }
 
-.emblems-table {
+.charms-table {
     margin-top: 15px;
 }
 
@@ -114,17 +115,6 @@
     color: var(--accent-color);
 }
 
-/* Custom scrollbar */
-.search-filters::-webkit-scrollbar,
-.emblems-box::-webkit-scrollbar {
-    width: 12px;
-}
-
-.search-filters::-webkit-scrollbar-thumb,
-.emblems-box::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
-    border-radius: 2px;
-}
 
 .copy-btn {
     background: none;
@@ -160,6 +150,7 @@
 
 .ore-list {
     width: fit-content;
+    margin-top: 5px;
     margin-left: 5px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
