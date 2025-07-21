@@ -17,9 +17,10 @@ import '../styles/CSVEditor.css';
 function CSVEditor({ onClose }) { // onClose component to allow closing the popup
 
   const {
-    csvData
+    getCurrentCSV
   } = useContext(MiscContext);
 
+  const csvData = getCurrentCSV();
   const [tempCSV, setTempCSV] = useState([]);
 
   // Initialize tempCSV when component mounts or csvData changes
