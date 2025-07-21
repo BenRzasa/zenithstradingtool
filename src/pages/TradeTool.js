@@ -1,23 +1,11 @@
 
-/* ZTT | Trading tool component (Refactored 5/2/25)
-   Simplified trading tool with:
-   - All ores displayed in layer groups
-   - Single column for quantity inputs
-   - Real-time AV calculation
-   - Value mode selection
-   - Discount application
-   - two-column layout
-   Removed features:
-   - Receive functionality
-   - Search filtering
-   - Inventory management
-*/
-
 import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
 import NavBar from "../components/NavBar";
 import { MiscContext } from "../context/MiscContext";
 import { TradeContext } from "../context/TradeContext";
 import { OreIcons } from "../data/OreIcons";
+
+import patic from "../images/misc/patic.png"
 import "../styles/TradeTool.css";
 import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
@@ -61,7 +49,7 @@ function TradeTool() {
   const [collapsedLayers, setCollapsedLayers] = useState(() => {
     const initialState = {};
     Object.keys(oreValsDict).forEach(layer => {
-      initialState[layer] = true; // true means collapsed
+      initialState[layer] = true;
     });
     return initialState;
   });
@@ -147,8 +135,8 @@ function TradeTool() {
     setTradeState(prev => ({
       ...prev,
       quantities: newQuantities,
-      selectedOres: [], // Clear selection after applying
-      batchQuantity: 0  // Reset batch quantity
+      selectedOres: [],
+      batchQuantity: 0
     }));
 
     // Update trade summary
@@ -484,7 +472,7 @@ function TradeTool() {
                 className="search-input"
               />
             </label>
-            {searchTerm && (
+            {searchTerm !== 'patic' && (
               <ul className="search-results" ref={resultsRef}>
                 {filteredOres.map((ore, index) => (
                   <li
@@ -498,6 +486,16 @@ function TradeTool() {
                   </li>
                 ))}
               </ul>
+            )}
+            {searchTerm === 'patic' && (
+              <img
+                src={patic}
+                alt="patic"
+                style={{
+                  position:"absolute",
+                  opacity:"0.1"
+                }}
+               />
             )}
           </div>
 

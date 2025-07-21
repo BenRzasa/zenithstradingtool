@@ -41,6 +41,7 @@ function CSVLoader() {
     csvData: getCurrentCSV,
     valueMode,
     currentMode,
+    customMultiplier,
     setCurrentMode,
     getValueForMode,
     oreValsDict,
@@ -243,8 +244,8 @@ useEffect(() => {
       const previousAmount = previousAmounts[ore] || 0;
       const quantityChange = currentAmount - previousAmount;
       if (quantityChange!== 0) {
-        // Find the ore's base value from any layer
-        let baseValue = 1; // Default if not found
+
+        let baseValue = 1;
         Object.values(valueDict).some(layer => {
           const oreData = layer.find(item => item.name === ore);
           if (oreData) {
@@ -253,14 +254,14 @@ useEffect(() => {
           }
           return false;
         });
-        // Calculate the value change
+
         const valueChange = quantityChange / (baseValue * multiplier);
         if (valueChange > 0) {
           totalGained += valueChange;
         } else {
           totalLost += Math.abs(valueChange);
         }
-        // Track changed ores for display
+
         changedOres.push({
           ore,
           quantityChange,
@@ -369,7 +370,7 @@ useEffect(() => {
       </div>
 
       <div className="main-content">
-        {/* Ore list table - now part of flex layout */}
+
         <div className="ore-table-parent">
           <div className="ore-list">
             <table>
@@ -421,7 +422,7 @@ useEffect(() => {
           </div>
         </div>
         <div className="csv-input">
-          {/* CSV Input Box */}
+
           <textarea
             id="csvInput"
             placeholder="Enter comma-separated numbers..."

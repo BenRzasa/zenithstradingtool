@@ -294,8 +294,8 @@ export const initialOreValsDict = {
     { name: "Positron", zenithVal: 25, johnVal: 60.5, nanVal: 20, customVal: 25 },
     { name: "Supermatter", zenithVal: 12, johnVal: 13.5, nanVal: 11, customVal: 12 },
     { name: "Charm Quark", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
-    { name: "Top Quark", zenithVal: 14, johnVal: 15, nanVal: 10, customVal: 14 },
-    { name: "Bottom Quark", zenithVal: 14, johnVal: 15, nanVal: 12, customVal: 14 },
+    { name: "Top Quark", zenithVal: 12, johnVal: 15, nanVal: 10, customVal: 12 },
+    { name: "Bottom Quark", zenithVal: 12, johnVal: 15, nanVal: 12, customVal: 12 },
     { name: "Strange Quark", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
     { name: "Crystal Photon", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
     { name: "Photalizine", zenithVal: 7.5, johnVal: 7.5, nanVal: 5, customVal: 8 }
