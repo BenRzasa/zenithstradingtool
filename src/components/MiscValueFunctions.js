@@ -120,7 +120,7 @@ export const MiscValueFunctions = ({
         if (excludedOres.includes(ore.name)) return;
         const inventory = csvData[ore.name] || 0;
         const oreValue = calculateValue(ore);
-        const numV = parseFloat((inventory / oreValue).toFixed(1));
+        const numV = parseFloat((inventory / oreValue).toFixed(3));
 
         if (numV < minOre.value) {
           minOre = { value: numV, name: ore.name, layer: layerName };

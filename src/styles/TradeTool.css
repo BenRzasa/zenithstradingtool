@@ -282,7 +282,7 @@
     border-radius: 0 0 8px 8px;
     max-height: 300px;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 10001;
 }
 
 .search-result-item {

@@ -22,7 +22,6 @@ const ORE_NAMES = Object.freeze([...OreNames]);
 function CSVLoader() {
   // Fetch the current data and the set function from context
   const {
-    getCurrentCSV,
     oreValsDict,
     previousAmounts,
     lastUpdated,
@@ -35,10 +34,11 @@ function CSVLoader() {
     getValueForMode,
     csvHistory,
     loadOldCSV,
+    getCurrentCSV,
   } = useContext(MiscContext);
 
   const allValues = MiscValueFunctions({
-    csvData: getCurrentCSV,
+    csvData: getCurrentCSV(),
     valueMode,
     currentMode,
     customMultiplier,

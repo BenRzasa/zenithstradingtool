@@ -15,6 +15,7 @@ import Platinum_Ring from '../images/charms/Platinum_Ring.webp';
 import Quicksilver_Band from '../images/charms/Quicksilver_Band.webp';
 import Red_Diamond_Ring from '../images/charms/Red_Diamond_Ring.webp';
 import Solar_Necklace from '../images/charms/Solar_Necklace.webp';
+import Starlite_Bracelet from '../images/charms/Starlite_Bracelet.webp';
 import Sunstone_Ring from '../images/charms/Sunstone_Ring.webp';
 import Tachyon_Band from '../images/charms/Tachyon_Band.webp';
 import Thulinyl_Ring from '../images/charms/Thulinyl_Ring.webp';
@@ -38,6 +39,7 @@ export const CharmIcons = {
   Quicksilver_Band,
   Red_Diamond_Ring,
   Solar_Necklace,
+  Starlite_Bracelet,
   Sunstone_Ring,
   Tachyon_Band,
   Thulinyl_Ring,

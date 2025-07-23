@@ -31,6 +31,11 @@ const charmPerks = [
     description: "Ores with over 2.5s of mine time will be mined 20% faster"
   },
   {
+    name: "Starlite Bracelet",
+    ore: "Starlite",
+    description: "Increases critical hit strength by 30%"
+  },
+  {
     name: "Red Diamond Ring",
     ore: "Red Diamond",
     description: "Increases number of Red Diamonds obtained per ore by 3"

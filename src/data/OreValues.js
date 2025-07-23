@@ -181,7 +181,7 @@ export const initialOreValsDict = {
     { name: "Palladium", zenithVal: 7, johnVal: 6.5, nanVal: 7, customVal: 7 },
     { name: "Neptunium", zenithVal: 6, johnVal: 5, nanVal: 6, customVal: 6 },
     { name: "Void Orb", zenithVal: 7, johnVal: 7, nanVal: 8, customVal: 7 },
-    { name: "Nilidust", zenithVal: 10, johnVal: 6.5, nanVal: 8, customVal: 10 },
+    { name: "Nilidust", zenithVal: 8, johnVal: 6.5, nanVal: 8, customVal: 8 },
     { name: "Asthenocrit", zenithVal: 6, johnVal: 6.5, nanVal: 6, customVal: 6 }
   ],
 
@@ -242,7 +242,7 @@ export const initialOreValsDict = {
     { name: "Cosmaline", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
     { name: "Astratine", zenithVal: 6, johnVal: 6, nanVal: 7, customVal: 6 },
     { name: "Starsteel", zenithVal: 8, johnVal: 8, nanVal: 7, customVal: 8 },
-    { name: "Stardust", zenithVal: 6.5, johnVal: 6, nanVal: 5, customVal: 7 },
+    { name: "Stardust", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 7 },
     { name: "Endotravine", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7 },
   ],
 
@@ -262,7 +262,7 @@ export const initialOreValsDict = {
     { name: "Bedrock", zenithVal: 1000, johnVal: 2000, nanVal: 500, customVal: 1000 },
     { name: "Jade", zenithVal: 5, johnVal: 5, nanVal: 5, customVal: 5 },
     { name: "Redsteel", zenithVal: 5, johnVal: 5, nanVal: 4, customVal: 5 },
-    { name: "Celesteel", zenithVal: 4.5, johnVal: 4, nanVal: 3, customVal: 5 },
+    { name: "Celesteel", zenithVal: 4, johnVal: 4, nanVal: 3, customVal: 5 },
     { name: "Cryoplasm", zenithVal: 4, johnVal: 4, nanVal: 5, customVal: 4 },
     { name: "Andrium", zenithVal: 8, johnVal: 8, nanVal: 9, customVal: 8 },
     { name: "Neutronium", zenithVal: 8, johnVal: 8, nanVal: 10, customVal: 8 },
@@ -298,7 +298,7 @@ export const initialOreValsDict = {
     { name: "Bottom Quark", zenithVal: 12, johnVal: 15, nanVal: 12, customVal: 12 },
     { name: "Strange Quark", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
     { name: "Crystal Photon", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
-    { name: "Photalizine", zenithVal: 7.5, johnVal: 7.5, nanVal: 5, customVal: 8 }
+    { name: "Photalizine", zenithVal: 7, johnVal: 7.5, nanVal: 5, customVal: 8 }
   ],
 
   "Stability\n[9151m-9170m]":

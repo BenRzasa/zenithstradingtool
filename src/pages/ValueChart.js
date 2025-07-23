@@ -210,7 +210,7 @@ function ValueChart() {
           switch (source) {
             case 'john': newValue = ore.johnVal; break;
             case 'nan': newValue = ore.nanVal; break;
-            default: newValue = ore.zenithVal; // 'zenith' is default
+            default: newValue = ore.zenithVal;
           }
           return {
             ...ore,
@@ -223,7 +223,6 @@ function ValueChart() {
       setShowCustomModal(false);
     };
 
-  // Main page layout
   return (
     <div className="outer-frame">
       {/* Quick Summary Dropdown */}
@@ -289,7 +288,7 @@ function ValueChart() {
                   ⮝ Highest Value (Layer):
                   <div>
                     <span className="placeholder">
-                      {maxLayer.name} (
+                      {maxLayer.name.substring(0, maxLayer.name.indexOf('\n'))} (
                       {maxLayer.value.toLocaleString()} {modeStr})
                     </span>
                   </div>
@@ -298,7 +297,7 @@ function ValueChart() {
                   ⮟ Lowest Value (Layer):
                   <div>
                     <span className="placeholder">
-                      {minLayer.name} (
+                      {minLayer.name.substring(0, minLayer.name.indexOf('\n'))} (
                       {minLayer.value.toLocaleString()} {modeStr})
                     </span>
                   </div>
