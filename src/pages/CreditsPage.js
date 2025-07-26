@@ -79,6 +79,19 @@ function CreditsPage() {
             </li>
           </ul>
         </li>
+        <li><strong>MCHF</strong>
+          <ul>
+            <li>"More Stats" button opening quick summary</li>
+            <li>Manual override input for inventory quantities per ore</li>
+            <li>Copy to clipboard in the corner of each layer table that copies that layer's search filter</li>
+          </ul>
+        </li>
+        <li><strong>Nerolin</strong>
+          <ul>
+            <li>Dynamically generated ore className (for gradients)</li>
+            <li>Re-structuring the values dictionary to use just one with multiple variables for value sets</li>
+          </ul>
+        </li>
         <li><strong>Water</strong>
           <ul>
             <li>Patic</li>
@@ -99,13 +112,6 @@ function CreditsPage() {
             <li>Grind strategies for ores on Misc page</li>
           </ul>
         </li>
-        <li><strong>MyCats</strong>
-          <ul>
-            <li>"More Stats" button opening quick summary</li>
-            <li>Manual override input for inventory quantities per ore</li>
-            <li>Copy to clipboard in the corner of each layer table that copies that layer's search filter</li>
-          </ul>
-        </li>
         <li><strong>GeoSY</strong>
           <ul>
             <li>New TCC icon for home page</li>
@@ -114,11 +120,6 @@ function CreditsPage() {
         <li><strong>Luna</strong>
           <ul>
             <li>Background opacity/transparency scale</li>
-          </ul>
-        </li>
-        <li><strong>Nerolin</strong>
-          <ul>
-            <li>Dynamically generated ore className (for gradients)</li>
           </ul>
         </li>
       </ul>

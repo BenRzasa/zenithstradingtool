@@ -1,4 +1,5 @@
 .credits-content {
+  color: var(--text-color);
   margin-left: 25px;
 
   li {
