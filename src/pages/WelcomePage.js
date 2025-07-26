@@ -21,7 +21,7 @@ function WelcomePage() {
           style={{
             position:"absolute",
             opacity:"1",
-            marginTop:"50vh",
+            marginTop:"70vh",
             width:"40vh", height:"40vh"
           }}
         />

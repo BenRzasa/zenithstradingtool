@@ -35,6 +35,7 @@ function TradeTool() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false)
 
   // Refs for DOM access
   const searchInputRef = useRef(null);
@@ -260,76 +261,123 @@ function TradeTool() {
     return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
   };
 
-  // Filter ores based on search term
   const filterOres = (term, source = allOresWithLayers) => {
-    // Early return if empty search
     if (!term.trim()) return [];
-    const termLower = term.toLowerCase();
+
+    const searchParts = term.toLowerCase().split('/').map(part => part.trim());
+
     return source.filter((ore) => {
-      // Check if ore name matches
-      const oreMatch = ore.name.toLowerCase().includes(termLower);
-      // Check if layer name matches (including partial matches for layered ores)
-      const layerMatch =
-        ore.layer.toLowerCase().includes(termLower) ||
-        ore.layer
-          .split("/")
-          .some((part) => part.trim().toLowerCase().includes(termLower));
-      return oreMatch || layerMatch;
+      return searchParts.some(part =>
+        ore.name.toLowerCase().includes(part)
+      );
     });
   };
 
-  // Current filtered results for search input
   const filteredOres = filterOres(searchTerm);
 
   // Add ore to trade table
   const handleAddOre = (oreObj) => {
-    // Only add if ore isn't already in the table
     if (!tradeState.selectedOres.some((ore) => ore.name === oreObj.name)) {
       setTradeState(prev => ({
         ...prev,
         quantities: {
           ...prev.quantities,
-          [oreObj.name]: 1, // Default to 1 for trade
+          [oreObj.name]: 1,
         }
       }));
     }
-    // Reset search state after adding
-    setSearchTerm("");
-    setSelectedIndex(-1);
+
+    setSearchFocused(true);
     searchInputRef.current?.focus();
   };
 
-  // Handle keyboard navigation in search results
+  const handleAddMultipleOres = (searchTerm) => {
+    const searchParts = searchTerm.toLowerCase().split('/').map(part => part.trim());
+
+    // Find all ores that match any part of the search
+    const oresToAdd = allOresWithLayers.filter(ore => 
+      searchParts.some(part =>
+        ore.name.toLowerCase().includes(part)
+      )
+    );
+
+    // Add all matching ores
+    setTradeState(prev => {
+      const newQuantities = { ...prev.quantities };
+      oresToAdd.forEach(ore => {
+        if (!newQuantities[ore.name]) {
+          newQuantities[ore.name] = 1;
+        }
+      });
+      return {
+        ...prev,
+        quantities: newQuantities
+      };
+    });
+
+    setSearchTerm("");
+    searchInputRef.current?.focus();
+    setSearchFocused(true);
+    updateTradeOres(allOresWithLayers);
+  };
+
   const handleKeyDown = (e) => {
-    // Ignore if no search term or results
-    if (!searchTerm || !filteredOres.length) return;
+    if (!searchTerm) return;
+
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        // Move selection down, wrapping to top if at bottom
-        setSelectedIndex((prev) => (prev < filteredOres.length - 1 ? prev + 1 : 0));
+        const nextIndex = selectedIndex < filteredOres.length - 1 ? selectedIndex + 1 : 0;
+        setSelectedIndex(nextIndex);
+        scrollToResult(nextIndex);
         break;
+
       case "ArrowUp":
         e.preventDefault();
-        // Move selection up, wrapping to bottom if at top
-        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredOres.length - 1));
+        const prevIndex = selectedIndex > 0 ? selectedIndex - 1 : filteredOres.length - 1;
+        setSelectedIndex(prevIndex);
+        scrollToResult(prevIndex);
         break;
+
       case "Enter":
         e.preventDefault();
-        // Add currently highlighted ore
-        if (selectedIndex >= 0 && selectedIndex < filteredOres.length) {
+        if (searchTerm.includes('/')) {
+          handleAddMultipleOres(searchTerm);
+        } else if (selectedIndex >= 0 && selectedIndex < filteredOres.length) {
           handleAddOre(filteredOres[selectedIndex]);
         }
         break;
+
       case "Escape":
-        // Clear current search
         setSearchTerm("");
         break;
       default:
         break;
     }
-    // Update trade summary
     updateTradeOres(allOresWithLayers);
+  };
+
+
+  const scrollToResult = (index) => {
+    const resultsContainer = resultsRef.current;
+    if (!resultsContainer) return;
+
+    const selectedItem = resultsContainer.children[index];
+    if (!selectedItem) return;
+
+    const containerHeight = resultsContainer.clientHeight;
+    const itemOffsetTop = selectedItem.offsetTop;
+    const itemHeight = selectedItem.clientHeight;
+
+    const scrollTop = resultsContainer.scrollTop;
+    const itemTop = itemOffsetTop - scrollTop;
+    const itemBottom = itemTop + itemHeight;
+
+    if (itemBottom > containerHeight) {
+      resultsContainer.scrollTop = itemOffsetTop - containerHeight + itemHeight;
+    } else if (itemTop < 0) {
+      resultsContainer.scrollTop = itemOffsetTop;
+    }
   };
 
   const [copiedFilter, setCopiedFilter] = useState(null);
@@ -339,7 +387,7 @@ function TradeTool() {
       tradeState.tradeOres.map(ore => ore.name).join("/")
       navigator.clipboard.writeText(searchFilterString).then(() => {
         setCopiedFilter(searchFilterString);
-        // Clear the filter after 2 seconds
+
         setTimeout(() => setCopiedFilter(null), 2000);
       });
   }
@@ -469,15 +517,20 @@ function TradeTool() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={(e) => handleKeyDown(e)}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
                 className="search-input"
               />
             </label>
-            {searchTerm !== 'patic' && (
+            {(searchFocused && searchTerm) && (
               <ul className="search-results" ref={resultsRef}>
                 {filteredOres.map((ore, index) => (
                   <li
                     key={`${ore.name}-${index}`}
-                    onClick={() => handleAddOre(ore)}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleAddOre(ore);
+                    }}
                     className={`search-result-item ${
                       index === selectedIndex ? "selected" : ""
                     }`}

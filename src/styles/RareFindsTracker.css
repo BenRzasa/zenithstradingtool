@@ -1,5 +1,16 @@
 /* RareFindsTracker.css */
 
+/*
+@keyframes slideSlowly {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(1000px); }
+}
+
+.patic img {
+  animation: slideSlowly 1s linear infinite alternate;
+}
+*/
+
 .rare-finds-tracker {
   padding: 20px;
   position: relative;

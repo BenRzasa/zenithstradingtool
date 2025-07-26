@@ -8,7 +8,6 @@ import { useContext, useState, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
 
 import NavBar from "../components/NavBar";
-import ValueModeSelector from "../components/ValueModeSelector";
 import RareRow from "../components/RareRow";
 import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
@@ -22,11 +21,9 @@ const RareFindsTracker = () => {
     rareFindsData,
     setRareFindsData,
     currentMode,
-    setCurrentMode,
     customMultiplier,
     getValueForMode,
     useObtainRateVals,
-    setUseObtainRateVals
   } = useContext(MiscContext);
 
   /*
@@ -265,6 +262,8 @@ const RareFindsTracker = () => {
 
   return (
   <>
+    <h1 style={{textAlign: "center", fontSize: "50px", marginTop: "50px", color: "var(--text-color"}}>Rare Finds Tracker</h1>
+    <div className="patic">
     <img
       src={patik}
       alt="patik"
@@ -273,23 +272,12 @@ const RareFindsTracker = () => {
         opacity:"0.025"
       }}
     />
+    </div>
   <NavBar />
     <div className="rare-finds-tracker">
-      {/* Mode selection buttons */}
-      <ValueModeSelector
-        currentMode={currentMode}
-        setCurrentMode={setCurrentMode}
-      />
+
       <CustomMultiplierInput />
       <div className="button-container">
-        <div className="box-button">
-          <button
-            onClick={() => setUseObtainRateVals(!useObtainRateVals)}
-            className={useObtainRateVals === true ? "color-template-singularity" : ""}
-          >
-            <span>Use Obtain Rate</span>
-          </button>
-        </div>
         <div className="box-button">
           <button className="reset-btn" onClick={() => resetRareFinds('rares')}>
             Reset Rares

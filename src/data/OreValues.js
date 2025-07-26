@@ -263,11 +263,11 @@ export const initialOreValsDict = {
     { name: "Jade", zenithVal: 5, johnVal: 5, nanVal: 5, customVal: 5 },
     { name: "Redsteel", zenithVal: 5, johnVal: 5, nanVal: 4, customVal: 5 },
     { name: "Celesteel", zenithVal: 4, johnVal: 4, nanVal: 3, customVal: 5 },
-    { name: "Cryoplasm", zenithVal: 4, johnVal: 4, nanVal: 5, customVal: 4 },
-    { name: "Andrium", zenithVal: 8, johnVal: 8, nanVal: 9, customVal: 8 },
+    { name: "Cryoplasm", zenithVal: 5, johnVal: 4, nanVal: 5, customVal: 5 },
+    { name: "Andrium", zenithVal: 9, johnVal: 8, nanVal: 9, customVal: 9 },
     { name: "Neutronium", zenithVal: 8, johnVal: 8, nanVal: 10, customVal: 8 },
     { name: "Shadowspec", zenithVal: 2, johnVal: 2, nanVal: 2, customVal: 2 },
-    { name: "Spiralium", zenithVal: 4, johnVal: 2.5, nanVal: 2, customVal: 4 },
+    { name: "Spiralium", zenithVal: 3, johnVal: 2.5, nanVal: 2, customVal: 3 },
     { name: "Frozen Nitrogen", zenithVal: 10, johnVal: 11, nanVal: 12, customVal: 10 },
     { name: "Orichalican", zenithVal: 8, johnVal: 8, nanVal: 7, customVal: 8 },
     { name: "Scorched Bedrock", zenithVal: 1000, johnVal: 2000, nanVal: 500, customVal: 1000 }
@@ -288,6 +288,8 @@ export const initialOreValsDict = {
 
   "Quantum\n[9000m-9150m]":
   [
+    { name: "Crystal Photon", zenithVal: 18, johnVal: 10, nanVal: 20, customVal: 18 },
+    { name: "Photalizine", zenithVal: 14, johnVal: 7.5, nanVal: 12, customVal: 14 },
     { name: "Gluonium", zenithVal: 2, johnVal: 2.5, nanVal: 2, customVal: 2 },
     { name: "Up Quark", zenithVal: 22, johnVal: 20, nanVal: 20, customVal: 22 },
     { name: "Down Quark", zenithVal: 25, johnVal: 24, nanVal: 20, customVal: 25 },
@@ -297,15 +299,13 @@ export const initialOreValsDict = {
     { name: "Top Quark", zenithVal: 12, johnVal: 15, nanVal: 10, customVal: 12 },
     { name: "Bottom Quark", zenithVal: 12, johnVal: 15, nanVal: 12, customVal: 12 },
     { name: "Strange Quark", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
-    { name: "Crystal Photon", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
-    { name: "Photalizine", zenithVal: 7, johnVal: 7.5, nanVal: 5, customVal: 8 }
   ],
 
   "Stability\n[9151m-9170m]":
   [
     { name: "Universal Barrier", zenithVal: 1000, johnVal: 2000, nanVal: 500, customVal: 1000 },
     { name: "Rifted Barrier", zenithVal: 6, johnVal: 6, nanVal: 6, customVal: 6 },
-    { name: "Fabric", zenithVal: 10, johnVal: 7, nanVal: 6, customVal: 10 },
+    { name: "Fabric", zenithVal: 10, johnVal: 7, nanVal: 12, customVal: 10 },
     { name: "Mavrikine", zenithVal: 6, johnVal: 6, nanVal: 6, customVal: 6 },
     { name: "Irulisteel", zenithVal: 2, johnVal: 2, nanVal: 2, customVal: 2 }
   ],

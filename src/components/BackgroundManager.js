@@ -19,7 +19,7 @@ const BackgroundManager = ({ children, background, opacity }) => {
     backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     zIndex: -1,
-    opacity: opacity // This controls ONLY the image opacity
+    opacity: opacity
   };
 
 
