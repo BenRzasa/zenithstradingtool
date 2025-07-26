@@ -1,8 +1,8 @@
 # Zenith's Trading Tool | Created for The Celestial Caverns
 
-## Description and Usage
-
-## Feature Ideas & Assets Credits (No particular order):
+## Feature Ideas & Assets Credits:
+ - **Multiple Users**
+   - Feedback and improvements for mobile compatibility!!
  - **Glitch**
    - Various CSV loader QoL changes
    - AV Gain since last update
@@ -15,17 +15,33 @@
    - Custom value multiplier (for completion)
    - CSV Loader sorting options (alphabetically, change amount, etc.)
    - I forgot LIQUID GOLD somehow
+   - CSV backward compatibility (STILL UNKNOWN IF THIS WORKS, NEW ORES HAVE NOT BEEN ADDED SINCE)
  - **NAN**
    - CSV editor concept
    - Checkmark & inventory comparison for trade tool quantities
    - John Values = pout gradient
    - "More Stats" button
    - UI scaling suggestions
+   - Secondary CSV switcher and editor
+   - Obtain Rate toggle for rare values
+   - Multiple rounding and precision improvements
+ - **Randomwastaken**
+   - Porting completion % gain and other important stats to the CSV loader page
+   - Checkmark for 100% completion of a given layer
+ - **Sandglasss**
+   - Multiple trade tool UX improvements (search bar and adding ore functionality) 
  - **Galactic**
    - Custom value setting
    - Dark mode
  - **Sean**
    - Custom per-ore values
+   - And who could forget: 
+     - **v2025626 Deployed!**
+      - pooped on a shit
+ - **Water**
+   - Patic
+ - **Freeze & ozo**
+   - Multiple Home Page UI improvements
  - **HolySeeker**
    - ALL THE LAYER AND ORE GRADIENTS. GOAT
  - **Raid/Samarium**
@@ -40,7 +56,3 @@
    - Background opacity/transparency scale
  - **Nerolin**
    - Dynamically generated ore className (for gradients)
- - **Randomwastaken**
-   - Checkmark for NV completion of a given layer
- - **Sandglasss**
-   - Simplification of trade tool for less clunkiness and ease of use

@@ -15,6 +15,8 @@ import ValueChart from './pages/ValueChart';
 import MiscPage from './pages/MiscPage';
 import CustomValuesEditor from './pages/CustomValuesEditor';
 import RareFindsTracker from './pages/RareFindsTracker';
+import CreditsPage from './pages/CreditsPage';
+
 import { MiscProvider } from './context/MiscContext';
 import { TradeProvider } from './context/TradeContext';
 import BackgroundManager from './components/BackgroundManager';
@@ -146,6 +148,7 @@ function App() {
                             <Route path="/tradetool" element={<TradeTool />} />
                             <Route path="/misc" element={<MiscPage />} />
                             <Route path="/customvalues" element={<CustomValuesEditor />} />
+                            <Route path="/credits" element={<CreditsPage />} />
                         </Routes>
                     </HashRouter>
                 </BackgroundManager>

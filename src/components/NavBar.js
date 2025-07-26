@@ -13,7 +13,7 @@ const NavBar = () => {
     <div className="dropdown-container"
 
     >
-    <span className="nav-h">Navigation&nbsp;&nbsp;&nbsp;<i class="fas fa-bars"></i></span>
+    <span className="nav-h">Navigation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-bars"></i></span>
 
       {isOpen && (
         <ul className="dropdown-menu">
@@ -31,6 +31,8 @@ const NavBar = () => {
             onClick={() => setIsOpen(false)}>Rare Tracker</Link></li>
           <li><Link to="/misc"
             onClick={() => setIsOpen(false)}>Miscellaneous</Link></li>
+          <li><Link to="/credits"
+            onClick={() => setIsOpen(false)}>Credits</Link></li>
           <li><a
             href="https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki"
             target="_blank" rel="noreferrer">
