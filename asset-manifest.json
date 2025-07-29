@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.0ae99e85.css",
-    "main.js": "/zenithstradingtool/static/js/main.07665baa.js",
+    "main.css": "/zenithstradingtool/static/css/main.26fae122.css",
+    "main.js": "/zenithstradingtool/static/js/main.5aabc1f2.js",
     "static/media/patik.png": "/zenithstradingtool/static/media/patik.c46cb18674fcbbbceeff.png",
     "static/media/patic.png": "/zenithstradingtool/static/media/patic.efe12edf4910078d844d.png",
     "static/media/TCC_Logo.png": "/zenithstradingtool/static/media/TCC_Logo.8707612c20c6b152c99e.png",
@@ -332,11 +332,11 @@
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
     "static/media/Red_Diamond_Icon.webp": "/zenithstradingtool/static/media/Red_Diamond_Icon.15f999b7100b1173c9fd.webp",
     "static/media/Nilglass_Icon.webp": "/zenithstradingtool/static/media/Nilglass_Icon.d13f9c99294b923b0eaa.webp",
-    "main.0ae99e85.css.map": "/zenithstradingtool/static/css/main.0ae99e85.css.map",
-    "main.07665baa.js.map": "/zenithstradingtool/static/js/main.07665baa.js.map"
+    "main.26fae122.css.map": "/zenithstradingtool/static/css/main.26fae122.css.map",
+    "main.5aabc1f2.js.map": "/zenithstradingtool/static/js/main.5aabc1f2.js.map"
   },
   "entrypoints": [
-    "static/css/main.0ae99e85.css",
-    "static/js/main.07665baa.js"
+    "static/css/main.26fae122.css",
+    "static/js/main.5aabc1f2.js"
   ]
 }
