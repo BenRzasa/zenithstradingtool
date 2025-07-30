@@ -1,7 +1,4 @@
 
-/* Theme Switch */
-/* The switch - the box around the slider */
-
 .switch {
   font-size: 17px;
   position: fixed;
@@ -26,7 +23,6 @@
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -103,7 +99,6 @@
   opacity: 1;
 }
 
-/* Global Styles */
 body {
   transition: background-image 0.5s ease;
   background-color: var(--background-color);

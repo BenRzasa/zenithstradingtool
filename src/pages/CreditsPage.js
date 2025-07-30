@@ -1,10 +1,14 @@
 
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
+
+import patic from "../images/misc/patic3.png";
 
 import "../styles/CreditsPage.css";
 
 function CreditsPage() {
+  const [showPatic, setShowPatic] = useState(false);
+
   return (
     <>
     <NavBar />
@@ -94,7 +98,31 @@ function CreditsPage() {
         </li>
         <li><strong>Water</strong>
           <ul>
-            <li>Patic</li>
+            <li>
+              <button
+                onClick={() => setShowPatic(!showPatic)} 
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  font: 'inherit',
+                  cursor: 'pointer',
+                  color: 'var(--text-color)'
+                }}
+              >
+                Patic
+              </button>
+              {showPatic && (
+                <img
+                  src={patic}
+                  alt="patic"
+                  style={{
+                    position: "absolute",
+                    opacity: 1
+                  }}
+                />
+              )}
+            </li>
           </ul>
         </li>
         <li><strong>Freeze & ozo</strong>

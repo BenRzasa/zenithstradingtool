@@ -174,13 +174,12 @@ function ValueChart() {
     if (tableId) {
       const element = document.getElementById(tableId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
         setTableSelected("");
       }
     }
   };
 
-  // Back to Top function
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -203,7 +202,7 @@ function ValueChart() {
 
   // Initialize custom dict
   const initializeCustomValues = (source) => {
-      const newOreVals = JSON.parse(JSON.stringify(oreValsDict)); // Deep copy
+      const newOreVals = JSON.parse(JSON.stringify(oreValsDict));
       for (const layerName in newOreVals) {
         newOreVals[layerName] = newOreVals[layerName].map(ore => {
           let newValue;
@@ -487,7 +486,7 @@ function ValueChart() {
             value={tableSelected}
           >
             <option value="" disabled>
-              Select a table...
+              Jump to layer table...
             </option>
             {/* Map all tables/layers to the results based on the names */}
             {tableNames.map((name) => (

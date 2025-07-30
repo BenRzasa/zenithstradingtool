@@ -262,7 +262,12 @@ const RareFindsTracker = () => {
 
   return (
   <>
-    <h1 style={{textAlign: "center", fontSize: "50px", marginTop: "50px", color: "var(--text-color"}}>Rare Finds Tracker</h1>
+    <h1 style={{
+      textAlign: "center",
+      fontSize: "50px",
+      marginTop: "50px",
+      color: "var(--text-color"}}
+    >Rare Finds Tracker</h1>
     <div className="patic">
     <img
       src={patik}

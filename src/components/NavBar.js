@@ -31,6 +31,8 @@ const NavBar = () => {
             onClick={() => setIsOpen(false)}>Rare Tracker</Link></li>
           <li><Link to="/misc"
             onClick={() => setIsOpen(false)}>Miscellaneous</Link></li>
+          <li><Link to="/wheelspage"
+            onClick={() => setIsOpen(false)}>Spin the Wheel!</Link></li>
           <li><Link to="/credits"
             onClick={() => setIsOpen(false)}>Credits</Link></li>
           <li><a

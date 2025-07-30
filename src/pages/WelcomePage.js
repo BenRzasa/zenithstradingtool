@@ -65,6 +65,11 @@ function WelcomePage() {
         </div>
         <div className="box-button">
           <button
+            onClick={() => navigate('/wheelspage')}
+          >Spin the Wheel!</button>
+        </div>
+        <div className="box-button">
+          <button
             onClick={() => navigate('/credits')}
           >Credits</button>
         </div>
