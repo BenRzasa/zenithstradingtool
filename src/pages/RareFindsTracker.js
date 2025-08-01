@@ -4,7 +4,7 @@
   - As well as a running total of the value of their rare finds
   and total amounts of rares and super rares found
 */
-import { useContext, useState, useMemo } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
 
 import NavBar from "../components/NavBar";
