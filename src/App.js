@@ -13,6 +13,7 @@ import CreditsPage from './pages/CreditsPage';
 
 import { MiscProvider } from './context/MiscContext';
 import { TradeProvider } from './context/TradeContext';
+import { WheelProvider } from './context/WheelContext';
 import BackgroundManager from './components/BackgroundManager';
 import SettingsPanel from './components/SettingsPanel';
 import SettingsToggle from './components/SettingsToggle';
@@ -249,7 +250,11 @@ function App() {
                             <Route path="/tradetool" element={<TradeTool />} />
                             <Route path="/misc" element={<MiscPage />} />
                             <Route path="/customvalues" element={<CustomValuesEditor />} />
-                            <Route path="/wheelspage" element={<OreAndLayerWheel />} />
+                            <Route path="/wheelspage" element={
+                                <WheelProvider>
+                                    <OreAndLayerWheel />
+                                </WheelProvider>
+                            } />
                             <Route path="/credits" element={<CreditsPage />} />
                         </Routes>
                     </HashRouter>

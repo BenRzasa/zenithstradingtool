@@ -1,72 +1,45 @@
 .ore-spinner-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   padding: 20px;
-  max-width: 90%;
-  margin: 0 auto;
+  max-width: 200%;
   position: relative;
   overflow: hidden;
+  transform: scale(1);
 }
 
-.wheel-outer {
+.wheel-container {
   position: relative;
-  width: 50vw;
-  height: 50vw;
-  margin: 0 auto;
-}
-
-.selector-arrow {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-  border-top: 50px solid red;
-  z-index: 10;
-}
-
-
-.wheel-wrapper {
-  position: relative;
-  width: 50vw;
-  height: 50vw;
-  padding: 25px;
-}
-
-.wheel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+  margin-top: 25vh;
+  margin-left: 10vw;
+  width: 600px;
+  height: 500px;
+  transform: scale(1.5);
 }
 
 .spin-button {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 100%;
   transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
-  font-size: 40px;
-  border-radius: 50%;
+  width: 5vw;
+  height: 5vh;
+  font-size: 1vw;
+  border-radius: 10%;
   color: var(--text-col);
   background: var(--background-color);
-  border: 5px solid var(--switch-outline);
+  border: 0.2vw solid var(--switch-outline);
   font-weight: bold;
   cursor: pointer;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0px 8px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 0px 0.8vw 0.8vw rgba(0,0,0,0.4);
 }
 
 .spin-button:disabled {
@@ -76,73 +49,68 @@
 
 .close-button {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 7px;
+  right: 7px;
   background: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 30px;
   cursor: pointer;
   color: #707070;
-  padding: 0 5px;
+  padding: 0 7px;
 }
 
 .close-button:hover {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 7px;
+  right: 7px;
   background: transparent;
   border: none;
-  font-size: 1.5rem;
+  font-size: 35px;
   cursor: pointer;
   color: #cdcdcd;
-  padding: 0 5px;
-}
-
-.wheel-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0 7px;
 }
 
 .selected-ore {
-  height: fit-content;
-  width: 15vw;
-  min-width: fit-content;
   position: fixed;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.25);
+  top: 60%;
+  left: 53%;
+  margin: 0 auto;
+  height: 250px;
+  width: 350px;
+  position: fixed;
+  transform: translate(-75%, -85%) scale(0.75);
   text-align: center;
   z-index: 100;
-  border: 3px solid var(--switch-outline);
+  border: 0.3vw solid var(--switch-outline);
   background-color: var(--background-color);
-  padding-left: 1vw;
-  padding-right: 1vw;
-  padding-bottom: 2vw;
-  border-radius: 16px;
-  box-shadow: 0 0 0 3px white, 0 0 20px rgba(0, 0, 0, 0.5);
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  border-radius: 25px;
+  box-shadow: 0 0 0 4px white, 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .selected-ore-display {
-  padding: 1vw;
-  border-radius: 8px;
-  font-size: 20px;
+  padding: 15px;
+  border-radius: 25px;
+  font-size: 30px;
   font-weight: bold;
   color: black;
   animation: pulse 1.5s infinite alternate;
 }
 
 .ore-stats {
-  margin-top: 15px;
-  margin-bottom: -15px;
+  margin-top: 1.5vw;
+  margin-bottom: -1.5vw;
+  font-size: 25px;
 }
 
 @keyframes pulse {
   from {
-    box-shadow: 0 0 0 3px white, 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0 0.3vw white, 0 0 2vw rgba(0, 0, 0, 0.5);
   }
   to {
-    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.7), 0 0 30px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 0 0.5vw rgba(255, 255, 255, 0.7), 0 0 3vw rgba(0, 0, 0, 0.7);
   }
 }
