@@ -1,5 +1,5 @@
 // Main app routing
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
 import CSVLoader from './pages/CSVLoader';
@@ -11,12 +11,14 @@ import RareFindsTracker from './pages/RareFindsTracker';
 import OreAndLayerWheel from './pages/OreAndLayerWheel';
 import CreditsPage from './pages/CreditsPage';
 
+import { MiscContext } from './context/MiscContext';
 import { MiscProvider } from './context/MiscContext';
 import { TradeProvider } from './context/TradeContext';
 import { WheelProvider } from './context/WheelContext';
 import BackgroundManager from './components/BackgroundManager';
 import SettingsPanel from './components/SettingsPanel';
 import SettingsToggle from './components/SettingsToggle';
+import HotkeyHandler from './components/HotkeyHandler';
 import packageJson from '../package.json';
 
 // IndexedDB setup
@@ -226,41 +228,90 @@ function App() {
         localStorage.removeItem('ztt-bg-opacity');
     };
 
-    return (
-        <TradeProvider>
-            <MiscProvider>
-                <BackgroundManager background={background} opacity={opacity}>
-                    <SettingsToggle onClick={() => setSettingsOpen(!settingsOpen)} />
-                    <SettingsPanel
-                        isOpen={settingsOpen}
-                        onClose={() => setSettingsOpen(false)}
-                        opacity={opacity}
-                        onOpacityChange={handleOpacityChange}
-                        onBgChange={handleBgChange}
+return (
+        <HashRouter>
+            <TradeProvider>
+                <MiscProvider>
+                    <AppWithHotkeys 
+                        settingsOpen={settingsOpen}
+                        setSettingsOpen={setSettingsOpen}
+                        background={background}
                         customBg={customBg}
-                        onApplyBg={applyBackground}
-                        onResetBg={resetBackground}
+                        opacity={opacity}
+                        handleOpacityChange={handleOpacityChange}
+                        handleBgChange={handleBgChange}
+                        applyBackground={applyBackground}
+                        resetBackground={resetBackground}
                     />
-                    <HashRouter>
-                        <Routes>
-                            <Route path="/" element={<WelcomePage />} />
-                            <Route path="/csvloader" element={<CSVLoader />} />
-                            <Route path="/valuechart" element={<ValueChart />} />
-                            <Route path="/findtracker" element={<RareFindsTracker />} />
-                            <Route path="/tradetool" element={<TradeTool />} />
-                            <Route path="/misc" element={<MiscPage />} />
-                            <Route path="/customvalues" element={<CustomValuesEditor />} />
-                            <Route path="/wheelspage" element={
-                                <WheelProvider>
-                                    <OreAndLayerWheel />
-                                </WheelProvider>
-                            } />
-                            <Route path="/credits" element={<CreditsPage />} />
-                        </Routes>
-                    </HashRouter>
-                </BackgroundManager>
-            </MiscProvider>
-        </TradeProvider>
+                </MiscProvider>
+            </TradeProvider>
+        </HashRouter>
+    );
+}
+
+function AppWithHotkeys({
+    settingsOpen,
+    setSettingsOpen,
+    background,
+    customBg,
+    opacity,
+    handleOpacityChange,
+    handleBgChange,
+    applyBackground,
+    resetBackground
+}) {
+    const { hotkeysEnabled } = useContext(MiscContext);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (!hotkeysEnabled || 
+                ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName) ||
+                e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+                return;
+            }
+
+            if (e.key.toLowerCase() === 's') {
+                e.preventDefault();
+                setSettingsOpen(prev => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [hotkeysEnabled, setSettingsOpen]);
+
+    return (
+        <HotkeyHandler>
+            <BackgroundManager background={background} opacity={opacity}>
+                <SettingsToggle onClick={() => setSettingsOpen(!settingsOpen)} />
+                <SettingsPanel
+                    isOpen={settingsOpen}
+                    onClose={() => setSettingsOpen(false)}
+                    opacity={opacity}
+                    onOpacityChange={handleOpacityChange}
+                    onBgChange={handleBgChange}
+                    customBg={customBg}
+                    onApplyBg={applyBackground}
+                    onResetBg={resetBackground}
+                />
+
+                <Routes>
+                    <Route path="/" element={<WelcomePage />} />
+                    <Route path="/csvloader" element={<CSVLoader />} />
+                    <Route path="/valuechart" element={<ValueChart />} />
+                    <Route path="/findtracker" element={<RareFindsTracker />} />
+                    <Route path="/tradetool" element={<TradeTool />} />
+                    <Route path="/misc" element={<MiscPage />} />
+                    <Route path="/customvalues" element={<CustomValuesEditor />} />
+                    <Route path="/wheelspage" element={
+                        <WheelProvider>
+                            <OreAndLayerWheel />
+                        </WheelProvider>
+                    } />
+                    <Route path="/credits" element={<CreditsPage />} />
+                </Routes>
+            </BackgroundManager>
+        </HotkeyHandler>
     );
 }
 

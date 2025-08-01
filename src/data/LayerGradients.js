@@ -124,14 +124,12 @@ export const LayerGradients = {
   },
 
   Planck: {
-    background:
-      "linear-gradient(45deg, rgb(0, 0, 0) 25%,rgb(30, 255, 41) 50%,rgb(0, 0, 0) 75%)",
+    background: "linear-gradient(45deg, rgb(0, 0, 0) 25%,rgb(30, 255, 41) 50%,rgb(0, 0, 0) 75%)",
     "wheel-color": "#07fc03",
   },
 
   "Upper Instability": {
-    background: 
-    "linear-gradient(45deg,  #ff0000 0%, #460000 25%, rgb(79, 11, 6) 50%, rgb(37, 4, 1) 100%)",
+    background: "linear-gradient(45deg, #ff0000 0%, #460000 25%, rgb(79, 11, 6) 50%, rgb(37, 4, 1) 100%)",
     "wheel-color": "#ff0000",
   },
 

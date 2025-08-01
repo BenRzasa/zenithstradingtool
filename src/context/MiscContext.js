@@ -13,6 +13,12 @@ import { OreNames } from '../data/OreNames';
 export const MiscContext = createContext();
 
 export const MiscProvider = ({ children }) => {
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [hotkeysEnabled, setHotkeysEnabled] = useState(() => {
+    const savedHotkeys = localStorage.getItem('hotkeysEnabled');
+    return savedHotkeys !== null ? JSON.parse(savedHotkeys) : true;
+  });
   const initialDictRef = useRef(initialOreValsDict);
 
   // Core CSV data state
@@ -137,6 +143,7 @@ export const MiscProvider = ({ children }) => {
     }
   }, [lastUpdated]);
 
+  useEffect(() => localStorage.setItem('hotkeysEnabled', JSON.stringify(hotkeysEnabled)), [hotkeysEnabled]);
   useEffect(() => localStorage.setItem('secondaryCSVData', JSON.stringify(secondaryCSVData)), [secondaryCSVData]);
   useEffect(() => localStorage.setItem('useSecondaryCSV', JSON.stringify(useSecondaryCSV)), [useSecondaryCSV]);
   useEffect(() => localStorage.setItem('csvHistory', JSON.stringify(csvHistory)), [csvHistory]);
@@ -244,6 +251,8 @@ export const MiscProvider = ({ children }) => {
   };
 
   const contextValue = {
+    settingsOpen, setSettingsOpen,
+    hotkeysEnabled, setHotkeysEnabled,
     updateCSVData, previousAmounts, lastUpdated,
     secondaryCSVData, setSecondaryCSVData,
     useSecondaryCSV, setUseSecondaryCSV,

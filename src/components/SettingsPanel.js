@@ -25,8 +25,12 @@ const SettingsPanel = ({
     valueMode,
     setValueMode,
     useObtainRateVals,
-    setUseObtainRateVals
-  } = useContext(MiscContext)
+    setUseObtainRateVals,
+    hotkeysEnabled,
+    setHotkeysEnabled,
+  } = useContext(MiscContext);
+
+const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
 
   const toggleObtainRate = () => setUseObtainRateVals(!useObtainRateVals);
   const toggleCapCompletion = () => setCapCompletion(!capCompletion);
@@ -125,6 +129,38 @@ const SettingsPanel = ({
           </label>
           <span><p>[{capCompletion === true ? "ENABLED" : "DISABLED"}] This switch will toggle the completion % between being capped at 100% and uncapped.</p></span>
           </div>
+      </div>
+
+      <div className="settings-section">
+        <h2 className="section-title">Keyboard Shortcuts</h2>
+        <h3>Toggle Hotkeys</h3>
+        <div className="theme-control">
+          <label className="sswitch">
+            <input
+              type="checkbox"
+              id="hotkeys-switch"
+              checked={hotkeysEnabled}
+              onChange={toggleHotkeys}
+            />
+            <span className="sslider"></span>
+          </label>
+          <span><p>[{hotkeysEnabled ? "ENABLED" : "DISABLED"}] Toggle all keyboard shortcuts for navigation.</p></span>
+        </div>
+        {hotkeysEnabled && (
+          <div className="hotkey-list">
+            <p><strong>S</strong> - Toggle Settings</p>
+            <p><strong>H</strong> - Home</p>
+            <p><strong>C</strong> - CSV Loader</p>
+            <p><strong>V</strong> - Value Chart</p>
+            <p><strong>T</strong> - Trade Tool</p>
+            <p><strong>U</strong> - Custom Values</p>
+            <p><strong>R</strong> - Rare Tracker</p>
+            <p><strong>M</strong> - Miscellaneous</p>
+            <p><strong>W</strong> - Spin the Wheel</p>
+            <p><strong>E</strong> - Credits</p>
+            <p><strong>K</strong> - TCC Wiki (CURRENTLY DISABLED)</p>
+          </div>
+        )}
       </div>
 
       <div className="settings-section">
