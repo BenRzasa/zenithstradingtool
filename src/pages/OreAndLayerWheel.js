@@ -216,6 +216,46 @@ const OreAndLayerWheel = () => {
     return gradient || '#333333';
   };
 
+  const getTextColorForBackground = (bgColor) => {
+    if (bgColor.startsWith('var(') || bgColor.includes('gradient')) {
+      return '#ffffff';
+    }
+    let r, g, b;
+
+    // Handle hex colors
+    if (bgColor.startsWith('#')) {
+      const hex = bgColor.substring(1);
+      if (hex.length === 3) {
+        r = parseInt(hex[0] + hex[0], 16);
+        g = parseInt(hex[1] + hex[1], 16);
+        b = parseInt(hex[2] + hex[2], 16);
+      } else if (hex.length === 6) {
+        r = parseInt(hex.substring(0, 2), 16);
+        g = parseInt(hex.substring(2, 4), 16);
+        b = parseInt(hex.substring(4, 6), 16);
+      } else {
+        return '#ffffff';
+      }
+    }
+
+    else if (bgColor.startsWith('rgb')) {
+      const match = bgColor.match(/(\d+),\s*(\d+),\s*(\d+)/);
+      if (match) {
+        r = parseInt(match[1]);
+        g = parseInt(match[2]);
+        b = parseInt(match[3]);
+      } else {
+        return '#ffffff';
+      }
+    } else {
+      return '#ffffff';
+    }
+
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    return luminance > 0.5 ? '#000000' : '#ffffff';
+  };
+
   const oreWheelData = useMemo(() => {
     if (!allOres || allOres.length === 0) {
       return [{
@@ -223,13 +263,16 @@ const OreAndLayerWheel = () => {
         style: { backgroundColor: '#cccccc', textColor: '#000000' }
       }];
     }
-    return allOres.map(ore => ({
-      option: ore.name,
-      style: {
-        backgroundColor: getOreColor(ore.name),
-        textColor: '#ffffff'
-      }
-    }));
+    return allOres.map(ore => {
+      const bgColor = getOreColor(ore.name);
+      return {
+        option: ore.name,
+        style: {
+          backgroundColor: bgColor,
+          textColor: getTextColorForBackground(bgColor)
+        }
+      };
+    });
   }, [allOres]);
 
   const layerWheelData = useMemo(() => {
@@ -239,13 +282,16 @@ const OreAndLayerWheel = () => {
         style: { backgroundColor: '#cccccc', textColor: '#000000' }
       }];
     }
-    return allLayers.map(layer => ({
-      option: layer,
-      style: {
-        backgroundColor: getLayerColor(layer),
-        textColor: '#ffffff'
-      }
-    }));
+    return allLayers.map(layer => {
+      const bgColor = getLayerColor(layer);
+      return {
+        option: layer,
+        style: {
+          backgroundColor: bgColor,
+          textColor: getTextColorForBackground(bgColor)
+        }
+      };
+    });
   }, [allLayers]);
 
   const spinOreWheel = () => {
@@ -362,17 +408,27 @@ return (
             />
             Use Custom Ore List:
           </label>
-          {settings.useCustomList && (
-            <input
-              type="text"
-              value={settings.customOreList}
-              onChange={(e) => updateSetting('customOreList', e.target.value)}
-              onBlur={handleCustomListBlur}
-              placeholder="Enter ores separated by commas"
-              style={{ width: '300px', padding: '5px' }}
-            />
-          )}
         </div>
+        {settings.useCustomList && (
+          <textarea
+            value={settings.customOreList}
+            onChange={(e) => updateSetting('customOreList', e.target.value)}
+            onBlur={handleCustomListBlur}
+            placeholder="Enter ores separated by commas"
+            style={{ 
+              width: '350px',
+              height: '100px',
+              padding: '5px',
+              marginRight: '15px',
+              textAlign: 'left',
+              resize: 'none',
+              overflow: 'auto',
+              direction: 'rtl',
+              unicodeBidi: 'plaintext',
+              boxSizing: 'border-box'
+            }}
+          />
+        )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <label>
