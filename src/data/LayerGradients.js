@@ -172,7 +172,11 @@ export const LayerGradients = {
       "linear-gradient(180deg, #181c28 0%, #1e222f 20%, #30313d 30%,rgb(202, 202, 202) 50%, #676782 56%, #30313d 75%, #1e222f 85%, #181c28 100%)",
     "wheel-color": "rgb(202, 202, 202)",
   },
-
+  Essences: {
+    background:
+      "linear-gradient(180deg, #ffd0d0 0%, #ffc2a5 20%, #ff5a8e 50%, #6a0028 80%, #580020 100%)",
+    "wheel-color": "#ff8c1aff",
+  },
   Empyrean: {
     background:
       "linear-gradient(180deg, #ffd0d0 0%, #ffc2a5 20%, #ff5a8e 50%, #6a0028 80%, #580020 100%)",

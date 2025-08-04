@@ -1,14 +1,4 @@
-/* ZTT | Miscellaneous info page
-  - Will contain various helful sections and miscellaneous info
-  that the average user & more serious player will find useful
-  - Includes, but not limited to:
-    - Rare grind strategies
-    - Normal ore grind strategies
-    - Various statistics about the user's inventory
-    - Copyable search filters for use in-game
-*/
 
-// This comment was added on my Arch Linux WSL2 environment.
 import React, { useContext } from "react";
 import { MiscContext } from "../context/MiscContext";
 
@@ -112,7 +102,7 @@ function MiscPage() {
             {sortedOres.map((ore, index) => (
               <div key={index} className="ore-item">
                 <span className="ore-name">{ore.name}</span>
-                <div className="ore-stats">
+                <div className="m-ore-stats">
                   <span>NVs: {ore.numNVs.toFixed(2)}</span>
                   <span> Inv: {ore.inventory.toLocaleString()}</span>
                 </div>

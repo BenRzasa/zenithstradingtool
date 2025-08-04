@@ -105,9 +105,12 @@ const OreAndLayerWheel = () => {
     if (!settings.includeOreRaresAndTrueRares) {
       const rareOres = [
         ...(oreValsDict['Rares\nMore Common Than 1/33,333'] || []),
-        ...(oreValsDict['True Rares\n1/33,333 or Rarer'] || [])
+        ...(oreValsDict['True Rares\n1/33,333 or Rarer'] || []),
+        ...(oreValsDict['Uniques\nNon-Standard Obtainment'] || []),
+        ...(oreValsDict['Compounds\nCrafted via Synthesis'] || []),
+        ...(oreValsDict['Essences\nObtained from Wisps'] || [])
       ].map(ore => ore.name);
-      
+
       ores = ores.filter(ore => !rareOres.includes(ore.name));
     }
 
@@ -115,7 +118,7 @@ const OreAndLayerWheel = () => {
       const customOresArray = settings.customOreList.split(',')
         .map(ore => ore.trim())
         .filter(ore => ore !== '');
-        
+
       if (customOresArray.length > 0) {
         ores = ores.filter(ore => customOresArray.includes(ore.name));
       }
@@ -142,7 +145,13 @@ const OreAndLayerWheel = () => {
   const getFilteredLayers = useCallback(() => {
     let layers = Object.keys(LayerGradients);
     if (!settings.includeRaresAndTrueRares) {
-      layers = layers.filter(layer => !['Rares', 'True Rares'].includes(layer));
+      layers = layers.filter(layer => ![
+        'Rares',
+        'True Rares',
+        'Uniques',
+        'Essences',
+        'Compounds'
+      ].includes(layer));
     }
     if (!settings.includeOver100LayerCompletion) {
       layers = layers.filter(layer => {
@@ -448,7 +457,8 @@ return (
               checked={settings.includeOreRaresAndTrueRares}
               onChange={(e) => updateSetting('includeOreRaresAndTrueRares', e.target.checked)}
             />
-            Include Rares and True Rares
+            Include Rares, True Rares,
+            <br></br>Compounds, Uniques, & Essences
           </label>
         </div>
       </div>
@@ -514,18 +524,19 @@ return (
         <label>
           <input
             type="checkbox"
-            checked={settings.includeRaresAndTrueRares}
-            onChange={(e) => updateSetting('includeRaresAndTrueRares', e.target.checked)}
-          />
-          Include Rares and True Rares
-        </label>
-        <label>
-          <input
-            type="checkbox"
             checked={settings.includeOver100LayerCompletion}
             onChange={(e) => updateSetting('includeOver100LayerCompletion', e.target.checked)}
           />
           Include Over 100% Completion
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={settings.includeRaresAndTrueRares}
+            onChange={(e) => updateSetting('includeRaresAndTrueRares', e.target.checked)}
+          />
+          Include Rares, True Rares,
+          <br></br>Compounds, Uniques, & Essences
         </label>
         <button
           className="spin-button"
@@ -548,7 +559,7 @@ return (
             </div>
             <div className="ore-stats">
               <div>
-                <strong>Completion:</strong> {calculateLayerCompletion(selectedLayer).toFixed(2)}%
+                <strong>{getModeString()} Completion:</strong> {calculateLayerCompletion(selectedLayer).toFixed(2)}%
               </div>
               <div>
                 <strong>Total {getModeString()}s:</strong> {calculateLayerValue(selectedLayer).toFixed(2)}

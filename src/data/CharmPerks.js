@@ -16,6 +16,11 @@ const charmPerks = [
     description: "Decreases pickaxe delay by 15%"
   },
   {
+    name: "Noise Necklace",
+    ore: "Noise",
+    description: "Spawns cave only ores at 1/7th their normal rate, outside caves. Does not stack with Noise Pickaxe"
+  },
+  {
     name: "Solar Necklace",
     ore: "Solarium",
     description: "2.5% to double a mined ore"
@@ -49,6 +54,16 @@ const charmPerks = [
     name: "Pearl Necklace",
     ore: "Pearl",
     description: "Damaging liquids have 75% less effect on the player"
+  },
+  {
+    name: "Boom Band",
+    ore: "Boomite",
+    description: "The player can mine boomite with any pickaxe"
+  },
+  {
+    name: "Blast Band",
+    ore: "Blastium",
+    description: "The player can mine blastium with any pickaxe"
   },
   {
     name: "Auroral Ring",

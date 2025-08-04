@@ -260,6 +260,7 @@ export const initialOreValsDict = {
   "Serenity\n[8500m-8599m]":
   [
     { name: "Bedrock", zenithVal: 1000, johnVal: 2000, nanVal: 500, customVal: 1000 },
+    { name: "Yzlafrost", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Jade", zenithVal: 5, johnVal: 5, nanVal: 5, customVal: 5 },
     { name: "Redsteel", zenithVal: 5, johnVal: 5, nanVal: 4, customVal: 5 },
     { name: "Celesteel", zenithVal: 4, johnVal: 4, nanVal: 3, customVal: 5 },
@@ -390,6 +391,7 @@ export const initialOreValsDict = {
   [
     { name: "Nihinoris", zenithVal: 14, johnVal: 13.5, nanVal: 12, customVal: 14 },
     { name: "Nyrvinoris", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Revalyte", zenithVal: 8, johnVal: 8, nanVal: 8, customVal: 8 },
     { name: "Infrarian", zenithVal: 5, johnVal: 4.5, nanVal: 4, customVal: 5 },
     { name: "Ultranium", zenithVal: 8, johnVal: 7, nanVal: 8, customVal: 8 },
     { name: "Auricallium", zenithVal: 11, johnVal: 9, nanVal: 9, customVal: 11 },
@@ -405,6 +407,7 @@ export const initialOreValsDict = {
     { name: "Starniferus", zenithVal: 10, johnVal: 11, nanVal: 8, customVal: 10 },
     { name: "Ethanerite", zenithVal: 11, johnVal: 11, nanVal: 8, customVal: 11 },
     { name: "Lumenyl", zenithVal: 11, johnVal: 11, nanVal: 9, customVal: 11 },
+    { name: "Ulirazite", zenithVal: 5, johnVal: 5, nanVal: 6, customVal: 5 },
     { name: "Impervium", zenithVal: 18, johnVal: 19.5, nanVal: 15, customVal: 18 },
     { name: "Kryposilus", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7 },
     { name: "Vythusilyte", zenithVal: 9, johnVal: 9, nanVal: 8, customVal: 9 }
@@ -417,6 +420,13 @@ export const initialOreValsDict = {
     { name: "Raw Energy", zenithVal: 16, johnVal: 15, nanVal: 12, customVal: 16 },
     { name: "Obliviril", zenithVal: 6, johnVal: 5.5, nanVal: 5, customVal: 6 },
     { name: "Enceladrum", zenithVal: 11, johnVal: 9.5, nanVal: 7, customVal: 11 }
+  ],
+
+  "Essences\nObtained from Wisps":
+  [
+    { name: "Essence of the Sun", zenithVal: 3/2, johnVal: 3/2, nanVal: 3/2, customVal: 3/2 },
+    { name: "Essence of Violence", zenithVal: 3/4, johnVal: 3/4, nanVal: 3/4, customVal: 3/4 },
+    { name: "Essence of Vitality", zenithVal: 3/4, johnVal: 3/4, nanVal: 3/4, customVal: 3/4 },
   ],
 
   "Empyrean\n[12250m-12999m]":

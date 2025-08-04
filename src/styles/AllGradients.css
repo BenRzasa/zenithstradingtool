@@ -195,8 +195,10 @@
 }
 
 .color-template-vanadium {
-    background: linear-gradient(90deg, #ffc654 0%, #ff8800 30%, #ff6600 100%);
-    --wheel-color: #ff8800;
+    background: linear-gradient(
+        90deg, #fce39c 0%, #ffffd8 20%, 
+        #f0ab5a 50%, #c55729 100%);
+    --wheel-color: #f0ab5a;
 }
 
 .color-template-cindrasil {
@@ -217,7 +219,7 @@
 }
 
 .color-template-magmium {
-    background: #ec6600;
+    background: #af3300;
 }
 
 .color-template-firecrystal {
@@ -265,7 +267,7 @@
 }
 
 .color-template-yunium {
-    background: #fff563;
+    background: #efe063;
 }
 
 .color-template-thorium {
@@ -459,7 +461,13 @@
 }
 
 .color-template-null {
-    background: linear-gradient(90deg, #ff00ff 0%, #ff00ff 20%, #000000 20.1%, #000000 40%, #ff00ff 40.1%, #ff00ff 60%, #000000 60.1%, #000000 80%, #ff00ff 80.1%, #ff00ff 100%);
+    background: linear-gradient(
+        90deg,
+        #ff00ff 0%,    #f569ff 10%, #ff00ff 20%,
+        #000000 20.1%, #232323 30%, #000000 40%,
+        #ff00ff 40.1%, #f569ff 50%, #ff00ff 60%,
+        #000000 60.1%, #242424 70%, #000000 80%,
+        #ff00ff 80.1%, #f569ff 90%, #ff00ff 100%);
     --wheel-color: #ff00ff;
 }
 
@@ -634,6 +642,9 @@
     background: #283e3f;
 }
 
+.color-template-yzlafrost {
+    background: #2d4a48;
+}
 .color-template-jade {
     background: #008b56;
 }
@@ -661,8 +672,10 @@
 }
 
 .color-template-shadowspec {
-    background: linear-gradient(90deg, #d67bc1 0%, #672e56 45%, #1d1125 100%);
-    --wheel-color: #672e56;
+    background: linear-gradient(
+        90deg, #6e4976 0%, #b2a9ef 20%, 
+        #a45192 50%, #44264a 75%, #1e0f24 100%);
+    --wheel-color: #44264a;
 }
 
 .color-template-spiralium {
@@ -797,7 +810,7 @@
 }
 
 .color-template-mavrikine {
-    background: #cfdce6;
+    background: #d4e2ec;
 }
 
 .color-template-irulisteel {
@@ -1057,7 +1070,7 @@
 }
 
 .color-template-mauraline {
-    background: #5a3ea1;
+    background: #474297;
 }
 
 .color-template-nyrvinoris {
@@ -1071,6 +1084,15 @@
 .color-template-infrarian {
     background: linear-gradient(90deg, #ffffff 0%, #fff6f6 15%, #ff9b9b 30%, #ff6868 35%, #ff422d 50%, #980000 70%, #520402 100%);
     --wheel-color: #ff422d;
+}
+
+.color-template-revalyte {
+    background: linear-gradient(
+        75deg,
+        #b9aede 0%, #f0e7f9 20%,
+        #b9aede 35%, #f0afd4 50%, #6b367b 75%,
+        #242d51 100%);
+    --wheel-color: #b9aede;
 }
 
 .color-template-ultranium {
@@ -1121,6 +1143,14 @@
     --wheel-color: #7267c8;
 }
 
+.color-template-ulirazite {
+    background: linear-gradient(
+        115deg, #e57fa1 25%, #ffe5d8 30%,
+        #e57fa1 35%, #f0b4c9 40%, #cb487a 45%,
+        #8548ab 60%, #271649 80%);
+    --wheel-color: #e57fa1;
+}
+
 .color-template-impervium {
     background: #455f71;
 }
@@ -1136,8 +1166,7 @@
 }
 
 .color-template-nethrastine {
-    background: linear-gradient(90deg, #1b2947 0%, #10182a 100%);
-    --wheel-color: #1b2947;
+    background: #464a87;
 }
 
 .color-template-formicite {
@@ -1160,6 +1189,18 @@
     --wheel-color: #8498d1;
 }
 
+.color-template-essence-of-the-sun {
+    background: #ffc130;
+}
+
+.color-template-essence-of-violence {
+    background: #9a1617;
+}
+
+.color-template-essence-of-vitality {
+    background: #75ff7e;
+}
+
 .color-template-evrasalt {
     background: linear-gradient(115deg, #875b6e 0%, #603f4e 30%, #2c1821 100%);
     --wheel-color: #603f4e;
@@ -1171,7 +1212,7 @@
 }
 
 .color-template-kafsium {
-    background: #a6d1ff;
+    background: #6c8eb8;
 }
 
 .color-template-zetaslime {
@@ -1369,8 +1410,11 @@
 }
 
 .color-template-onyx {
-    background: linear-gradient(90deg, #343434, #1f1f1f);
-    --wheel-color: #2a2a2a;
+    background: linear-gradient(
+        100deg, #6a6970 0%, #817f88 10%,
+        #bfc7e2 25%, #817f88 50%, #302f35 100%
+    );
+    --wheel-color: #302f35;
 }
 
 .color-template-jalabono {

@@ -153,6 +153,7 @@ li {
 }
 
 [data-theme="light"] {
+  --button-bg: #c8c8c8;
   --text-col: #000000;
   --table-outline: #333;
   --background-color: #ffffff;
@@ -160,6 +161,7 @@ li {
 }
 
 [data-theme="dark"] {
+  --button-bg: #6a6a6a;
   --text-col: #ffffff;
   --table-outline: #3a3a3a;
   --background-color: #121212;

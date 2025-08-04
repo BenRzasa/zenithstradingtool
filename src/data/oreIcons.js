@@ -80,6 +80,9 @@ import Emerald from '../images/ore-icons/Emerald_Icon.webp';
 import Enceladrum from '../images/ore-icons/Enceladrum_Icon.webp';
 import Endotravine from '../images/ore-icons/Endotravine_Icon.webp';
 import Equilibrium from '../images/ore-icons/Equilibrium_Icon.webp';
+import Essence_of_the_Sun from '../images/ore-icons/Essence_of_the_Sun_Icon.webp';
+import Essence_of_Violence from '../images/ore-icons/Essence_of_Violence_Icon.webp';
+import Essence_of_Vitality from '../images/ore-icons/Essence_of_Vitality_Icon.webp';
 import Ethanerite from '../images/ore-icons/Ethanerite_Icon.webp';
 import Evrasalt from '../images/ore-icons/Evrasalt_Icon.webp';
 import Exodian from '../images/ore-icons/Exodian_Icon.webp';
@@ -218,6 +221,7 @@ import Reality_Glass from '../images/ore-icons/Reality_Glass_Icon.webp';
 import Redsteel from '../images/ore-icons/Redsteel_Icon.webp';
 import Red_Diamond from '../images/ore-icons/Red_Diamond_Icon.webp';
 import Reithum from '../images/ore-icons/Reithum_Icon.webp';
+import Revalyte from '../images/ore-icons/Revalyte_Icon.webp';
 import Rhylazil from '../images/ore-icons/Rhylazil_Icon.webp';
 import Rifted_Barrier from '../images/ore-icons/Rifted_Barrier_Icon.webp';
 import Rimrock from '../images/ore-icons/Rimrock_Icon.webp';
@@ -274,6 +278,7 @@ import Tritium from '../images/ore-icons/Tritium_Icon.webp';
 import Truth_Quark from '../images/ore-icons/Truth_Quark_Icon.webp';
 import Tungsten from '../images/ore-icons/Tungsten_Icon.webp';
 import Ubriniale from '../images/ore-icons/Ubriniale_Icon.webp';
+import Ulirazite from '../images/ore-icons/Ulirazite_Icon.webp';
 import Ultranium from '../images/ore-icons/Ultranium_Icon.webp';
 import Universallium from '../images/ore-icons/Universallium_Icon.webp';
 import Universal_Barrier from '../images/ore-icons/Universal_Barrier_Icon.webp';
@@ -296,6 +301,7 @@ import Wish_Alloy from '../images/ore-icons/Wish_Alloy_Icon.webp';
 import Xerutherum from '../images/ore-icons/Xerutherum_Icon.webp';
 import Yilantibris from '../images/ore-icons/Yilantibris_Icon.webp';
 import Yunium from '../images/ore-icons/Yunium_Icon.webp';
+import Yzlafrost from '../images/ore-icons/Yzlafrost_Icon.webp';
 import Zeronian from '../images/ore-icons/Zeronian_Icon.webp';
 import Zetaslime from '../images/ore-icons/Zetaslime_Icon.webp';
 import Zilithorus from '../images/ore-icons/Zilithorus_Icon.webp';
@@ -385,6 +391,9 @@ export const OreIcons = {
   Enceladrum,
   Endotravine,
   Equilibrium,
+  Essence_of_the_Sun,
+  Essence_of_Violence,
+  Essence_of_Vitality,
   Ethanerite,
   Evrasalt,
   Exodian,
@@ -523,6 +532,7 @@ export const OreIcons = {
   Redsteel,
   Red_Diamond,
   Reithum,
+  Revalyte,
   Rhylazil,
   Rifted_Barrier,
   Rimrock,
@@ -579,6 +589,7 @@ export const OreIcons = {
   Truth_Quark,
   Tungsten,
   Ubriniale,
+  Ulirazite,
   Ultranium,
   Universallium,
   Universal_Barrier,
@@ -601,6 +612,7 @@ export const OreIcons = {
   Xerutherum,
   Yilantibris,
   Yunium,
+  Yzlafrost,
   Zeronian,
   Zetaslime,
   Zilithorus,

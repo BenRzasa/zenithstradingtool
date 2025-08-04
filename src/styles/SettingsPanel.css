@@ -133,7 +133,7 @@
     display: inline-block;
     width: 20px;
     text-align: center;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--button-bg);
     padding: 2px 5px;
     border-radius: 4px;
     margin-right: 8px;

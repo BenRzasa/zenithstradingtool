@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import { MiscContext } from "../context/MiscContext";
 import { TradeContext } from "../context/TradeContext";
 import { OreIcons } from "../data/OreIcons";
+import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
 import patic from "../images/misc/patic.png"
 import "../styles/TradeTool.css";
@@ -659,11 +660,25 @@ function TradeTool() {
                         >
                           ✖
                         </button>
+                      {OreIcons[ore.name.replace(/ /g, '_')] ? (
                         <img
                           src={OreIcons[ore.name.replace(/ /g, '_')]}
                           alt={`${ore.name} icon`}
                           className="t-ore-icon"
+                          onError={(e) => {
+                            console.error(`Missing icon for: ${ore.name}`);
+                            e.target.style.display = 'none';
+                          }}
                         />
+                      ) : ( // Missing icon
+                        <span>
+                          <img
+                            src={missingIcon}
+                            alt={"Missing icon"}
+                            className="t-ore-icon"
+                          ></img>
+                        </span>
+                      )}
                         {ore.name}
                       </td>
                       <td>
