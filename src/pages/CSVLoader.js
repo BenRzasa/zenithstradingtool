@@ -178,7 +178,8 @@ useEffect(() => {
     prevCompletionRef.current = avgCompletion;
     const newAmounts = csvInput.split(",").map(Number);
     const updatedData = {};
-    OreNames.sort((a, b) => a.localeCompare(b)).forEach((ore, index) => {
+    // Use the original OreNames order WITHOUT re-sorting
+    OreNames.forEach((ore, index) => {
       updatedData[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
         ? newAmounts[index]
         : 0;

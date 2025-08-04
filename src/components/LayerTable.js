@@ -278,6 +278,7 @@ const LayerTable = ({
               CSV data as they do so
             */
             const inventory = csvData[item.name] || 0;
+            console.log(inventory, item.name);
             const baseValue = getValueForMode(item);
             const percentage = calculatePercentage(item, inventory);
             const numV =

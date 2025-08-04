@@ -424,9 +424,9 @@ export const initialOreValsDict = {
 
   "Essences\nObtained from Wisps":
   [
-    { name: "Essence of the Sun", zenithVal: 3/2, johnVal: 3/2, nanVal: 3/2, customVal: 3/2 },
     { name: "Essence of Violence", zenithVal: 3/4, johnVal: 3/4, nanVal: 3/4, customVal: 3/4 },
     { name: "Essence of Vitality", zenithVal: 3/4, johnVal: 3/4, nanVal: 3/4, customVal: 3/4 },
+    { name: "Essence of the Sun", zenithVal: 3/2, johnVal: 3/2, nanVal: 3/2, customVal: 3/2 },
   ],
 
   "Empyrean\n[12250m-12999m]":

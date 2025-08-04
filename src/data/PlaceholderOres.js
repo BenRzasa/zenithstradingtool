@@ -12,4 +12,6 @@ export const nanPlaceholderOres = [
   "Essence of the Sun", "Essence of Violence", "Essence of Vitality"
 ];
 
-export const zenithPlaceholderOres = [];
+export const zenithPlaceholderOres = [
+  "Essence of the Sun", "Essence of Violence", "Essence of Vitality"
+];
