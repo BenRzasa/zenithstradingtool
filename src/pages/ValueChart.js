@@ -14,7 +14,6 @@ import { MiscContext } from "../context/MiscContext";
 import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import LayerTable from "../components/LayerTable";
 import NavBar from "../components/NavBar";
-import CustomMultiplierInput from "../components/CustomMultiplierInput";
 import SecondaryCSVPopup from "../components/SecondaryCSVPopup";
 
 import { LayerGradients } from "../data/LayerGradients";
@@ -455,8 +454,6 @@ function ValueChart() {
         {showSecondaryCSVPopup && (
           <SecondaryCSVPopup onClose={() => setShowSecondaryCSVPopup(false)} />
         )}
-
-        <CustomMultiplierInput />
 
         {/* Back to Top button */}
         {showBackToTop && (

@@ -174,7 +174,7 @@ export const LayerGradients = {
   },
   Essences: {
     background:
-      "linear-gradient(90deg, #f63981 0%, #4c3e2f 25%, #08ee94 28%, #000905 50%, #fbcdba 60%, #311e1e 65%, #e887b8 68%, #1bf90c 71%, #ea4a79 90%)",
+      "linear-gradient(180deg, #ffd0d0 0%, #ffc2a5 20%, #ff5a8e 50%, #6a0028 80%, #580020 100%)",
     "wheel-color": "#c43665",
   },
   Empyrean: {

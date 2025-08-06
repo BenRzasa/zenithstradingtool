@@ -746,8 +746,7 @@
 }
 
 .color-template-positron {
-    background: linear-gradient(180deg, #ffc800, #ffc800);
-    --wheel-color: #ffc800;
+    background: #e59921;
 }
 
 .color-template-positron-cluster {

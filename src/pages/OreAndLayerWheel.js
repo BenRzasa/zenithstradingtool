@@ -108,7 +108,7 @@ const OreAndLayerWheel = () => {
         ...(oreValsDict['True Rares\n1/33,333 or Rarer'] || []),
         ...(oreValsDict['Uniques\nNon-Standard Obtainment'] || []),
         ...(oreValsDict['Compounds\nCrafted via Synthesis'] || []),
-        ...(oreValsDict['Essences\nObtained from Wisps'] || [])
+        ...(oreValsDict['Essences\nObtained from Wisps [UNTRADABLE]'] || [])
       ].map(ore => ore.name);
 
       ores = ores.filter(ore => !rareOres.includes(ore.name));

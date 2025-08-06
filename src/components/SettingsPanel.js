@@ -4,6 +4,7 @@ import { MiscContext } from '../context/MiscContext';
 import ValueModeSelector from './ValueModeSelector';
 import ValueButtons from './ValueButtons';
 import ThemeSwitch from './ThemeSwitch';
+import CustomMultiplierInput from './CustomMultiplierInput';
 import '../styles/SettingsPanel.css';
 import '../styles/Switch.css';
 
@@ -77,6 +78,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             currentMode={currentMode}
             setCurrentMode={setCurrentMode}
           />
+          <CustomMultiplierInput />
           <ul>
             <li>AV = Ambrosine Value</li>
             <li>UV = Universallium Value (10 AV)</li>

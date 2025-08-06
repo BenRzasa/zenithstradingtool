@@ -26,9 +26,9 @@ export const initialOreValsDict = {
   "Rares\nMore Common Than 1/33,333":
   [
     { name: "Ambrosine", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Zynulvinite", obtainVal: 1.0, zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Cindrasil", obtainVal: 1/3, zenithVal: 0.25, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
-    { name: "Neutrino", obtainVal: 1.0, zenithVal: 0.75, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Zynulvinite", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
+    { name: "Cindrasil", obtainVal: 1/3, zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
+    { name: "Neutrino", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Malbrane", obtainVal: 1.0, zenithVal: 1, johnVal: 1, nanVal: 1, customVal: 1 },
     { name: "Ectokelyte", obtainVal: 1/3, zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
   ],
@@ -68,7 +68,7 @@ export const initialOreValsDict = {
     { name: "Copper", zenithVal: 300, johnVal: 300, nanVal: 250, customVal: 300 },
     { name: "Iron", zenithVal: 250, johnVal: 150, nanVal: 250, customVal: 250 },
     { name: "Sulfur", zenithVal: 200, johnVal: 75, nanVal: 200, customVal: 200 },
-    { name: "Silver", zenithVal: 200, johnVal: 75, nanVal: 200, customVal: 200 },
+    { name: "Silver", zenithVal: 100, johnVal: 75, nanVal: 200, customVal: 100 },
     { name: "Zinc", zenithVal: 100, johnVal: 75, nanVal: 100, customVal: 100 },
     { name: "Gold", zenithVal: 18, johnVal: 18, nanVal: 20, customVal: 18 },
     { name: "Sapphire", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 }
@@ -407,7 +407,7 @@ export const initialOreValsDict = {
     { name: "Starniferus", zenithVal: 10, johnVal: 11, nanVal: 8, customVal: 10 },
     { name: "Ethanerite", zenithVal: 11, johnVal: 11, nanVal: 8, customVal: 11 },
     { name: "Lumenyl", zenithVal: 11, johnVal: 11, nanVal: 9, customVal: 11 },
-    { name: "Ulirazite", zenithVal: 5, johnVal: 5, nanVal: 6, customVal: 5 },
+    { name: "Ulirazite", zenithVal: 7, johnVal: 5, nanVal: 6, customVal: 7 },
     { name: "Impervium", zenithVal: 18, johnVal: 19.5, nanVal: 15, customVal: 18 },
     { name: "Kryposilus", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7 },
     { name: "Vythusilyte", zenithVal: 9, johnVal: 9, nanVal: 8, customVal: 9 }
@@ -422,11 +422,11 @@ export const initialOreValsDict = {
     { name: "Enceladrum", zenithVal: 11, johnVal: 9.5, nanVal: 7, customVal: 11 }
   ],
 
-  "Essences\nObtained from Wisps":
+  "Essences\nObtained from Wisps [UNTRADABLE]":
   [
-    { name: "Essence of Violence", zenithVal: 3/4, johnVal: 3/4, nanVal: 3/4, customVal: 3/4 },
-    { name: "Essence of Vitality", zenithVal: 3/4, johnVal: 3/4, nanVal: 3/4, customVal: 3/4 },
-    { name: "Essence of the Sun", zenithVal: 3/2, johnVal: 3/2, nanVal: 3/2, customVal: 3/2 },
+    { name: "Essence of Violence", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
+    { name: "Essence of Vitality", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
+    { name: "Essence of the Sun", zenithVal: 0.5, johnVal: 0.5, nanVal: 0.5, customVal: 0.5 },
   ],
 
   "Empyrean\n[12250m-12999m]":
