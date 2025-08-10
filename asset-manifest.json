@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/zenithstradingtool/static/css/main.4c02b788.css",
-    "main.js": "/zenithstradingtool/static/js/main.38f77646.js",
+    "main.js": "/zenithstradingtool/static/js/main.03c2257a.js",
     "static/media/patic3.png": "/zenithstradingtool/static/media/patic3.ee8b1734257d54a9611d.png",
     "static/media/patik.png": "/zenithstradingtool/static/media/patik.c46cb18674fcbbbceeff.png",
     "static/media/patic.png": "/zenithstradingtool/static/media/patic.efe12edf4910078d844d.png",
@@ -326,7 +326,6 @@
     "index.html": "/zenithstradingtool/index.html",
     "static/media/Exodian_Icon.webp": "/zenithstradingtool/static/media/Exodian_Icon.22dd968b5d37753c80ed.webp",
     "static/media/Amber_Icon.webp": "/zenithstradingtool/static/media/Amber_Icon.e27f593fdb875efc824b.webp",
-    "static/media/Noise_Icon.webp": "/zenithstradingtool/static/media/Noise_Icon.1cc1364a089a74549c15.webp",
     "static/media/Supermatter_Icon.webp": "/zenithstradingtool/static/media/Supermatter_Icon.6f275a207abd3d53997a.webp",
     "static/media/Rainbonite_Icon.webp": "/zenithstradingtool/static/media/Rainbonite_Icon.8505e47758bfb411555d.webp",
     "static/media/Rhylazil_Icon.webp": "/zenithstradingtool/static/media/Rhylazil_Icon.c9df0845c3ca8bd070de.webp",
@@ -339,14 +338,15 @@
     "static/media/Lead_Icon.webp": "/zenithstradingtool/static/media/Lead_Icon.f25efc6d268483da2b09.webp",
     "static/media/Panolethrium_Icon.webp": "/zenithstradingtool/static/media/Panolethrium_Icon.a8819dd71df0f4716bb6.webp",
     "static/media/Coin_Icon.webp": "/zenithstradingtool/static/media/Coin_Icon.1d81c8c77563047bdeae.webp",
+    "static/media/Noise_Icon.webp": "/zenithstradingtool/static/media/Noise_Icon.3a636a869bf23123cac6.webp",
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
     "static/media/Red_Diamond_Icon.webp": "/zenithstradingtool/static/media/Red_Diamond_Icon.15f999b7100b1173c9fd.webp",
     "static/media/Nilglass_Icon.webp": "/zenithstradingtool/static/media/Nilglass_Icon.d13f9c99294b923b0eaa.webp",
     "main.4c02b788.css.map": "/zenithstradingtool/static/css/main.4c02b788.css.map",
-    "main.38f77646.js.map": "/zenithstradingtool/static/js/main.38f77646.js.map"
+    "main.03c2257a.js.map": "/zenithstradingtool/static/js/main.03c2257a.js.map"
   },
   "entrypoints": [
     "static/css/main.4c02b788.css",
-    "static/js/main.38f77646.js"
+    "static/js/main.03c2257a.js"
   ]
 }
