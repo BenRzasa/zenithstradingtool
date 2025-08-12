@@ -65,6 +65,7 @@ function MiscPage() {
   // Each has an id, title (header) and customizable content
   const cards = [
     {
+      // Search filters
       id: "card1",
       title: "Search Filters (Click the Icon to Copy & Paste in your inventory search bar)",
       content: (
@@ -92,12 +93,12 @@ function MiscPage() {
         </div>
       ),
     },
+    // Number of NVs least to most (NEEDS EDITING TO DISPLAY ANY VALUE MODE)
     {
       id: "card2",
       title: "Ores by Number of NVs (Least to Most)",
       content: (
         <div className="numNV">
-          {/* Ore list */}
           <div className="ore-list">
             {sortedOres.map((ore, index) => (
               <div key={index} className="ore-item">
@@ -112,6 +113,7 @@ function MiscPage() {
         </div>
       ),
     },
+    // Charm box
     {
       id: "card3",
       title: "Charms (Ordered by Usefulness)",

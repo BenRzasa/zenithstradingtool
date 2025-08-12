@@ -21,6 +21,7 @@ export const TradeProvider = ({ children }) => {
     }
   }, []);
 
+  // Persist the entire state of the trade table and settings
   const [tradeState, setTradeState] = useState(() => {
     try {
       const savedData = localStorage.getItem('tradeState');
@@ -86,6 +87,7 @@ export const TradeProvider = ({ children }) => {
     });
   }, [persistentSetTradeState]);
 
+  // Double check if component mounted properly
   useEffect(() => {
     isMounted.current = true;
     return () => { isMounted.current = false; };

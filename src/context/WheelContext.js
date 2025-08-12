@@ -1,4 +1,3 @@
-// context/WheelContext.js
 import React, { createContext, useState, useCallback, useMemo, useEffect } from 'react';
 
 const WheelContext = createContext();
@@ -44,6 +43,7 @@ export const WheelProvider = ({ children }) => {
   );
 };
 
+// Default settings state if something goes wrong
 function getDefaultSettings() {
   return {
     includeOver100Completion: true,
@@ -55,6 +55,7 @@ function getDefaultSettings() {
   };
 }
 
+// Function to check the settings and make sure we're in wheel context
 export const useWheel = () => {
   const context = React.useContext(WheelContext);
   if (!context) {

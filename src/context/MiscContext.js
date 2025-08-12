@@ -1,11 +1,3 @@
-/* ZTT | Context file to ensure persistency of the CSV data
-  - e.g., from the CSV page over to the value chart, or from the
-  value chart over to the trade tool (since it needs the inventory data)
-  - Also the rare finds
-  - And random other things
-  - Also the custom values
-*/
-
 import React, { createContext, useState, useEffect, useRef } from 'react';
 import { initialOreValsDict } from '../data/OreValues';
 import { OreNames } from '../data/OreNames';
@@ -27,11 +19,11 @@ export const MiscProvider = ({ children }) => {
     return savedCSVData ? JSON.parse(savedCSVData) : {};
   });
 
+  // CSV History filtering out old entries without oreValsDict
   const [csvHistory, setCSVHistory] = useState(() => {
     const savedHistory = localStorage.getItem('csvHistory');
     try {
       const parsed = savedHistory ? JSON.parse(savedHistory) : [];
-      // Filter out any entries without oreValsDict
       return parsed.filter(entry => entry.oreValsDict);
     } catch (e) {
       console.error('Failed to parse CSV history', e);
@@ -39,11 +31,13 @@ export const MiscProvider = ({ children }) => {
     }
   });
 
+  // Persist 2nd csv
   const [secondaryCSVData, setSecondaryCSVData] = useState(() => {
     const savedSecondaryCSV = localStorage.getItem('secondaryCSVData');
     return savedSecondaryCSV ? JSON.parse(savedSecondaryCSV) : null;
   });
 
+  // Whether to use second CSV currently
   const [useSecondaryCSV, setUseSecondaryCSV] = useState(() => {
     const savedUseSecondary = localStorage.getItem('useSecondaryCSV');
     return savedUseSecondary !== null ? JSON.parse(savedUseSecondary) : false;
@@ -67,21 +61,25 @@ export const MiscProvider = ({ children }) => {
     return savedCapComp !== null ? JSON.parse(savedCapComp) : true;
   });
 
+  // Current value mode
   const [valueMode, setValueMode] = useState(() => {
     const savedValueMode = localStorage.getItem('valueMode');
     return savedValueMode !== null ? JSON.parse(savedValueMode) : 'zenith';
   });
 
+  // Current value dict
   const [currentMode, setCurrentMode] = useState(() => {
     const savedCalcMode = localStorage.getItem('currentMode');
     return savedCalcMode !== null ? JSON.parse(savedCalcMode) : 3;
   });
 
+  // Whether to use obtain rate vals for rares
   const [useObtainRateVals, setUseObtainRateVals] = useState(() => {
     const savedObtain = localStorage.getItem('useObtainRateVals');
     return savedObtain !== null ? JSON.parse(savedObtain) : false;
   })
 
+  // Custom AV multiplier
   const [customMultiplier, setCustomMultiplier] = useState(() => {
     const savedCustomMult = localStorage.getItem('customMultiplier');
     return savedCustomMult !== null ? JSON.parse(savedCustomMult) : 100;
@@ -110,10 +108,10 @@ export const MiscProvider = ({ children }) => {
   };
 
   // Ore values dictionary state with automatic updates from initialOreValsDict
+  // Merges saved custom vals with current initial dict
   const [oreValsDict, setOreValsDict] = useState(() => {
     const savedDict = localStorage.getItem('oreValsDict');
     if (savedDict) {
-      // Merge saved custom values with current initial dict
       const savedData = JSON.parse(savedDict);
       return mergeOreValues(initialOreValsDict, savedData);
     }
@@ -130,19 +128,16 @@ export const MiscProvider = ({ children }) => {
 
   // Persist all data changes
   useEffect(() => localStorage.setItem('csvData', JSON.stringify(csvData)), [csvData]);
-
   useEffect(() => {
     if (Object.keys(previousAmounts).length > 0) {
       localStorage.setItem('csvPreviousData', JSON.stringify(previousAmounts));
     }
   }, [previousAmounts]);
-
   useEffect(() => {
     if (lastUpdated) {
       localStorage.setItem('csvLastUpdated', lastUpdated.toISOString());
     }
   }, [lastUpdated]);
-
   useEffect(() => localStorage.setItem('hotkeysEnabled', JSON.stringify(hotkeysEnabled)), [hotkeysEnabled]);
   useEffect(() => localStorage.setItem('secondaryCSVData', JSON.stringify(secondaryCSVData)), [secondaryCSVData]);
   useEffect(() => localStorage.setItem('useSecondaryCSV', JSON.stringify(useSecondaryCSV)), [useSecondaryCSV]);
@@ -155,6 +150,7 @@ export const MiscProvider = ({ children }) => {
   useEffect(() => localStorage.setItem('rareFindsData', JSON.stringify(rareFindsData)), [rareFindsData]);
   useEffect(() => localStorage.setItem('oreValsDict', JSON.stringify(oreValsDict)), [oreValsDict]);
 
+  // Update the CSV data and create a new history entry set to the current structure
   const updateCSVData = (newData) => {
     const now = new Date();
     const totalAV = calculateTotalAV(newData);
@@ -174,11 +170,11 @@ export const MiscProvider = ({ children }) => {
     setLastUpdated(now);
   };
 
+  // Load an old CSV and its structure with old/missing ores
   const loadOldCSV = (index) => {
     if (index < 0 || index >= csvHistory.length) return;
     const historyEntry = csvHistory[index];
 
-    // Double-check we have a valid entry with oreValsDict
     if (!historyEntry || !historyEntry.oreValsDict) {
       console.error('Attempted to load invalid history entry');
       return;
@@ -195,15 +191,15 @@ export const MiscProvider = ({ children }) => {
     setLastUpdated(new Date(historyEntry.timestamp));
   };
 
+  // Reset custom values to the selected value source
   const resetCustomValues = (source) => {
     const newOreVals = JSON.parse(JSON.stringify(initialOreValsDict));
 
-    // Apply the selected source's values
     for (const layerName in newOreVals) {
       newOreVals[layerName] = newOreVals[layerName].map(ore => ({
         ...ore,
-        customVal: source === 'john' ? ore.johnVal : 
-                  source === 'nan' ? ore.nanVal : 
+        customVal: source === 'john' ? ore.johnVal :
+                  source === 'nan' ? ore.nanVal :
                   source === 'zenith' ? ore.zenithVal :
                   source === 'custom' ? ore.customVal :
                   ore.customVal
@@ -215,6 +211,7 @@ export const MiscProvider = ({ children }) => {
     return newOreVals;
   };
 
+  // Get the value for a given ore based on the value mode / obtain rate selected
   const getValueForMode = (oreData) => {
     if (oreData.hasOwnProperty('obtainVal') && useObtainRateVals) return oreData.obtainVal;
     switch (valueMode) {
@@ -226,6 +223,7 @@ export const MiscProvider = ({ children }) => {
     }
   };
 
+  // Calculate AV totals for CSV data (MAY WANT TO MOVE TO NEW CSVCONTEXT)
   const calculateTotalAV = (data, useHistoricalOreVals = null) => {
     if (!data) return 0;
 
@@ -250,6 +248,7 @@ export const MiscProvider = ({ children }) => {
     return total;
   };
 
+  // Export all settings and functions here!
   const contextValue = {
     settingsOpen, setSettingsOpen,
     hotkeysEnabled, setHotkeysEnabled,

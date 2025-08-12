@@ -60,7 +60,6 @@ const HotkeyHandler = ({ children }) => {
           break;
         case 'k':
           e.preventDefault();
-          window.open('https://wiki.tcco.re/', '_blank');
           break;
         default:
           break;

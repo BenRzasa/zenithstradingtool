@@ -1,13 +1,4 @@
-/* ZTT | Ore value dictionary
-  - Categorized into layers
-  - Each layer contains all its ores
-  - Each ore contains its name, base value (ore per AV)
-*/
 
-// Dictionary for ore values. Contains entries for layers and ore values:
-// - Zenith's
-// - NAN's
-// - John's
 export const initialOreValsDict = {
   "True Rares\n1/33,333 or Rarer":
   [
@@ -19,8 +10,8 @@ export const initialOreValsDict = {
     { name: "Violecil", obtainVal: 0.2, zenithVal: 0.2, johnVal: 0.2, nanVal: 0.2, customVal: 0.2 },
     { name: "Dystranum", obtainVal: 1/15, zenithVal: 1/15, johnVal: 1/15, nanVal: 1/15, customVal: 1/15 },
     { name: "Havicron", obtainVal: 0.1, zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
-    { name: "Rhylazil", obtainVal: 0.02, zenithVal: 1/60, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
-    { name: "Ubriniale", obtainVal: 0.01, zenithVal: 1/125, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
+    { name: "Rhylazil", obtainVal: 0.02, zenithVal: 0.02, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
+    { name: "Ubriniale", obtainVal: 0.01, zenithVal: 0.01, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
   ],
 
   "Rares\nMore Common Than 1/33,333":
@@ -29,7 +20,7 @@ export const initialOreValsDict = {
     { name: "Zynulvinite", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Cindrasil", obtainVal: 1/3, zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
     { name: "Neutrino", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Malbrane", obtainVal: 1.0, zenithVal: 1, johnVal: 1, nanVal: 1, customVal: 1 },
+    { name: "Malbrane", obtainVal: 1.0, zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Ectokelyte", obtainVal: 1/3, zenithVal: 1/3, johnVal: 1/3, nanVal: 1/3, customVal: 1/3 },
   ],
 
@@ -77,7 +68,7 @@ export const initialOreValsDict = {
   "Caverns / Dusk\n[75m-299m | 300m-599m]":
   [
     { name: "Ruby", zenithVal: 11, johnVal: 11, nanVal: 10, customVal: 11 },
-    { name: "Emerald", zenithVal: 23, johnVal: 24, nanVal: 25, customVal: 23 },
+    { name: "Emerald", zenithVal: 22, johnVal: 24, nanVal: 25, customVal: 22 },
     { name: "Peridot", zenithVal: 7, johnVal: 6, nanVal: 6, customVal: 6 },
     { name: "Amethyst", zenithVal: 4, johnVal: 4, nanVal: 6, customVal: 4 },
     { name: "Thallium", zenithVal: 6, johnVal: 7, nanVal: 6, customVal: 6 },
@@ -100,7 +91,7 @@ export const initialOreValsDict = {
     { name: "Uranium", zenithVal: 16, johnVal: 14, nanVal: 10, customVal: 16 },
     { name: "Caesium", zenithVal: 9, johnVal: 9, nanVal: 8, customVal: 9 },
     { name: "Osmium", zenithVal: 9, johnVal: 10, nanVal: 9, customVal: 9 },
-    { name: "Hematite", zenithVal: 75, johnVal: 117.5, nanVal: 90, customVal: 62}
+    { name: "Hematite", zenithVal: 60, johnVal: 117.5, nanVal: 90, customVal: 60 }
   ],
 
   "Mystic / Inbetween\n[1000m-1499m | 1500m-1999m]":
@@ -373,7 +364,7 @@ export const initialOreValsDict = {
     { name: "Chronon", zenithVal: 40, johnVal: 11, nanVal: 30, customVal: 40 },
     { name: "Aurorum", zenithVal: 24, johnVal: 24.5, nanVal: 15, customVal: 25 },
     { name: "Korenil", zenithVal: 12, johnVal: 12, nanVal: 6, customVal: 12 },
-    { name: "Stellar Sediment", zenithVal: 1000, johnVal: 2000, nanVal: 1500, customVal: 1000 },
+    { name: "Stellar Sediment", zenithVal: 2000, johnVal: 2000, nanVal: 1500, customVal: 2000 },
     { name: "Apiastrine", zenithVal: 20, johnVal: 18, nanVal: 15, customVal: 20 }
   ],
 
@@ -417,7 +408,7 @@ export const initialOreValsDict = {
   [
     { name: "Nethrastine", zenithVal: 1000, johnVal: 200, nanVal: 500, customVal: 1000 },
     { name: "Formicite", zenithVal: 11, johnVal: 8, nanVal: 8, customVal: 11 },
-    { name: "Raw Energy", zenithVal: 16, johnVal: 15, nanVal: 12, customVal: 16 },
+    { name: "Raw Energy", zenithVal: 15, johnVal: 15, nanVal: 12, customVal: 15 },
     { name: "Obliviril", zenithVal: 6, johnVal: 5.5, nanVal: 5, customVal: 6 },
     { name: "Enceladrum", zenithVal: 11, johnVal: 9.5, nanVal: 7, customVal: 11 }
   ],

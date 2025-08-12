@@ -1,3 +1,5 @@
+// All layer gradients along with a solid wheel color member
+
 export const LayerGradients = {
   "True Rares": {
     background:

@@ -38,7 +38,7 @@ function CreditsPage() {
             <li>CSV Loader sorting options (alphabetically, change amount, etc.)</li>
             <li>I forgot LIQUID GOLD somehow</li>
             <li>Hotkey navigation</li>
-            <li>CSV backward compatibility (STILL UNKNOWN IF THIS WORKS, NEW ORES HAVE NOT BEEN ADDED SINCE)</li>
+            <li>CSV backward compatibility</li>
           </ul>
         </li>
         <li><strong>NAN</strong>

@@ -1,5 +1,6 @@
 
-// Ores that have not been officially valued by either John or NAN
+// Ores that have not been officially valued by either John or NAN,
+// or not agreed upon 100% yet
 
 export const johnPlaceholderOres = [
   "Anaxinite", "Calcite", "Eidoliphyll", "Hyfrost", "Irulisteel",

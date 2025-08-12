@@ -337,7 +337,13 @@ const OreAndLayerWheel = () => {
       case 4: return "TV";
       case 5: return "SV";
       case 6: return "RV";
-      case 7: return "CV";
+      case 7: {
+        if(customMultiplier % 100 === 0) {
+          return `${customMultiplier / 100}NV`
+        } else {
+          return "CV";
+        }
+      }
       default: return "NV";
     }
   };
@@ -459,6 +465,16 @@ return (
             />
             Include Rares, True Rares,
             <br></br>Compounds, Uniques, & Essences
+            {!settings.includeOver100Completion && (
+              <>
+              <br></br><br></br>Ores Remaining for {getModeString()} Completion: {allOres.length}
+              </>
+            )}
+            {settings.includeOver100Completion && (
+              <>
+              <br></br><br></br>Ores in Wheel: {allOres.length}
+              </>
+            )}
           </label>
         </div>
       </div>
@@ -508,7 +524,7 @@ return (
       </div>
       </div>
       <div style={{display: "flex", flexDirection: "column"}}>
-      {/* Layer Wheel Section */}
+      {/* Layer wheel section */}
       <div className='csv-usage' style={{ 
         paddingLeft: '15px',
         display: 'flex',
@@ -517,8 +533,8 @@ return (
         gap: '8px',
         paddingBottom: '20px',
         margin: '0 auto',
-        marginBottom: '-10vh',
-        marginTop: '-1vh'
+        marginBottom: '-5vh',
+        marginTop: '0vh'
       }}>
         <h1>Layer Wheel</h1>
         <label>
@@ -537,6 +553,16 @@ return (
           />
           Include Rares, True Rares,
           <br></br>Compounds, Uniques, & Essences
+          {!settings.includeOver100LayerCompletion && (
+            <>
+            <br></br><br></br>Layers Remaining for {getModeString()} Completion: {allLayers.length}
+            </>
+          )}
+          {settings.includeOver100LayerCompletion && (
+            <>
+            <br></br><br></br>Layers in Wheel: {allLayers.length}
+            </>
+          )}
         </label>
         <button
           className="spin-button"

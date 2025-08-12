@@ -1,3 +1,4 @@
+// All charm names, primary ore, and descriptions
 
 const charmPerks = [
   {

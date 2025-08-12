@@ -26,13 +26,13 @@
   top: 50%;
   left: 100%;
   transform: translate(-50%, -50%);
-  width: 5vw;
-  height: 5vh;
-  font-size: 1vw;
+  width: 100px;
+  height: 60px;
+  font-size: 24px;
   border-radius: 10%;
   color: var(--text-col);
   background: var(--background-color);
-  border: 0.2vw solid var(--switch-outline);
+  border: 3px solid var(--switch-outline);
   font-weight: bold;
   cursor: pointer;
   z-index: 10;

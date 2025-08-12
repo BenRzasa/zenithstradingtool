@@ -16,18 +16,14 @@ const uniqueOreNames = [...new Set(allOreNames)];
 
 // Custom sort function that prioritizes uppercase over lowercase
 uniqueOreNames.sort((a, b) => {
-  // Compare character by character
   const minLength = Math.min(a.length, b.length);
   for (let i = 0; i < minLength; i++) {
     const charA = a.charCodeAt(i);
     const charB = b.charCodeAt(i);
-    // If characters differ
     if (charA !== charB) {
-      // Prioritize uppercase letters (they have lower ASCII values)
       return charA - charB;
     }
   }
-  // If all compared characters are equal, shorter string comes first
   return a.length - b.length;
 });
 
