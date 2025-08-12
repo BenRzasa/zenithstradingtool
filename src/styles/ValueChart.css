@@ -142,6 +142,69 @@
     font-size: 0.9em;
 }
 
+.completion-popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.completion-header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 3fr 2fr;
+  font-weight: bold;
+  padding: 10px 0;
+  border-bottom: 1px solid #444;
+  margin-bottom: 5px;
+}
+
+.completion-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 3fr 2fr;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}
+
+.completion-bar-container {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #333;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.completion-bar {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.completion-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
+}
+
+.ore-name {
+  font-weight: 500;
+}
+
+.ore-layer {
+  opacity: 0.8;
+  font-size: 0.9em;
+}
+
+.ore-remaining {
+  text-align: center;
+}
+
 .table-navigation {
     margin: 20px 0;
     text-align: center;

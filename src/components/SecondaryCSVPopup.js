@@ -30,8 +30,8 @@ function SecondaryCSVPopup({ onClose }) {
           <div
             className="box-button"
             style={{
-              width: '2.5vw',
-              height: '2.5vw',
+              width: '40px',
+              height: '40px',
             }}
           >
           <button
@@ -39,7 +39,7 @@ function SecondaryCSVPopup({ onClose }) {
             style={{
               background: "red",
               display: "flex",
-              fontSize: "1.75vw",
+              fontSize: "25px",
               color: "white",
               justifyContent: "center",
               alignItems: "center"

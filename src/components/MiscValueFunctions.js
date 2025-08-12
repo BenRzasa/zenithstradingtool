@@ -7,6 +7,7 @@ export const MiscValueFunctions = ({
   getValueForMode,
   oreValsDict,
   capCompletion,
+  valueMode,
 }) => {
   // Get the correct precision dynamically
   const getPrecision = useCallback((number) => {
@@ -154,10 +155,47 @@ export const MiscValueFunctions = ({
     };
   }, [csvData, oreValsDict, calculateValue]);
 
+  const calculateIncompleteOres = useCallback(() => {
+    const incompleteOres = [];
+
+    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+      layerData.forEach((ore) => {
+        const inventory = csvData[ore.name] || 0;
+        const orePerUnit = calculateValue(ore);
+
+        const completionRatio = orePerUnit > 0
+          ? (capCompletion
+              ? Math.min(1, inventory / orePerUnit)
+              : inventory / orePerUnit)
+          : 0;
+
+        const completionPercentage = completionRatio * 100;
+
+        if (completionPercentage < 100) {
+          incompleteOres.push({
+            name: ore.name,
+            layer: layerName,
+            completion: parseFloat(completionPercentage.toFixed(2)),
+            remaining: Math.max(0, orePerUnit - inventory),
+            valueMode: valueMode,
+            inventory: inventory,
+            required: orePerUnit,
+            numV: orePerUnit > 0 ? (inventory / orePerUnit).toFixed(2) : "0",
+            completionRatio: completionRatio
+          });
+        }
+      });
+    });
+
+    // Sort by completion percentage (highest to lowest)
+    return incompleteOres.sort((a, b) => b.completion - a.completion);
+  }, [csvData, oreValsDict, calculateValue, valueMode, capCompletion]);
+
   // Calculate all values and memoize them
   const allValues = useMemo(() => {
     const baseTotals = calculateBaseTotals();
     const extremes = calculateExtremes();
+    const incompleteOres = calculateIncompleteOres();
 
     return {
       // Base totals
@@ -191,8 +229,10 @@ export const MiscValueFunctions = ({
       // Helper functions
       calculateValue,
       getPrecision,
+      // Missing ores for completion
+      incompleteOres,
     };
-  }, [calculateBaseTotals, calculateExtremes, calculateValue, getPrecision]);
+  }, [calculateBaseTotals, calculateExtremes, calculateValue, getPrecision, calculateIncompleteOres]);
 
   return allValues;
 };

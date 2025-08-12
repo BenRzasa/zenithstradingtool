@@ -50,7 +50,7 @@ function ValueChart() {
     valueMode,
     getValueForMode,
     oreValsDict,
-    capCompletion
+    capCompletion,
   });
 
   const {
@@ -64,12 +64,14 @@ function ValueChart() {
     maxLayer,
     minOre,
     maxOre,
+    incompleteOres,
   } = allValues;
 
   const navigate = useNavigate();
   const csvData = getCurrentCSV();
 
   const [showSecondaryCSVPopup, setShowSecondaryCSVPopup] = useState(false);
+  const [showCompletionPopup, setShowCompletionPopup] = useState(false);
 
   const toggleValueMode = (mode) => {
     if (mode === "custom") {
@@ -216,10 +218,10 @@ function ValueChart() {
           };
         });
       }
-      setOreValsDict(newOreVals);
-      setValueMode('custom');
-      setShowCustomModal(false);
-    };
+    setOreValsDict(newOreVals);
+    setValueMode('custom');
+    setShowCustomModal(false);
+  };
 
   return (
     <div className="outer-frame">
@@ -447,6 +449,65 @@ function ValueChart() {
                 <span>Modify</span>
                 <div className="v-last-updated">Change values</div>
               </button>
+            </div>
+          )}
+
+          <div className="box-button">
+            <button
+              onClick={() => setShowCompletionPopup(true)}
+              className={showCompletionPopup ? "color-template-dystranum active" : ""}
+            >
+              <span>View Incomplete Ores</span>
+              <div className="v-last-updated">Show progress to completion</div>
+            </button>
+          </div>
+         {showCompletionPopup && (
+            <div className="custom-modal-overlay" style={{ paddingTop: '50px' }}>
+              <div className="custom-modal" style={{ maxWidth: '650px', maxHeight: '80vh', overflow: 'auto' }}>
+                <div className="modal-header">
+                  <h3>Ores Remaining for {modeStr} Completion: {incompleteOres.length}</h3>
+                  <button 
+                    onClick={() => setShowCompletionPopup(false)} 
+                    className="modal-close"
+                    style={{ position: 'absolute', right: '15px', top: '15px' }}
+                  >
+                    ✖
+                  </button>
+                </div>
+                <div className="completion-popup-content">
+                  <div className="completion-header">
+                    <span>Ore</span>
+                    <span>Layer</span>
+                    <span>{modeStr} Completion %</span>
+                    <span># Remaining</span>
+                  </div>
+                  {incompleteOres.map((ore, index) => (
+                    <div key={index} className="completion-row">
+                      <span className="ore-name">{ore.name}</span>
+                      <span className="ore-layer">{ore.layer.split('\n')[0]}</span>
+                      <span className="ore-completion">
+                        <div className="completion-bar-container">
+                        <div
+                          className="completion-bar"
+                          style={{
+                            width: '100%',
+                            background: `linear-gradient(90deg,
+                              #3ebd21ff 0%,
+                              #3ebd21ff ${ore.completion}%,
+                              #494949ff ${ore.completion}%,
+                              #717171ff 100%)`
+                          }}
+                        />
+                          <span className="completion-text">{ore.completion.toFixed(1)}%</span>
+                        </div>
+                      </span>
+                      <span className="ore-remaining">
+                        {Math.ceil(ore.remaining).toLocaleString()}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
