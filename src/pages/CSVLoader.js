@@ -241,6 +241,7 @@ useEffect(() => {
     const changedOres = [];
     const valueDict = initialOreValsDict;
     OreNames.forEach((ore) => {
+      if(ore.includes("Essence")) return;
       const currentAmount = csvData[ore] || 0;
       const previousAmount = previousAmounts[ore] || 0;
       const quantityChange = currentAmount - previousAmount;

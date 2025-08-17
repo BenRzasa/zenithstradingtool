@@ -1,6 +1,5 @@
 
-import React, { useContext } from "react";
-import { MiscContext } from "../context/MiscContext";
+import React from "react";
 
 import NavBar from "../components/NavBar";
 
@@ -11,16 +10,8 @@ import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 
 import "../styles/AllGradients.css";
 import "../styles/MiscPage.css";
-import { initialOreValsDict } from "../data/OreValues";
 
 function MiscPage() {
-  const {
-    getCurrentCSV,
-    getValueForMode,
-  } = useContext(MiscContext);
-
-  const csvData = getCurrentCSV();
-
   // Copy the search filter to the clipboard
   const copyFilter = (filterText) => {
     navigator.clipboard
@@ -32,29 +23,6 @@ function MiscPage() {
         console.error("Failed to copy:", err);
       });
   };
-
-  const allOres = Object.values(initialOreValsDict).flat();
-
-  /*
-  const sortedOres = allOres
-    .map((ore) => {
-      const inventory = csvData[ore.name] || 0;
-      const value = getValueForMode(ore);
-      const nvValue = value * 100;
-      const numNVs = nvValue > 0 ? inventory / nvValue : 0;
-      // Return the ore objects, number of NVs per ore,
-      // number in the inventory, and value per NV (unused for now,
-      // but could be used later)
-      return {
-        ...ore,
-        numNVs,
-        inventory,
-        nvValue,
-      };
-    })
-    .sort((a, b) => a.numNVs - b.numNVs);
-
-  */
 
   /* Generate CSS class name for ore gradient */
   const getOreClassName = (oreName) => {
@@ -94,29 +62,6 @@ function MiscPage() {
         </div>
       ),
     },
-    // Number of NVs least to most (NEEDS EDITING TO DISPLAY ANY VALUE MODE)
-    /*
-    {
-      id: "card2",
-      title: "Ores by Number of NVs (Least to Most)",
-      content: (
-        <div className="numNV">
-          <div className="ore-list">
-            {sortedOres.map((ore, index) => (
-              <div key={index} className="ore-item">
-                <span className="ore-name">{ore.name}</span>
-                <div className="m-ore-stats">
-                  <span>NVs: {ore.numNVs.toFixed(2)}</span>
-                  <span> Inv: {ore.inventory.toLocaleString()}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ),
-    },
-    */
-    // Charm box
     {
       id: "card3",
       title: "Charms (Ordered by Usefulness)",

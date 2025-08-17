@@ -66,21 +66,25 @@ function TradeTool() {
 
   /* Prepare complete ore list with layer information */
   const allOresWithLayers = Object.entries(oreValsDict)
-    .flatMap(([layerName, ores]) =>
-      ores.map((ore) => ({
-        ...ore,
-        layer: layerName,
-      }))
-    );
-
-  /* Group ores by layer for organized display */
-  const oresByLayer = Object.entries(oreValsDict).map(([layerName, ores]) => ({
-    layer: layerName,
-    ores: ores.map(ore => ({
+  .filter(([layerName]) => !layerName.includes("Essences"))
+  .flatMap(([layerName, ores]) =>
+    ores.map((ore) => ({
       ...ore,
       layer: layerName,
     }))
-  }));
+  );
+
+  /* Group ores by layer for organized display */
+  const oresByLayer = Object.entries(oreValsDict)
+    .filter(([layerName]) => !layerName.includes("Essences"))
+    .map(([layerName, ores]) => ({
+      layer: layerName,
+      ores: ores.map(ore => ({
+        ...ore,
+        layer: layerName,
+      }))
+    })
+  );
 
   // Memoize the ores data
   const memoizedOres = useMemo(() => allOresWithLayers, [allOresWithLayers]);

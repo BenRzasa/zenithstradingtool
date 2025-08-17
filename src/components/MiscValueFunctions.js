@@ -42,6 +42,9 @@ export const MiscValueFunctions = ({
     let calculatedOres = [];
 
     Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+      // Skip essences
+      if (layerName.includes("Essence")) return;
+
       let tableCompletion = 0;
       let itemCount = 0;
 
@@ -104,7 +107,8 @@ export const MiscValueFunctions = ({
       "Rares\nMore Common Than 1/33,333",
       "Uniques\nNon-Standard Obtainment",
       "Compounds\nCrafted via Synthesis",
-      "Surface / Shallow\n[0m-74m]"
+      "Surface / Shallow\n[0m-74m]",
+      "Essences\nObtained from Wisps [Untradable]"
     ];
 
     let minLayer = { value: Infinity, name: "", ore: "" };
@@ -159,7 +163,10 @@ export const MiscValueFunctions = ({
     const incompleteOres = [];
 
     Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+      if (layerName.includes("Essences")) return;
+
       layerData.forEach((ore) => {
+
         const inventory = csvData[ore.name] || 0;
         const orePerUnit = calculateValue(ore);
 
@@ -222,7 +229,8 @@ export const MiscValueFunctions = ({
           "Rares\nMore Common Than 1/33,333",
           "Uniques\nNon-Standard Obtainment",
           "Compounds\nCrafted via Synthesis",
-          "Surface / Shallow\n[0m-74m]"
+          "Surface / Shallow\n[0m-74m]",
+          "Essences\nObtained from Wisps [Untradable]"
         ],
       },
 

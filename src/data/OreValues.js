@@ -415,14 +415,14 @@ export const initialOreValsDict = {
     { name: "Enceladrum", zenithVal: 11, johnVal: 9.5, nanVal: 7, customVal: 11 }
   ],
 
-  "Essences\nObtained from Wisps [PLACEHOLDER VALS]":
+  "Essences\nObtained from Wisps [Untradable]":
   [
-    { name: "Essence of the Cosmos", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
-    { name: "Essence of the Sun", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
-    { name: "Essence of the Void", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
-    { name: "Essence of Purity", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
-    { name: "Essence of Violence", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
-    { name: "Essence of Vitality", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
+    { name: "Essence of the Cosmos" },
+    { name: "Essence of the Sun" },
+    { name: "Essence of the Void" },
+    { name: "Essence of Purity" },
+    { name: "Essence of Violence" },
+    { name: "Essence of Vitality" },
     /*
     { name: "Essence of Havoc", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
     { name: "Essence of Oblivion", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.25, customVal: 0.1 },

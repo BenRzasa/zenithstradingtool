@@ -32,7 +32,6 @@ const LayerTable = ({
     valueMode,
     getValueForMode,
     capCompletion,
-    setCapCompletion,
   } = useContext(MiscContext);
 
   const csvData = getCurrentCSV();
@@ -119,6 +118,7 @@ const LayerTable = ({
   };
 
   const formatDisplayValue = (value, mode) => {
+    if (value === "N/A" || title.includes("Essence")) return "N/A";
     const num = formatValue(value, mode);
     // Format with suffix for display purposes (M or K)
     if (Math.abs(num) >= 1000000) {
@@ -241,7 +241,7 @@ const LayerTable = ({
         data-text={title}
       >
         {title}
-        {getAverageCompletion() === '100.00' && (
+        {(getAverageCompletion() === '100.00' && !title.includes("Essences")) && (
           <span className="nv-comp-check">✓</span>
         )}
       </h2>
@@ -250,16 +250,23 @@ const LayerTable = ({
         <thead>
           <tr>
             <th>Ore Name</th>
-            <th>{modeStr}%</th>
+            {!title.includes("Essences") &&
+            (<th>{modeStr}%</th>)}
+
             <th>[ # ]</th>
-            <th>{modeStr}s</th>
-            {!(title.includes("Rares" || "True Rares")) && (
-              <th>1 AV</th>
+
+            {!title.includes("Essences") && (
+              <>
+                <th>{modeStr}s</th>
+                {!title.includes("Rares") && !title.includes("True Rares") && (
+                  <th>1 AV</th>
+                )}
+                {(title.includes("Rares") || title.includes("True Rares")) && (
+                  <th>AV</th>
+                )}
+                <th>1 {modeStr}</th>
+              </>
             )}
-            {(title.includes("Rares" || "True Rares")) && (
-              <th>AV</th>
-            )}
-            <th>1 {modeStr}</th>
           </tr>
         </thead>
         <tbody>
@@ -277,6 +284,9 @@ const LayerTable = ({
               - Also allows user to edit the quantity in real time, updating the
               CSV data as they do so
             */
+            const isEssences = title.includes("Essences");
+            const isRares = title.includes("Rares");
+            const isTrueRares = title.includes("True Rares");
             const inventory = csvData[item.name] || 0;
             const baseValue = getValueForMode(item);
             const percentage = calculatePercentage(item, inventory);
@@ -314,10 +324,12 @@ const LayerTable = ({
                   {item.name}
                 </td>
                 {/* Percentage column */}
-                <td
-                  className={percentage <= 100.00 ? `percent-${Math.floor(percentage / 10) * 10}` : "percent-over100"}>
-                  {percentage.toFixed(1)}%
-                </td>
+                {!isEssences && (
+                  <td
+                    className={percentage <= 100.00 ? `percent-${Math.floor(percentage / 10) * 10}` : "percent-over100"}>
+                    {percentage.toFixed(1)}%
+                  </td>
+                )}
                 {/* Inventory column - editable */}
                 <td className="v-inventory-cell">
                   <div className="inventory-wrapper">
@@ -369,54 +381,52 @@ const LayerTable = ({
                     />
                   </div>
                 </td>
-                {/* Number of NV's etc. */}
-                <td>{numV}</td>
-                {/* Value per AV(base value) */}
-                {!(title.includes("Rares" || "True Rares")) && (
-                  <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
+                {!isEssences && (
+                  <>
+                    {/* Number of NV's etc. */}
+                    <td>{numV}</td>
+                    {/* Value per AV(base value) */}
+                    {!(isRares || isTrueRares) && (
+                      <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
+                    )}
+                    { /* AV per ore (rares & true rares ONLY) */}
+                    {isTrueRares && (
+                      <td>{(1 / baseValue)}</td>
+                    )}
+                    {isRares && (
+                      <td>{(1 / baseValue).toFixed(2)}</td>
+                    )}
+                    {/* Value per NV/other*/}
+                    <td>{formatDisplayValue(baseValue, currentMode)}</td>
+                  </>
                 )}
-                { /* AV per ore (rares & true rares ONLY) */}
-                {title.includes("True Rares") && (
-                  <td>{(1 / baseValue)}</td>
-                )}
-                {title.includes("Rares\nMore") && (
-                  <td>{(1 / baseValue).toFixed(2)}</td>
-                )}
-                {/* Value per NV/other*/}
-                <td>{formatDisplayValue(baseValue, currentMode)}</td>
+
               </tr>
             );
           })}
         </tbody>
       </table>
       <div className="table-footer">
-        <ul className="info-list">
-          <li>
-            ⛏ {modeStr} Completion:{" "}
-            <span className="placeholder">{getAverageCompletion()}%</span>
-          </li>
-          <li>
-            ⛏ Total {modeStr}:{" "}
-            <span className="placeholder">{getTotalValue()}</span>
-          </li>
-          <li>
-            ⛏ Highest {modeStr}:{" "}
-            <span className="placeholder">{getHighestValue()}</span>
-          </li>
-          <li>
-            <div className="completion-toggle">
-              <label>
-                <input
-                  type="checkbox"
-                  id={`percentage-checkbox-${title}`}
-                  checked={capCompletion}
-                  onChange={() => setCapCompletion(!capCompletion)}
-                />
-                Cap at 100%
-              </label>
-            </div>
-          </li>
-        </ul>
+          <ul className="info-list">
+            <li>
+              ⛏ {modeStr} Completion:{" "}
+              <span className="placeholder">
+                {title.includes("Essence") ? "N/A" : `${getAverageCompletion()}%`}
+              </span>
+            </li>
+            <li>
+              ⛏ Total {modeStr}:{" "}
+              <span className="placeholder">
+                {title.includes("Essence") ? "N/A" : getTotalValue()}
+              </span>
+            </li>
+            <li>
+              ⛏ Highest {modeStr}:{" "}
+              <span className="placeholder">
+                {title.includes("Essence") ? "N/A" : getHighestValue()}
+              </span>
+            </li>
+          </ul>
         {/* Copy search filter button section */}
         <div className="copy-filter-container">
           <button

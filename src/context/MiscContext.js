@@ -213,6 +213,7 @@ export const MiscProvider = ({ children }) => {
 
   // Get the value for a given ore based on the value mode / obtain rate selected
   const getValueForMode = (oreData) => {
+    if (oreData.name.includes("Essence")) return;
     if (oreData.hasOwnProperty('obtainVal') && useObtainRateVals) return oreData.obtainVal;
     switch (valueMode) {
       case 'zenith': return oreData.zenithVal;
@@ -231,6 +232,7 @@ export const MiscProvider = ({ children }) => {
     const oreValuesToUse = useHistoricalOreVals || oreValsDict;
 
     OreNames.forEach(ore => {
+      if(ore.name.includes("Essence")) return;
       const amount = data[ore] || 0;
       let baseValue = 1;
 

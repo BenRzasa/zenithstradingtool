@@ -100,15 +100,21 @@ const OreAndLayerWheel = () => {
   }, [getMatchingLayerName, oreValsDict, calculateOreValue]);
 
   const getFilteredOres = useCallback(() => {
-    let ores = Object.values(oreValsDict).flat();
+      let ores = Object.values(oreValsDict)
+      .flat()
+      .filter(ore => {
+        // Exclude ores that belong to the Essences layer
+        return !Object.entries(oreValsDict).some(
+          ([layerName, layerOres]) => 
+            layerName.includes("Essences") && 
+            layerOres.some(lo => lo.name === ore.name)
+        );
+      });
 
     if (!settings.includeOreRaresAndTrueRares) {
       const rareOres = [
         ...(oreValsDict['Rares\nMore Common Than 1/33,333'] || []),
         ...(oreValsDict['True Rares\n1/33,333 or Rarer'] || []),
-        ...(oreValsDict['Uniques\nNon-Standard Obtainment'] || []),
-        ...(oreValsDict['Compounds\nCrafted via Synthesis'] || []),
-        ...(oreValsDict['Essences\nObtained from Wisps [UNTRADABLE]'] || [])
       ].map(ore => ore.name);
 
       ores = ores.filter(ore => !rareOres.includes(ore.name));
@@ -143,14 +149,11 @@ const OreAndLayerWheel = () => {
   ]);
 
   const getFilteredLayers = useCallback(() => {
-    let layers = Object.keys(LayerGradients);
+    let layers = Object.keys(LayerGradients).filter(layer => layer !== "Essences");
     if (!settings.includeRaresAndTrueRares) {
       layers = layers.filter(layer => ![
         'Rares',
         'True Rares',
-        'Uniques',
-        'Essences',
-        'Compounds'
       ].includes(layer));
     }
     if (!settings.includeOver100LayerCompletion) {
@@ -463,8 +466,7 @@ return (
               checked={settings.includeOreRaresAndTrueRares}
               onChange={(e) => updateSetting('includeOreRaresAndTrueRares', e.target.checked)}
             />
-            Include Rares, True Rares,
-            <br></br>Compounds, Uniques, & Essences
+            Include Rares & True Rares
             {!settings.includeOver100Completion && (
               <>
               <br></br><br></br>Ores Remaining for {getModeString()} Completion: {allOres.length}
@@ -551,8 +553,7 @@ return (
             checked={settings.includeRaresAndTrueRares}
             onChange={(e) => updateSetting('includeRaresAndTrueRares', e.target.checked)}
           />
-          Include Rares, True Rares,
-          <br></br>Compounds, Uniques, & Essences
+          Include Rares & True Rares
           {!settings.includeOver100LayerCompletion && (
             <>
             <br></br><br></br>Layers Remaining for {getModeString()} Completion: {allLayers.length}
