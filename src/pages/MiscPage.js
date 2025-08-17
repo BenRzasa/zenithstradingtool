@@ -33,10 +33,9 @@ function MiscPage() {
       });
   };
 
-  // Flatten all ore arrays from all categories into one array
   const allOres = Object.values(initialOreValsDict).flat();
 
-  // Calculate and sort ores by number of NVs
+  /*
   const sortedOres = allOres
     .map((ore) => {
       const inventory = csvData[ore.name] || 0;
@@ -54,6 +53,8 @@ function MiscPage() {
       };
     })
     .sort((a, b) => a.numNVs - b.numNVs);
+
+  */
 
   /* Generate CSS class name for ore gradient */
   const getOreClassName = (oreName) => {
@@ -94,6 +95,7 @@ function MiscPage() {
       ),
     },
     // Number of NVs least to most (NEEDS EDITING TO DISPLAY ANY VALUE MODE)
+    /*
     {
       id: "card2",
       title: "Ores by Number of NVs (Least to Most)",
@@ -113,6 +115,7 @@ function MiscPage() {
         </div>
       ),
     },
+    */
     // Charm box
     {
       id: "card3",

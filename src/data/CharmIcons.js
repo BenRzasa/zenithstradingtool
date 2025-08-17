@@ -1,3 +1,4 @@
+import Ambrosine_Band from '../images/charms/Ambrosine_Band.webp';
 import Astral_Ring from '../images/charms/Astral_Ring.webp';
 import Auroral_Ring from '../images/charms/Auroral_Ring.webp';
 import Blast_Band from '../images/charms/Blast_Band.webp';
@@ -11,6 +12,7 @@ import Jasper_Ring from '../images/charms/Jasper_Ring.webp';
 import Lunar_Ring from '../images/charms/Lunar_Ring.webp';
 import Neutronium_Necklace from '../images/charms/Neutronium_Necklace.webp';
 import Noise_Necklace from '../images/charms/Noise_Necklace.webp';
+import Oblivion_Band from '../images/charms/Oblivion_Band.webp';
 import Pearl_Necklace from '../images/charms/Pearl_Necklace.webp';
 import Periglise_Bracelet from '../images/charms/Periglise_Bracelet.webp';
 import Perilium_Necklace from '../images/charms/Perilium_Necklace.webp';
@@ -25,6 +27,7 @@ import Thulinyl_Ring from '../images/charms/Thulinyl_Ring.webp';
 import Unobtainium_Necklace from '../images/charms/Unobtainium_Necklace.webp';
 
 export const CharmIcons = {
+  Ambrosine_Band,
   Astral_Ring,
   Auroral_Ring,
   Blast_Band,
@@ -38,6 +41,7 @@ export const CharmIcons = {
   Lunar_Ring,
   Neutronium_Necklace,
   Noise_Necklace,
+  Oblivion_Band,
   Pearl_Necklace,
   Periglise_Bracelet,
   Perilium_Necklace,

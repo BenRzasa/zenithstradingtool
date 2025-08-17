@@ -16,6 +16,8 @@ function CreditsPage() {
 
       <h1>Feature, Assets, & Inspiration Credits</h1>
       <ul>
+        <li><strong>Concept originally inspired by John's Trading Tool, a spreadsheet-based tool created by John_Sypher.</strong>
+        </li>
         <li><strong>Multiple Users</strong>
           <ul>
             <li>Feedback and improvements for mobile compatibility!!</li>

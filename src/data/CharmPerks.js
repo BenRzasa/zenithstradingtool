@@ -37,19 +37,29 @@ const charmPerks = [
     description: "Ores with over 2.5s of mine time will be mined 20% faster"
   },
   {
+    name: "Ambrosine Band",
+    ore: "Ambrosine",
+    description: "Increases XP yield from ores by 15%"
+  },
+  {
     name: "Starlite Bracelet",
     ore: "Starlite",
-    description: "Increases critical hit strength by 30%"
+    description: "Increases critical hit strength by 20%"
   },
   {
     name: "Red Diamond Ring",
     ore: "Red Diamond",
-    description: "Increases number of Red Diamonds obtained per ore by 3"
+    description: "Increases number of Red Diamonds obtained per ore by 2"
   },
   {
     name: "Isoronil Necklace",
     ore: "Isoronil",
     description: "55% chance to double and 45% chance to void a mined ore"
+  },
+  {
+    name: "Oblivion Band",
+    ore: "Obliviril",
+    description: "User is immune to the effects of gravity-warping ores (e.g. Graviton)"
   },
   {
     name: "Pearl Necklace",

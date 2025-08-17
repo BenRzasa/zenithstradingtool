@@ -380,6 +380,7 @@ export const initialOreValsDict = {
 
   "Inner Horizon\n[11350m-11749m]":
   [
+    { name: "Amperisilt", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Nihinoris", zenithVal: 14, johnVal: 13.5, nanVal: 12, customVal: 14 },
     { name: "Nyrvinoris", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
     { name: "Revalyte", zenithVal: 8, johnVal: 8, nanVal: 8, customVal: 8 },
@@ -394,6 +395,7 @@ export const initialOreValsDict = {
 
   "Quintessence\n[11750m-12199m]":
   [
+    { name: "Etherfilm", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
     { name: "Aetherice", zenithVal: 8, johnVal: 8, nanVal: 6, customVal: 8 },
     { name: "Starniferus", zenithVal: 10, johnVal: 11, nanVal: 8, customVal: 10 },
     { name: "Ethanerite", zenithVal: 11, johnVal: 11, nanVal: 8, customVal: 11 },
@@ -413,11 +415,19 @@ export const initialOreValsDict = {
     { name: "Enceladrum", zenithVal: 11, johnVal: 9.5, nanVal: 7, customVal: 11 }
   ],
 
-  "Essences\nObtained from Wisps [UNTRADABLE]":
+  "Essences\nObtained from Wisps [PLACEHOLDER VALS]":
   [
+    { name: "Essence of the Cosmos", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
+    { name: "Essence of the Sun", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
+    { name: "Essence of the Void", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
+    { name: "Essence of Purity", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
     { name: "Essence of Violence", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
     { name: "Essence of Vitality", zenithVal: 0.25, johnVal: 0.25, nanVal: 0.25, customVal: 0.25 },
-    { name: "Essence of the Sun", zenithVal: 0.5, johnVal: 0.5, nanVal: 0.5, customVal: 0.5 },
+    /*
+    { name: "Essence of Havoc", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
+    { name: "Essence of Oblivion", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.25, customVal: 0.1 },
+    { name: "Essence of Extinction", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
+    */
   ],
 
   "Empyrean\n[12250m-12999m]":

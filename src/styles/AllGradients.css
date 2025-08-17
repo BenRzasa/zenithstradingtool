@@ -132,7 +132,7 @@
 }
 
 .color-template-caesium {
-    background: #8c8753;
+    background: #ccb66e;
 }
 
 .color-template-metallic-hydrogen {
@@ -679,7 +679,7 @@
 }
 
 .color-template-spiralium {
-    background: #9c12c2;
+    background: #9a37d2;
 }
 
 .color-template-frozen-nitrogen {
@@ -1072,6 +1072,10 @@
     background: #474297;
 }
 
+.color-template-amperisilt {
+    background: #6c6184;
+}
+
 .color-template-nyrvinoris {
     background: #e575c7;
 }
@@ -1122,6 +1126,14 @@
     background: #ffb5b6;
 }
 
+.color-template-etherfilm {
+    background: linear-gradient(
+        81deg,
+        #6a45c6 0%, #e85aff 40%, #a636a6 50%, 
+        #ff41f1 60%, #3a1854 80%
+        );
+    --wheel-color: #6a45c6;
+}
 .color-template-aetherice {
     background: linear-gradient(135deg, #efc6ff 0%, #9252ec 35%, #bf2bff 50%, #5218ff 60%, #3007ff 80%, #1d00ac 100%);
     --wheel-color: #bf2bff;

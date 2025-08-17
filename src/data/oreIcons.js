@@ -10,6 +10,7 @@ import Amber from '../images/ore-icons/Amber_Icon.webp';
 import Ambrosine from '../images/ore-icons/Ambrosine_Icon.webp';
 import Amethyst from '../images/ore-icons/Amethyst_Icon.webp';
 import Amnesite from '../images/ore-icons/Amnesite_Icon.webp';
+import Amperisilt from '../images/ore-icons/Amperisilt_Icon.webp';
 import Anaxinite from '../images/ore-icons/Anaxinite_Icon.webp';
 import Andrium from '../images/ore-icons/Andrium_Icon.webp';
 import Anetrium from '../images/ore-icons/Anetrium_Icon.webp';
@@ -80,10 +81,17 @@ import Emerald from '../images/ore-icons/Emerald_Icon.webp';
 import Enceladrum from '../images/ore-icons/Enceladrum_Icon.webp';
 import Endotravine from '../images/ore-icons/Endotravine_Icon.webp';
 import Equilibrium from '../images/ore-icons/Equilibrium_Icon.webp';
+import Essence_of_Extinction from '../images/ore-icons/Essence_of_Extinction_Icon.webp';
+import Essence_of_Havoc from '../images/ore-icons/Essence_of_Havoc_Icon.webp';
+import Essence_of_Oblivion from '../images/ore-icons/Essence_of_Oblivion_Icon.webp';
+import Essence_of_Purity from '../images/ore-icons/Essence_of_Purity_Icon.webp';
+import Essence_of_the_Cosmos from '../images/ore-icons/Essence_of_the_Cosmos_Icon.webp';
 import Essence_of_the_Sun from '../images/ore-icons/Essence_of_the_Sun_Icon.webp';
+import Essence_of_the_Void from '../images/ore-icons/Essence_of_the_Void_Icon.webp';
 import Essence_of_Violence from '../images/ore-icons/Essence_of_Violence_Icon.webp';
 import Essence_of_Vitality from '../images/ore-icons/Essence_of_Vitality_Icon.webp';
 import Ethanerite from '../images/ore-icons/Ethanerite_Icon.webp';
+import Etherfilm from '../images/ore-icons/Etherfilm_Icon.webp';
 import Evrasalt from '../images/ore-icons/Evrasalt_Icon.webp';
 import Exodian from '../images/ore-icons/Exodian_Icon.webp';
 import Exotic_Matter from '../images/ore-icons/Exotic_Matter_Icon.webp';
@@ -321,6 +329,7 @@ export const OreIcons = {
   Ambrosine,
   Amethyst,
   Amnesite,
+  Amperisilt,
   Anaxinite,
   Andrium,
   Anetrium,
@@ -391,10 +400,17 @@ export const OreIcons = {
   Enceladrum,
   Endotravine,
   Equilibrium,
+  Essence_of_Extinction,
+  Essence_of_Havoc,
+  Essence_of_Oblivion,
+  Essence_of_Purity,
+  Essence_of_the_Cosmos,
   Essence_of_the_Sun,
+  Essence_of_the_Void,
   Essence_of_Violence,
   Essence_of_Vitality,
   Ethanerite,
+  Etherfilm,
   Evrasalt,
   Exodian,
   Exotic_Matter,
