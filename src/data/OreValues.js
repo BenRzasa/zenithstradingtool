@@ -116,7 +116,7 @@ export const initialOreValsDict = {
     { name: "Magmium", zenithVal: 14, johnVal: 13, nanVal: 13, customVal: 14 },
     { name: "Firecrystal", zenithVal: 12, johnVal: 12, nanVal: 12, customVal: 12 },
     { name: "Magnesium", zenithVal: 11, johnVal: 11, nanVal: 10, customVal: 11 },
-    { name: "Hellstone", zenithVal: 20, johnVal: 24, nanVal: 22, customVal: 20 },
+    { name: "Hellstone", zenithVal: 24, johnVal: 24, nanVal: 22, customVal: 24 },
     { name: "Jasper", zenithVal: 9, johnVal: 8.5, nanVal: 8, customVal: 9 },
     { name: "Mantle Fragment", zenithVal: 14, johnVal: 14, nanVal: 15, customVal: 14 },
     { name: "Gargantium", zenithVal: 12, johnVal: 12, nanVal: 12, customVal: 12 }

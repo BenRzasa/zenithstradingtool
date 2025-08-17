@@ -9,7 +9,7 @@ const charmPerks = [
   {
     name: "Thulinyl Ring",
     ore: "Thulinyl",
-    description: "Decreases pickaxe delay by 0.01s and mine time of ores by 0.1s"
+    description: "Decreases pickaxe delay by 0.01s and mine time of ores by 0.05s"
   },
   {
     name: "Periglise Bracelet",
