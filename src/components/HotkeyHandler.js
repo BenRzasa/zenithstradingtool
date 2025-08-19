@@ -26,10 +26,6 @@ const HotkeyHandler = ({ children }) => {
           e.preventDefault();
           navigate('/');
           break;
-        case 'c':
-          e.preventDefault();
-          navigate('/csvloader');
-          break;
         case 'v':
           e.preventDefault();
           navigate('/valuechart');

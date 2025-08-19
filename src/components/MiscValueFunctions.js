@@ -101,41 +101,51 @@ export const MiscValueFunctions = ({
 
   // Calculate min/max info (with exclusions)
   const calculateExtremes = useCallback(() => {
-    const excludedOres = ["Stone", "Grimstone"];
-    const excludedLayers = [
-      "True Rares\n1/33,333 or Rarer",
-      "Rares\nMore Common Than 1/33,333",
-      "Uniques\nNon-Standard Obtainment",
-      "Compounds\nCrafted via Synthesis",
-      "Surface / Shallow\n[0m-74m]",
-      "Essences\nObtained from Wisps [Untradable]"
-    ];
+  const excludedOres = ["Stone", "Grimstone"];
+  const excludedLayers = [
+    "True Rares\n1/33,333 or Rarer",
+    "Rares\nMore Common Than 1/33,333",
+    "Uniques\nNon-Standard Obtainment",
+    "Compounds\nCrafted via Synthesis",
+    "Surface / Shallow\n[0m-74m]",
+    "Essences\nObtained from Wisps"
+  ];
 
-    let minLayer = { value: Infinity, name: "", ore: "" };
-    let maxLayer = { value: -Infinity, name: "", ore: "" };
-    let minOre = { value: Infinity, name: "", layer: "" };
-    let maxOre = { value: -Infinity, name: "", layer: "" };
-    const layerValues = {};
+  let minLayer = { value: Infinity, name: "", ore: "" };
+  let maxLayer = { value: -Infinity, name: "", ore: "" };
+  let minOre = { value: Infinity, name: "", layer: "" };
+  let maxOre = { value: -Infinity, name: "", layer: "" };
+  const layerValues = {};
+  let validOresFound = false;
+  let validLayersFound = false;
 
-    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
-      if (excludedLayers.includes(layerName)) return;
+  Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+    if (excludedLayers.includes(layerName)) return;
 
-      let layerSum = 0;
-      layerData.forEach((ore) => {
-        if (excludedOres.includes(ore.name)) return;
-        const inventory = csvData[ore.name] || 0;
-        const oreValue = calculateValue(ore);
-        const numV = parseFloat((inventory / oreValue).toFixed(3));
+    let layerSum = 0;
+    let layerHasValidOres = false;
+    
+    layerData.forEach((ore) => {
+      if (excludedOres.includes(ore.name)) return;
+      
+      const inventory = csvData[ore.name] || 0;
+      const oreValue = calculateValue(ore);
+      const numV = parseFloat((inventory / oreValue).toFixed(3));
 
-        if (numV < minOre.value) {
-          minOre = { value: numV, name: ore.name, layer: layerName };
-        }
-        if (numV > maxOre.value) {
-          maxOre = { value: numV, name: ore.name, layer: layerName };
-        }
-        layerSum += numV;
-      });
+      validOresFound = true;
+      layerHasValidOres = true;
 
+      if (numV < minOre.value) {
+        minOre = { value: numV, name: ore.name, layer: layerName };
+      }
+      if (numV > maxOre.value) {
+        maxOre = { value: numV, name: ore.name, layer: layerName };
+      }
+      layerSum += numV;
+    });
+
+    if (layerHasValidOres) {
+      validLayersFound = true;
       layerValues[layerName] = layerSum;
       if (layerSum < minLayer.value) {
         minLayer = { value: layerSum, name: layerName };
@@ -143,21 +153,21 @@ export const MiscValueFunctions = ({
       if (layerSum > maxLayer.value) {
         maxLayer = { value: layerSum, name: layerName };
       }
-    });
+    }
+  });
 
-    const handleDefault = (obj) =>
-      obj.value === Infinity || obj.value === -Infinity
-        ? { ...obj, value: 0, name: "N/A" }
-        : obj;
+  // Handle cases where no valid data was found
+  const handleDefault = (obj, isValid) =>
+    !isValid ? { ...obj, value: 0, name: "N/A" } : obj;
 
-    return {
-      minLayer: handleDefault(minLayer),
-      maxLayer: handleDefault(maxLayer),
-      minOre: handleDefault(minOre),
-      maxOre: handleDefault(maxOre),
-      layerValues,
-    };
-  }, [csvData, oreValsDict, calculateValue]);
+  return {
+    minLayer: handleDefault(minLayer, validLayersFound),
+    maxLayer: handleDefault(maxLayer, validLayersFound),
+    minOre: handleDefault(minOre, validOresFound),
+    maxOre: handleDefault(maxOre, validOresFound),
+    layerValues,
+  };
+}, [csvData, oreValsDict, calculateValue]);
 
   const calculateIncompleteOres = useCallback(() => {
     const incompleteOres = [];
@@ -230,7 +240,7 @@ export const MiscValueFunctions = ({
           "Uniques\nNon-Standard Obtainment",
           "Compounds\nCrafted via Synthesis",
           "Surface / Shallow\n[0m-74m]",
-          "Essences\nObtained from Wisps [Untradable]"
+          "Essences\nObtained from Wisps"
         ],
       },
 

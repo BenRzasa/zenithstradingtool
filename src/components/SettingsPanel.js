@@ -152,7 +152,6 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
           <div className="hotkey-list">
             <p><strong>S</strong> - Toggle Settings</p>
             <p><strong>H</strong> - Home</p>
-            <p><strong>C</strong> - CSV Loader</p>
             <p><strong>V</strong> - Value Chart</p>
             <p><strong>T</strong> - Trade Tool</p>
             <p><strong>U</strong> - Custom Values</p>
@@ -160,7 +159,6 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             <p><strong>M</strong> - Miscellaneous</p>
             <p><strong>W</strong> - Spin the Wheel</p>
             <p><strong>E</strong> - Credits</p>
-            <p><strong>K</strong> - TCC Wiki (CURRENTLY DISABLED)</p>
           </div>
         )}
       </div>

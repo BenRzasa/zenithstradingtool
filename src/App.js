@@ -1,6 +1,6 @@
 // Main app routing
 import React, { useState, useEffect, useContext } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
 import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
@@ -231,6 +231,7 @@ return (
         <HashRouter>
             <TradeProvider>
                 <MiscProvider>
+                <PathRedirectHandler />
                     <AppWithHotkeys 
                         settingsOpen={settingsOpen}
                         setSettingsOpen={setSettingsOpen}
@@ -246,6 +247,21 @@ return (
             </TradeProvider>
         </HashRouter>
     );
+}
+
+function PathRedirectHandler() {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        // Check if the path includes "csvloader"
+        if (location.pathname.toLowerCase().includes('csvloader')) {
+            // Redirect to valuechart
+            navigate('/valuechart', { replace: true });
+        }
+    }, [location.pathname, navigate]);
+
+    return null; // No rendering
 }
 
 function AppWithHotkeys({
