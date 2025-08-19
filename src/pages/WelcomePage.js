@@ -35,13 +35,8 @@ function WelcomePage() {
       <div className="button-container">
         <div className="box-button">
           <button
-            onClick={() => navigate('/csvloader')}
-          >⭐START HERE!⭐</button>
-        </div>
-        <div className="box-button">
-          <button
             onClick={() => navigate('/valuechart')}
-          >Value Chart</button>
+          >⭐ Value Chart ⭐</button>
         </div>
         <div className="box-button">
           <button

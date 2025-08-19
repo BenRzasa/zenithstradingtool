@@ -390,7 +390,7 @@ export const initialOreValsDict = {
     { name: "Zeronian", zenithVal: 4, johnVal: 4.5, nanVal: 4, customVal: 4 },
     { name: "Exodian", zenithVal: 9, johnVal: 9, nanVal: 8, customVal: 9 },
     { name: "Unobtainium", zenithVal: 1.0, johnVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-    { name: "Lattiglass", zenithVal: 60, johnVal: 80, nanVal: 80, customVal: 60 },
+    { name: "Lattiglass", zenithVal: 55, johnVal: 80, nanVal: 80, customVal: 55 },
   ],
 
   "Quintessence\n[11750m-12199m]":
@@ -415,7 +415,7 @@ export const initialOreValsDict = {
     { name: "Enceladrum", zenithVal: 11, johnVal: 9.5, nanVal: 7, customVal: 11 }
   ],
 
-  "Essences\nObtained from Wisps [Untradable]":
+  "Essences\nObtained from Wisps":
   [
     { name: "Essence of the Cosmos" },
     { name: "Essence of the Sun" },
@@ -424,9 +424,9 @@ export const initialOreValsDict = {
     { name: "Essence of Violence" },
     { name: "Essence of Vitality" },
     /*
-    { name: "Essence of Havoc", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
-    { name: "Essence of Oblivion", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.25, customVal: 0.1 },
-    { name: "Essence of Extinction", zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
+    { name: "Essence of Havoc" },
+    { name: "Essence of Oblivion" },
+    { name: "Essence of Extinction" },
     */
   ],
 

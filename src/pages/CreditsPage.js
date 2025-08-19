@@ -150,6 +150,7 @@ function CreditsPage() {
         </li>
         <li><strong>GeoSY</strong>
           <ul>
+            <li>This fellow created the entire game of TCC! Wow!</li>
             <li>New TCC icon for home page</li>
           </ul>
         </li>

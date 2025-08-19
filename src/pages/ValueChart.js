@@ -14,6 +14,7 @@ import { MiscContext } from "../context/MiscContext";
 import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import LayerTable from "../components/LayerTable";
 import NavBar from "../components/NavBar";
+import CSVLoaderPopup from "../components/CSVLoaderPopup";
 import SecondaryCSVPopup from "../components/SecondaryCSVPopup";
 
 import { LayerGradients } from "../data/LayerGradients";
@@ -31,8 +32,6 @@ function ValueChart() {
     valueMode,
     setValueMode,
     getValueForMode,
-    useObtainRateVals,
-    setUseObtainRateVals,
     oreValsDict,
     setOreValsDict,
     capCompletion,
@@ -70,13 +69,23 @@ function ValueChart() {
   const navigate = useNavigate();
   const csvData = getCurrentCSV();
 
+  const [showCSVLoader, setShowCSVLoader] = useState(false);
   const [showSecondaryCSVPopup, setShowSecondaryCSVPopup] = useState(false);
   const [showCompletionPopup, setShowCompletionPopup] = useState(false);
 
+  useEffect(() => {
+    const csvData = getCurrentCSV();
+    const hasData = Object.values(csvData).some(val => val > 0);
+
+    if (!hasData) {
+      setShowCSVLoader(true);
+    }
+  }, [getCurrentCSV]);
+
   const toggleValueMode = (mode) => {
     if (mode === "custom") {
-      const hasCustomValues = Object.values(oreValsDict).some(layer =>
-        layer.some(ore => ore.customVal !== undefined)
+      const hasCustomValues = Object.values(oreValsDict).some((layer) =>
+        layer.some((ore) => ore.customVal !== undefined)
       );
       if (!hasCustomValues) {
         setShowCustomModal(true);
@@ -90,9 +99,9 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: 'July 20, 2025',
-    nan: 'July 19, 2025',
-    john: 'Jan 19, 2025',
+    zenith: "Aug 18, 2025",
+    nan: "Jul 19, 2025",
+    john: "Jan 19, 2025",
   });
 
   // UI control states
@@ -158,15 +167,23 @@ function ValueChart() {
   const isNV = customMultiplier % 100 === 0;
   // For displaying the current mode dynamically
   const modeStr =
-    currentMode === 1 ? "AV"
-  : currentMode === 2 ? "UV"
-  : currentMode === 3 ? "NV"
-  : currentMode === 4 ? "TV"
-  : currentMode === 5 ? "SV"
-  : currentMode === 6 ? "RV"
-  : !isNV && currentMode === 7 ? "CV"
-  : isNV && currentMode === 7 ? `${customMultiplier / 100}NV`
-  : "BAD";
+    currentMode === 1
+      ? "AV"
+      : currentMode === 2
+      ? "UV"
+      : currentMode === 3
+      ? "NV"
+      : currentMode === 4
+      ? "TV"
+      : currentMode === 5
+      ? "SV"
+      : currentMode === 6
+      ? "RV"
+      : !isNV && currentMode === 7
+      ? "CV"
+      : isNV && currentMode === 7
+      ? `${customMultiplier / 100}NV`
+      : "BAD";
 
   const [tableSelected, setTableSelected] = useState("");
   // Function to handle dropdown selection
@@ -197,29 +214,33 @@ function ValueChart() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   // Custom value mode states
   const [showCustomModal, setShowCustomModal] = useState(false);
 
   // Initialize custom dict
   const initializeCustomValues = (source) => {
-      const newOreVals = JSON.parse(JSON.stringify(oreValsDict));
-      for (const layerName in newOreVals) {
-        newOreVals[layerName] = newOreVals[layerName].map(ore => {
-          let newValue;
-          switch (source) {
-            case 'john': newValue = ore.johnVal; break;
-            case 'nan': newValue = ore.nanVal; break;
-            default: newValue = ore.zenithVal;
-          }
-          return {
-            ...ore,
-            customVal: newValue
-          };
-        });
-      }
+    const newOreVals = JSON.parse(JSON.stringify(oreValsDict));
+    for (const layerName in newOreVals) {
+      newOreVals[layerName] = newOreVals[layerName].map((ore) => {
+        let newValue;
+        switch (source) {
+          case "john":
+            newValue = ore.johnVal;
+            break;
+          case "nan":
+            newValue = ore.nanVal;
+            break;
+          default:
+            newValue = ore.zenithVal;
+        }
+        return {
+          ...ore,
+          customVal: newValue,
+        };
+      });
+    }
     setOreValsDict(newOreVals);
-    setValueMode('custom');
+    setValueMode("custom");
     setShowCustomModal(false);
   };
 
@@ -250,15 +271,11 @@ function ValueChart() {
           <div className="summary-content">
             <p>
               ⛏ Total Ores:{" "}
-              <span className="placeholder">
-                {totalOres.toLocaleString()}
-              </span>
+              <span className="placeholder">{totalOres.toLocaleString()}</span>
             </p>
             <p>
               ⛏ Total Rare {modeStr}:{" "}
-              <span className="placeholder">
-                {rareTotal.toLocaleString()}
-              </span>
+              <span className="placeholder">{rareTotal.toLocaleString()}</span>
             </p>
             <p>
               ⛏ Unique {modeStr}:{" "}
@@ -268,15 +285,11 @@ function ValueChart() {
             </p>
             <p>
               ⛏ Layer {modeStr}:{" "}
-              <span className="placeholder">
-                {layerTotal.toLocaleString()}
-              </span>
+              <span className="placeholder">{layerTotal.toLocaleString()}</span>
             </p>
             <p>
               ⛏ Grand Total {modeStr}:{" "}
-              <span className="placeholder">
-                {grandTotal.toLocaleString()}
-              </span>
+              <span className="placeholder">{grandTotal.toLocaleString()}</span>
             </p>
             <p>
               ⛏ Total {modeStr} Completion:{" "}
@@ -288,8 +301,8 @@ function ValueChart() {
                   ⮝ Highest Value (Layer):
                   <div>
                     <span className="placeholder">
-                      {maxLayer.name.substring(0, maxLayer.name.indexOf('\n'))} (
-                      {maxLayer.value.toLocaleString()} {modeStr})
+                      {maxLayer.name.substring(0, maxLayer.name.indexOf("\n"))}{" "}
+                      ({maxLayer.value.toLocaleString()} {modeStr})
                     </span>
                   </div>
                 </p>
@@ -297,8 +310,8 @@ function ValueChart() {
                   ⮟ Lowest Value (Layer):
                   <div>
                     <span className="placeholder">
-                      {minLayer.name.substring(0, minLayer.name.indexOf('\n'))} (
-                      {minLayer.value.toLocaleString()} {modeStr})
+                      {minLayer.name.substring(0, minLayer.name.indexOf("\n"))}{" "}
+                      ({minLayer.value.toLocaleString()} {modeStr})
                     </span>
                   </div>
                 </p>
@@ -306,8 +319,7 @@ function ValueChart() {
                   ⮝ Highest Value (Ore):
                   <div>
                     <span className="placeholder">
-                      {maxOre.name} (
-                      {maxOre.value.toLocaleString()} {modeStr})
+                      {maxOre.name} ({maxOre.value.toLocaleString()} {modeStr})
                     </span>
                   </div>
                 </p>
@@ -315,8 +327,7 @@ function ValueChart() {
                   ⮟ Lowest Value (Ore):
                   <div>
                     <span className="placeholder">
-                      {minOre.name} (
-                      {minOre.value.toLocaleString()} {modeStr})
+                      {minOre.name} ({minOre.value.toLocaleString()} {modeStr})
                     </span>
                   </div>
                 </p>
@@ -328,14 +339,13 @@ function ValueChart() {
       <div
         className="v-usage"
         style={{
-          position:"absolute",
-          left:"0px",
-          top:"90px",
-          width:"25%",
-          fontSize:"18px",
+          position: "absolute",
+          left: "0px",
+          top: "90px",
+          width: "25%",
+          fontSize: "18px",
         }}
-      >
-      </div>
+      ></div>
       <div>
         <NavBar />
       </div>
@@ -344,7 +354,8 @@ function ValueChart() {
         <div
           className="button-container"
           style={{
-            flexDirection: "row", marginBottom:"20px"
+            flexDirection: "row",
+            marginBottom: "20px",
           }}
         >
           {/* More stats button - expands quick summary & enables more info */}
@@ -369,10 +380,14 @@ function ValueChart() {
               onClick={() => {
                 toggleValueMode("zenith");
               }}
-              className={valueMode === "zenith" ? "color-template-torn-fabric" : ""}
+              className={
+                valueMode === "zenith" ? "color-template-torn-fabric" : ""
+              }
             >
               <span>Zenith Vals</span>
-              <div className="v-last-updated">Updated {lastUpdatedDates.zenith}</div>
+              <div className="v-last-updated">
+                Updated {lastUpdatedDates.zenith}
+              </div>
             </button>
           </div>
           <div className="box-button">
@@ -381,13 +396,17 @@ function ValueChart() {
               className={valueMode === "nan" ? "color-template-diamond" : ""}
             >
               <span>NAN Vals</span>
-              <div className="v-last-updated">Updated {lastUpdatedDates.nan}</div>
+              <div className="v-last-updated">
+                Updated {lastUpdatedDates.nan}
+              </div>
             </button>
           </div>
           <div className="box-button">
             <button
               onClick={() => toggleValueMode("custom")}
-              className={valueMode === "custom" ? "color-template-havicron" : ""}
+              className={
+                valueMode === "custom" ? "color-template-havicron" : ""
+              }
             >
               <span>Custom</span>
               <div className="v-last-updated">Personal values</div>
@@ -395,14 +414,13 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => setUseObtainRateVals(!useObtainRateVals)}
-              className={useObtainRateVals === true ? "color-template-singularity" : ""}
+              onClick={() => setShowCSVLoader(true)}
+              className="color-template-tachyon"
             >
-              <span>Use Obtain Rate</span>
-              <div className="v-last-updated">(Standard Rates for Rares)</div>
+              <span>Load CSV</span>
+              <div className="v-last-updated">Import your inventory</div>
             </button>
           </div>
-
           <div className="box-button">
             <button
               onClick={() => {
@@ -412,35 +430,47 @@ function ValueChart() {
                   setUseSecondaryCSV(!useSecondaryCSV);
                 }
               }}
-              className={useSecondaryCSV ? "color-template-protireal active" : ""}
+              className={
+                useSecondaryCSV ? "color-template-protireal active" : ""
+              }
             >
-              <span>{useSecondaryCSV ? "Using 2nd CSV" : secondaryCSVData ? "Toggle 2nd CSV" : "Add 2nd CSV"}</span>
+              <span>
+                {useSecondaryCSV
+                  ? "Using 2nd CSV"
+                  : secondaryCSVData
+                  ? "Toggle 2nd CSV"
+                  : "Add 2nd CSV"}
+              </span>
               <div className="v-last-updated">
-                {secondaryCSVData ? "Switch between CSV sets" : "Add alternate inventory"}
+                {secondaryCSVData
+                  ? "Switch between CSV sets"
+                  : "Add alternate inventory"}
               </div>
             </button>
           </div>
           {useSecondaryCSV && (
             <>
               <div className="box-button">
-                <button
-                  onClick={() => setShowSecondaryCSVPopup(true)}
-                >
+                <button onClick={() => setShowSecondaryCSVPopup(true)}>
                   <span>Modify 2nd CSV</span>
                 </button>
               </div>
-            <div className="box-button">
-              <button
-                onClick={() => {
-                  if (window.confirm("Are you sure you want to delete the 2nd CSV data?")) {
-                    setSecondaryCSVData(null);
-                    setUseSecondaryCSV(false);
-                  }
-                }}
-              >
-                <span>Delete 2nd CSV</span>
-              </button>
-            </div>
+              <div className="box-button">
+                <button
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete the 2nd CSV data?"
+                      )
+                    ) {
+                      setSecondaryCSVData(null);
+                      setUseSecondaryCSV(false);
+                    }
+                  }}
+                >
+                  <span>Delete 2nd CSV</span>
+                </button>
+              </div>
             </>
           )}
           {valueMode === "custom" && (
@@ -455,21 +485,36 @@ function ValueChart() {
           <div className="box-button">
             <button
               onClick={() => setShowCompletionPopup(true)}
-              className={showCompletionPopup ? "color-template-dystranum active" : ""}
+              className={
+                showCompletionPopup ? "color-template-dystranum active" : ""
+              }
             >
-              <span>View Incomplete Ores</span>
-              <div className="v-last-updated">Show progress to completion</div>
+              <span>Incomplete Ores</span>
+              <div className="v-last-updated">Progress to Completion</div>
             </button>
           </div>
-         {showCompletionPopup && (
-            <div className="custom-modal-overlay" style={{ paddingTop: '50px' }}>
-              <div className="custom-modal" style={{ maxWidth: '650px', maxHeight: '80vh', overflow: 'auto' }}>
+          {showCompletionPopup && (
+            <div
+              className="custom-modal-overlay"
+              style={{ paddingTop: "50px" }}
+            >
+              <div
+                className="custom-modal"
+                style={{
+                  maxWidth: "650px",
+                  maxHeight: "80vh",
+                  overflow: "auto",
+                }}
+              >
                 <div className="modal-header">
-                  <h3>Ores Remaining for {modeStr} Completion: {incompleteOres.length}</h3>
-                  <button 
-                    onClick={() => setShowCompletionPopup(false)} 
+                  <h3>
+                    Ores Remaining for {modeStr} Completion:{" "}
+                    {incompleteOres.length}
+                  </h3>
+                  <button
+                    onClick={() => setShowCompletionPopup(false)}
                     className="modal-close"
-                    style={{ position: 'absolute', right: '15px', top: '15px' }}
+                    style={{ position: "absolute", right: "15px", top: "15px" }}
                   >
                     ✖
                   </button>
@@ -484,21 +529,25 @@ function ValueChart() {
                   {incompleteOres.map((ore, index) => (
                     <div key={index} className="completion-row">
                       <span className="ore-name">{ore.name}</span>
-                      <span className="ore-layer">{ore.layer.split('\n')[0]}</span>
+                      <span className="ore-layer">
+                        {ore.layer.split("\n")[0]}
+                      </span>
                       <span className="ore-completion">
                         <div className="completion-bar-container">
-                        <div
-                          className="completion-bar"
-                          style={{
-                            width: '100%',
-                            background: `linear-gradient(90deg,
+                          <div
+                            className="completion-bar"
+                            style={{
+                              width: "100%",
+                              background: `linear-gradient(90deg,
                               #3ebd21ff 0%,
                               #3ebd21ff ${ore.completion}%,
                               #494949ff ${ore.completion}%,
-                              #717171ff 100%)`
-                          }}
-                        />
-                          <span className="completion-text">{ore.completion.toFixed(1)}%</span>
+                              #717171ff 100%)`,
+                            }}
+                          />
+                          <span className="completion-text">
+                            {ore.completion.toFixed(3)}%
+                          </span>
                         </div>
                       </span>
                       <span className="ore-remaining">
@@ -515,6 +564,11 @@ function ValueChart() {
         {showSecondaryCSVPopup && (
           <SecondaryCSVPopup onClose={() => setShowSecondaryCSVPopup(false)} />
         )}
+
+        <CSVLoaderPopup
+          isOpen={showCSVLoader}
+          onClose={() => setShowCSVLoader(false)}
+        />
 
         {/* Back to Top button */}
         {showBackToTop && (

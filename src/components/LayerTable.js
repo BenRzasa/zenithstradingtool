@@ -7,8 +7,8 @@ import { MiscContext } from "../context/MiscContext";
 import {
   johnPlaceholderOres,
   nanPlaceholderOres,
-  zenithPlaceholderOres
-} from '../data/PlaceholderOres';
+  zenithPlaceholderOres,
+} from "../data/PlaceholderOres";
 
 import { OreIcons } from "../data/OreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
@@ -42,18 +42,25 @@ const LayerTable = ({
   const modeStr =
     currentMode === 1
       ? "AV"
-      : currentMode === 2 ? "UV"
-      : currentMode === 3 ? "NV"
-      : currentMode === 4 ? "TV"
-      : currentMode === 5 ? "SV"
-      : currentMode === 6 ? "RV"
-      : !isNV && currentMode === 7 ? "CV"
-      : isNV && currentMode === 7 ? `${customMultiplier / 100}NV`
+      : currentMode === 2
+      ? "UV"
+      : currentMode === 3
+      ? "NV"
+      : currentMode === 4
+      ? "TV"
+      : currentMode === 5
+      ? "SV"
+      : currentMode === 6
+      ? "RV"
+      : !isNV && currentMode === 7
+      ? "CV"
+      : isNV && currentMode === 7
+      ? `${customMultiplier / 100}NV`
       : "BAD";
 
   // Function to generate the className based on ore name
   const getOreClassName = (oreName) => {
-    return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
+    return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
   };
 
   // Function to calculate the value based on the current mode
@@ -61,24 +68,32 @@ const LayerTable = ({
     const baseValue = getValueForMode(ore);
 
     switch (currentMode) {
-      case 1: return baseValue * 1; // AV
-      case 2: return baseValue * 10; // UV
-      case 3: return baseValue * 100; // NV
-      case 4: return baseValue * 500; // TV
-      case 5: return baseValue * 1000; // SV
-      case 6: return baseValue * 50; // RV
-      case 7: return baseValue * customMultiplier // Custom
-      default: return baseValue;
+      case 1:
+        return baseValue * 1; // AV
+      case 2:
+        return baseValue * 10; // UV
+      case 3:
+        return baseValue * 100; // NV
+      case 4:
+        return baseValue * 500; // TV
+      case 5:
+        return baseValue * 1000; // SV
+      case 6:
+        return baseValue * 50; // RV
+      case 7:
+        return baseValue * customMultiplier; // Custom
+      default:
+        return baseValue;
     }
   };
 
   // Function to calculate the percentage with bounds
   const calculatePercentage = (ore, inventory) => {
     const orePerUnit = calculateValue(ore);
-    return orePerUnit > 0 
-      ? (capCompletion 
-          ? Math.min(100, (inventory / orePerUnit) * 100)
-          : (inventory / orePerUnit) * 100)
+    return orePerUnit > 0
+      ? capCompletion
+        ? Math.min(100, (inventory / orePerUnit) * 100).toFixed(2)
+        : ((inventory / orePerUnit) * 100).toFixed(2)
       : 0;
   };
   // Preserve original precision exactly as in baseValue
@@ -92,13 +107,19 @@ const LayerTable = ({
     if (mode === 1) return num;
     // Calculate scaled value
     const scaleFactor =
-        mode === 2 ? 10   // UV
-      : mode === 3 ? 100  // NV
-      : mode === 4 ? 500  // TV
-      : mode === 5 ? 1000 // SV
-      : mode === 6 ? 50   // RV
-      : mode === 7 ? customMultiplier // Custom
-      : 1;  // Default to 1
+      mode === 2
+        ? 10 // UV
+        : mode === 3
+        ? 100 // NV
+        : mode === 4
+        ? 500 // TV
+        : mode === 5
+        ? 1000 // SV
+        : mode === 6
+        ? 50 // RV
+        : mode === 7
+        ? customMultiplier // Custom
+        : 1; // Default to 1
     const scaledValue = num * scaleFactor;
     // Strict truncation function (no rounding)
     const truncate = (n, decimals) => {
@@ -107,13 +128,19 @@ const LayerTable = ({
     };
     // Return the numeric value, truncated to 3 decimals max and rounded to nearest int
     // Depending on MODE
-    switch(currentMode) {
-      case 1: return truncate(scaledValue, 3);
-      case 2: return truncate(scaledValue, 2);
-      case 3: return truncate(scaledValue, 2);
-      case 6: return truncate(scaledValue, 2);
-      case 7: return truncate(scaledValue, 3);
-      default: return Math.round(truncate(scaledValue, 3));
+    switch (currentMode) {
+      case 1:
+        return truncate(scaledValue, 3);
+      case 2:
+        return truncate(scaledValue, 2);
+      case 3:
+        return truncate(scaledValue, 2);
+      case 6:
+        return truncate(scaledValue, 2);
+      case 7:
+        return truncate(scaledValue, 3);
+      default:
+        return Math.round(truncate(scaledValue, 3));
     }
   };
 
@@ -135,11 +162,12 @@ const LayerTable = ({
     const totalCompletion = data.reduce((sum, item) => {
       const inventory = csvData[item.name] || 0;
       const orePerUnit = calculateValue(item);
-      const completion = orePerUnit > 0 
-        ? (capCompletion 
+      const completion =
+        orePerUnit > 0
+          ? capCompletion
             ? Math.min(1, inventory / orePerUnit)
-            : inventory / orePerUnit)
-        : 0;
+            : inventory / orePerUnit
+          : 0;
       return sum + completion;
     }, 0);
     return ((totalCompletion / data.length) * 100).toFixed(2);
@@ -187,11 +215,11 @@ const LayerTable = ({
   const [copiedFilter, setCopiedFilter] = useState(null);
 
   const findMatchingFilter = (layerName) => {
-      return searchFilters.find((filter) => {
-          // Get the filter name part before the colon
-          const filterName = filter.split(":")[0]?.trim();
-          return filterName && layerName.includes(filterName);
-      });
+    return searchFilters.find((filter) => {
+      // Get the filter name part before the colon
+      const filterName = filter.split(":")[0]?.trim();
+      return filterName && layerName.includes(filterName);
+    });
   };
 
   // Copy the layer filter to the clipboard, clearing after 2s
@@ -211,11 +239,11 @@ const LayerTable = ({
   // includes checks if it's in the array
   function isPlaceholderOre(itemName) {
     switch (valueMode) {
-      case 'nan':
+      case "nan":
         return nanPlaceholderOres.includes(itemName);
-      case 'john':
+      case "john":
         return johnPlaceholderOres.includes(itemName);
-      case 'zenith':
+      case "zenith":
         return zenithPlaceholderOres.includes(itemName);
       default:
         return false;
@@ -233,25 +261,30 @@ const LayerTable = ({
   }
 
   return (
-    <div className="table-wrapper">
+    <div 
+      className="table-wrapper"
+      style={{
+        width: title.includes("Essences") ? "430px" : undefined,
+        marginRight: title.includes("Essences") ? "195px" : undefined, }}
+    >
       <pre>
-      <h2
-        className="table-wrapper h2"
-        style={{ background: gradient }}
-        data-text={title}
-      >
-        {title}
-        {(getAverageCompletion() === '100.00' && !title.includes("Essences")) && (
-          <span className="nv-comp-check">✓</span>
-        )}
-      </h2>
+        <h2
+          className="table-wrapper h2"
+          style={{ background: gradient }}
+          data-text={title}
+        >
+          {title}
+          {getAverageCompletion() === "100.00" &&
+            !title.includes("Essences") && (
+              <span className="nv-comp-check">✓</span>
+            )}
+        </h2>
       </pre>
       <table className="table-comp">
         <thead>
           <tr>
             <th>Ore Name</th>
-            {!title.includes("Essences") &&
-            (<th>{modeStr}%</th>)}
+            {!title.includes("Essences") && <th>{modeStr}%</th>}
 
             <th>[ # ]</th>
 
@@ -285,34 +318,35 @@ const LayerTable = ({
               CSV data as they do so
             */
             const isEssences = title.includes("Essences");
-            const isRares = title.includes("Rares");
+            const isRares = title.includes("Rares\nMore");
             const isTrueRares = title.includes("True Rares");
             const inventory = csvData[item.name] || 0;
             const baseValue = getValueForMode(item);
             const percentage = calculatePercentage(item, inventory);
             const numV =
-              calculateValue(item) > 0  // Changed from calculateValue(baseValue)
+              calculateValue(item) > 0
                 ? (inventory / calculateValue(item)).toFixed(2)
                 : "0";
-
 
             return (
               <tr key={index}>
                 {/* Get the gradient dynamically for each ore name */}
                 <td
                   className={`name-column ${getOreClassName(item.name)}`}
-                  data-text={item.name}>
-                  {OreIcons[item.name.replace(/ /g, '_')] ? (
+                  data-text={item.name}
+                >
+                  {OreIcons[item.name.replace(/ /g, "_")] ? (
                     <img
-                      src={OreIcons[item.name.replace(/ /g, '_')]}
+                      src={OreIcons[item.name.replace(/ /g, "_")]}
                       alt={`${item.name} icon`}
                       className="ore-icon"
                       onError={(e) => {
                         console.error(`Missing icon for: ${item.name}`);
-                        e.target.style.display = 'none';
+                        e.target.style.display = "none";
                       }}
                     />
-                  ) : ( // Missing icon
+                  ) : (
+                    // Missing icon
                     <span>
                       <img
                         src={missingIcon}
@@ -326,8 +360,13 @@ const LayerTable = ({
                 {/* Percentage column */}
                 {!isEssences && (
                   <td
-                    className={percentage <= 100.00 ? `percent-${Math.floor(percentage / 10) * 10}` : "percent-over100"}>
-                    {percentage.toFixed(1)}%
+                    className={
+                      percentage <= 100.0
+                        ? `percent-${Math.floor(percentage / 10) * 10}`
+                        : "percent-over100"
+                    }
+                  >
+                    {percentage}%
                   </td>
                 )}
                 {/* Inventory column - editable */}
@@ -387,46 +426,44 @@ const LayerTable = ({
                     <td>{numV}</td>
                     {/* Value per AV(base value) */}
                     {!(isRares || isTrueRares) && (
-                      <td>{formatDisplayValue(baseValue, 1)}{isPlaceholderOre(item.name) ? " [P]" : ""}</td>
+                      <td>
+                        {formatDisplayValue(baseValue, 1)}
+                        {isPlaceholderOre(item.name) ? " [P]" : ""}
+                      </td>
                     )}
-                    { /* AV per ore (rares & true rares ONLY) */}
-                    {isTrueRares && (
-                      <td>{(1 / baseValue)}</td>
-                    )}
-                    {isRares && (
-                      <td>{(1 / baseValue).toFixed(2)}</td>
-                    )}
+                    {/* AV per ore (rares & true rares ONLY) */}
+                    {isTrueRares && <td>{1 / baseValue}</td>}
+                    {isRares && <td>{(1 / baseValue).toFixed(2)}</td>}
                     {/* Value per NV/other*/}
                     <td>{formatDisplayValue(baseValue, currentMode)}</td>
                   </>
                 )}
-
               </tr>
             );
           })}
         </tbody>
       </table>
       <div className="table-footer">
-          <ul className="info-list">
-            <li>
-              ⛏ {modeStr} Completion:{" "}
-              <span className="placeholder">
-                {title.includes("Essence") ? "N/A" : `${getAverageCompletion()}%`}
-              </span>
-            </li>
-            <li>
-              ⛏ Total {modeStr}:{" "}
-              <span className="placeholder">
-                {title.includes("Essence") ? "N/A" : getTotalValue()}
-              </span>
-            </li>
-            <li>
-              ⛏ Highest {modeStr}:{" "}
-              <span className="placeholder">
-                {title.includes("Essence") ? "N/A" : getHighestValue()}
-              </span>
-            </li>
-          </ul>
+        <ul className="info-list">
+          <li>
+            ⛏ {modeStr} Completion:{" "}
+            <span className="placeholder">
+              {title.includes("Essence") ? "N/A" : `${getAverageCompletion()}%`}
+            </span>
+          </li>
+          <li>
+            ⛏ Total {modeStr}:{" "}
+            <span className="placeholder">
+              {title.includes("Essence") ? "N/A" : getTotalValue()}
+            </span>
+          </li>
+          <li>
+            ⛏ Highest {modeStr}:{" "}
+            <span className="placeholder">
+              {title.includes("Essence") ? "N/A" : getHighestValue()}
+            </span>
+          </li>
+        </ul>
         {/* Copy search filter button section */}
         <div className="copy-filter-container">
           <button

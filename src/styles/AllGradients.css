@@ -1099,7 +1099,7 @@
 }
 
 .color-template-ultranium {
-    background: #76f194;
+    background: #65c67e;
 }
 
 .color-template-auricallium {
@@ -1200,8 +1200,22 @@
     --wheel-color: #8498d1;
 }
 
+.color-template-essence-of-the-cosmos {
+    background: #4437d6;
+}
+
 .color-template-essence-of-the-sun {
     background: #ffc130;
+}
+
+.color-template-essence-of-the-void {
+    background: linear-gradient(
+        90deg, #9d69bc 0%, #683cc4 20%, 
+        #ac4248 50%, #c65559 70%, #bd565f 100%);
+}
+
+.color-template-essence-of-purity {
+    background: #ffe3b2;
 }
 
 .color-template-essence-of-violence {
@@ -1211,6 +1225,7 @@
 .color-template-essence-of-vitality {
     background: #75ff7e;
 }
+
 
 .color-template-evrasalt {
     background: linear-gradient(115deg, #875b6e 0%, #603f4e 30%, #2c1821 100%);
@@ -1237,7 +1252,7 @@
 }
 
 .color-template-reithum {
-    background: linear-gradient(135deg, #ac0000 0%, #ff5500 25%, #ff8e2c 30%, #ffefa0 50%, #ff8e2c 70%, #ff5500 75%, #ac0000 100%);
+    background: linear-gradient(135deg, #ac0000 0%, #ff5500 35%, #ff8e2c 45%, #ffefa0 55%, #ff8e2c 65%, #ff5500 75%, #ac0000 100%);
     --wheel-color: #ffefa0;
 }
 

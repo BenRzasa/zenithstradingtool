@@ -1,11 +1,11 @@
 .editor-popup {
   position: fixed;
   top: 20%;
-  left: 20%;
+  left: 33%;
   z-index: 10000;
   background-color: var(--background-color);
   color: var(--text-color);
-  width: fit-content;
+  width: 650px;
   height: fit-content;
   border-radius: 20px;
   border: 3px solid var(--switch-outline);
@@ -26,14 +26,13 @@
   padding: 16px;
 }
 
-/* CSV output */
 .csv-output textarea {
   position: relative;
-  width: 55vw;
+  width: 99%;
   height: 45vh;
   resize: vertical, horizontal;
   margin-bottom: 0px;
-  font-size: 1.5em;
+  font-size: 1em;
   border: 2px solid #000000;
 }
 

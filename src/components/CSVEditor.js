@@ -27,17 +27,15 @@ function CSVEditor({ onClose }) { // onClose component to allow closing the popu
   useEffect(() => {
     const initialCSV = OreNames.map(ore => csvData[ore] || 0);
     setTempCSV(initialCSV);
-    // Show CSV with names by default
+
     const csvWithNames = OreNames.map((oreName, index) => 
       `${oreName}:${initialCSV[index] || 0}`
     );
-    document.getElementById("csvEditBox").value = csvWithNames.join(",");
+    document.getElementById("csvEditBox").value = csvWithNames.join(",\n");
   }, [csvData]);
 
   // Show the CSV data and ore names and put it in the editor box
   const showCSVOnly = () => {
-    // Create an array of values in the same order as OreNames
-    // Join with commas and put in textarea
     document.getElementById("csvEditBox").value = tempCSV.join(",");
   };
 
@@ -46,7 +44,7 @@ function CSVEditor({ onClose }) { // onClose component to allow closing the popu
     const csvWithNames = OreNames.map((oreName, index) => 
       `${oreName}:${csvValues[index] || 0}`
     );
-    document.getElementById("csvEditBox").value = csvWithNames.join(",");
+    document.getElementById("csvEditBox").value = csvWithNames.join(",\n");
   };
 
   // Save the CSV depending on whether it's name:value or value only
@@ -55,14 +53,14 @@ function CSVEditor({ onClose }) { // onClose component to allow closing the popu
     let newCSV = [];
     if (editedValue.includes(':')) {
       // Handle name:value format
-      const entries = editedValue.split(',');
+      const entries = editedValue.split(',\n');
       newCSV = OreNames.map(oreName => {
         const entry = entries.find(e => e.startsWith(oreName + ':'));
         return entry ? parseInt(entry.split(':')[1]) || 0 : 0;
       });
     } else {
       // Handle numbers-only format
-      newCSV = editedValue.split(',').map(num => parseInt(num) || 0);
+      newCSV = editedValue.split(',\n').map(num => parseInt(num) || 0);
     }
     setTempCSV(newCSV);
     showCSVAndNames(newCSV); // Update the display with the new values
@@ -71,7 +69,7 @@ function CSVEditor({ onClose }) { // onClose component to allow closing the popu
   return (
     <div className="editor-popup">
       <div className="editor-header">
-      <h1>CSV Editor</h1>
+      <h1 style={{marginLeft: "15px"}}>CSV Editor</h1>
       <div
         className="box-button"
         style={{

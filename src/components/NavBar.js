@@ -19,8 +19,6 @@ const NavBar = () => {
         <ul className="dropdown-menu">
           <li><Link to="/"
             onClick={() => setIsOpen(false)}>Home</Link></li>
-          <li><Link to="/csvloader"
-            onClick={() => setIsOpen(false)}>CSV Loader</Link></li>
           <li><Link to="/valuechart"
             onClick={() => setIsOpen(false)}>Value Chart</Link></li>
           <li><Link to="/tradetool"

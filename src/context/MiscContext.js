@@ -213,14 +213,14 @@ export const MiscProvider = ({ children }) => {
 
   // Get the value for a given ore based on the value mode / obtain rate selected
   const getValueForMode = (oreData) => {
-    if (oreData.name.includes("Essence")) return;
+    if (!oreData || !oreData.name || oreData.name.includes("Essence")) return 0;
     if (oreData.hasOwnProperty('obtainVal') && useObtainRateVals) return oreData.obtainVal;
     switch (valueMode) {
-      case 'zenith': return oreData.zenithVal;
-      case 'john': return oreData.johnVal;
-      case 'nan': return oreData.nanVal;
-      case 'custom': return oreData.customVal;
-      default: return oreData.zenithVal;
+      case 'zenith': return oreData.zenithVal || 0;
+      case 'john': return oreData.johnVal || 0;
+      case 'nan': return oreData.nanVal || 0;
+      case 'custom': return oreData.customVal || 0;
+      default: return oreData.zenithVal || 0;
     }
   };
 
@@ -231,13 +231,15 @@ export const MiscProvider = ({ children }) => {
     let total = 0;
     const oreValuesToUse = useHistoricalOreVals || oreValsDict;
 
-    OreNames.forEach(ore => {
-      if(ore.name.includes("Essence")) return;
-      const amount = data[ore] || 0;
+    OreNames.forEach(oreName => {
+      // Skip if it's an essence (check the ore name directly)
+      if (oreName.includes("Essence")) return;
+
+      const amount = data[oreName] || 0;
       let baseValue = 1;
 
       Object.values(oreValuesToUse).some(layer => {
-        const oreData = layer.find(item => item.name === ore);
+        const oreData = layer.find(item => item.name === oreName);
         if (oreData) {
           baseValue = getValueForMode(oreData);
           return true;
@@ -250,6 +252,33 @@ export const MiscProvider = ({ children }) => {
     return total;
   };
 
+  const clearCSVHistory = () => {
+    if (window.confirm('Are you sure you want to clear all CSV history? This action cannot be undone.')) {
+      setCSVHistory([]);
+      localStorage.removeItem('csvHistory');
+    }
+  };
+
+  const clearCSVData = () => {
+    // Clear all CSV-related data from localStorage
+    localStorage.removeItem('csvData');
+    localStorage.removeItem('csvPreviousData');
+    localStorage.removeItem('csvLastUpdated');
+    localStorage.removeItem('csvHistory');
+    localStorage.removeItem('secondaryCSVData');
+    localStorage.removeItem('useSecondaryCSV');
+
+    // Reset all CSV-related states
+    setCSVData({});
+    setPreviousAmounts({});
+    setLastUpdated(null);
+    setCSVHistory([]);
+    setSecondaryCSVData(null);
+    setUseSecondaryCSV(false);
+
+    console.log('All CSV data cleared');
+  };
+
   // Export all settings and functions here!
   const contextValue = {
     settingsOpen, setSettingsOpen,
@@ -258,7 +287,7 @@ export const MiscProvider = ({ children }) => {
     secondaryCSVData, setSecondaryCSVData,
     useSecondaryCSV, setUseSecondaryCSV,
     getCurrentCSV: () => useSecondaryCSV ? secondaryCSVData : csvData,
-    csvHistory, setCSVHistory, loadOldCSV,
+    csvHistory, setCSVHistory, loadOldCSV, clearCSVHistory,
     capCompletion, setCapCompletion,
     valueMode, setValueMode, getValueForMode,
     currentMode, setCurrentMode,
@@ -266,7 +295,8 @@ export const MiscProvider = ({ children }) => {
     useObtainRateVals, setUseObtainRateVals,
     oreValsDict, setOreValsDict,
     resetCustomValues,
-    rareFindsData, setRareFindsData
+    rareFindsData, setRareFindsData,
+    clearCSVData
   };
 
   return (

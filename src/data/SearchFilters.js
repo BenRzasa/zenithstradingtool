@@ -36,9 +36,10 @@ const searchFilters = [
   "Event Horizon: r s/nebu/arki/non/auro/kore/apia/solar",
   "Sediment: rhy/ubri/havi/ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
   "Abyss: l s/prim/modi/hexf/tetr/maur/ecto/havi",
-  "Inner Horizon: nyr/nih/ult/rev/infr/auri/unob/zero/exod/latti",
-  "Quintessence: aeth/nif/etha/lume/ulir/impe/kryp/vyth",
+  "Inner Horizon: amper/nyr/nih/ult/rev/infr/auri/unob/zero/exod/latti",
+  "Quintessence: ether/nif/etha/lume/ulir/impe/kryp/vyth",
   "Interstice: exod/neth/raw/obl/for/enc/vyth",
+  "Essences: essence",
   "Empyrean: evra/zeta/kafsi/ochis/qy/rei/vor/tru/wi/pha/prof/ogl/proti/xe/mesm",
 ];
 

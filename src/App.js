@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/WelcomePage';
-import CSVLoader from './pages/CSVLoader';
 import TradeTool from './pages/TradeTool';
 import ValueChart from './pages/ValueChart';
 import MiscPage from './pages/MiscPage';
@@ -297,7 +296,6 @@ function AppWithHotkeys({
 
                 <Routes>
                     <Route path="/" element={<WelcomePage />} />
-                    <Route path="/csvloader" element={<CSVLoader />} />
                     <Route path="/valuechart" element={<ValueChart />} />
                     <Route path="/findtracker" element={<RareFindsTracker />} />
                     <Route path="/tradetool" element={<TradeTool />} />
