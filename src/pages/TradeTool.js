@@ -599,45 +599,41 @@ function TradeTool() {
 
           {/* Trade Summary Table */}
           <div className="trade-summary">
-            <h2>&nbsp;&nbsp;Current Trade</h2>
+            <div className="summary-header">
+              <h2>&nbsp;&nbsp;Current Trade</h2>
+              {totals.totalAV > 0.00 && (
+              <div className="filter-thing">
+                <div className="box-button">
+                  <button
+                    className={copiedFilter ? "color-template-mesonyte" : ""}
+                    onClick={generateSearchFilter}
+                    title="Generate and copy search filter"
+                  >
+                    Generate Search Filter
+                  </button>
+                </div>
+                {copiedFilter && (
+                  <div 
+                    className="copy-confirmation"
+                  >✓ Copied to clipboard!</div>
+                )}
+              </div>
+              )}
+            </div>
             {/* Totals and inventory status */}
             <div className="trade-totals">
               <p>💲Total AV: <span>{totals.totalAV.toFixed(1)}</span></p>
               {discount > 0 && (
-                <p>💲Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(0)}</span></p>
+                <p>💲Discounted AV ({discount}%): <span>{Math.round(totals.totalAV * (1 - discount / 100)).toFixed(1)}</span></p>
               )}
               <p>⛏️Total # Ores: <span>{totals.totalOres}</span></p>
-              {totals.totalAV > 0.00 && (
-              <button
-                className="copy-filter-btn"
-                onClick={generateSearchFilter}
-                title="Generate and copy search filter"
-                style={{
-                  marginTop:"20px",
-                  marginLeft:"-5px",
-                  marginBottom:"30px",
-                  justifyContent:"left",
-                  transform:"scale(0.85)"
-                }}
-              >
-                Generate Search Filter
-              </button>
-              )}
-              {copiedFilter && (
-                <div 
-                  className="copy-confirmation"
-                  style={{
-                    marginLeft:"35px",
-                  }}
-                >✓ Copied to clipboard!</div>
-              )}
             </div>
             {tradeState.tradeOres.length > 0 ? (
               <table className="trade-table">
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>[ # ]</th>
+                    <th>Quantity</th>
                     <th>AV</th>
                   </tr>
                 </thead>

@@ -21,6 +21,17 @@
   transform: scale(1.5);
 }
 
+input[type = checkbox] {
+  transform: scale(1.5);
+  margin-right: 10px;
+}
+
+.csv-usage h1 {
+  margin-top: 10px;
+  font-family: 'Montserrat';
+}
+
+
 .spin-button {
   position: relative;
   top: 0%;

@@ -286,7 +286,7 @@ const LayerTable = ({
             <th>Ore Name</th>
             {!title.includes("Essences") && <th>{modeStr}%</th>}
 
-            <th>[ # ]</th>
+            <th>&nbsp;&nbsp;#&nbsp;&nbsp;</th>
 
             {!title.includes("Essences") && (
               <>
@@ -323,10 +323,16 @@ const LayerTable = ({
             const inventory = csvData[item.name] || 0;
             const baseValue = getValueForMode(item);
             const percentage = calculatePercentage(item, inventory);
-            const numV =
-              calculateValue(item) > 0
-                ? (inventory / calculateValue(item)).toFixed(2)
-                : "0";
+            const unroundedNumV = inventory / calculateValue(item);
+            const roundedNumV = 
+              currentMode === 1 ? unroundedNumV.toFixed(0)
+            : currentMode === 2 ? unroundedNumV.toFixed(1)
+            : currentMode === 3 ? unroundedNumV.toFixed(2)
+            : currentMode === 4 ? unroundedNumV.toFixed(3)
+            : currentMode === 5 ? unroundedNumV.toFixed(3)
+            : currentMode === 6 ? unroundedNumV.toFixed(2)
+            : currentMode === 7 ? unroundedNumV.toFixed(2)
+            : "0";
 
             return (
               <tr key={index}>
@@ -423,7 +429,7 @@ const LayerTable = ({
                 {!isEssences && (
                   <>
                     {/* Number of NV's etc. */}
-                    <td>{numV}</td>
+                    <td>{roundedNumV}</td>
                     {/* Value per AV(base value) */}
                     {!(isRares || isTrueRares) && (
                       <td>

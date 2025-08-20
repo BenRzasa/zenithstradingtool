@@ -262,12 +262,6 @@ const RareFindsTracker = () => {
 
   return (
   <>
-    <h1 style={{
-      textAlign: "center",
-      fontSize: "50px",
-      marginTop: "50px",
-      color: "var(--text-color"}}
-    >Rare Finds Tracker</h1>
     <div className="patic">
     <img
       src={patik}
@@ -280,7 +274,7 @@ const RareFindsTracker = () => {
     </div>
   <NavBar />
     <div className="rare-finds-tracker">
-
+    <h1>Rare Finds Tracker</h1>
       <CustomMultiplierInput />
       <div className="button-container">
         <div className="box-button">

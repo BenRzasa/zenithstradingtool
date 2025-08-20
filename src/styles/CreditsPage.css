@@ -2,6 +2,10 @@
   color: var(--text-color);
   margin-left: 25px;
 
+  h1 {
+    font-family: 'Montserrat';
+  }
+
   li {
     margin-left: -15px;
     margin-top: 2px;

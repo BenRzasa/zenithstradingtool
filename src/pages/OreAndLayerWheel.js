@@ -443,7 +443,7 @@ const OreAndLayerWheel = () => {
               fontSize: "25px",
               flexDirection: "column",
               gap: "10px",
-              paddingBottom: "20px",
+              paddingBottom: "15px",
               margin: "0 auto",
               marginBottom: "-10vh",
             }}
@@ -602,7 +602,7 @@ const OreAndLayerWheel = () => {
               fontSize: "25px",
               flexDirection: "column",
               gap: "8px",
-              paddingBottom: "20px",
+              paddingBottom: "15px",
               margin: "0 auto",
               marginBottom: "-5vh",
               marginTop: "0vh",

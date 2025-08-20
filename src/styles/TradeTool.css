@@ -195,6 +195,7 @@
     font-weight: bold;
     padding: 8px 12px;
     font-size: 22px;
+    font-family: 'Segoe UI';
     cursor: pointer;
 }
 
@@ -443,12 +444,20 @@
     min-width: 50px;
 }
 
+.summary-header h2 {
+    font-family: 'Montserrat';
+}
+
+.summary-header .box-button {
+    margin-top: 25px;
+}
+
 .trade-totals {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    margin-top: -10px;
-    margin-left: 0px;
-    margin-bottom: -5px;
+    margin-top: -25px;
+    margin-left: -10px;
+    margin-bottom: 30px;
 }
 
 .trade-totals span {
@@ -459,7 +468,6 @@
     margin-left: 15px;
 }
 
-/* Status Messages */
 .global-checkmark {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -507,7 +515,6 @@
     font-size: 0.9em;
 }
 
-/* Discount Section */
 .discount-container {
     margin-top: -25px;
     margin-left: 0px;
@@ -517,7 +524,7 @@
 
 .discount-input {
     font-family: 'Comfortaa';
-    width: 100%;
+    width: 50%;
     padding: 12px 20px;
     margin-top: 25px;
     margin-bottom: 5px;

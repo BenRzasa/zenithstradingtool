@@ -83,17 +83,11 @@ th {
     vertical-align: middle;
     text-align: center;
     line-height: 1;
+    font-family: 'Segoe UI';
 }
 
 .table-wrapper h2 {
-    font-family:
-        "Segoe UI",                /* Windows */
-        -apple-system,             /* macOS/iOS San Francisco */
-        BlinkMacSystemFont,        /* macOS Chrome */
-        "Roboto",                  /* Android/Google */
-        "Helvetica Neue",          /* Fallback sans-serif */
-        Arial,                     /* Universal fallback */
-        sans-serif;                /* Final generic fallback */
+    font-family: "Segoe UI";
     text-align: center;
     vertical-align: middle;
     font-size: 21px;
@@ -275,29 +269,8 @@ td {
 
 .table-footer li {
     font-size: 18px;
-    margin-bottom: -3px;
+    margin-bottom: 0px;
     margin-left: -5px;
-}
-
-.completion-toggle {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    transform:scale(1.25);
-    margin-left: 40px;
-}
-
-.completion-toggle label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--text-col);
-}
-
-.completion-toggle input {
-    margin: 0;
-    cursor: pointer;
 }
 
 .copy-filter-container {
@@ -317,7 +290,7 @@ td {
     margin-top: 5px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 1em;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -335,7 +308,7 @@ td {
 
 .copy-confirmation {
     color: var(--accent-color);
-    font-size: 0.8em;
+    font-size: 1em;
     margin-top: 5px;
     animation: fadeIn 0.3s ease-in;
 }
