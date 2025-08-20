@@ -22,10 +22,9 @@
 }
 
 .spin-button {
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  top: 0%;
+  left: 25%;
   width: 100px;
   height: 60px;
   font-size: 24px;
@@ -109,6 +108,7 @@
   from {
     box-shadow: 0 0 0 0.3vw white, 0 0 2vw rgba(0, 0, 0, 0.5);
   }
+
   to {
     box-shadow: 0 0 0 0.5vw rgba(255, 255, 255, 0.7), 0 0 3vw rgba(0, 0, 0, 0.7);
   }

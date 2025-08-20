@@ -1,12 +1,3 @@
-// Value Chart page. Provides functionality below:
-/*
-    - Dynamically switch between UV (10x AV), NV (100x AV) and SV (1000x AV)
-    - and more
-    - Switch between John and NAN's values (based off the dictionaries)
-    - Users can copy search filters of all ores in the layer
-    - Display various global and layer-specific stats
-*/
-
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { MiscContext } from "../context/MiscContext";
@@ -25,8 +16,8 @@ import "../styles/LayerTable.css";
 import "../styles/AllGradients.css";
 
 function ValueChart() {
-  // Import CSV data to ensure persistency
   const {
+    hotkeysEnabled,
     currentMode,
     customMultiplier,
     valueMode,
@@ -75,7 +66,7 @@ function ValueChart() {
 
   useEffect(() => {
     const csvData = getCurrentCSV();
-    const hasData = Object.values(csvData).some(val => val > 0);
+    const hasData = Object.values(csvData).some((val) => val > 0);
 
     if (!hasData) {
       setShowCSVLoader(true);
@@ -243,6 +234,34 @@ function ValueChart() {
     setValueMode("custom");
     setShowCustomModal(false);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Don't trigger if typing in an input/textarea or hotkeys disabled
+      if (
+        !hotkeysEnabled ||
+        ["INPUT", "TEXTAREA", "SELECT"].includes(
+          document.activeElement?.tagName
+        )
+      ) {
+        return;
+      }
+
+      // Check for modifier keys (don't trigger if Ctrl/Alt/Shift/Meta is pressed)
+      if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
+
+      switch (e.key.toLowerCase()) {
+        case "c":
+          setShowCSVLoader(!showCSVLoader);
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hotkeysEnabled, showCSVLoader]);
 
   return (
     <div className="outer-frame">

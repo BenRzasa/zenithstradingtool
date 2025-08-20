@@ -1192,7 +1192,7 @@
 
 .color-template-obliviril {
     background: linear-gradient(64deg, #430000 0%, #ff3a3a 20%, #ff0000 30%, #ff9292 40%, #ffffff 50%, #ff9292 60%, #ff0000 70%, #ff3a3a 80%, #430000 100%);
-    --wheel-color: #ffffff;
+    --wheel-color: #ff3a3a;
 }
 
 .color-template-enceladrum {
