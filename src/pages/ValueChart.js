@@ -90,7 +90,7 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: "Aug 18, 2025",
+    zenith: "Aug 24, 2025",
     nan: "Jul 19, 2025",
     john: "Jan 19, 2025",
   });

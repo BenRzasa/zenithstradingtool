@@ -129,7 +129,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             />
             <span className="sslider"></span>
           </label>
-          <span><p>[{capCompletion === true ? "ENABLED" : "DISABLED"}] This switch will toggle the completion % between being capped at 100% and uncapped.</p></span>
+          <span><p>[{capCompletion === true ? "CAPPED" : "UNCAPPED"}] This switch will toggle the completion % between being capped at 100% and uncapped.</p></span>
           </div>
       </div>
 
@@ -153,6 +153,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             <p><strong>S</strong> - Toggle Settings</p>
             <p><strong>H</strong> - Home</p>
             <p><strong>V</strong> - Value Chart</p>
+            <p><strong>C</strong> - CSV Loader Popup</p>
             <p><strong>T</strong> - Trade Tool</p>
             <p><strong>U</strong> - Custom Values</p>
             <p><strong>R</strong> - Rare Tracker</p>
@@ -166,7 +167,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
       <div className="settings-section">
         <h2 className="section-title">Theme</h2>
         <div className="theme-control">
-          <span>🔆Dark/Light Mode Toggle</span>
+          <span style={{fontSize: "22px"}}>🔆Dark/Light Mode Toggle</span>
           <ThemeSwitch />
         </div>
       </div>
@@ -197,7 +198,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             id="bg-upload"
           />
           <label htmlFor="bg-upload" className="upload-button">
-            📁 Upload Background Image
+            📁 Upload Background Image (or GIF!)
           </label>
           <div className="action-buttons">
           {customBg && (
@@ -213,7 +214,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             onClick={onResetBg}
             className="reset-button"
           >
-            Reset
+            Reset Background
           </button>
           </div>
         </div>

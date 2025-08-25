@@ -1,7 +1,3 @@
-/* ZTT | Homepage
-    The page the user will see upon entering the site
-*/
-
 import React from "react";
 import { GetVersion } from '../utils/GetVersion';
 import { useNavigate } from "react-router-dom";

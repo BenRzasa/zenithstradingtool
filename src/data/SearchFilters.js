@@ -4,9 +4,9 @@
 const searchFilters = [
   "True Rares: sall/utrine/hav/dy/torn/ubri/singu/viol/rhy/egg",
   "Rares: ambr/neutrino/ecto/malb/zyn/cind",
-  "All: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/viol/rhy/Cind/unob/nyrv/ sh",
-  "Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ v/rhy/cind/ecto",
-  "Torn Materials: qy/bla/chron/com/cons/dy/ok/viol/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
+  "All: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ecil/rhy/Cind/ sh",
+  "Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ecil/rhy/cind/ecto",
+  "Torn Materials: qy/bla/chron/com/cons/dy/ok/ecil/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
   "Useful Emblems: auri/boom/blast/bism/egg/ v/exod/hadr/isor/lept/malb/noise/nili/perig/phosp/posit/quark m/ed d/rhy/sola/th q/ult/unob/zyn",
   "Uniques: sh/ñ/vergl/holle/ambe/onyx/chalc/suns/pano/mete",
   "Compounds: quark m/iso/perig/eq",
@@ -38,7 +38,7 @@ const searchFilters = [
   "Abyss: l s/prim/modi/hexf/tetr/maur/ecto/havi",
   "Inner Horizon: amper/nyr/nih/ult/rev/infr/auri/unob/zero/exod/latti",
   "Quintessence: ether/nif/etha/lume/ulir/impe/kryp/vyth",
-  "Interstice: exod/neth/raw/obl/for/enc/vyth",
+  "Interstice: exod/neth/raw/obl/for/encel/vyth",
   "Essences: essence",
   "Empyrean: evra/zeta/kafsi/ochis/qy/rei/vor/tru/wi/pha/prof/ogl/proti/xe/mesm",
 ];

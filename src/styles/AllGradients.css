@@ -827,7 +827,7 @@
 }
 
 .color-template-hadronil {
-    background: linear-gradient(30deg, #ffffff 0%, #b5fffd 13%, #5cd6c2 39%, #6e85ea 69%, #4c26ad 100%);
+    background: linear-gradient(30deg, #ffffff 0%, #ffffff 40%,#5cd6c2 60%, #605996 70%, #23056e 90%);
     --wheel-color: #5cd6c2;
 }
 
@@ -1455,6 +1455,11 @@
 .color-template-fishium {
     background: #99a6e6;
 }
+
+.color-template-goldfishium {
+    background: #e5ad55;
+}
+
 
 .color-template-hollevite {
     background: #ffba2f;

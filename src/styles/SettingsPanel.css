@@ -50,6 +50,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 17px;
 }
 
 .opacity-control {
@@ -80,6 +81,10 @@
   color: white;
 }
 
+.upload-button:hover {
+  background-color: #555;
+}
+
 .action-buttons {
   margin-bottom: 15px;
   display: flex;
@@ -88,6 +93,7 @@
 }
 
 .apply-button {
+  max-width: 150px; 
   flex: 1;
   padding: 10px;
   background-color: #4CAF50;
@@ -101,12 +107,16 @@
 .reset-button {
   flex: 1;
   padding: 10px;
+  max-width: 150px;
   background-color: #f44336;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-family: 'Comfortaa';
+}
+.reset-button:hover {
+  background-color: #ff5555;
 }
 
 .hotkey-info {

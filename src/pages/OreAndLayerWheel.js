@@ -445,7 +445,7 @@ const OreAndLayerWheel = () => {
               gap: "10px",
               paddingBottom: "15px",
               margin: "0 auto",
-              marginBottom: "-10vh",
+              marginBottom: "-50px",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
@@ -468,7 +468,7 @@ const OreAndLayerWheel = () => {
                     updateSetting("useCustomList", e.target.checked)
                   }
                 />
-                Use Custom Ore List:
+                Use Custom Ore List
               </label>
             </div>
             {settings.useCustomList && (
@@ -544,21 +544,22 @@ const OreAndLayerWheel = () => {
                   ×
                 </button>
                 <h3>Selected Ore:</h3>
-                <div
-                  className={`selected-ore-display ${getOreClassName(
-                    selectedOre.name
-                  )}`}
-                >
-                  <img
-                    src={
-                      OreIcons[selectedOre.name.replace(/ /g, "_")] ||
-                      missingIcon
-                    }
-                    alt={`${selectedOre.name} icon`}
-                    className="ore-icon"
-                  />
-                  <span>{selectedOre.name}</span>
-                </div>
+                  <div
+                    className={`selected-ore-display ${getOreClassName(selectedOre.name)}`}
+                    style={{
+                      color: getTextColorForBackground(getOreColor(selectedOre.name))
+                    }}
+                  >
+                    <img
+                      src={
+                        OreIcons[selectedOre.name.replace(/ /g, "_")] ||
+                        missingIcon
+                      }
+                      alt={`${selectedOre.name} icon`}
+                      className="ore-icon"
+                    />
+                    <span>{selectedOre.name}</span>
+                  </div>
                 <div className="ore-stats">
                   <div>
                     <strong>{getModeString()} Completion:</strong>{" "}
@@ -597,6 +598,7 @@ const OreAndLayerWheel = () => {
           <div
             className="csv-usage"
             style={{
+              width: "525px",
               paddingLeft: "15px",
               display: "flex",
               fontSize: "25px",
@@ -604,7 +606,6 @@ const OreAndLayerWheel = () => {
               gap: "8px",
               paddingBottom: "15px",
               margin: "0 auto",
-              marginBottom: "-5vh",
               marginTop: "0vh",
             }}
           >
@@ -666,14 +667,15 @@ const OreAndLayerWheel = () => {
                   ×
                 </button>
                 <h3>Selected Layer:</h3>
-                <div
-                  className="selected-ore-display"
-                  style={{
-                    background: LayerGradients[selectedLayer]?.background,
-                  }}
-                >
-                  <span>{selectedLayer}</span>
-                </div>
+                  <div
+                    className="selected-ore-display"
+                    style={{
+                      background: LayerGradients[selectedLayer]?.background,
+                      color: getTextColorForBackground(getLayerColor(selectedLayer))
+                    }}
+                  >
+                    <span>{selectedLayer}</span>
+                  </div>
                 <div className="ore-stats">
                   <div>
                     <strong>{getModeString()} Completion:</strong>{" "}

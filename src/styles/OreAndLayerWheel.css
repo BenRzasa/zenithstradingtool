@@ -51,6 +51,11 @@ input[type = checkbox] {
   justify-content: center;
 }
 
+.spin-button:hover {
+  background: white; 
+  color: black;
+}
+
 .spin-button:disabled {
   background: #ccc;
   cursor: not-allowed;

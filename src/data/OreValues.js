@@ -217,8 +217,8 @@ export const initialOreValsDict = {
 
   "Marine\n[7000m-7499m]":
   [
-    { name: "Nerolin", zenithVal: 13, johnVal: 12.5, nanVal: 12, customVal: 13 },
-    { name: "Tenebris", zenithVal: 7, johnVal: 8, nanVal: 7, customVal: 7 },
+    { name: "Nerolin", zenithVal: 15, johnVal: 12.5, nanVal: 12, customVal: 15 },
+    { name: "Tenebris", zenithVal: 8, johnVal: 8, nanVal: 7, customVal: 8 },
     { name: "Yilantibris", zenithVal: 6, johnVal: 6, nanVal: 5, customVal: 6 },
     { name: "Aquamarine", zenithVal: 12, johnVal: 12, nanVal: 12, customVal: 12 },
     { name: "Hydrolyth", zenithVal: 8, johnVal: 8, nanVal: 8, customVal: 8 },
@@ -396,10 +396,10 @@ export const initialOreValsDict = {
   "Quintessence\n[11750m-12199m]":
   [
     { name: "Etherfilm", zenithVal: 1000, johnVal: 2000, nanVal: 1000, customVal: 1000 },
-    { name: "Aetherice", zenithVal: 8, johnVal: 8, nanVal: 6, customVal: 8 },
-    { name: "Starniferus", zenithVal: 10, johnVal: 11, nanVal: 8, customVal: 10 },
+    { name: "Aetherice", zenithVal: 9, johnVal: 8, nanVal: 6, customVal: 9 },
+    { name: "Starniferus", zenithVal: 11, johnVal: 11, nanVal: 8, customVal: 11 },
     { name: "Ethanerite", zenithVal: 11, johnVal: 11, nanVal: 8, customVal: 11 },
-    { name: "Lumenyl", zenithVal: 11, johnVal: 11, nanVal: 9, customVal: 11 },
+    { name: "Lumenyl", zenithVal: 12, johnVal: 11, nanVal: 9, customVal: 12 },
     { name: "Ulirazite", zenithVal: 7, johnVal: 5, nanVal: 6, customVal: 7 },
     { name: "Impervium", zenithVal: 18, johnVal: 19.5, nanVal: 15, customVal: 18 },
     { name: "Kryposilus", zenithVal: 7, johnVal: 7, nanVal: 7, customVal: 7 },
