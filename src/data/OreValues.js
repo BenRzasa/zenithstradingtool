@@ -6,7 +6,7 @@ export const initialOreValsDict = {
     { name: "Neutrine", obtainVal: 0.01, zenithVal: 0.01, johnVal: 0.01, nanVal: 0.01, customVal: 0.01 },
     { name: "Torn Fabric", obtainVal: 0.002, zenithVal: 0.002, johnVal: 0.002, nanVal: 0.002, customVal: 0.002 },
     { name: "Singularity", obtainVal: 0.001, zenithVal: 0.001, johnVal: 0.001, nanVal: 0.001, customVal: 0.001 },
-    { name: "Egg", obtainVal: 0.025, zenithVal: 0.02, johnVal: 0.02, nanVal: 0.02, customVal: 0.02 },
+    { name: "Egg", obtainVal: 0.025, zenithVal: 0.025, johnVal: 0.02, nanVal: 0.02, customVal: 0.025 },
     { name: "Violecil", obtainVal: 0.2, zenithVal: 0.2, johnVal: 0.2, nanVal: 0.2, customVal: 0.2 },
     { name: "Dystranum", obtainVal: 1/15, zenithVal: 1/15, johnVal: 1/15, nanVal: 1/15, customVal: 1/15 },
     { name: "Havicron", obtainVal: 0.1, zenithVal: 0.1, johnVal: 0.1, nanVal: 0.1, customVal: 0.1 },
@@ -145,7 +145,7 @@ export const initialOreValsDict = {
     { name: "Prismaline", zenithVal: 4, johnVal: 4, nanVal: 4, customVal: 4 },
     { name: "Miramire", zenithVal: 8, johnVal: 10, nanVal: 10, customVal: 8 },
     { name: "Stratocrit", zenithVal: 7, johnVal: 6, nanVal: 5, customVal: 7 },
-    { name: "Tantalum", zenithVal: 4, johnVal: 4, nanVal: 4, customVal: 4 },
+    { name: "Tantalum", zenithVal: 3.5, johnVal: 4, nanVal: 4, customVal: 3.5 },
   ],
 
   "Dread\n[4500m-4999m]":
@@ -210,8 +210,8 @@ export const initialOreValsDict = {
     { name: "Larimar", zenithVal: 10, johnVal: 10, nanVal: 10, customVal: 10 },
     { name: "Frostarium", zenithVal: 10, johnVal: 10, nanVal: 11, customVal: 10 },
     { name: "Anetrium", zenithVal: 14, johnVal: 13.5, nanVal: 15, customVal: 14 },
-    { name: "Polarveril", zenithVal: 2, johnVal: 2, nanVal: 2, customVal: 2 },
-    { name: "Cryonine", zenithVal: 3, johnVal: 3.5, nanVal: 3, customVal: 3 },
+    { name: "Polarveril", zenithVal: 3, johnVal: 2, nanVal: 2, customVal: 3 },
+    { name: "Cryonine", zenithVal: 4, johnVal: 3.5, nanVal: 3, customVal: 4 },
     { name: "Soimabarium", zenithVal: 8, johnVal: 8, nanVal: 10, customVal: 8 }
   ],
 

@@ -52,6 +52,11 @@ function SecondaryCSVPopup({ onClose }) {
             value={csvInput}
             onChange={(e) => setCSVInput(e.target.value)}
             placeholder="Paste your secondary CSV string here..."
+            style={{
+              backgroundColor: "var(--background-color)",
+              color: "var(--text-color)",
+              outline: "2px solid var(--switch-outline)"
+            }}
           />
         </div>
         <div className="button-container">

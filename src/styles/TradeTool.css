@@ -147,6 +147,13 @@
     overflow: hidden;
 }
 
+.filter-thing {
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.8);
+    margin-top: 45px;
+}
+
 .selected-row {
     background-color: rgba(255, 255, 255, 0.6) !important;
 }
@@ -261,7 +268,7 @@
     margin-top: 15px;
     margin-bottom: 5px;
     font-family: 'Comfortaa';
-    width: 75%;
+    width: 55%;
     padding: 12px 20px;
     font-size: 20px;
     border: 2px solid var(--csv-outline);
@@ -444,7 +451,7 @@
     min-width: 50px;
 }
 
-.summary-header h2 {
+h2 {
     font-family: 'Montserrat';
 }
 

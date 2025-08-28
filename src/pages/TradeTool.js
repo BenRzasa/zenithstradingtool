@@ -36,7 +36,8 @@ function TradeTool() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [searchFocused, setSearchFocused] = useState(false)
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [allSelected, setAllSelected] = useState(false);
 
   // Refs for DOM access
   const searchInputRef = useRef(null);
@@ -397,6 +398,13 @@ function TradeTool() {
       });
   }
 
+  const selectAllCurrentOres = () => {
+    tradeState.tradeOres.forEach((ore) => {
+      toggleOreSelection(ore.name)
+    });
+    setAllSelected(!allSelected);
+  };
+
   return (
     <div>
       <NavBar />
@@ -433,6 +441,7 @@ function TradeTool() {
 
           {/* Batch quantity controls */}
           <div className="batch-controls">
+            <h2 style={{marginTop: "-6px"}}>Batch Selector</h2>
             <div className="batch-quantity-container">
               <div className="batch-mode-selector">
                 <span>Selected: {tradeState.selectedOres.length} ores</span>
@@ -477,10 +486,11 @@ function TradeTool() {
                     name="batch-quantity"
                     type="number"
                     min="0"
+                    step={batchMode === 'quantity' ? "1" : "any"}
                     value={tradeState.batchQuantity === 0 ? "" : tradeState.batchQuantity}
                     onChange={(e) => setTradeState(prev => ({
                       ...prev,
-                      batchQuantity: Math.max(0, parseInt(e.target.value) || 0)
+                      batchQuantity: `${batchMode === 'quantity' ? Math.max(0, parseInt(e.target.value) || 0) : Math.max(0, e.target.value || 0)}`
                     }))}
                     className="quantity-input"
                     onClick={(e) => e.stopPropagation()}
@@ -602,22 +612,30 @@ function TradeTool() {
             <div className="summary-header">
               <h2>&nbsp;&nbsp;Current Trade</h2>
               {totals.totalAV > 0.00 && (
-              <div className="filter-thing">
-                <div className="box-button">
-                  <button
-                    className={copiedFilter ? "color-template-mesonyte" : ""}
-                    onClick={generateSearchFilter}
-                    title="Generate and copy search filter"
-                  >
-                    Generate Search Filter
-                  </button>
+                <div className="filter-thing">
+                  <div className="box-button" style={{maxWidth: "250px"}}>
+                    <button
+                      className={copiedFilter ? "color-template-mesonyte" : ""}
+                      onClick={generateSearchFilter}
+                      title="Generate and copy search filter"
+                    >
+                      Generate Search Filter
+                    </button>
+                  </div>
+                  {copiedFilter && (
+                    <div 
+                      className="copy-confirmation"
+                    >✓ Copied to clipboard!</div>
+                  )}
+                  <div className="box-button" style={{maxWidth: "250px", marginTop:"5px"}}>
+                    <button
+                      onClick={selectAllCurrentOres}
+                      title="Select all ores currently in table"
+                    >
+                    {allSelected ? "Select All" : "Deselect All"}
+                    </button>
+                  </div>
                 </div>
-                {copiedFilter && (
-                  <div 
-                    className="copy-confirmation"
-                  >✓ Copied to clipboard!</div>
-                )}
-              </div>
               )}
             </div>
             {/* Totals and inventory status */}
