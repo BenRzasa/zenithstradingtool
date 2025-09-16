@@ -4,7 +4,7 @@ nav {
   width: 165px;
   height: fit-content;
   justify-content: space-between;
-  font-family: 'Comfortaa';
+  font-family: "Montserrat";
   position: fixed !important;
   padding: 12px;
   z-index: 2;
@@ -13,29 +13,30 @@ nav {
   border-radius: 15px;
   cursor: pointer;
   font-size: 20px;
+  transition: all 0.1s ease-out;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    gap: 5px;
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline;
+  display: inline;
 }
 
 nav ul li a {
-    text-decoration: none;
-    color: var(--accent-color);
-    font-weight: bold;
+  text-decoration: none;
+  color: var(--accent-color);
+  font-weight: bold;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .dropdown-menu {

@@ -4,7 +4,6 @@ import { MiscContext } from "../context/MiscContext";
 import { useWheel } from "../context/WheelContext";
 import NavBar from "../components/NavBar";
 import { OreIcons } from "../data/OreIcons";
-import { LayerGradients } from "../data/LayerGradients";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
 import "../styles/AllGradients.css";
 import "../styles/OreAndLayerWheel.css";
@@ -43,21 +42,22 @@ const OreAndLayerWheel = () => {
   const [orePrizeNumber, setOrePrizeNumber] = useState(0);
   const [layerPrizeNumber, setLayerPrizeNumber] = useState(0);
 
-  const layerColors = [
-    "#8A2BE2",
-    "#5F9EA0",
-    "#D2691E",
-    "#6495ED",
-    "#DC143C",
-    "#006400",
-  ];
+  const layerColors = [];
 
   const getMatchingLayerName = useCallback(
     (layerName) => {
-      const matchingKey = Object.keys(oreValsDict).find((key) =>
-        key.toLowerCase().includes(layerName.toLowerCase())
+      // Find layer by name in the new structure
+      const matchingLayer = Object.values(oreValsDict).find((layer) =>
+        layer.layerName.toLowerCase().includes(layerName.toLowerCase())
       );
-      return matchingKey || layerName;
+
+      if (matchingLayer) {
+        // Trim at the first newline if it exists
+        const trimmedName = matchingLayer.layerName.split("\n")[0];
+        return trimmedName;
+      }
+
+      return layerName;
     },
     [oreValsDict]
   );
@@ -74,13 +74,17 @@ const OreAndLayerWheel = () => {
 
   const calculateLayerCompletion = useCallback(
     (layerName) => {
-      const exactLayerName = getMatchingLayerName(layerName);
-      const layerOres = oreValsDict[exactLayerName] || [];
+      // Find the layer by name in the new structure
+      const layer = Object.values(oreValsDict).find(
+        (layer) => layer.layerName === layerName
+      );
+
+      if (!layer) return 0;
 
       let totalCompletion = 0;
       let countedOres = 0;
 
-      layerOres.forEach((ore) => {
+      layer.layerOres.forEach((ore) => {
         const value = valueFunctions.calculateValue(ore);
         if (value > 0) {
           const completion = calculateOreCompletion(ore) / 100;
@@ -91,8 +95,9 @@ const OreAndLayerWheel = () => {
 
       return countedOres > 0 ? (totalCompletion / countedOres) * 100 : 0;
     },
-    [getMatchingLayerName, oreValsDict, valueFunctions, calculateOreCompletion]
+    [oreValsDict, valueFunctions, calculateOreCompletion]
   );
+
   const calculateOreValue = useCallback(
     (ore) => {
       const inventory = csvData[ore.name] || 0;
@@ -104,11 +109,16 @@ const OreAndLayerWheel = () => {
 
   const calculateLayerValue = useCallback(
     (layerName) => {
-      const exactLayerName = getMatchingLayerName(layerName);
-      const layerOres = oreValsDict[exactLayerName] || [];
+      // Find the layer by name in the new structure
+      const layer = Object.values(oreValsDict).find(
+        (layer) => layer.layerName === layerName
+      );
+
+      if (!layer) return 0;
+
       let totalValue = 0;
 
-      layerOres.forEach((ore) => {
+      layer.layerOres.forEach((ore) => {
         const value = calculateOreValue(ore);
         if (!isNaN(value)) {
           totalValue += value;
@@ -117,26 +127,33 @@ const OreAndLayerWheel = () => {
 
       return parseFloat(totalValue.toFixed(2));
     },
-    [getMatchingLayerName, oreValsDict, calculateOreValue]
+    [oreValsDict, calculateOreValue]
   );
 
   const getFilteredOres = useCallback(() => {
+    // Get all ores from the new structure
     let ores = Object.values(oreValsDict)
-      .flat()
+      .flatMap((layer) => layer.layerOres)
       .filter((ore) => {
         // Exclude ores that belong to the Essences layer
-        return !Object.entries(oreValsDict).some(
-          ([layerName, layerOres]) =>
-            layerName.includes("Essences") &&
-            layerOres.some((lo) => lo.name === ore.name)
+        return !Object.values(oreValsDict).some(
+          (layer) =>
+            layer.layerName.includes("Essences") &&
+            layer.layerOres.some((lo) => lo.name === ore.name)
         );
       });
 
     if (!settings.includeOreRaresAndTrueRares) {
-      const rareOres = [
-        ...(oreValsDict["Rares\nMore Common Than 1/33,333"] || []),
-        ...(oreValsDict["True Rares\n1/33,333 or Rarer"] || []),
-      ].map((ore) => ore.name);
+      // Find rares and true rares layers by name
+      const rareLayers = Object.values(oreValsDict).filter(
+        (layer) =>
+          layer.layerName.includes("Rares") ||
+          layer.layerName.includes("True Rares")
+      );
+
+      const rareOres = rareLayers.flatMap((layer) =>
+        layer.layerOres.map((ore) => ore.name)
+      );
 
       ores = ores.filter((ore) => !rareOres.includes(ore.name));
     }
@@ -152,7 +169,6 @@ const OreAndLayerWheel = () => {
       }
     }
 
-    // Modified completion filtering to use current value mode
     if (!settings.includeOver100Completion) {
       ores = ores.filter((ore) => {
         const completion = calculateOreCompletion(ore);
@@ -171,22 +187,30 @@ const OreAndLayerWheel = () => {
   ]);
 
   const getFilteredLayers = useCallback(() => {
-    let layers = Object.keys(LayerGradients).filter(
-      (layer) => layer !== "Essences"
-    );
+    // Get layer names from the new structure
+    let layers = Object.values(oreValsDict)
+      .map((layer) => layer.layerName)
+      .filter((layerName) => !layerName.includes("Essences"));
+
+    // Filter out rares and true rares if needed
     if (!settings.includeRaresAndTrueRares) {
       layers = layers.filter(
-        (layer) => !["Rares", "True Rares"].includes(layer)
+        (layerName) =>
+          !layerName.includes("Rares") && !layerName.includes("True Rares")
       );
     }
+
+    // Filter out layers with 100%+ completion if needed
     if (!settings.includeOver100LayerCompletion) {
-      layers = layers.filter((layer) => {
-        const completion = calculateLayerCompletion(layer);
+      layers = layers.filter((layerName) => {
+        const completion = calculateLayerCompletion(layerName);
         return completion < 100;
       });
     }
+
     return layers;
   }, [
+    oreValsDict,
     settings.includeRaresAndTrueRares,
     settings.includeOver100LayerCompletion,
     calculateLayerCompletion,
@@ -210,26 +234,25 @@ const OreAndLayerWheel = () => {
     getFilteredLayers,
   ]);
 
-  const getOreColor = (oreName) => {
+  const getOreColor = useCallback((oreName) => {
     const tempEl = document.createElement("div");
     const className = `color-template-${oreName
       .toLowerCase()
       .replace(/ /g, "-")}`;
     tempEl.className = className;
     document.body.appendChild(tempEl);
-    // First try to get the CSS variable
+
     const wheelColor = getComputedStyle(tempEl)
       .getPropertyValue("--wheel-color")
       .trim();
-    // If --wheel-color exists, use it
     if (wheelColor && wheelColor !== "") {
       document.body.removeChild(tempEl);
       return wheelColor;
     }
-    // Otherwise get the computed background color
+
     const bgColor = getComputedStyle(tempEl).backgroundColor;
     document.body.removeChild(tempEl);
-    // Fallback to a default color if needed
+
     if (
       !bgColor ||
       bgColor === "rgba(0, 0, 0, 0)" ||
@@ -238,24 +261,29 @@ const OreAndLayerWheel = () => {
       return "#cccccc";
     }
     return bgColor;
-  };
+  }, []);
 
-  const getLayerColor = (layerName) => {
-    const gradient = LayerGradients[layerName]?.background;
-    // First try to get CSS variable if it exists
-    const tempEl = document.createElement("div");
-    tempEl.style.background = gradient || "";
-    document.body.appendChild(tempEl);
-    // Extract first color from gradient
-    if (gradient && gradient.includes("gradient")) {
-      const colorMatch = gradient.match(/#[0-9a-fA-F]{3,6}|rgba?\([^)]+\)/);
-      return colorMatch ? colorMatch[0] : "#333333";
-    }
-    // Solid color fallback
-    return gradient || "#333333";
-  };
+  const getLayerColor = useCallback(
+    (layerName) => {
+      const layer = Object.values(oreValsDict).find(
+        (l) => l.layerName === layerName
+      );
+      const background = layer?.background || "#333333";
 
-  const getTextColorForBackground = (bgColor) => {
+      // If it's a gradient, extract the first color
+      if (background.includes("gradient")) {
+        // Match the first color in the gradient (hex or rgb)
+        const colorMatch = background.match(/#[0-9a-fA-F]{3,6}|rgba?\([^)]+\)/);
+        return colorMatch ? colorMatch[0] : "#333333";
+      }
+
+      // If it's already a solid color, return it as-is
+      return background;
+    },
+    [oreValsDict]
+  );
+
+  const getTextColorForBackground = useCallback((bgColor) => {
     if (bgColor.startsWith("var(") || bgColor.includes("gradient")) {
       return "#ffffff";
     }
@@ -291,7 +319,7 @@ const OreAndLayerWheel = () => {
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
     return luminance > 0.5 ? "#000000" : "#ffffff";
-  };
+  }, []);
 
   const oreWheelData = useMemo(() => {
     if (!allOres || allOres.length === 0) {
@@ -312,7 +340,7 @@ const OreAndLayerWheel = () => {
         },
       };
     });
-  }, [allOres]);
+  }, [allOres, getOreColor, getTextColorForBackground]);
 
   const layerWheelData = useMemo(() => {
     if (!allLayers || allLayers.length === 0) {
@@ -323,17 +351,22 @@ const OreAndLayerWheel = () => {
         },
       ];
     }
-    return allLayers.map((layer) => {
-      const bgColor = getLayerColor(layer);
+    return allLayers.map((layerName) => {
+      const bgColor = getLayerColor(layerName);
       return {
-        option: layer,
+        option: getMatchingLayerName(layerName),
         style: {
           backgroundColor: bgColor,
           textColor: getTextColorForBackground(bgColor),
         },
       };
     });
-  }, [allLayers]);
+  }, [
+    allLayers,
+    getMatchingLayerName,
+    getLayerColor,
+    getTextColorForBackground,
+  ]);
 
   const spinOreWheel = () => {
     if (!oreWheelData || oreWheelData.length === 0) {
@@ -544,30 +577,34 @@ const OreAndLayerWheel = () => {
                   ×
                 </button>
                 <h3>Selected Ore:</h3>
-                  <div
-                    className={`selected-ore-display ${getOreClassName(selectedOre.name)}`}
-                    style={{
-                      color: getTextColorForBackground(getOreColor(selectedOre.name))
-                    }}
-                  >
-                    <img
-                      src={
-                        OreIcons[selectedOre.name.replace(/ /g, "_")] ||
-                        missingIcon
-                      }
-                      alt={`${selectedOre.name} icon`}
-                      className="ore-icon"
-                    />
-                    <span>{selectedOre.name}</span>
-                  </div>
+                <div
+                  className={`selected-ore-display ${getOreClassName(
+                    selectedOre.name
+                  )}`}
+                  style={{
+                    color: getTextColorForBackground(
+                      getOreColor(selectedOre.name)
+                    ),
+                  }}
+                >
+                  <img
+                    src={
+                      OreIcons[selectedOre.name.replace(/ /g, "_")] ||
+                      missingIcon
+                    }
+                    alt={`${selectedOre.name} icon`}
+                    className="ore-icon"
+                  />
+                  <span>{selectedOre.name}</span>
+                </div>
                 <div className="ore-stats">
                   <div>
                     <strong>{getModeString()} Completion:</strong>{" "}
-                    {calculateOreCompletion(selectedOre).toFixed(2)}%
+                    {calculateOreCompletion(selectedOre).toFixed(3)}%
                   </div>
                   <div>
                     <strong>Total {getModeString()}s:</strong>{" "}
-                    {calculateOreValue(selectedOre).toFixed(2)}
+                    {calculateOreValue(selectedOre).toFixed(3)}
                   </div>
                   <div>
                     <strong># in Inventory:</strong>{" "}
@@ -667,23 +704,25 @@ const OreAndLayerWheel = () => {
                   ×
                 </button>
                 <h3>Selected Layer:</h3>
-                  <div
-                    className="selected-ore-display"
-                    style={{
-                      background: LayerGradients[selectedLayer]?.background,
-                      color: getTextColorForBackground(getLayerColor(selectedLayer))
-                    }}
-                  >
-                    <span>{selectedLayer}</span>
-                  </div>
+                <div
+                  className="selected-ore-display"
+                  style={{
+                    background: getLayerColor(selectedLayer),
+                    color: getTextColorForBackground(
+                      getLayerColor(selectedLayer)
+                    ),
+                  }}
+                >
+                  <span>{getMatchingLayerName(selectedLayer)}</span>
+                </div>
                 <div className="ore-stats">
                   <div>
                     <strong>{getModeString()} Completion:</strong>{" "}
-                    {calculateLayerCompletion(selectedLayer).toFixed(2)}%
+                    {calculateLayerCompletion(selectedLayer).toFixed(3)}%
                   </div>
                   <div>
                     <strong>Total {getModeString()}s:</strong>{" "}
-                    {calculateLayerValue(selectedLayer).toFixed(2)}
+                    {calculateLayerValue(selectedLayer).toFixed(3)}
                   </div>
                 </div>
               </div>

@@ -3,10 +3,11 @@ import { initialOreValsDict } from "./OreValues";
 
 // Extract all ore names from the dictionary
 const allOreNames = [];
-for (const category in initialOreValsDict) {
-  if (initialOreValsDict.hasOwnProperty(category)) {
-    const oresInCategory = initialOreValsDict[category];
-    for (const ore of oresInCategory) {
+for (const layerKey in initialOreValsDict) {
+  if (initialOreValsDict.hasOwnProperty(layerKey)) {
+    const layer = initialOreValsDict[layerKey];
+    const oresInLayer = layer.layerOres; // Access the layerOres array
+    for (const ore of oresInLayer) {
       allOreNames.push(ore.name);
     }
   }
@@ -28,4 +29,3 @@ uniqueOreNames.sort((a, b) => {
 });
 
 export const OreNames = uniqueOreNames;
-console.log(uniqueOreNames);

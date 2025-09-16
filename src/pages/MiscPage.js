@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import NavBar from "../components/NavBar";
@@ -26,7 +25,7 @@ function MiscPage() {
 
   /* Generate CSS class name for ore gradient */
   const getOreClassName = (oreName) => {
-    return `color-template-${oreName.toLowerCase().replace(/ /g, '-')}`;
+    return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
   };
 
   // Array of cards - can be expanded with new content and customized
@@ -36,7 +35,8 @@ function MiscPage() {
     {
       // Search filters
       id: "card1",
-      title: "Search Filters (Click the Icon to Copy & Paste in your inventory search bar)",
+      title:
+        "Search Filters (Click the Icon to Copy & Paste in your inventory search bar)",
       content: (
         <div className="search-filters">
           {searchFilters.map((category, index) => {
@@ -46,91 +46,92 @@ function MiscPage() {
             const itemsPart = category.substring(colonIndex + 1);
 
             return (
-                <p key={index}>
-                    <button
-                        className="copy-btn"
-                        onClick={() => copyFilter(category.substring(category.indexOf(":") + 2))}
-                        title="Copy filters"
-                    >
-                        ⎘
-                    </button>
-                    <strong>{titlePart}</strong>
-                    {itemsPart}
-                </p>
+              <p key={index}>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    copyFilter(category.substring(category.indexOf(":") + 2))
+                  }
+                  title="Copy filters"
+                >
+                  ⎘
+                </button>
+                <strong>{titlePart}</strong>
+                {itemsPart}
+              </p>
             );
-        })}
+          })}
         </div>
       ),
     },
     {
       id: "card3",
       title: "Charms (Ordered by Usefulness)",
-      content:
+      content: (
         <div className="charms-box">
           <table className="charms-table">
             <thead>
-            <tr>
-              <th>Charm Name</th>
-              <th>Charm Perk</th>
-            </tr>
-          </thead>
-          <tbody>
-            {charmPerks.map((charm) => (
-              <tr key={charm.name}>
-                <td
-                  className={`name-column ${getOreClassName(charm.ore)}`}
-                  data-text={charm.name}
-                  style={{padding:"5px"}}
-                >
-                  {CharmIcons[charm.name.replace(/ /g, '_')] ? (
-                    <img
-                      src={CharmIcons[charm.name.replace(/ /g, '_')]}
-                      alt={`${charm.name} icon`}
-                      className="ore-icon"
-                      id={`${charm.name}-icon`}
-                      onError={(e) => {
-                        console.error(`Missing icon for: ${charm.name}`);
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  ) : (
-                    <span>
-                      <img
-                        src={missingIcon}
-                        alt="Missing icon"
-                        className="ore-icon"
-                        loading="lazy"
-                      />
-                    </span>
-                  )}
-                  {charm.name}
-                </td>
-                <td className="description-column">
-                  {charm.description}
-                </td>
+              <tr>
+                <th>Charm Name</th>
+                <th>Charm Perk</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>,
+            </thead>
+            <tbody>
+              {charmPerks.map((charm) => (
+                <tr key={charm.name}>
+                  <td
+                    className={`name-column ${getOreClassName(charm.ore)}`}
+                    data-text={charm.name}
+                    style={{ padding: "5px" }}
+                  >
+                    {CharmIcons[charm.name.replace(/ /g, "_")] ? (
+                      <img
+                        src={CharmIcons[charm.name.replace(/ /g, "_")]}
+                        alt={`${charm.name} icon`}
+                        className="ore-icon"
+                        id={`${charm.name}-icon`}
+                        onError={(e) => {
+                          console.error(`Missing icon for: ${charm.name}`);
+                          e.target.style.display = "none";
+                        }}
+                      />
+                    ) : (
+                      <span>
+                        <img
+                          src={missingIcon}
+                          alt="Missing icon"
+                          className="ore-icon"
+                          loading="lazy"
+                        />
+                      </span>
+                    )}
+                    {charm.name}
+                  </td>
+                  <td className="description-column">{charm.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ),
     },
   ];
 
   return (
     <div>
-    <NavBar />
-    <div className="misc-page">
-      <div className="cards-container">
-        {cards.map((card) => (
-          <div key={card.id} className="card">
-            <div className="card2">
-              <h3>{card.title}</h3>
-              {card.content}
+      <NavBar />
+      <div className="misc-page">
+        <div className="cards-container">
+          {cards.map((card) => (
+            <div key={card.id} className="card">
+              <div className="card2">
+                <h3>{card.title}</h3>
+                {card.content}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 }

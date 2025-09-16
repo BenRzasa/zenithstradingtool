@@ -25,7 +25,7 @@
   text-align: center;
   margin-bottom: 30px;
   font-size: 2.5rem;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 /* Reset button specific styles */
@@ -156,7 +156,7 @@
 .count-input-wrapper input {
   width: 100%;
   text-align: center;
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-size: 25px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--table-outline);

@@ -26,9 +26,7 @@ const RareRow = ({
   calculateNumV,
   formatDate,
 }) => {
-  const {
-    getValueForMode,
-  } = useContext(MiscContext);
+  const { getValueForMode } = useContext(MiscContext);
 
   return (
     <tr>

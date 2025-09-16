@@ -21,16 +21,15 @@
   transform: scale(1.5);
 }
 
-input[type = checkbox] {
+input[type="checkbox"] {
   transform: scale(1.5);
   margin-right: 10px;
 }
 
 .csv-usage h1 {
   margin-top: 10px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
-
 
 .spin-button {
   position: relative;
@@ -52,7 +51,7 @@ input[type = checkbox] {
 }
 
 .spin-button:hover {
-  background: white; 
+  background: white;
   color: black;
 }
 

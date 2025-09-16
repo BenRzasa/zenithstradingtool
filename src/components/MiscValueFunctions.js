@@ -16,20 +16,31 @@ export const MiscValueFunctions = ({
     return decimalPart ? decimalPart.length : 0;
   }, []);
 
-  const calculateValue = useCallback((ore) => {
-    const baseValue = getValueForMode(ore);
+  const calculateValue = useCallback(
+    (ore) => {
+      const baseValue = getValueForMode(ore);
 
-    switch (currentMode) {
-      case 1: return baseValue; // AV
-      case 2: return baseValue * 10; // UV
-      case 3: return baseValue * 100; // NV
-      case 4: return baseValue * 500; // TV
-      case 5: return baseValue * 1000; // SV
-      case 6: return baseValue * 50; // RV
-      case 7: return baseValue * customMultiplier; // Custom value (AV #)
-      default: return baseValue; // Default to AV
-    }
-  }, [currentMode, customMultiplier, getValueForMode]);
+      switch (currentMode) {
+        case 1:
+          return baseValue; // AV
+        case 2:
+          return baseValue * 10; // UV
+        case 3:
+          return baseValue * 100; // NV
+        case 4:
+          return baseValue * 500; // TV
+        case 5:
+          return baseValue * 1000; // SV
+        case 6:
+          return baseValue * 50; // RV
+        case 7:
+          return baseValue * customMultiplier; // Custom value (AV #)
+        default:
+          return baseValue; // Default to AV
+      }
+    },
+    [currentMode, customMultiplier, getValueForMode]
+  );
 
   // Calculate base totals (without exclusions)
   const calculateBaseTotals = useCallback(() => {
@@ -41,7 +52,10 @@ export const MiscValueFunctions = ({
     let tableCompletions = [];
     let calculatedOres = [];
 
-    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+    Object.values(oreValsDict).forEach((layer) => {
+      const layerName = layer.layerName;
+      const layerData = layer.layerOres;
+
       // Skip essences
       if (layerName.includes("Essence")) return;
 
@@ -78,7 +92,9 @@ export const MiscValueFunctions = ({
 
       const tableAvgCompletion =
         itemCount > 0 ? tableCompletion / itemCount : 0;
-      tableCompletions.push(capCompletion ? Math.min(1, tableAvgCompletion) : tableAvgCompletion);
+      tableCompletions.push(
+        capCompletion ? Math.min(1, tableAvgCompletion) : tableAvgCompletion
+      );
     });
 
     const avgCompletion =
@@ -93,7 +109,9 @@ export const MiscValueFunctions = ({
       uniqueTotal,
       layerTotal,
       grandTotal,
-      avgCompletion: capCompletion ? Math.min(100, avgCompletion) : avgCompletion, 
+      avgCompletion: capCompletion
+        ? Math.min(100, avgCompletion)
+        : avgCompletion,
       totalOres,
       tableCompletions,
     };
@@ -101,90 +119,96 @@ export const MiscValueFunctions = ({
 
   // Calculate min/max info (with exclusions)
   const calculateExtremes = useCallback(() => {
-  const excludedOres = ["Stone", "Grimstone"];
-  const excludedLayers = [
-    "True Rares\n1/33,333 or Rarer",
-    "Rares\nMore Common Than 1/33,333",
-    "Uniques\nNon-Standard Obtainment",
-    "Compounds\nCrafted via Synthesis",
-    "Surface / Shallow\n[0m-74m]",
-    "Essences\nObtained from Wisps"
-  ];
+    const excludedOres = ["Stone", "Grimstone"];
+    const excludedLayers = [
+      "True Rares",
+      "Rares",
+      "Uniques",
+      "Compounds",
+      "Surface",
+      "Essences",
+    ];
 
-  let minLayer = { value: Infinity, name: "", ore: "" };
-  let maxLayer = { value: -Infinity, name: "", ore: "" };
-  let minOre = { value: Infinity, name: "", layer: "" };
-  let maxOre = { value: -Infinity, name: "", layer: "" };
-  const layerValues = {};
-  let validOresFound = false;
-  let validLayersFound = false;
+    let minLayer = { value: Infinity, name: "", ore: "" };
+    let maxLayer = { value: -Infinity, name: "", ore: "" };
+    let minOre = { value: Infinity, name: "", layer: "" };
+    let maxOre = { value: -Infinity, name: "", layer: "" };
+    const layerValues = {};
+    let validOresFound = false;
+    let validLayersFound = false;
 
-  Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
-    if (excludedLayers.includes(layerName)) return;
+    Object.values(oreValsDict).forEach((layer) => {
+      const layerName = layer.layerName;
+      const layerData = layer.layerOres;
 
-    let layerSum = 0;
-    let layerHasValidOres = false;
-    
-    layerData.forEach((ore) => {
-      if (excludedOres.includes(ore.name)) return;
-      
-      const inventory = csvData[ore.name] || 0;
-      const oreValue = calculateValue(ore);
-      const numV = parseFloat((inventory / oreValue).toFixed(3));
+      if (excludedLayers.includes(layerName)) return;
 
-      validOresFound = true;
-      layerHasValidOres = true;
+      let layerSum = 0;
+      let layerHasValidOres = false;
 
-      if (numV < minOre.value) {
-        minOre = { value: numV, name: ore.name, layer: layerName };
+      layerData.forEach((ore) => {
+        if (excludedOres.includes(ore.name)) return;
+
+        const inventory = csvData[ore.name] || 0;
+        const oreValue = calculateValue(ore);
+        const numV = parseFloat((inventory / oreValue).toFixed(3));
+
+        validOresFound = true;
+        layerHasValidOres = true;
+
+        if (numV < minOre.value) {
+          minOre = { value: numV, name: ore.name, layer: layerName };
+        }
+        if (numV > maxOre.value) {
+          maxOre = { value: numV, name: ore.name, layer: layerName };
+        }
+        layerSum += numV;
+      });
+
+      if (layerHasValidOres) {
+        validLayersFound = true;
+        layerValues[layerName] = layerSum;
+        if (layerSum < minLayer.value) {
+          minLayer = { value: layerSum, name: layerName };
+        }
+        if (layerSum > maxLayer.value) {
+          maxLayer = { value: layerSum, name: layerName };
+        }
       }
-      if (numV > maxOre.value) {
-        maxOre = { value: numV, name: ore.name, layer: layerName };
-      }
-      layerSum += numV;
     });
 
-    if (layerHasValidOres) {
-      validLayersFound = true;
-      layerValues[layerName] = layerSum;
-      if (layerSum < minLayer.value) {
-        minLayer = { value: layerSum, name: layerName };
-      }
-      if (layerSum > maxLayer.value) {
-        maxLayer = { value: layerSum, name: layerName };
-      }
-    }
-  });
+    // Handle cases where no valid data was found
+    const handleDefault = (obj, isValid) =>
+      !isValid ? { ...obj, value: 0, name: "N/A" } : obj;
 
-  // Handle cases where no valid data was found
-  const handleDefault = (obj, isValid) =>
-    !isValid ? { ...obj, value: 0, name: "N/A" } : obj;
-
-  return {
-    minLayer: handleDefault(minLayer, validLayersFound),
-    maxLayer: handleDefault(maxLayer, validLayersFound),
-    minOre: handleDefault(minOre, validOresFound),
-    maxOre: handleDefault(maxOre, validOresFound),
-    layerValues,
-  };
-}, [csvData, oreValsDict, calculateValue]);
+    return {
+      minLayer: handleDefault(minLayer, validLayersFound),
+      maxLayer: handleDefault(maxLayer, validLayersFound),
+      minOre: handleDefault(minOre, validOresFound),
+      maxOre: handleDefault(maxOre, validOresFound),
+      layerValues,
+    };
+  }, [csvData, oreValsDict, calculateValue]);
 
   const calculateIncompleteOres = useCallback(() => {
     const incompleteOres = [];
 
-    Object.entries(oreValsDict).forEach(([layerName, layerData]) => {
+    Object.values(oreValsDict).forEach((layer) => {
+      const layerName = layer.layerName;
+      const layerData = layer.layerOres;
+
       if (layerName.includes("Essences")) return;
 
       layerData.forEach((ore) => {
-
         const inventory = csvData[ore.name] || 0;
         const orePerUnit = calculateValue(ore);
 
-        const completionRatio = orePerUnit > 0
-          ? (capCompletion
+        const completionRatio =
+          orePerUnit > 0
+            ? capCompletion
               ? Math.min(1, inventory / orePerUnit)
-              : inventory / orePerUnit)
-          : 0;
+              : inventory / orePerUnit
+            : 0;
 
         const completionPercentage = completionRatio * 100;
 
@@ -198,7 +222,7 @@ export const MiscValueFunctions = ({
             inventory: inventory,
             required: orePerUnit,
             numV: orePerUnit > 0 ? (inventory / orePerUnit).toFixed(2) : "0",
-            completionRatio: completionRatio
+            completionRatio: completionRatio,
           });
         }
       });
@@ -231,26 +255,19 @@ export const MiscValueFunctions = ({
       maxOre: extremes.maxOre,
       layerValues: extremes.layerValues,
 
-      // Other useful values
-      excluded: {
-        ores: ["Stone", "Grimstone"],
-        layers: [
-          "True Rares\n1/33,333 or Rarer",
-          "Rares\nMore Common Than 1/33,333",
-          "Uniques\nNon-Standard Obtainment",
-          "Compounds\nCrafted via Synthesis",
-          "Surface / Shallow\n[0m-74m]",
-          "Essences\nObtained from Wisps"
-        ],
-      },
-
       // Helper functions
       calculateValue,
       getPrecision,
       // Missing ores for completion
       incompleteOres,
     };
-  }, [calculateBaseTotals, calculateExtremes, calculateValue, getPrecision, calculateIncompleteOres]);
+  }, [
+    calculateBaseTotals,
+    calculateExtremes,
+    calculateValue,
+    getPrecision,
+    calculateIncompleteOres,
+  ]);
 
   return allValues;
 };

@@ -12,7 +12,6 @@ import RareRow from "../components/RareRow";
 import CustomMultiplierInput from "../components/CustomMultiplierInput";
 
 import "../styles/RareFindsTracker.css";
-import { initialOreValsDict } from "../data/OreValues";
 
 import patik from "../images/misc/patik.png";
 
@@ -24,6 +23,7 @@ const RareFindsTracker = () => {
     customMultiplier,
     getValueForMode,
     useObtainRateVals,
+    oreValsDict,
   } = useContext(MiscContext);
 
   /*
@@ -43,14 +43,22 @@ const RareFindsTracker = () => {
   // eslint-disable-next-line
   const modeStr = useMemo(() => {
     switch (currentMode) {
-      case 1: return "AV"; // AV
-      case 2: return "UV"; // UV
-      case 3: return "NV"; // NV
-      case 4: return "TV"; // TV
-      case 5: return "SV"; // SV
-      case 6: return "RV"; // RV
-      case 7: return "CV";  // Custom
-      default: return "AV"; // Default to AV
+      case 1:
+        return "AV"; // AV
+      case 2:
+        return "UV"; // UV
+      case 3:
+        return "NV"; // NV
+      case 4:
+        return "TV"; // TV
+      case 5:
+        return "SV"; // SV
+      case 6:
+        return "RV"; // RV
+      case 7:
+        return "CV"; // Custom
+      default:
+        return "AV"; // Default to AV
     }
   });
 
@@ -100,15 +108,31 @@ const RareFindsTracker = () => {
   ];
 
   // Get rares data (bracket notation for string names)
-  const raresData = (initialOreValsDict["Rares\nMore Common Than 1/33,333"].concat(initialOreValsDict["True Rares\n1/33,333 or Rarer"]));
+  const raresData = useMemo(() => {
+    const allRares = [];
 
-  // Need to fix this - should NOT need to hard-code the gradients in...
-  const raresGradient = `linear-gradient(90deg, #ffcc66 0%, #f9f575 20%,
-                       #f07f53 42.2%, #ec82ff 80%, #b050eb 100%)`;
-  const superRaresGradient = `linear-gradient(135deg, #fdfcef 0%,
-                            #d3f8f8 20%, #faedfd 30%, #f2caff 37.5%,
-                            #ffffff 50%, #ffd9a1 62.5%, #edebd6 70%,
-                            #ecf9df 80%, #b7dce1 100%)`;
+    // Find rares and true rares layers in the new structure
+    Object.values(oreValsDict).forEach((layer) => {
+      if (
+        layer.layerName.includes("Rares") ||
+        layer.layerName.includes("True Rares")
+      ) {
+        allRares.push(...layer.layerOres);
+      }
+    });
+
+    return allRares;
+  }, [oreValsDict]);
+
+  const raresGradient = oreValsDict.find(
+    (layer) =>
+      layer.layerName.includes("Rares") &&
+      !layer.layerName.includes("True Rares")
+  )?.background;
+
+  const superRaresGradient = oreValsDict.find((layer) =>
+    layer.layerName.includes("True Rares")
+  )?.background;
 
   // Split rares into two groups
   // Filter the raresData (section of John value dict) by name (reference
@@ -118,33 +142,30 @@ const RareFindsTracker = () => {
     superRareOres.includes(ore.name)
   );
 
-  // Calculate total rare finds
+  // Calculate totals
   const totalRareFinds = rareOres.reduce((total, item) => {
     return total + (rareFindsData[item.name] || 0);
   }, 0);
 
-  // Calculate total super rare finds
-  const totalSuperRareFinds = superRareOres.reduce((total, oreName) => {
-    return total + (rareFindsData[oreName] || 0);
+  const totalSuperRareFinds = superRares.reduce((total, item) => {
+    return total + (rareFindsData[item.name] || 0);
   }, 0);
 
-  // Calculate the total value of rares found
   const totalRareVal = rareOres
     .reduce((sum, item) => {
       const count = rareFindsData[item.name] || 0;
       const value = useObtainRateVals ? item.obtainVal : getValueForMode(item);
       return sum + parseFloat(calculateNumV(value, count));
     }, 0)
-    .toFixed(2); // Apply toFixed AFTER reduce
+    .toFixed(2);
 
-  // Calculate the total value of super rares found
   const totalSuperRareVal = superRares
     .reduce((sum, item) => {
       const count = rareFindsData[item.name] || 0;
       const value = useObtainRateVals ? item.obtainVal : getValueForMode(item);
       return sum + parseFloat(calculateNumV(value, count));
     }, 0)
-    .toFixed(2); // Apply toFixed AFTER reduce
+    .toFixed(2);
 
   // Update last updated date for an ore
   const updateLastUpdated = (oreName) => {
@@ -182,46 +203,46 @@ const RareFindsTracker = () => {
   };
 
   // Reset rare finds data with options
- const resetRareFinds = (resetType = 'all') => {
-  const messages = {
-    all: `WARNING: This will permanently delete ALL your rare finds data.\nThis cannot be undone!\nAre you sure you want to reset?`,
-    rares: `WARNING: This will permanently delete your REGULAR RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`,
-    superRares: `WARNING: This will permanently delete your SUPER RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`
+  const resetRareFinds = (resetType = "all") => {
+    const messages = {
+      all: `WARNING: This will permanently delete ALL your rare finds data.\nThis cannot be undone!\nAre you sure you want to reset?`,
+      rares: `WARNING: This will permanently delete your REGULAR RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`,
+      superRares: `WARNING: This will permanently delete your SUPER RARES data only.\nThis cannot be undone!\nAre you sure you want to reset?`,
+    };
+
+    if (!window.confirm(messages[resetType])) return;
+
+    if (resetType === "all") {
+      // Clear both state and localStorage directly
+      setRareFindsData({});
+      setLastUpdatedDates({});
+      localStorage.removeItem("rareFindsData");
+      localStorage.removeItem("rareFindsLastUpdated");
+      return;
+    }
+
+    // For partial resets, create new objects without the specified ores
+    const oresToDelete = resetType === "rares" ? rareOres : superRares;
+    setRareFindsData((prev) => {
+      const newData = { ...prev };
+      oresToDelete.forEach((ore) => delete newData[ore.name]);
+      // Update localStorage after state is updated
+      setTimeout(() => {
+        localStorage.setItem("rareFindsData", JSON.stringify(newData));
+      }, 0);
+      return newData;
+    });
+
+    setLastUpdatedDates((prev) => {
+      const newDates = { ...prev };
+      oresToDelete.forEach((ore) => delete newDates[ore.name]);
+      // Update localStorage after state is updated
+      setTimeout(() => {
+        localStorage.setItem("rareFindsLastUpdated", JSON.stringify(newDates));
+      }, 0);
+      return newDates;
+    });
   };
-
-  if (!window.confirm(messages[resetType])) return;
-
-  if (resetType === 'all') {
-    // Clear both state and localStorage directly
-    setRareFindsData({});
-    setLastUpdatedDates({});
-    localStorage.removeItem("rareFindsData");
-    localStorage.removeItem("rareFindsLastUpdated");
-    return;
-  }
-
-  // For partial resets, create new objects without the specified ores
-  const oresToDelete = resetType === 'rares' ? rareOres : superRares;
-  setRareFindsData(prev => {
-    const newData = {...prev};
-    oresToDelete.forEach(ore => delete newData[ore.name]);
-    // Update localStorage after state is updated
-    setTimeout(() => {
-      localStorage.setItem("rareFindsData", JSON.stringify(newData));
-    }, 0);
-    return newData;
-  });
-
-  setLastUpdatedDates(prev => {
-    const newDates = {...prev};
-    oresToDelete.forEach(ore => delete newDates[ore.name]);
-    // Update localStorage after state is updated
-    setTimeout(() => {
-      localStorage.setItem("rareFindsLastUpdated", JSON.stringify(newDates));
-    }, 0);
-    return newDates;
-  });
-}; 
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -235,7 +256,9 @@ const RareFindsTracker = () => {
     currentDate.setHours(0, 0, 0, 0);
 
     const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
-    const daysPassed = Math.round(Math.abs(newDate.getTime() - currentDate.getTime()) / MILLISECONDS_IN_DAY);
+    const daysPassed = Math.round(
+      Math.abs(newDate.getTime() - currentDate.getTime()) / MILLISECONDS_IN_DAY
+    );
 
     let daysString = "";
     if (daysPassed === 0) {
@@ -249,7 +272,10 @@ const RareFindsTracker = () => {
     return (
       newDate.toLocaleDateString() +
       " " +
-      new Date(dateString).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
+      new Date(dateString).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }) +
       " " +
       `${daysString}`
     );
@@ -261,147 +287,145 @@ const RareFindsTracker = () => {
   };
 
   return (
-  <>
-    <div className="patic">
-    <img
-      src={patik}
-      alt="patik"
-      style={{
-        position:"absolute",
-        opacity:"0.025"
-      }}
-    />
-    </div>
-  <NavBar />
-    <div className="rare-finds-tracker">
-    <h1>Rare Finds Tracker</h1>
-      <CustomMultiplierInput />
-      <div className="button-container">
-        <div className="box-button">
-          <button className="reset-btn" onClick={() => resetRareFinds('rares')}>
-            Reset Rares
-          </button>
-        </div>
-        <div className="box-button">
-          <button className="reset-btn" onClick={() => resetRareFinds('superRares')}>
-            Reset Super Rares
-          </button>
-        </div>
-        <div className="box-button">
-          <button className="reset-btn" onClick={() => resetRareFinds('all')}>
-            Reset All Finds
-          </button>
-        </div>
+    <>
+      <div className="patic">
+        <img
+          src={patik}
+          alt="patik"
+          style={{ position: "absolute", opacity: "0.025" }}
+        />
       </div>
-
-      {/* Totals display */}
-      <div className="totals-container">
-        <div className="total-box">
-          <h3>Total Rare Finds</h3>
-          <p>{totalRareFinds}</p>
-        </div>
-        <div className="total-box">
-          <h3>Value of Rares Found</h3>
-          <p>
-            {totalRareVal} {modeStr}
-          </p>
-        </div>
-        <div className="total-box super-rare">
-          <h3>Super Rare Finds</h3>
-          <p>{totalSuperRareFinds}</p>
-        </div>
-        <div className="total-box super-rare">
-          <h3>Value of Super Rares Found</h3>
-          <p>
-            {totalSuperRareVal} {modeStr}
-          </p>
-        </div>
-      </div>
-      <div className="r-tables-container">
-        {/* Regular rares table */}
-        <div
-          className="table-wrapper"
-          style={{ width: "800px" }}
-        >
-          <h2
-            className="table-wrapper h2"
-            style={{ background: raresGradient }}
-            data-text="Regular Rares"
-          >
-            Regular Rares
-          </h2>
-          <table
-            className="rare-table"
-            style={{id:"test"}}
-          >
-            <thead>
-              <tr>
-                <th>Ore Name</th>
-                <th>Amount Found</th>
-                <th># {modeStr}</th>
-                <th>Last Found</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rareOres.map((item, index) => (
-                <RareRow
-                  key={index}
-                  item={item}
-                  count={rareFindsData[item.name] || 0}
-                  lastUpdated={lastUpdatedDates[item.name]}
-                  incrementValue={incrementValue}
-                  decrementValue={decrementValue}
-                  handleCountChange={handleCountChange}
-                  getOreClassName={getOreClassName}
-                  calculateNumV={calculateNumV}
-                  formatDate={formatDate}
-                />
-              ))}
-            </tbody>
-          </table>
+      <NavBar />
+      <div className="rare-finds-tracker">
+        <h1>Rare Finds Tracker</h1>
+        <CustomMultiplierInput />
+        <div className="button-container">
+          <div className="box-button">
+            <button
+              className="reset-btn"
+              onClick={() => resetRareFinds("rares")}
+            >
+              Reset Rares
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              className="reset-btn"
+              onClick={() => resetRareFinds("superRares")}
+            >
+              Reset Super Rares
+            </button>
+          </div>
+          <div className="box-button">
+            <button className="reset-btn" onClick={() => resetRareFinds("all")}>
+              Reset All Finds
+            </button>
+          </div>
         </div>
 
-        {/* Super rares table */}
-        <div
-          className="table-wrapper"
-          style={{ width: "800px", margin: "20px auto" }}
-        >
-          <h2
-            className="table-wrapper h2"
-            style={{ background: superRaresGradient }}
-            data-text="Super Rares"
+        {/* Totals display */}
+        <div className="totals-container">
+          <div className="total-box">
+            <h3>Total Rare Finds</h3>
+            <p>{totalRareFinds}</p>
+          </div>
+          <div className="total-box">
+            <h3>Value of Rares Found</h3>
+            <p>
+              {totalRareVal} {modeStr}
+            </p>
+          </div>
+          <div className="total-box super-rare">
+            <h3>Super Rare Finds</h3>
+            <p>{totalSuperRareFinds}</p>
+          </div>
+          <div className="total-box super-rare">
+            <h3>Value of Super Rares Found</h3>
+            <p>
+              {totalSuperRareVal} {modeStr}
+            </p>
+          </div>
+        </div>
+
+        <div className="r-tables-container">
+          {/* Regular rares table */}
+          <div className="table-wrapper" style={{ width: "800px" }}>
+            <h2
+              className="table-wrapper h2"
+              style={{ background: raresGradient }}
+              data-text="Regular Rares"
+            >
+              Regular Rares
+            </h2>
+            <table className="rare-table" style={{ id: "test" }}>
+              <thead>
+                <tr>
+                  <th>Ore Name</th>
+                  <th>Amount Found</th>
+                  <th># {modeStr}</th>
+                  <th>Last Found</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rareOres.map((item, index) => (
+                  <RareRow
+                    key={index}
+                    item={item}
+                    count={rareFindsData[item.name] || 0}
+                    lastUpdated={lastUpdatedDates[item.name]}
+                    incrementValue={incrementValue}
+                    decrementValue={decrementValue}
+                    handleCountChange={handleCountChange}
+                    getOreClassName={getOreClassName}
+                    calculateNumV={calculateNumV}
+                    formatDate={formatDate}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Super rares table */}
+          <div
+            className="table-wrapper"
+            style={{ width: "800px", margin: "20px auto" }}
           >
-            Super Rares
-          </h2>
-          <table className="rare-table">
-            <thead>
-              <tr>
-                <th>Ore Name</th>
-                <th>Amount Found</th>
-                <th># {modeStr}</th>
-                <th>Last Found</th>
-              </tr>
-            </thead>
-            <tbody>
-              {superRares.map((item, index) => (
-                <RareRow
-                  key={index}
-                  item={item}
-                  count={rareFindsData[item.name] || 0}
-                  lastUpdated={lastUpdatedDates[item.name]}
-                  incrementValue={incrementValue}
-                  decrementValue={decrementValue}
-                  handleCountChange={handleCountChange}
-                  getOreClassName={getOreClassName}
-                  calculateNumV={calculateNumV}
-                  formatDate={formatDate}
-                />
-              ))}
-            </tbody>
-          </table>
+            <h2
+              className="table-wrapper h2"
+              style={{ background: superRaresGradient }}
+              data-text="Super Rares"
+            >
+              Super Rares
+            </h2>
+            <table className="rare-table">
+              <thead>
+                <tr>
+                  <th>Ore Name</th>
+                  <th>Amount Found</th>
+                  <th># {modeStr}</th>
+                  <th>Last Found</th>
+                </tr>
+              </thead>
+              <tbody>
+                {superRares.map((item, index) => (
+                  <RareRow
+                    key={index}
+                    item={item}
+                    count={rareFindsData[item.name] || 0}
+                    lastUpdated={lastUpdatedDates[item.name]}
+                    incrementValue={incrementValue}
+                    decrementValue={decrementValue}
+                    handleCountChange={handleCountChange}
+                    getOreClassName={getOreClassName}
+                    calculateNumV={calculateNumV}
+                    formatDate={formatDate}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

@@ -8,7 +8,6 @@ import NavBar from "../components/NavBar";
 import CSVLoaderPopup from "../components/CSVLoaderPopup";
 import SecondaryCSVPopup from "../components/SecondaryCSVPopup";
 
-import { LayerGradients } from "../data/LayerGradients";
 import searchFilters from "../data/SearchFilters";
 
 import "../styles/ValueChart.css";
@@ -76,7 +75,7 @@ function ValueChart() {
   const toggleValueMode = (mode) => {
     if (mode === "custom") {
       const hasCustomValues = Object.values(oreValsDict).some((layer) =>
-        layer.some((ore) => ore.customVal !== undefined)
+        layer.layerOres.some((ore) => ore.customVal !== undefined)
       );
       if (!hasCustomValues) {
         setShowCustomModal(true);
@@ -90,8 +89,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: "Aug 24, 2025",
-    nan: "Jul 19, 2025",
+    zenith: "Sep 12, 2025",
+    nan: "Sep 12, 2025",
     john: "Jan 19, 2025",
   });
 
@@ -103,7 +102,7 @@ function ValueChart() {
   // State and handlers
   const [dragState, setDragState] = useState({
     isDragging: false,
-    position: { x: 15, y: 15 },
+    position: { x: 80, y: 15 },
     clickOffset: { x: 0, y: 0 },
   });
 
@@ -153,7 +152,9 @@ function ValueChart() {
   }, [dragState.isDragging, handleMouseMove, handleMouseUp]);
 
   // List of table names for the dropdown
-  const tableNames = Object.keys(oreValsDict);
+  const tableNames = Object.values(oreValsDict).map(
+    (layer) => layer.layerName.split("\n")[0]
+  );
 
   const isNV = customMultiplier % 100 === 0;
   // For displaying the current mode dynamically
@@ -181,7 +182,9 @@ function ValueChart() {
   const handleTableSelect = (e) => {
     let tableId = e.target.value;
     if (tableId) {
-      const element = document.getElementById(tableId);
+      // Convert the layer name to a valid ID (replace spaces and special characters)
+      const elementId = tableId.replace(/\s+/g, "-").replace(/\n/g, "-");
+      const element = document.getElementById(elementId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
         setTableSelected("");
@@ -211,24 +214,26 @@ function ValueChart() {
   // Initialize custom dict
   const initializeCustomValues = (source) => {
     const newOreVals = JSON.parse(JSON.stringify(oreValsDict));
-    for (const layerName in newOreVals) {
-      newOreVals[layerName] = newOreVals[layerName].map((ore) => {
-        let newValue;
-        switch (source) {
-          case "john":
-            newValue = ore.johnVal;
-            break;
-          case "nan":
-            newValue = ore.nanVal;
-            break;
-          default:
-            newValue = ore.zenithVal;
+    for (const layerKey in newOreVals) {
+      newOreVals[layerKey].layerOres = newOreVals[layerKey].layerOres.map(
+        (ore) => {
+          let newValue;
+          switch (source) {
+            case "john":
+              newValue = ore.johnVal;
+              break;
+            case "nan":
+              newValue = ore.nanVal;
+              break;
+            default:
+              newValue = ore.zenithVal;
+          }
+          return {
+            ...ore,
+            customVal: newValue,
+          };
         }
-        return {
-          ...ore,
-          customVal: newValue,
-        };
-      });
+      );
     }
     setOreValsDict(newOreVals);
     setValueMode("custom");
@@ -281,10 +286,12 @@ function ValueChart() {
           className="summary-header"
           onClick={() => setIsSummaryOpen(!isSummaryOpen)}
         >
-          <h2>Quick Summary</h2>
-          <span className={`dropdown-arrow ${isSummaryOpen ? "open" : ""}`}>
-            ⛛
-          </span>
+          <h2>
+            Quick Summary &nbsp;{" "}
+            <i
+              className={`fas fa-hand-pointer ${isSummaryOpen ? "open" : ""}`}
+            ></i>
+          </h2>
         </div>
         {isSummaryOpen && (
           <div className="summary-content">
@@ -604,7 +611,7 @@ function ValueChart() {
             }}
           >
             <button onClick={scrollToTop}>
-              <span>↑ Back to Top</span>
+              <span>⮝ Back to Top</span>
             </button>
           </div>
         )}
@@ -613,15 +620,17 @@ function ValueChart() {
         <div className="table-navigation">
           <select
             id="table-select"
-            onChange={handleTableSelect}
             value={tableSelected}
+            onChange={handleTableSelect}
+            style={{ appearance: "none" }}
           >
             <option value="" disabled>
-              Jump to layer table...
+              Jump to layer table... &nbsp; ▼
             </option>
+
             {/* Map all tables/layers to the results based on the names */}
             {tableNames.map((name) => (
-              <option key={name} value={name.replace(/\s+/g, "-")}>
+              <option key={name} value={name}>
                 {name}
               </option>
             ))}
@@ -669,21 +678,26 @@ function ValueChart() {
             - Accounts for John/NAN vals
             - Finds the gradient key (color-template-oreName) and applies
             - Layer name is the header outside of the table in the wrapper
-            - Layer data, name, mode, csv data, gradient, and search filter 
+            - Layer data, name, mode, csv data, gradient, and search filter
             is passed in
         */}
         <div className="tables-container">
-          {Object.entries(oreValsDict).map(([layerName, layerData]) => {
-            const gradientKey = Object.keys(LayerGradients).find((key) =>
-              layerName.includes(key)
-            );
+          {Object.values(oreValsDict).map((layer) => {
+            const layerName = layer.layerName;
+            const layerData = layer.layerOres;
 
-            const gradientStyle = gradientKey
-              ? LayerGradients[gradientKey].background
-              : "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
+            const gradientStyle =
+              layer.background ||
+              "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
 
             return (
-              <div id={layerName.replace(/\s+/g, "-")} key={layerName}>
+              <div
+                id={layerName
+                  .split("\n")[0]
+                  .replace(/\s+/g, "-")
+                  .replace(/\n/g, "-")}
+                key={layerName}
+              >
                 <LayerTable
                   data={layerData}
                   title={layerName}

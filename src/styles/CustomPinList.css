@@ -1,0 +1,27 @@
+.pinlist-container {
+  position: fixed;
+  top: 100px;
+  margin-left: 1vw;
+  left: -22vw;
+  width: 20vw;
+  height: 40vh;
+  background-color: var(--background-color);
+  opacity: 1;
+  box-shadow: -5px 0px 25px 1px #000000;
+  outline: 3px solid var(--switch-outline);
+  border-radius: 15px;
+  color: var(--text-color);
+  z-index: 100000;
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -ms-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.pinlist-container.open {
+  left: 0;
+}

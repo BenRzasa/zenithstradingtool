@@ -1,238 +1,239 @@
-
 .trade-tool-layout {
-    position: absolute;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 5px;
-    max-width: 100%;
-    box-sizing: border-box;
-    align-items: flex-start;
-    height: 100vh;
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 5px;
+  max-width: 100%;
+  box-sizing: border-box;
+  align-items: flex-start;
+  height: 100vh;
 }
 
 .trade-controls-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    gap: 15px;
-    position: relative;
-    max-width: 675px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  gap: 15px;
+  position: relative;
+  max-width: 675px;
 }
 
 .ore-table-panel {
-    flex: 2;
-    height: 99vh;
-    max-width: 750px;
-    overflow-y: auto;
-    border-left: 1px solid var(--csv-outline);
-    position: sticky;
-    box-shadow: inset 0px 3px 10px 5px #000000;
-    top: 20px;
+  flex: 2;
+  height: 99vh;
+  max-width: 750px;
+  overflow-y: auto;
+  border-left: 1px solid var(--csv-outline);
+  position: sticky;
+  box-shadow: inset 0px 3px 10px 5px #000000;
+  top: 20px;
 }
 
 .t-button-container {
-    position: relative;
-    max-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: -5px;
-    margin-left: -5px;
-    margin-bottom: -15px;
-    gap: 0.3vw;
-    justify-content: left;
+  position: relative;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -5px;
+  margin-left: -5px;
+  margin-bottom: -15px;
+  gap: 0.3vw;
+  justify-content: left;
 }
 
 .trade-tool-layout li {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .usage-dropdown {
-    margin-left: -3px;
-    position: relative;
-    width: 20vw;
+  margin-left: -3px;
+  position: relative;
+  width: 20vw;
 }
 
 .usage-dropdown li {
-    margin-top: -10px;
-    text-align: left;
+  margin-top: -10px;
+  text-align: left;
 }
 
 /* Batch quantity controls */
 .batch-controls {
-    margin-top: 5px;
-    margin-bottom: 30px;
-    padding: 15px;
-    background-color: var(--background-color);
-    border: 2px solid var(--csv-outline);
-    border-radius: 15px;
-    width: fit-content;
-    max-width: 475px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: var(--background-color);
+  border: 2px solid var(--csv-outline);
+  border-radius: 15px;
+  width: fit-content;
+  max-width: 475px;
 }
 
 .batch-quantity-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .batch-quantity-container span {
-    font-size: 18px;
-    font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .t-quantity-input {
-    width: 80%;
-    padding: 8px;
-    font-family: 'Comfortaa';
-    font-size: 16px;
-    border: 2px solid var(--csv-outline);
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 80%;
+  padding: 8px;
+  font-family: "Comfortaa";
+  font-size: 16px;
+  border: 2px solid var(--csv-outline);
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.batch-apply-button, .batch-clear-button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Comfortaa';
-    font-size: 16px;
-    transition: background-color 0.2s;
+.batch-apply-button,
+.batch-clear-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Comfortaa";
+  font-size: 16px;
+  transition: background-color 0.2s;
 }
 
 .batch-apply-button {
-    background-color: #4CAF50;
-    color: white;
-    margin-top: 10px;
+  background-color: #4caf50;
+  color: white;
+  margin-top: 10px;
 }
 
 .batch-apply-button:disabled {
-    background-color: #cccccc;
-    color: black;
-    cursor: not-allowed;
+  background-color: #cccccc;
+  color: black;
+  cursor: not-allowed;
 }
 
 .batch-apply-button:not(:disabled):hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .batch-clear-button {
-    background-color: #f44336;
-    color: white;
-    margin-top: 10px;
+  background-color: #f44336;
+  color: white;
+  margin-top: 10px;
 }
 
 .batch-clear-button:disabled {
-    background-color: #cccccc;
-    color: black;
-    cursor: not-allowed;
+  background-color: #cccccc;
+  color: black;
+  cursor: not-allowed;
 }
 
 .batch-clear-button:not(:disabled):hover {
-    background-color: #d32f2f;
+  background-color: #d32f2f;
 }
 
 .trade-summary {
-    position: relative;
-    width: fit-content;
-    background-color: var(--background-color);
-    border: 2px solid var(--csv-outline);
-    padding: 15px;
-    border-radius: 15px;
-    float: right;
-    z-index: 1000;
-    overflow: hidden;
+  position: relative;
+  width: fit-content;
+  background-color: var(--background-color);
+  border: 2px solid var(--csv-outline);
+  padding: 15px;
+  border-radius: 15px;
+  float: right;
+  z-index: 1000;
+  overflow: hidden;
 }
 
 .filter-thing {
-    display: flex;
-    flex-direction: column;
-    transform: scale(0.8);
-    margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.8);
+  margin-top: 45px;
 }
 
 .selected-row {
-    background-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .selected-row td:not(.tr-name-cell) {
-    background-color: rgba(100, 180, 255, 0.6) !important;
+  background-color: rgba(100, 180, 255, 0.6) !important;
 }
 
 .trade-table tbody tr:not(.layer-header):hover {
-    background-color: rgba(100, 180, 255, 0.1);
-    cursor: pointer;
+  background-color: rgba(100, 180, 255, 0.1);
+  cursor: pointer;
 }
 
 .layer-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--csv-outline);
-    max-width: fit-content;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--csv-outline);
+  max-width: fit-content;
 }
 
-.collapse-button, .expand-button {
-    margin-left: 20px;
-    padding: 6px 12px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    border: 1px solid var(--csv-outline);
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Comfortaa';
-    transition: all 0.2s;
+.collapse-button,
+.expand-button {
+  margin-left: 20px;
+  padding: 6px 12px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--csv-outline);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Comfortaa";
+  transition: all 0.2s;
 }
 
 .collapse-button:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .expand-button:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 /* Layer headers */
 .layer-header td {
-    background: var(--background-color);
-    font-weight: bold;
-    padding: 8px 12px;
-    font-size: 22px;
-    font-family: 'Segoe UI';
-    cursor: pointer;
+  background: var(--background-color);
+  font-weight: bold;
+  padding: 8px 12px;
+  font-size: 22px;
+  font-family: "Segoe UI";
+  cursor: pointer;
 }
 
 .collapse-icon {
-    display: inline-block;
-    margin-left: 5px;
-    transform: scale(0.75);
-    transition: transform 0.2s ease;
+  display: inline-block;
+  margin-left: 5px;
+  transform: scale(0.75);
+  transition: transform 0.2s ease;
 }
 
 /* Layer actions row styling */
 .layer-actions-row {
-    background-color: var(--background-color);
+  background-color: var(--background-color);
 }
 
 .layer-actions-row td {
-    padding: 3px !important;
+  padding: 3px !important;
 }
 
 .select-all-button {
-    padding: 4px 8px;
-    background-color: var(--accent-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: 'Comfortaa';
-    transition: background-color 0.2s;
-    margin-left: 10px;
+  padding: 4px 8px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: "Comfortaa";
+  transition: background-color 0.2s;
+  margin-left: 10px;
 }
 
 .select-all-button:hover {
@@ -241,204 +242,200 @@
 
 /* Deselect All button */
 .deselect-all-button {
-    padding: 4px 12px;
-    background-color: #f44336; /* Red */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-family: 'Comfortaa';
-    transition: background-color 0.2s;
+  padding: 4px 12px;
+  background-color: #f44336; /* Red */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: "Comfortaa";
+  transition: background-color 0.2s;
 }
 
 .deselect-all-button:hover {
-    background-color: #d32f2f;
+  background-color: #d32f2f;
 }
 
 /* Search bar */
 .search-container {
-    flex: 2;
-    min-width: 500px;
-    position: relative;
-    margin-top: -40px;
+  flex: 2;
+  min-width: 500px;
+  position: relative;
+  margin-top: -40px;
 }
 
 .search-input {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-family: 'Comfortaa';
-    width: 55%;
-    padding: 12px 20px;
-    font-size: 20px;
-    border: 2px solid var(--csv-outline);
-    border-radius: 15px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    box-sizing: border-box;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-family: "Comfortaa";
+  width: 55%;
+  padding: 12px 20px;
+  font-size: 20px;
+  border: 2px solid var(--csv-outline);
+  border-radius: 15px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-sizing: border-box;
 }
 
 .search-results {
-    position: absolute;
-    top: 100%;
-    margin-top: -6px;
-    left: 0;
-    width: 70%;
-    list-style: none;
-    padding: 0;
-    background-color: var(--background-color);
-    border-radius: 0 0 8px 8px;
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 10001;
+  position: absolute;
+  top: 100%;
+  margin-top: -6px;
+  left: 0;
+  width: 70%;
+  list-style: none;
+  padding: 0;
+  background-color: var(--background-color);
+  border-radius: 0 0 8px 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10001;
 }
 
 .search-result-item {
-    padding: 10px 15px;
-    margin-bottom: -5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
+  padding: 10px 15px;
+  margin-bottom: -5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
 }
 
 .search-result-item:hover {
-    background-color: #e58eff;
-    color: black;
+  background-color: #e58eff;
+  color: black;
 }
 
 .search-result-item.selected {
-    background-color: var(--accent-color);
-    color: white;
+  background-color: var(--accent-color);
+  color: white;
 }
 
 .trade-table {
-    border-collapse: collapse;
-    font-size: 20px;
-    overflow-y: auto;
-    background-color: var(--background-color);
+  border-collapse: collapse;
+  font-size: 20px;
+  overflow-y: auto;
+  background-color: var(--background-color);
 }
 
 .trade-table th {
-    font-size: 25px;
-    border: 2px solid var(--csv-outline);
-    color: var(--text-color);
-    padding: 16px;
-    text-align: center;
-    background-color: var(--background-color);
-    top: 0;
-    z-index: 10000;
+  font-size: 25px;
+  border: 2px solid var(--csv-outline);
+  color: var(--text-color);
+  padding: 16px;
+  text-align: center;
+  background-color: var(--background-color);
+  top: 0;
+  z-index: 10000;
 }
 
 .trade-table tr {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .tr-name-cell {
-    font-family:
-        "Segoe UI",                /* Windows */
-        -apple-system,             /* macOS/iOS San Francisco */
-        BlinkMacSystemFont,        /* macOS Chrome */
-        "Roboto",                  /* Android/Google */
-        "Helvetica Neue",          /* Fallback sans-serif */
-        Arial,                     /* Universal fallback */
-        sans-serif;                /* Final generic fallback */
-    letter-spacing: 0px;
-    position: relative;
-    text-align: left;
-    padding-left: 37px !important;
-    width: fit-content !important;
-    white-space: nowrap;
-    border: 2px solid var(--table-outline);
-    font-size: 21px;
-    font-weight: 700;
-    color: white;
-    z-index: 9999;
+  font-family: "Segoe UI", /* Windows */ -apple-system,
+    /* macOS/iOS San Francisco */ BlinkMacSystemFont,
+    /* macOS Chrome */ "Roboto", /* Android/Google */ "Helvetica Neue",
+    /* Fallback sans-serif */ Arial, /* Universal fallback */ sans-serif; /* Final generic fallback */
+  letter-spacing: 0px;
+  position: relative;
+  text-align: left;
+  padding-left: 37px !important;
+  width: fit-content !important;
+  white-space: nowrap;
+  border: 2px solid var(--table-outline);
+  font-size: 21px;
+  font-weight: 700;
+  color: white;
+  z-index: 9999;
 }
 
 .tr-name-cell::before {
-    content: attr(data-text);
-    position: absolute;
-    left: 75px;
-    top: 4px;
-    color: transparent;
-    letter-spacing: 0px;
-    z-index: -1;
-    color: black;
-    font-size: 21px;
-    font-weight: 700;
-    -webkit-text-stroke: 4px black;
-    -webkit-font-smoothing: antialiased;
-    paint-order: stroke fill;
-    text-rendering: optimizeSpeed;
+  content: attr(data-text);
+  position: absolute;
+  left: 75px;
+  top: 4px;
+  color: transparent;
+  letter-spacing: 0px;
+  z-index: -1;
+  color: black;
+  font-size: 21px;
+  font-weight: 700;
+  -webkit-text-stroke: 4px black;
+  -webkit-font-smoothing: antialiased;
+  paint-order: stroke fill;
+  text-rendering: optimizeSpeed;
 }
 
 .t-ore-icon {
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-    margin-left: 0px;
-    margin-right: 8px;
-    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-left: 0px;
+  margin-right: 8px;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 .delete-ore-button {
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    border: 2px solid black;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    z-index: 99999;
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  border: 2px solid black;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 99999;
 }
 
 .delete-ore-button:hover {
-    background-color: #cc0000;
+  background-color: #cc0000;
 }
 
 .quantity-cell-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    width: 315px;
-    overflow-x: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 315px;
+  overflow-x: hidden;
 }
 
 .quantity-input {
-    width: 85px;
-    padding: 8px;
-    margin-right: 0px;
-    font-size: 20px;
-    font-family: 'Comfortaa';
-    text-align: center;
-    border: 1px solid var(--csv-outline);
-    border-radius: 8px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    margin-left: auto;
+  width: 85px;
+  padding: 8px;
+  margin-right: 0px;
+  font-size: 20px;
+  font-family: "Comfortaa";
+  text-align: center;
+  border: 1px solid var(--csv-outline);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin-left: auto;
 }
 
 .add-all-button {
-    font-family: 'Comfortaa';
-    padding: 2px 6px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-    margin-right: 5px;
-    margin-left: 5px;
+  font-family: "Comfortaa";
+  padding: 2px 6px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .add-all-button:hover {
@@ -446,103 +443,103 @@
 }
 
 .inventory-count {
-    font-size: 0.9em;
-    color: #666;
-    min-width: 50px;
+  font-size: 0.9em;
+  color: #666;
+  min-width: 50px;
 }
 
 h2 {
-    font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .summary-header .box-button {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .trade-totals {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: -25px;
-    margin-left: -10px;
-    margin-bottom: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: -25px;
+  margin-left: -10px;
+  margin-bottom: 30px;
 }
 
 .trade-totals span {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
 .trade-totals p {
-    margin-bottom: -10px;
-    margin-left: 15px;
+  margin-bottom: -10px;
+  margin-left: 15px;
 }
 
 .global-checkmark {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    width: 50%
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 50%;
 }
 
 .missing-ores-warning {
-    position: relative;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 0px;
-    width: fit-content;
-    max-width: 70%;
-    padding: 8px 12px;
-    background-color: #f44336;
-    color: white;
-    border-radius: 4px;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  width: fit-content;
+  max-width: 70%;
+  padding: 8px 12px;
+  background-color: #f44336;
+  color: white;
+  border-radius: 4px;
 }
 
 .warning-header {
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .missing-ores-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .missing-ore-item {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
 }
 
 .discount-container {
-    margin-top: -25px;
-    margin-left: 0px;
-    flex: 1;
-    width: 60%;
+  margin-top: -25px;
+  margin-left: 0px;
+  flex: 1;
+  width: 60%;
 }
 
 .discount-input {
-    font-family: 'Comfortaa';
-    width: 50%;
-    padding: 12px 20px;
-    margin-top: 25px;
-    margin-bottom: 5px;
-    font-size: 20px;
-    border: 2px solid var(--csv-outline);
-    border-radius: 15px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    box-sizing: border-box;
+  font-family: "Comfortaa";
+  width: 50%;
+  padding: 12px 20px;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  border: 2px solid var(--csv-outline);
+  border-radius: 15px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-sizing: border-box;
 }
 
 .totals-and-clear-container {
-    margin: 20px 0;
+  margin: 20px 0;
 }

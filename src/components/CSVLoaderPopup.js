@@ -26,7 +26,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     clearCSVHistory,
     loadOldCSV,
     getCurrentCSV,
-    clearCSVData
+    clearCSVData,
   } = useContext(MiscContext);
 
   const allValues = MiscValueFunctions({
@@ -241,6 +241,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     let totalLost = 0;
     const changedOres = [];
     const valueDict = initialOreValsDict;
+
     OreNames.forEach((ore) => {
       if (ore.includes("Essence")) return;
       const currentAmount = csvData[ore] || 0;
@@ -249,7 +250,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
       if (quantityChange !== 0) {
         let baseValue = 1;
         Object.values(valueDict).some((layer) => {
-          const oreData = layer.find((item) => item.name === ore);
+          const oreData = layer.layerOres.find((item) => item.name === ore);
           if (oreData) {
             baseValue = getValueForMode(oreData);
             return true;
@@ -313,8 +314,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
               box below.
             </li>
             <li>
-              Click "Update" button to load your CSV data into the
-              website.
+              Click "Update" button to load your CSV data into the website.
             </li>
             <span className="placeholder">
               Last Updated:{" "}
@@ -323,7 +323,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
           </ol>
 
           <div className="csv-popup-buttons">
-            <div className="box-button" style={{maxWidth: "fit-content"}}>
+            <div className="box-button" style={{ maxWidth: "fit-content" }}>
               <button
                 className="color-template-havicron"
                 onClick={() => {
@@ -337,12 +337,12 @@ function CSVLoaderPopup({ onClose, isOpen }) {
                 <span>Update</span>
               </button>
             </div>
-            <div className="box-button" style={{maxWidth: "fit-content"}}>
+            <div className="box-button" style={{ maxWidth: "fit-content" }}>
               <button onClick={exportCSV}>
                 <span>Export CSV</span>
               </button>
             </div>
-            <div className="box-button" style={{maxWidth: "fit-content"}}>
+            <div className="box-button" style={{ maxWidth: "fit-content" }}>
               <button
                 onClick={() => setShowCSVEditor(!showCSVEditor)}
                 className={showCSVEditor ? "color-template-protireal" : ""}
@@ -352,7 +352,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
             </div>
             <div
               className="box-button c-dropdown-container"
-              style={{ zIndex: "10000", maxWidth: "fit-content"}}
+              style={{ zIndex: "10000", maxWidth: "fit-content" }}
             >
               <button
                 className={showHistoryDropdown ? "color-template-stardust" : ""}
@@ -397,11 +397,15 @@ function CSVLoaderPopup({ onClose, isOpen }) {
                 </div>
               )}
             </div>
-            <div className="box-button" style={{maxWidth: "fit-content"}}>
+            <div className="box-button" style={{ maxWidth: "fit-content" }}>
               <button
                 className="color-template-obliviril"
                 onClick={() => {
-                  if (window.confirm('Are you sure you want to clear ALL CSV data? This will delete your current CSV data, previous amounts, and update history. This action cannot be undone.')) {
+                  if (
+                    window.confirm(
+                      "Are you sure you want to clear ALL CSV data? This will delete your current CSV data, previous amounts, and update history. This action cannot be undone."
+                    )
+                  ) {
                     clearCSVData();
                   }
                 }}

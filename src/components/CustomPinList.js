@@ -1,14 +1,15 @@
-
 import React, { useContext } from "react";
 
-import { MiscContext } from '../context/MiscContext'; 
+import { MiscContext } from "../context/MiscContext";
+import { TradeContext } from "../context/TradeContext";
+import { OreNames } from "../data/OreNames";
 
-function CustomPinList({ onClose }) {
+import "../styles/CustomPinList.css";
+
+const CustomPinList = ({ isOpen, onClose }) => {
   return (
-    <div
-    style={{width: "300px", height: "300px", backgroundColor: "var(--switch-outline)"}}
-    >
-    TEST POPUP
+    <div className={`pinlist-container ${isOpen ? "open" : ""}`}>
+      Custom Pinlist Placeholder
     </div>
   );
 };

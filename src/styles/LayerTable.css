@@ -1,50 +1,58 @@
 .percent-0 {
-    background-color: #d22d2d;
+  background-color: #d22d2d;
 }
 
 .percent-10 {
-    background-color: #ff4800;
+  background-color: #ff4800;
 }
 
 .percent-20 {
-    background-color: #ff6a00;
+  background-color: #ff6a00;
 }
 
 .percent-30 {
-    background-color: #ff9100;
+  background-color: #ff9100;
 }
 
 .percent-40 {
-    background-color: #ffb700;
+  background-color: #ffb700;
 }
 
 .percent-50 {
-    background-color: #ffe100;
+  background-color: #ffe100;
 }
 
 .percent-60 {
-    background-color: #e9e209;
+  background-color: #e9e209;
 }
 
 .percent-70 {
-    background-color: #ccff00;
+  background-color: #ccff00;
 }
 
 .percent-80 {
-    background-color: #81ec00;
+  background-color: #81ec00;
 }
 
 .percent-90 {
-    background-color: #22ff00;
+  background-color: #22ff00;
 }
 
 .percent-100 {
-    background-color: #0091ff;
+  background-color: #0091ff;
 }
 
 .percent-over100 {
-    background: linear-gradient(90deg, #ff61d5 0%, #8ea8ff 20%, #61ffb0 40%, #ffd863 60%, #ff7e7e 80%, #937dff 100%);
-    text-shadow: 1px 2px 2px white;
+  background: linear-gradient(
+    90deg,
+    #ff61d5 0%,
+    #8ea8ff 20%,
+    #61ffb0 40%,
+    #ffd863 60%,
+    #ff7e7e 80%,
+    #937dff 100%
+  );
+  text-shadow: 1px 2px 2px white;
 }
 
 /* Percentage column adjustments */
@@ -60,261 +68,268 @@
 .percent-90,
 .percent-100,
 .percent-over100 {
-    width: 50px !important;
-    color: black !important;
-    font-weight: bold;
-    vertical-align: middle;
+  width: 50px !important;
+  color: black !important;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
 table {
-    table-layout: auto;
-    width: 100%;
-    border: 2px var(--table-outline);
-    border-collapse: collapse;
-    font-size: 20px;
-    text-align: center;
-    margin-top: -20px;
-    position: relative;
-    z-index: 0;
+  table-layout: auto;
+  width: 100%;
+  border: 2px var(--table-outline);
+  border-collapse: collapse;
+  font-size: 20px;
+  text-align: center;
+  margin-top: -20px;
+  position: relative;
+  z-index: 0;
 }
 
 th {
-    border: 2px solid var(--table-outline) !important;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 1;
-    font-family: 'Segoe UI';
+  border: 2px solid var(--table-outline) !important;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1;
+  font-family: "Segoe UI";
 }
 
 .table-wrapper h2 {
-    font-family: "Segoe UI";
-    text-align: center;
-    vertical-align: middle;
-    font-size: 21px;
-    letter-spacing: 0px;
-    font-weight: bolder;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    scale: 1.3;
-    background: var(--gradient-fallback, linear-gradient(90deg, #667eea 0%, #764ba2 100%));
-    color: white;
-    position: relative;
-    border: none;
-    z-index: 1;
+  font-family: "Segoe UI";
+  text-align: center;
+  vertical-align: middle;
+  font-size: 21px;
+  letter-spacing: 0px;
+  font-weight: bolder;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  scale: 1.3;
+  background: var(
+    --gradient-fallback,
+    linear-gradient(90deg, #667eea 0%, #764ba2 100%)
+  );
+  color: white;
+  position: relative;
+  border: none;
+  z-index: 1;
 }
 
 .table-wrapper h2::before {
-    content: attr(data-text);
-    text-align: center;
-    position: absolute;
-    top: -1;
-    left: 0;
-    width: 100%;
-    z-index: -1;
-    color: black;
-    font-size: 21px;
-    font-weight: bolder;
-    -webkit-text-stroke: 5px black;
-    -webkit-font-smoothing: antialiased;
-    paint-order: stroke fill;
-    text-rendering: optimizeLegibility;
+  content: attr(data-text);
+  text-align: center;
+  position: absolute;
+  top: -1;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  color: black;
+  font-size: 21px;
+  font-weight: bolder;
+  -webkit-text-stroke: 5px black;
+  -webkit-font-smoothing: antialiased;
+  paint-order: stroke fill;
+  text-rendering: optimizeLegibility;
 }
 
 .nv-comp-check {
-    position: absolute;
-    margin-left: 10px;
-    margin-top: 2px;
-    color: white;
-    background-color: #4CAF50;
-    border-radius: 5px;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    vertical-align: middle;
-    outline: 2px solid var(--switch-outline);
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 2px;
+  color: white;
+  background-color: #4caf50;
+  border-radius: 5px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  vertical-align: middle;
+  outline: 2px solid var(--switch-outline);
 }
 
 td {
-    border: 2px solid var(--table-outline) !important;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 1.5;
+  border: 2px solid var(--table-outline) !important;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .table-comp th {
-    padding-top: 11px;
-    padding-bottom: 9px;
-    white-space: nowrap;
+  padding-top: 11px;
+  padding-bottom: 9px;
+  white-space: nowrap;
 }
 
 .table-comp td {
-    padding: 2px 6px;
+  padding: 2px 6px;
 }
 
 .info-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    font-size: 20px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
 }
 
 .info-list li {
-    padding: 5px 0;
+  padding: 5px 0;
 }
 
 .placeholder {
-    color: var(--accent-color);
-    font-weight: bold;
+  color: var(--accent-color);
+  font-weight: bold;
 }
 
 .name-column {
-    font-family: 'Segoe UI';
-    position: relative;
-    text-align: left;
-    padding-left: 40px !important;
-    width: fit-content !important;
-    vertical-align: middle;
-    padding-right: 5px;
-    white-space: nowrap;
-    border: 2px solid var(--table-outline);
-    font-size: 21px;
-    letter-spacing: 0px;
-    font-weight: 650;
-    color: white;
-    z-index: 1;
+  font-family: "Segoe UI";
+  position: relative;
+  text-align: left;
+  padding-left: 40px !important;
+  width: fit-content !important;
+  vertical-align: middle;
+  padding-right: 5px;
+  white-space: nowrap;
+  border: 2px solid var(--table-outline);
+  font-size: 21px;
+  letter-spacing: 0px;
+  font-weight: 650;
+  color: white;
+  z-index: 1;
 }
 
 .name-column::before {
-    content: attr(data-text);
-    position: absolute;
-    left: 42px;
-    z-index: -1;
-    color: black;
-    font-size: 21px;
-    font-weight: 650;
-    -webkit-text-stroke: 4px black;
-    -webkit-font-smoothing: antialiased;
-    paint-order: stroke fill;
-    text-rendering: optimizeSpeed;
+  content: attr(data-text);
+  position: absolute;
+  left: 42px;
+  z-index: -1;
+  color: black;
+  font-size: 21px;
+  font-weight: 650;
+  -webkit-text-stroke: 4px black;
+  -webkit-font-smoothing: antialiased;
+  paint-order: stroke fill;
+  text-rendering: optimizeSpeed;
 }
 
 .ore-icon {
-    width: 30px;
-    height: 30px;
-    margin-left: -35px;
-    margin-right: 7px;
-    margin-top: -6px;
-    vertical-align: middle;
-    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+  width: 30px;
+  height: 30px;
+  margin-left: -35px;
+  margin-right: 7px;
+  margin-top: -6px;
+  vertical-align: middle;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 .v-inventory-cell {
-    position: relative;
-    padding: 2px 6px;
+  position: relative;
+  padding: 2px 6px;
 }
 
-
 .v-inventory-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    border: none;
-    background: transparent;
-    font: inherit;
-    color: inherit;
-    text-align: center;
-    margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  margin: 0;
 }
 
 .value-display {
-    visibility: hidden;
-    display: inline-block;
-    padding: inherit;
+  visibility: hidden;
+  display: inline-block;
+  padding: inherit;
 }
 
 .inventory-input:focus {
-    outline: 3px solid (--accent-color);
-    outline-offset: 0px;
-    background-color: rgba(255, 255, 255, 0.1);
+  outline: 3px solid (--accent-color);
+  outline-offset: 0px;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .inventory-input:hover:not(:focus) {
-    background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .inventory-input {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .table-footer {
-    padding: 5px 15px;
-    border-top: 1px solid var(--table-outline);
-    margin-top: 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  padding: 5px 15px;
+  border-top: 1px solid var(--table-outline);
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .table-footer li {
-    font-size: 18px;
-    margin-bottom: 0px;
-    margin-left: -5px;
+  font-size: 18px;
+  margin-bottom: 0px;
+  margin-left: -5px;
 }
 
 .copy-filter-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .copy-filter-btn {
-    font-family: 'Comfortaa';
-    transform: scale(1.15);
-    background: none;
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
-    padding: 5px 10px;
-    margin-right: 5px;
-    margin-top: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.2s;
+  font-family: "Comfortaa";
+  transform: scale(1.15);
+  background: none;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  padding: 5px 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
 }
 
 .copy-filter-btn:hover {
-    background: rgba(0, 255, 117, 0.1);
+  background: rgba(0, 255, 117, 0.1);
 }
 
 .copy-filter-btn::before {
-    content: "⎘";
-    font-size: 1.1em;
+  content: "⎘";
+  font-size: 1.1em;
 }
 
 .copy-confirmation {
-    color: var(--accent-color);
-    font-size: 1em;
-    margin-top: 5px;
-    animation: fadeIn 0.3s ease-in;
+  color: var(--accent-color);
+  font-size: 1em;
+  margin-top: 5px;
+  animation: fadeIn 0.3s ease-in;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-

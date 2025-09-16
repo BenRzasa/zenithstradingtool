@@ -31,7 +31,7 @@ const SettingsToggle = ({ onClick }) => {
       loading="lazy"
     ></img>
     */}
-    <i class="fas fa-gear"></i>
+    <i className="fas fa-gear"></i>
     </button>
   );
 };

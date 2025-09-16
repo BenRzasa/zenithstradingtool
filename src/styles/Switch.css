@@ -2,7 +2,9 @@
   --button-width: 3.5em;
   --button-height: 2em;
   --toggle-diameter: 1.5em;
-  --button-toggle-offset: calc((var(--button-height) - var(--toggle-diameter)) / 2);
+  --button-toggle-offset: calc(
+    (var(--button-height) - var(--toggle-diameter)) / 2
+  );
   --toggle-shadow-offset: 10px;
   --toggle-wider: 3em;
   --color-grey: #cccccc;
@@ -30,7 +32,8 @@
   position: absolute;
   top: var(--button-toggle-offset);
   transform: translateX(var(--button-toggle-offset));
-  box-shadow: var(--toggle-shadow-offset) 0 calc(var(--toggle-shadow-offset) * 4) rgba(0, 0, 0, 0.1);
+  box-shadow: var(--toggle-shadow-offset) 0
+    calc(var(--toggle-shadow-offset) * 4) rgba(0, 0, 0, 0.1);
   transition: 0.3s all ease-in-out;
 }
 
@@ -39,8 +42,13 @@
 }
 
 .sswitch input[type="checkbox"]:checked + .sslider::after {
-  transform: translateX(calc(var(--button-width) - var(--toggle-diameter) - var(--button-toggle-offset)));
-  box-shadow: calc(var(--toggle-shadow-offset) * -1) 0 calc(var(--toggle-shadow-offset) * 4) rgba(0, 0, 0, 0.1);
+  transform: translateX(
+    calc(
+      var(--button-width) - var(--toggle-diameter) - var(--button-toggle-offset)
+    )
+  );
+  box-shadow: calc(var(--toggle-shadow-offset) * -1) 0
+    calc(var(--toggle-shadow-offset) * 4) rgba(0, 0, 0, 0.1);
 }
 
 .sswitch input[type="checkbox"] {
@@ -52,5 +60,9 @@
 }
 
 .sswitch input[type="checkbox"]:checked:active + .sslider::after {
-  transform: translateX(calc(var(--button-width) - var(--toggle-wider) - var(--button-toggle-offset)));
+  transform: translateX(
+    calc(
+      var(--button-width) - var(--toggle-wider) - var(--button-toggle-offset)
+    )
+  );
 }

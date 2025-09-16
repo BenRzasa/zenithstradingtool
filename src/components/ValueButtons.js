@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 const ValueButtons = ({ valueMode, setValueMode }) => {
   const valueButtons = [
     {
-      mode: 'zenith',
+      mode: "zenith",
       className: "color-template-torn-fabric",
       label: "Zenith's Values",
     },
     {
-      mode: 'nan',
+      mode: "nan",
       className: "color-template-diamond",
       label: "NAN's Values",
     },
     {
-      mode: 'custom',
+      mode: "custom",
       className: "color-template-havicron",
       label: "Custom Values",
     },
@@ -30,9 +30,10 @@ const ValueButtons = ({ valueMode, setValueMode }) => {
         <div
           className="box-button"
           style={{
-            width:"8vw"
+            width: "8vw",
           }}
-          key={mode}>
+          key={mode}
+        >
           <button
             onClick={() => setValueMode(mode)}
             className={valueMode === mode ? className : ""}

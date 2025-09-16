@@ -14,7 +14,7 @@ function CreditsPage() {
     <NavBar />
     <div className="credits-content">
 
-      <h1>Feature, Assets, & Inspiration Credits</h1>
+      <h1 style={{marginLeft: "60px"}}>Feature, Assets, & Inspiration Credits</h1>
       <ul>
         <li><strong>Concept originally inspired by John's Trading Tool, a spreadsheet-based tool created by John_Sypher.</strong>
         </li>

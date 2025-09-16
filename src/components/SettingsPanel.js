@@ -31,7 +31,7 @@ const SettingsPanel = ({
     setHotkeysEnabled,
   } = useContext(MiscContext);
 
-const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
+  const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
 
   const toggleObtainRate = () => setUseObtainRateVals(!useObtainRateVals);
   const toggleCapCompletion = () => setCapCompletion(!capCompletion);
@@ -86,7 +86,7 @@ const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
             <li>NV = Neutrine Value (100 AV)</li>
             <li>TV = Torn Value (500 AV)</li>
             <li>SV = Singularity Value (1000 AV)</li>
-            <li>CUSTOM = Your custom multiplier (adjusted in the value chart page)</li>
+            <li>CUSTOM = Your custom multiplier (# AV)</li>
           </ul>
       </div>
 

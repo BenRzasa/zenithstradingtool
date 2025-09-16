@@ -1,1480 +1,2439 @@
 .color-template-stone {
-    background: #a7a7a7;
+  background: #a7a7a7;
 }
 
 .color-template-coal {
-    background: #59595a;
+  background: #59595a;
 }
 
 .color-template-moonstone {
-    background: #cee2e5;
+  background: #cee2e5;
 }
 
 .color-template-kyanite {
-    background: #608aa8;
+  background: #608aa8;
 }
 
 .color-template-topaz {
-    background: #ffa435;
+  background: #ffa435;
 }
 
 .color-template-opal {
-    background: #fad0ed;
+  background: #fad0ed;
 }
 
 .color-template-aluminum {
-    background: #9ea6a6;
+  background: #9ea6a6;
 }
 
 .color-template-copper {
-    background: #cb7347;
+  background: #cb7347;
 }
 
 .color-template-iron {
-    background: #a5958b;
+  background: #a5958b;
 }
 
 .color-template-sulfur {
-    background: #ecb939;
+  background: #ecb939;
 }
 
 .color-template-silver {
-    background: #dfdfdf;
+  background: #dfdfdf;
 }
 
 .color-template-zinc {
-    background: #7e8f9d;
+  background: #7e8f9d;
 }
 
 .color-template-gold {
-    background: #eba535;
+  background: #eba535;
 }
 
 .color-template-sapphire {
-    background: #147aff;
+  background: #147aff;
 }
 
 .color-template-ruby {
-    background: #d82424;
+  background: #d82424;
 }
 
 .color-template-emerald {
-    background: #7cda54;
+  background: #7cda54;
 }
 
 .color-template-peridot {
-    background: #89e34d;
+  background: #89e34d;
 }
 
 .color-template-amethyst {
-    background: #b172ff;
+  background: #b172ff;
 }
 
 .color-template-thallium {
-    background: #484654;
+  background: #484654;
 }
 
 .color-template-tungsten {
-    background: #93ab85;
+  background: #93ab85;
 }
 
 .color-template-diamond {
-    background: linear-gradient(135deg, #92c6db 0%, #ffffff 50%, #85bed4 100%);
-    --wheel-color: #92c6db;
+  background: linear-gradient(135deg, #92c6db 0%, #ffffff 50%, #85bed4 100%);
+  --wheel-color: #92c6db;
 }
 
 .color-template-garnet {
-    background: #a51111;
+  background: #a51111;
 }
 
 .color-template-platinum {
-    background: #919191;
+  background: #919191;
 }
 
 .color-template-malachite {
-    background: #11c985;
+  background: #11c985;
 }
 
 .color-template-lithium {
-    background: #82818f;
+  background: #82818f;
 }
 
 .color-template-boron {
-    background: #999999;
+  background: #999999;
 }
 
 .color-template-shale {
-    background: #6f5a66;
+  background: #6f5a66;
 }
 
 .color-template-boomite {
-    background: #ff6017;
+  background: #ff6017;
 }
 
 .color-template-red-diamond {
-    background: #b92e30;
+  background: #b92e30;
 }
 
 .color-template-titanium {
-    background: #9eadbf;
+  background: #9eadbf;
 }
 
 .color-template-plutonium {
-    background: #faa339;
+  background: #faa339;
 }
 
 .color-template-technetium {
-    background: #4c4f5a;
+  background: #4c4f5a;
 }
 
 .color-template-uranium {
-    background: #9fff75;
+  background: #9fff75;
 }
 
 .color-template-caesium {
-    background: #ccb66e;
+  background: #ccb66e;
 }
 
 .color-template-metallic-hydrogen {
-    background: #484241;
+  background: #484241;
 }
 
 .color-template-osmium {
-    background: linear-gradient(135deg, #c3d1e6, #94abc1, #7c92ac);
-    --wheel-color: #94abc1;
+  background: linear-gradient(135deg, #c3d1e6, #94abc1, #7c92ac);
+  --wheel-color: #94abc1;
 }
 
 .color-template-hematite {
-    background: #607a88;
+  background: #607a88;
 }
 
 .color-template-calcite {
-    background: #566ca9;
+  background: #566ca9;
 }
 
 .color-template-rose-quartz {
-    background: #d87cb0;
+  background: #d87cb0;
 }
 
 .color-template-rainbonite {
-    background: linear-gradient(110deg, #f9726d 0%, #f2a856 15%, #f9fb80 30%, #a4feaf 50%, #8bffee 65%, #85c8ff 75%, #817fff 85%, #efafff 100%);
-    --wheel-color: #a4feaf;
+  background: linear-gradient(
+    110deg,
+    #f9726d 0%,
+    #f2a856 15%,
+    #f9fb80 30%,
+    #a4feaf 50%,
+    #8bffee 65%,
+    #85c8ff 75%,
+    #817fff 85%,
+    #efafff 100%
+  );
+  --wheel-color: #a4feaf;
 }
 
 .color-template-chrysoprase {
-    background: #4bffc9;
+  background: #4bffc9;
 }
 
 .color-template-soul-crystal {
-    background: #d7e0ff;
+  background: #d7e0ff;
 }
 
 .color-template-cobalt {
-    background: #3a5fd8;
+  background: #3a5fd8;
 }
 
 .color-template-azure {
-    background: #7729ff;
+  background: #7729ff;
 }
 
 .color-template-lapis {
-    background: #678be3;
+  background: #678be3;
 }
 
 .color-template-bismuth {
-    background: linear-gradient(113deg, #ffeec7 0%, #ffd36c 20%, #ff81ad 35%, #61eaff 52%, #46ffcb 71%, #b380ff 86%, #4d29ff 100%);
-    --wheel-color: #61eaff;
+  background: linear-gradient(
+    113deg,
+    #ffeec7 0%,
+    #ffd36c 20%,
+    #ff81ad 35%,
+    #61eaff 52%,
+    #46ffcb 71%,
+    #b380ff 86%,
+    #4d29ff 100%
+  );
+  --wheel-color: #61eaff;
 }
 
 .color-template-demonite {
-    background: #705fb4;
+  background: #705fb4;
 }
 
 .color-template-mithril {
-    background: #7cc7f7;
+  background: #7cc7f7;
 }
 
 .color-template-vanadium {
-    background: linear-gradient(
-        90deg, #fce39c 0%, #ffffd8 20%, 
-        #f0ab5a 50%, #c55729 100%);
-    --wheel-color: #f0ab5a;
+  background: linear-gradient(
+    90deg,
+    #fce39c 0%,
+    #ffffd8 20%,
+    #f0ab5a 50%,
+    #c55729 100%
+  );
+  --wheel-color: #f0ab5a;
 }
 
 .color-template-cindrasil {
-    background: linear-gradient(180deg, #ffffff 0%, #ffd998 10%, #eb986d 25%, #cc7b93 40%, #aa3659 60%, #752446 80%, #4b0b42 100%);
-    --wheel-color: #cc7b93;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffd998 10%,
+    #eb986d 25%,
+    #cc7b93 40%,
+    #aa3659 60%,
+    #752446 80%,
+    #4b0b42 100%
+  );
+  --wheel-color: #cc7b93;
 }
 
 .color-template-dragonglass {
-    background: #7a21b9;
+  background: #7a21b9;
 }
 
 .color-template-painite {
-    background: #870000;
+  background: #870000;
 }
 
 .color-template-carnelian {
-    background: #8b2f1f;
+  background: #8b2f1f;
 }
 
 .color-template-magmium {
-    background: #af3300;
+  background: #af3300;
 }
 
 .color-template-firecrystal {
-    background: #ff8921;
+  background: #ff8921;
 }
 
 .color-template-hellstone {
-    background: #a11515;
+  background: #a11515;
 }
 
 .color-template-jasper {
-    background: #902e25;
+  background: #902e25;
 }
 
 .color-template-mantle-fragment {
-    background: #b33024;
+  background: #b33024;
 }
 
 .color-template-magnesium {
-    background: #845b6a;
+  background: #845b6a;
 }
 
 .color-template-gargantium {
-    background: #8a0000;
+  background: #8a0000;
 }
 
 .color-template-toxirock {
-    background: #2e790e;
+  background: #2e790e;
 }
 
 .color-template-promethium {
-    background: #2deb18;
+  background: #2deb18;
 }
 
 .color-template-radium {
-    background: #35aa6b;
+  background: #35aa6b;
 }
 
 .color-template-tellurium {
-    background: #514a63;
+  background: #514a63;
 }
 
 .color-template-newtonium {
-    background: #b4f945;
+  background: #b4f945;
 }
 
 .color-template-yunium {
-    background: #efe063;
+  background: #efe063;
 }
 
 .color-template-thorium {
-    background: #2fb9e8;
+  background: #2fb9e8;
 }
 
 .color-template-lead {
-    background: #6b7687;
+  background: #6b7687;
 }
 
 .color-template-blastium {
-    background: #93b5ff;
+  background: #93b5ff;
 }
 
 .color-template-coronium {
-    background: #c72b2e;
+  background: #c72b2e;
 }
 
 .color-template-tritium {
-    background: #a9ecf7;
+  background: #a9ecf7;
 }
 
 .color-template-polonium {
-    background: #db4527;
+  background: #db4527;
 }
 
 .color-template-altoplast {
-    background: #c8baff;
+  background: #c8baff;
 }
 
 .color-template-illusinium {
-    background: #94355c;
+  background: #94355c;
 }
 
 .color-template-starlite {
-    background: linear-gradient(90deg, #fff0af 0%, #eca972 35%, #e796bc 50%, #eca972 65%, #fff0af 100%);
-    --wheel-color: #e796bc;
+  background: linear-gradient(
+    90deg,
+    #fff0af 0%,
+    #eca972 35%,
+    #e796bc 50%,
+    #eca972 65%,
+    #fff0af 100%
+  );
+  --wheel-color: #e796bc;
 }
 
 .color-template-prismaline {
-    background: linear-gradient(80deg, #e16ddf 0%, #fccbf6 30%, #e16ddf 45%, #b53ec9 60%, #5f0771 100%);
-    --wheel-color: #e16ddf;
+  background: linear-gradient(
+    80deg,
+    #e16ddf 0%,
+    #fccbf6 30%,
+    #e16ddf 45%,
+    #b53ec9 60%,
+    #5f0771 100%
+  );
+  --wheel-color: #e16ddf;
 }
 
 .color-template-antimatter {
-    background: linear-gradient(120deg, #92d6e7 0%, #aef2ee 40%, #6da8f7 45%, #4476d2 50%, #1841ab 65%, #180449 100%);
-    --wheel-color: #4476d2;
+  background: linear-gradient(
+    120deg,
+    #92d6e7 0%,
+    #aef2ee 40%,
+    #6da8f7 45%,
+    #4476d2 50%,
+    #1841ab 65%,
+    #180449 100%
+  );
+  --wheel-color: #4476d2;
 }
 
 .color-template-miramire {
-    background: #d4c4f2;
+  background: #d4c4f2;
 }
 
 .color-template-tantalum {
-    background: linear-gradient(90deg, #baacd1 0%, #ece5f4 25%, #f7f4f8 35%, #ece5f4 50%, #c5bce3 100%);
-    --wheel-color: #ece5f4;
+  background: linear-gradient(
+    90deg,
+    #baacd1 0%,
+    #ece5f4 25%,
+    #f7f4f8 35%,
+    #ece5f4 50%,
+    #c5bce3 100%
+  );
+  --wheel-color: #ece5f4;
 }
 
 .color-template-stratocrit {
-    background: #8d316b;
+  background: #8d316b;
 }
 
 .color-template-dark-matter {
-    background: #582bc4;
+  background: #582bc4;
 }
 
 .color-template-nightmica {
-    background: #661f20;
+  background: #661f20;
 }
 
 .color-template-crimstone {
-    background: #ad0000;
+  background: #ad0000;
 }
 
 .color-template-horrorstone {
-    background: #ab2f35;
+  background: #ab2f35;
 }
 
 .color-template-strange-matter {
-    background: #0af367;
+  background: #0af367;
 }
 
 .color-template-vermillium {
-    background: #860000;
+  background: #860000;
 }
 
 .color-template-magnetite {
-    background: #8773b5;
+  background: #8773b5;
 }
 
 .color-template-iridium {
-    background: #576068;
+  background: #576068;
 }
 
 .color-template-surrenderock {
-    background: #981719;
+  background: #981719;
 }
 
 .color-template-vantaslate {
-    background: #272e5c;
+  background: #272e5c;
 }
 
 .color-template-cometite {
-    background: #5badec;
+  background: #5badec;
 }
 
 .color-template-adamantite {
-    background: #c6285f;
+  background: #c6285f;
 }
 
 .color-template-eclipsium {
-    background: linear-gradient(90deg, #bb3306 0%, #f8ab25 30%, #ffcc14 50%, #f8ab25 70%, #bb3306 100%);
-    --wheel-color: #ffcc14;
+  background: linear-gradient(
+    90deg,
+    #bb3306 0%,
+    #f8ab25 30%,
+    #ffcc14 50%,
+    #f8ab25 70%,
+    #bb3306 100%
+  );
+  --wheel-color: #ffcc14;
 }
 
 .color-template-ebonakite {
-    background: #cb4177;
+  background: #cb4177;
 }
 
 .color-template-palladium {
-    background: #ff4213;
+  background: #ff4213;
 }
 
 .color-template-neptunium {
-    background: #2744ff;
+  background: #2744ff;
 }
 
 .color-template-void-orb {
-    background: #e22f74;
+  background: #e22f74;
 }
 
 .color-template-nilidust {
-    background: linear-gradient(90deg, #626497 0%, #792fa4 25%, #e253e0 50%, #d02e8c 75%, #d81111 100%);
-    --wheel-color: #e253e0;
+  background: linear-gradient(
+    90deg,
+    #626497 0%,
+    #792fa4 25%,
+    #e253e0 50%,
+    #d02e8c 75%,
+    #d81111 100%
+  );
+  --wheel-color: #e253e0;
 }
 
 .color-template-asthenocrit {
-    background: #66c2bc;
+  background: #66c2bc;
 }
 
 .color-template-gallium {
-    background: #757575;
+  background: #757575;
 }
 
 .color-template-amnesite {
-    background: #909090;
+  background: #909090;
 }
 
 .color-template-shadow-quartz {
-    background: linear-gradient(90deg, #000000, #eeeeee);
-    --wheel-color: #777777;
+  background: linear-gradient(90deg, #000000, #eeeeee);
+  --wheel-color: #777777;
 }
 
 .color-template-glowstone {
-    background: #9e9e9e;
+  background: #9e9e9e;
 }
 
 .color-template-graphene {
-    background: linear-gradient(140deg, #838383 0%, #cfcfcf 30%, #5b5b5b 61%, #363636 83%, #3d3d3d 100%);
-    --wheel-color: #5b5b5b;
+  background: linear-gradient(
+    140deg,
+    #838383 0%,
+    #cfcfcf 30%,
+    #5b5b5b 61%,
+    #363636 83%,
+    #3d3d3d 100%
+  );
+  --wheel-color: #5b5b5b;
 }
 
 .color-template-quicksilver {
-    background: linear-gradient(90deg, #9d9d9d 0%, #787878 10%, #686868 20%, #686868 100%);
-    --wheel-color: #787878;
+  background: linear-gradient(
+    90deg,
+    #9d9d9d 0%,
+    #787878 10%,
+    #686868 20%,
+    #686868 100%
+  );
+  --wheel-color: #787878;
 }
 
 .color-template-gray-matter {
-    background: #555555;
+  background: #555555;
 }
 
 .color-template-kronosilt {
-    background: #5b5c65;
+  background: #5b5c65;
 }
 
 .color-template-nilglass {
-    background: #f0f0f0;
+  background: #f0f0f0;
 }
 
 .color-template-kreosyte {
-    background: #3c3f4f;
+  background: #3c3f4f;
 }
 
 .color-template-cadmium {
-    background: #948383;
+  background: #948383;
 }
 
 .color-template-chromium {
-    background: linear-gradient(90deg, #feffeb 0%, #c5f4ff 45%, #f1d6ef 99%, #eeb9ff 100%);
-    --wheel-color: #c5f4ff;
+  background: linear-gradient(
+    90deg,
+    #feffeb 0%,
+    #c5f4ff 45%,
+    #f1d6ef 99%,
+    #eeb9ff 100%
+  );
+  --wheel-color: #c5f4ff;
 }
 
 .color-template-null {
-    background: linear-gradient(
-        90deg,
-        #ff00ff 0%,    #f569ff 10%, #ff00ff 20%,
-        #000000 20.1%, #232323 30%, #000000 40%,
-        #ff00ff 40.1%, #f569ff 50%, #ff00ff 60%,
-        #000000 60.1%, #242424 70%, #000000 80%,
-        #ff00ff 80.1%, #f569ff 90%, #ff00ff 100%);
-    --wheel-color: #ff00ff;
+  background: linear-gradient(
+    90deg,
+    #ff00ff 0%,
+    #f569ff 10%,
+    #ff00ff 20%,
+    #000000 20.1%,
+    #232323 30%,
+    #000000 40%,
+    #ff00ff 40.1%,
+    #f569ff 50%,
+    #ff00ff 60%,
+    #000000 60.1%,
+    #242424 70%,
+    #000000 80%,
+    #ff00ff 80.1%,
+    #f569ff 90%,
+    #ff00ff 100%
+  );
+  --wheel-color: #ff00ff;
 }
 
 .color-template-geometrium {
-    background: linear-gradient(90deg, #ff8686 0%, #ff0000 33%, #69cbff 33.1%, #0059ff 66%, #fff374 66.1%, #f06400 100%);
-    --wheel-color: #ff0000;
+  background: linear-gradient(
+    90deg,
+    #ff8686 0%,
+    #ff0000 33%,
+    #69cbff 33.1%,
+    #0059ff 66%,
+    #fff374 66.1%,
+    #f06400 100%
+  );
+  --wheel-color: #ff0000;
 }
 
 .color-template-noise {
-    background: #b8b8b8;
+  background: #b8b8b8;
 }
 
 .color-template-inversium {
-    background: #383c44;
+  background: #383c44;
 }
 
 .color-template-navitalc {
-    background: linear-gradient(115deg, #29c6ff 0%, #e6f9ff 50%, #29c6ff 100%);
-    --wheel-color: #e6f9ff;
+  background: linear-gradient(115deg, #29c6ff 0%, #e6f9ff 50%, #29c6ff 100%);
+  --wheel-color: #e6f9ff;
 }
 
 .color-template-myriroule {
-    background: linear-gradient(115deg, #c640ff 0%, #f8deff 50%, #c640ff 100%);
-    --wheel-color: #f8deff;
+  background: linear-gradient(115deg, #c640ff 0%, #f8deff 50%, #c640ff 100%);
+  --wheel-color: #f8deff;
 }
 
 .color-template-argibar {
-    background: linear-gradient(90deg, #ff0000 0%, #ff8aad 16.75%, #ff0000 33.9%, #00ff00 34%, #85ffab 50.1%, #00ff00 66%, #0019ff 66.1%, #0794ff 82.85%, #0019ff 100%);
-    --wheel-color: #85ffab;
+  background: linear-gradient(
+    90deg,
+    #ff0000 0%,
+    #ff8aad 16.75%,
+    #ff0000 33.9%,
+    #00ff00 34%,
+    #85ffab 50.1%,
+    #00ff00 66%,
+    #0019ff 66.1%,
+    #0794ff 82.85%,
+    #0019ff 100%
+  );
+  --wheel-color: #85ffab;
 }
 
 .color-template-perilium {
-    background: #d5d5d5;
+  background: #d5d5d5;
 }
 
 .color-template-hyfrost {
-    background: #41809c;
+  background: #41809c;
 }
 
 .color-template-larimar {
-    background: #2a87de;
+  background: #2a87de;
 }
 
 .color-template-frostarium {
-    background: #b4eee5;
+  background: #b4eee5;
 }
 
 .color-template-anetrium {
-    background: linear-gradient(235deg, #e7fcfd 0%, #d1f6f9 25%, #7da1be 40%, #555590 60%, #332f50 70%, #2a2a31 100%);
-    --wheel-color: #555590;
+  background: linear-gradient(
+    235deg,
+    #e7fcfd 0%,
+    #d1f6f9 25%,
+    #7da1be 40%,
+    #555590 60%,
+    #332f50 70%,
+    #2a2a31 100%
+  );
+  --wheel-color: #555590;
 }
 
 .color-template-cryonine {
-    background: linear-gradient(90deg, #e4f3ff 0%, #aad5f8 20%, #589cd2 35%, #5981e8 50%, #2e5ae6 75.3%, #1d1b8d 100%);
-    --wheel-color: #5981e8;
+  background: linear-gradient(
+    90deg,
+    #e4f3ff 0%,
+    #aad5f8 20%,
+    #589cd2 35%,
+    #5981e8 50%,
+    #2e5ae6 75.3%,
+    #1d1b8d 100%
+  );
+  --wheel-color: #5981e8;
 }
 
 .color-template-polarveril {
-    background: linear-gradient(60deg, #ffffff 0%, #e1ffff 15%, #8b9dc9 28%, #4f5681 53%, #363865 75%, #1d1b4b 100%);
-    --wheel-color: #4f5681;
+  background: linear-gradient(
+    60deg,
+    #ffffff 0%,
+    #e1ffff 15%,
+    #8b9dc9 28%,
+    #4f5681 53%,
+    #363865 75%,
+    #1d1b4b 100%
+  );
+  --wheel-color: #4f5681;
 }
 
 .color-template-soimabarium {
-    background: linear-gradient(90deg, #26d0ff 0%, #1865dc 35%, #154bd3 55%, #1235cc 70%, #1022c6 100%);
-    --wheel-color: #154bd3;
+  background: linear-gradient(
+    90deg,
+    #26d0ff 0%,
+    #1865dc 35%,
+    #154bd3 55%,
+    #1235cc 70%,
+    #1022c6 100%
+  );
+  --wheel-color: #154bd3;
 }
 
 .color-template-nerolin {
-    background: #337090;
+  background: #337090;
 }
 
 .color-template-tenebris {
-    background: #415968;
+  background: #415968;
 }
 
 .color-template-yilantibris {
-    background: linear-gradient(90deg,
-            #fff298 0%,
-            #ffffe6 15%,
-            #fff298 30%,
-            #e87973 50%,
-            #d25782 70%,
-            #531426 100%);
-    --wheel-color: #e87973;
+  background: linear-gradient(
+    90deg,
+    #fff298 0%,
+    #ffffe6 15%,
+    #fff298 30%,
+    #e87973 50%,
+    #d25782 70%,
+    #531426 100%
+  );
+  --wheel-color: #e87973;
 }
 
 .color-template-aquamarine {
-    background: #58c8b0;
+  background: #58c8b0;
 }
 
 .color-template-hydrolyth {
-    background: #3fa3e1;
+  background: #3fa3e1;
 }
 
 .color-template-naquadah {
-    background: #849df5;
+  background: #849df5;
 }
 
 .color-template-pearl {
-    background: #ffdebd;
+  background: #ffdebd;
 }
 
 .color-template-eidoliphyll {
-    background: linear-gradient(90deg, #243f34, #B0D0F1, #1f362d);
-    --wheel-color: #B0D0F1;
+  background: linear-gradient(90deg, #243f34, #b0d0f1, #1f362d);
+  --wheel-color: #b0d0f1;
 }
 
 .color-template-cosmic-glass {
-    background: #ecd0fd;
+  background: #ecd0fd;
 }
 
 .color-template-cosmaline {
-    background: #ffbf7e;
+  background: #ffbf7e;
 }
 
 .color-template-astratine {
-    background: linear-gradient(115deg,
-            #fff58b 0%, #ffffde 15%, #fff58b 25%,
-            #dd9468 40%, #aa315a 50%, #5d00ff 76.5%,
-            #340866 100%);
-    --wheel-color: #aa315a;
+  background: linear-gradient(
+    115deg,
+    #fff58b 0%,
+    #ffffde 15%,
+    #fff58b 25%,
+    #dd9468 40%,
+    #aa315a 50%,
+    #5d00ff 76.5%,
+    #340866 100%
+  );
+  --wheel-color: #aa315a;
 }
 
 .color-template-starsteel {
-    background: #2ba5fd;
+  background: #2ba5fd;
 }
 
 .color-template-stardust {
-    background: linear-gradient(75deg, #dffcf7 0%, #a5def7 15%, #7b73f7 30%, #ce6ade 75%, #430775 100%);
-    --wheel-color: #7b73f7;
+  background: linear-gradient(
+    75deg,
+    #dffcf7 0%,
+    #a5def7 15%,
+    #7b73f7 30%,
+    #ce6ade 75%,
+    #430775 100%
+  );
+  --wheel-color: #7b73f7;
 }
 
 .color-template-endotravine {
-    background: #86ffcd;
+  background: #86ffcd;
 }
 
 .color-template-luminite {
-    background: #94586f;
+  background: #94586f;
 }
 
 .color-template-nickel {
-    background: #938b87;
+  background: #938b87;
 }
 
 .color-template-molten-iron {
-    background: #ff9e3d;
+  background: #ff9e3d;
 }
 
 .color-template-corium {
-    background: linear-gradient(135deg, #b46035, #e59763, #d45036);
-    --wheel-color: #e59763;
+  background: linear-gradient(135deg, #b46035, #e59763, #d45036);
+  --wheel-color: #e59763;
 }
 
 .color-template-cinnabar {
-    background: #a22c1d;
+  background: #a22c1d;
 }
 
 .color-template-liquid-gold {
-    background: #ffbe4c;
+  background: #ffbe4c;
 }
 
 .color-template-pyroscorium {
-    background: linear-gradient(90deg, #ffe082 0%, #ff7700 31.5%, #ff0000 54%, #910000 79.1%, #590000 100%);
-    --wheel-color: #ff0000;
+  background: linear-gradient(
+    90deg,
+    #ffe082 0%,
+    #ff7700 31.5%,
+    #ff0000 54%,
+    #910000 79.1%,
+    #590000 100%
+  );
+  --wheel-color: #ff0000;
 }
 
 .color-template-samarium {
-    background: #ffc386;
+  background: #ffc386;
 }
 
 .color-template-bedrock {
-    background: #283e3f;
+  background: #283e3f;
 }
 
 .color-template-yzlafrost {
-    background: #2d4a48;
+  background: #2d4a48;
 }
+
 .color-template-jade {
-    background: #008b56;
+  background: #008b56;
 }
 
 .color-template-redsteel {
-    background: #c63851;
+  background: #c63851;
 }
 
 .color-template-celesteel {
-    background: linear-gradient(70deg, #ffeaa9 0%, #e97c50 11.6%, #da6cda 26.1%, #7160f2 70.2%, #32208d 100%);
-    --wheel-color: #7160f2;
+  background: linear-gradient(
+    70deg,
+    #ffeaa9 0%,
+    #e97c50 11.6%,
+    #da6cda 26.1%,
+    #7160f2 70.2%,
+    #32208d 100%
+  );
+  --wheel-color: #7160f2;
 }
 
 .color-template-cryoplasm {
-    background: linear-gradient(165deg, #d9f5fe 0%, #f5fffe 20%, #e9fcfe 40%, #8eb6d6 50%, #a081be 60%, #7b63a3 65%, #181737 80%);
-    --wheel-color: #8eb6d6;
+  background: linear-gradient(
+    165deg,
+    #d9f5fe 0%,
+    #f5fffe 20%,
+    #e9fcfe 40%,
+    #8eb6d6 50%,
+    #a081be 60%,
+    #7b63a3 65%,
+    #181737 80%
+  );
+  --wheel-color: #8eb6d6;
 }
 
 .color-template-andrium {
-    background: #19d9a9;
+  background: #19d9a9;
 }
 
 .color-template-neutronium {
-    background: #d6f7f9;
+  background: #d6f7f9;
 }
 
 .color-template-shadowspec {
-    background: linear-gradient(
-        90deg, #6e4976 0%, #b2a9ef 20%, 
-        #a45192 50%, #44264a 75%, #1e0f24 100%);
-    --wheel-color: #44264a;
+  background: linear-gradient(
+    90deg,
+    #6e4976 0%,
+    #b2a9ef 20%,
+    #a45192 50%,
+    #44264a 75%,
+    #1e0f24 100%
+  );
+  --wheel-color: #44264a;
 }
 
 .color-template-spiralium {
-    background: #9a37d2;
+  background: #9a37d2;
 }
 
 .color-template-frozen-nitrogen {
-    background: #90b5c8;
+  background: #90b5c8;
 }
 
 .color-template-orichalican {
-    background: #b54d6e;
+  background: #b54d6e;
 }
 
 .color-template-scorched-bedrock {
-    background: #c83d00;
+  background: #c83d00;
 }
 
 .color-template-plasma {
-    background: #f2e8a3;
+  background: #f2e8a3;
 }
 
 .color-template-crystalline-plasma {
-    background: #d86fdc;
+  background: #d86fdc;
 }
 
 .color-template-electrium {
-    background: #f8d249;
+  background: #f8d249;
 }
 
 .color-template-pyroplasm {
-    background: #ffba7e;
+  background: #ffba7e;
 }
 
 .color-template-convectine {
-    background: #cd3f69;
+  background: #cd3f69;
 }
 
 .color-template-infernilus {
-    background: #ffd773;
+  background: #ffd773;
 }
 
 .color-template-protonium {
-    background: #9c240c;
+  background: #9c240c;
 }
 
 .color-template-galvanium {
-    background: linear-gradient(85deg, #a2e9f8 0%, #4e93e7 25%, #a9f0f9 50%, #295ca1 75%, #1d4da8 100%);
-    --wheel-color: #a9f0f9;
+  background: linear-gradient(
+    85deg,
+    #a2e9f8 0%,
+    #4e93e7 25%,
+    #a9f0f9 50%,
+    #295ca1 75%,
+    #1d4da8 100%
+  );
+  --wheel-color: #a9f0f9;
 }
 
 .color-template-ferozium {
-    background: #91bce2;
+  background: #91bce2;
 }
 
 .color-template-gluonium {
-    background: #eba4ff;
+  background: #eba4ff;
 }
 
 .color-template-up-quark {
-    background: linear-gradient(180deg, #ffcad4 0%, #ffe9f1 10%, #ffcbd5 20%, #e54a49 33%, #e64a49 35%, #8f2b2c 66%, #2a0816 100%);
-    --wheel-color: #e54a49;
+  background: linear-gradient(
+    180deg,
+    #ffcad4 0%,
+    #ffe9f1 10%,
+    #ffcbd5 20%,
+    #e54a49 33%,
+    #e64a49 35%,
+    #8f2b2c 66%,
+    #2a0816 100%
+  );
+  --wheel-color: #e54a49;
 }
 
 .color-template-down-quark {
-    background: linear-gradient(180deg, #17196b 0%, #334fb3 33%, #72a6ef 65%, #afc1eb 70%, #eafcff 90%, #afc1eb 100%);
-    --wheel-color: #72a6ef;
+  background: linear-gradient(
+    180deg,
+    #17196b 0%,
+    #334fb3 33%,
+    #72a6ef 65%,
+    #afc1eb 70%,
+    #eafcff 90%,
+    #afc1eb 100%
+  );
+  --wheel-color: #72a6ef;
 }
 
 .color-template-positron {
-    background: #e59921;
+  background: #e59921;
 }
 
 .color-template-positron-cluster {
-    background: linear-gradient(180deg, #ffc800, #ffc800);
-    --wheel-color: #ffc800;
+  background: linear-gradient(180deg, #ffc800, #ffc800);
+  --wheel-color: #ffc800;
 }
 
 .color-template-supermatter {
-    background: linear-gradient(90deg, #2d2e39 0%, #642848 5%, #dc2569 20%, #e5604e 30%, #e3a240 40%, #fff263 49.7%, #4bdc43 60%, #68d1b7 70%, #8065e3 81.5%, #362064 95%, #2d2e39 100%);
-    --wheel-color: #fff263;
+  background: linear-gradient(
+    90deg,
+    #2d2e39 0%,
+    #642848 5%,
+    #dc2569 20%,
+    #e5604e 30%,
+    #e3a240 40%,
+    #fff263 49.7%,
+    #4bdc43 60%,
+    #68d1b7 70%,
+    #8065e3 81.5%,
+    #362064 95%,
+    #2d2e39 100%
+  );
+  --wheel-color: #fff263;
 }
 
 .color-template-charm-quark {
-    background: linear-gradient(75deg, #4b110d 0%, #a4470d 20%, #ffb635 40%, #fffec8 50%, #ffb635 60%, #a4470d 80%, #4b110d 100%);
-    --wheel-color: #fffec8;
+  background: linear-gradient(
+    75deg,
+    #4b110d 0%,
+    #a4470d 20%,
+    #ffb635 40%,
+    #fffec8 50%,
+    #ffb635 60%,
+    #a4470d 80%,
+    #4b110d 100%
+  );
+  --wheel-color: #fffec8;
 }
 
 .color-template-top-quark {
-    background: linear-gradient(180deg, #ffffff 0%, #a6c9fc 25%, #2e6cf6 50%, #142e5b 75%, #0c1a34 100%);
-    --wheel-color: #2e6cf6;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #a6c9fc 25%,
+    #2e6cf6 50%,
+    #142e5b 75%,
+    #0c1a34 100%
+  );
+  --wheel-color: #2e6cf6;
 }
 
 .color-template-bottom-quark {
-    background: linear-gradient(180deg, #2c0318 0%, #8f265e 25%, #d01d6f 50%, #f4a6d6 75%, #ffffff 100%);
-    --wheel-color: #d01d6f;
+  background: linear-gradient(
+    180deg,
+    #2c0318 0%,
+    #8f265e 25%,
+    #d01d6f 50%,
+    #f4a6d6 75%,
+    #ffffff 100%
+  );
+  --wheel-color: #d01d6f;
 }
 
 .color-template-crystal-photon {
-    background: linear-gradient(115deg,
-            #ffd8f3 0%, #ffffff 30%, #ffd8f3 40%,
-            #ffa0b9 50%, #c85a84 78.5%, #951e6d 100%);
-    --wheel-color: #ffd8f3;
+  background: linear-gradient(
+    115deg,
+    #ffd8f3 0%,
+    #ffffff 30%,
+    #ffd8f3 40%,
+    #ffa0b9 50%,
+    #c85a84 78.5%,
+    #951e6d 100%
+  );
+  --wheel-color: #ffd8f3;
 }
 
 .color-template-photalizine {
-    background: linear-gradient(115deg,
-            #e6cbb7 0%, #fffcb5 20%,
-            #fffff4 30%, #fffcb5 40%,
-            #e6cbb7 55%, #bd8388 65%,
-            #a3577c 100%);
-    --wheel-color: #e2ce97;
+  background: linear-gradient(
+    115deg,
+    #e6cbb7 0%,
+    #fffcb5 20%,
+    #fffff4 30%,
+    #fffcb5 40%,
+    #e6cbb7 55%,
+    #bd8388 65%,
+    #a3577c 100%
+  );
+  --wheel-color: #e2ce97;
 }
 
 .color-template-strange-quark {
-    background: linear-gradient(303deg, #35553a 0%, #57a02b 13%, #ffffae 27%, #b0ff7f 35%, #88cc5c 41%, #ffffc0 50%, #88cc5c 59%, #ffffae 71%, #b0ff7f 79%, #57a02b 90.1%, #2f4345 100%);
-    --wheel-color: #ffffc0;
+  background: linear-gradient(
+    303deg,
+    #35553a 0%,
+    #57a02b 13%,
+    #ffffae 27%,
+    #b0ff7f 35%,
+    #88cc5c 41%,
+    #ffffc0 50%,
+    #88cc5c 59%,
+    #ffffae 71%,
+    #b0ff7f 79%,
+    #57a02b 90.1%,
+    #2f4345 100%
+  );
+  --wheel-color: #ffffc0;
 }
 
 .color-template-universal-barrier {
-    background: #ffffff;
+  background: #ffffff;
 }
 
 .color-template-rifted-barrier {
-    background: linear-gradient(180deg, #535353 0%, #c7c7c7 15%, #ffffff 40%, #ffffff 60%, #c7c7c7 85%, #535353 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(
+    180deg,
+    #535353 0%,
+    #c7c7c7 15%,
+    #ffffff 40%,
+    #ffffff 60%,
+    #c7c7c7 85%,
+    #535353 100%
+  );
+  --wheel-color: #ffffff;
 }
 
 .color-template-fabric {
-    background: #494949;
+  background: #494949;
 }
 
 .color-template-mavrikine {
-    background: #d4e2ec;
+  background: #d4e2ec;
 }
 
 .color-template-irulisteel {
-    background: #363a3e;
+  background: #363a3e;
 }
 
 .color-template-string {
-    background: linear-gradient(90deg, #ff61d5 0%, #8ea8ff 20%, #61ffb0 40%, #ffd863 60%, #ff7e7e 80%, #937dff 100%);
-    --wheel-color: #61ffb0;
+  background: linear-gradient(
+    90deg,
+    #ff61d5 0%,
+    #8ea8ff 20%,
+    #61ffb0 40%,
+    #ffd863 60%,
+    #ff7e7e 80%,
+    #937dff 100%
+  );
+  --wheel-color: #61ffb0;
 }
 
 .color-template-graviton {
-    background: linear-gradient(135deg, #d01e5c 0%, #ff4f95 21%, #f49cf1 43%, #fbcfff 50%, #e89dff 57%, #c073ff 70%, #5c1adf 100%);
-    --wheel-color: #fbcfff;
+  background: linear-gradient(
+    135deg,
+    #d01e5c 0%,
+    #ff4f95 21%,
+    #f49cf1 43%,
+    #fbcfff 50%,
+    #e89dff 57%,
+    #c073ff 70%,
+    #5c1adf 100%
+  );
+  --wheel-color: #fbcfff;
 }
 
 .color-template-hadronil {
-    background: linear-gradient(30deg, #ffffff 0%, #ffffff 40%,#5cd6c2 60%, #605996 70%, #23056e 90%);
-    --wheel-color: #5cd6c2;
+  background: linear-gradient(
+    30deg,
+    #ffffff 0%,
+    #ffffff 40%,
+    #5cd6c2 60%,
+    #605996 70%,
+    #23056e 90%
+  );
+  --wheel-color: #5cd6c2;
 }
 
 .color-template-axion {
-    background: #ffda45;
+  background: #ffda45;
 }
 
 .color-template-mesonyte {
-    background: linear-gradient(45deg, #fff3b4 0%, #6299ff 23%, #308aff 42%, #1064ff 55%, #004cff 75%, #2800ca 100%);
-    --wheel-color: #1064ff;
+  background: linear-gradient(
+    45deg,
+    #fff3b4 0%,
+    #6299ff 23%,
+    #308aff 42%,
+    #1064ff 55%,
+    #004cff 75%,
+    #2800ca 100%
+  );
+  --wheel-color: #1064ff;
 }
 
 .color-template-tachyon {
-    background: linear-gradient(94deg, #ffffd1 0%, #a0ff67 25%, #5ddc40 40%, #3e9e23 49.1%, #4aac90 60.9%, #343880 90%, #2e265a 100%);
-    --wheel-color: #5ddc40;
+  background: linear-gradient(
+    94deg,
+    #ffffd1 0%,
+    #a0ff67 25%,
+    #5ddc40 40%,
+    #3e9e23 49.1%,
+    #4aac90 60.9%,
+    #343880 90%,
+    #2e265a 100%
+  );
+  --wheel-color: #5ddc40;
 }
 
 .color-template-desmentinum {
-    background: linear-gradient(95deg, #f8c4ff 0%, #bf64b7 27%, #b03a67 50%, #4f0024 100%);
-    --wheel-color: #b03a67;
+  background: linear-gradient(
+    95deg,
+    #f8c4ff 0%,
+    #bf64b7 27%,
+    #b03a67 50%,
+    #4f0024 100%
+  );
+  --wheel-color: #b03a67;
 }
 
 .color-template-ailmentin {
-    background: #7f2020;
+  background: #7f2020;
 }
 
 .color-template-territane {
-    background: linear-gradient(167deg, #ffbd54 0%, #eca300 15%, #a65900 27%, #8a2626 59%, #591717 100%);
-    --wheel-color: #a65900;
+  background: linear-gradient(
+    167deg,
+    #ffbd54 0%,
+    #eca300 15%,
+    #a65900 27%,
+    #8a2626 59%,
+    #591717 100%
+  );
+  --wheel-color: #a65900;
 }
 
 .color-template-gyrivarium {
-    background: linear-gradient(95deg, #ffe3ac 0%, #ffa9d5 10%, #ddb3ff 20%, #ffedc2 30%, #ffa034 52%, #ff0c0c 66%, #5d0000 100%);
-    --wheel-color: #ffa034;
+  background: linear-gradient(
+    95deg,
+    #ffe3ac 0%,
+    #ffa9d5 10%,
+    #ddb3ff 20%,
+    #ffedc2 30%,
+    #ffa034 52%,
+    #ff0c0c 66%,
+    #5d0000 100%
+  );
+  --wheel-color: #ffa034;
 }
 
 .color-template-sinfurmium {
-    background: #ac0000;
+  background: #ac0000;
 }
 
 .color-template-krazmite {
-    background: linear-gradient(90deg, #06578d 0%, #261a81 5%, #5f0000 15%, #ff2277 30%, #ffffff 50%, #ff2277 70%, #5f0000 85%, #261a81 95%, #06578d 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(
+    90deg,
+    #06578d 0%,
+    #261a81 5%,
+    #5f0000 15%,
+    #ff2277 30%,
+    #ffffff 50%,
+    #ff2277 70%,
+    #5f0000 85%,
+    #261a81 95%,
+    #06578d 100%
+  );
+  --wheel-color: #ffffff;
 }
 
 .color-template-anaxinite {
-    background: #ef8a39;
+  background: #ef8a39;
 }
 
 .color-template-tendrock {
-    background: #580711;
+  background: #580711;
 }
 
 .color-template-dark-energy {
-    background: #e53bfb;
+  background: #e53bfb;
 }
 
 .color-template-corrodoil {
-    background: linear-gradient(100deg, #ff0000 0%, #8d0000 40%, #320000 63.7%, #210000 100%);
-    --wheel-color: #8d0000;
+  background: linear-gradient(
+    100deg,
+    #ff0000 0%,
+    #8d0000 40%,
+    #320000 63.7%,
+    #210000 100%
+  );
+  --wheel-color: #8d0000;
 }
 
 .color-template-antireal {
-    background: linear-gradient(100deg, #8ddbff 0%, #367cff 50%, #3e57d0 77.5%, #2236aa 100%);
-    --wheel-color: #367cff;
+  background: linear-gradient(
+    100deg,
+    #8ddbff 0%,
+    #367cff 50%,
+    #3e57d0 77.5%,
+    #2236aa 100%
+  );
+  --wheel-color: #367cff;
 }
 
 .color-template-hyperium {
-    background: linear-gradient(105deg, #ffffff 0%, #ffe57c 22%, #fff6c6 42.9%, #ffcb63 60%, #9d2700 100%);
-    --wheel-color: #fff6c6;
+  background: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #ffe57c 22%,
+    #fff6c6 42.9%,
+    #ffcb63 60%,
+    #9d2700 100%
+  );
+  --wheel-color: #fff6c6;
 }
 
 .color-template-grimstone-rubble {
-    background: linear-gradient(90deg, #4d0000, #4d0000);
-    --wheel-color: #4d0000;
+  background: linear-gradient(90deg, #4d0000, #4d0000);
+  --wheel-color: #4d0000;
 }
 
 .color-template-thermisine {
-    background: linear-gradient(180deg, #fff895 0%, #ffc500 25%, #ff8c00 34%, #ff3b00 58%, #ff440c 78%, #cb0058 100%);
-    --wheel-color: #ff8c00;
+  background: linear-gradient(
+    180deg,
+    #fff895 0%,
+    #ffc500 25%,
+    #ff8c00 34%,
+    #ff3b00 58%,
+    #ff440c 78%,
+    #cb0058 100%
+  );
+  --wheel-color: #ff8c00;
 }
 
 .color-template-grimstone {
-    background: #4b1a21;
+  background: #4b1a21;
 }
 
 .color-template-alkanite {
-    background: #9d6137;
+  background: #9d6137;
 }
 
 .color-template-phosphyll {
-    background: #9c2c3c;
+  background: #9c2c3c;
 }
 
 .color-template-vrimsten {
-    background: #b30424;
+  background: #b30424;
 }
 
 .color-template-zilithorus {
-    background: #fca001;
+  background: #fca001;
 }
 
 .color-template-rimrock {
-    background: #4c4d61;
+  background: #4c4d61;
 }
 
 .color-template-korundum {
-    background: #fc417a;
+  background: #fc417a;
 }
 
 .color-template-cytosol {
-    background: #6c1c1c;
+  background: #6c1c1c;
 }
 
 .color-template-ichor {
-    background: linear-gradient(90deg, #fffdb9 0%, #ffc518 16.4%, #d56b00 44.6%, #bc1f00 100%);
-    --wheel-color: #ffc518;
+  background: linear-gradient(
+    90deg,
+    #fffdb9 0%,
+    #ffc518 16.4%,
+    #d56b00 44.6%,
+    #bc1f00 100%
+  );
+  --wheel-color: #ffc518;
 }
 
 .color-template-centriale {
-    background: linear-gradient(90deg, #58209e 0%, #9e0f0f 15%, #ff1dca 30%, #fce2ff 50%, #ff1dca 70%, #9e0f0f 85%, #58209e 100%);
-    --wheel-color: #fce2ff;
+  background: linear-gradient(
+    90deg,
+    #58209e 0%,
+    #9e0f0f 15%,
+    #ff1dca 30%,
+    #fce2ff 50%,
+    #ff1dca 70%,
+    #9e0f0f 85%,
+    #58209e 100%
+  );
+  --wheel-color: #fce2ff;
 }
 
 .color-template-neuroplast {
-    background: linear-gradient(112deg, #f8fdfc 0%, #bdf3f9 14%, #b3def1 25%, #fdd8b0 30%, #f1be94 35%, #dc65cc 45%, #87266d 65%, #580a3b 100%);
-    --wheel-color: #dc65cc;
+  background: linear-gradient(
+    112deg,
+    #f8fdfc 0%,
+    #bdf3f9 14%,
+    #b3def1 25%,
+    #fdd8b0 30%,
+    #f1be94 35%,
+    #dc65cc 45%,
+    #87266d 65%,
+    #580a3b 100%
+  );
+  --wheel-color: #dc65cc;
 }
 
 .color-template-trinasine {
-    background: linear-gradient(103deg, #f397ff 0%, #ff39a3 15.9%, #df2d53 32.5%, #8f043a 61.1%, #260008 100%);
-    --wheel-color: #ff39a3;
+  background: linear-gradient(
+    103deg,
+    #f397ff 0%,
+    #ff39a3 15.9%,
+    #df2d53 32.5%,
+    #8f043a 61.1%,
+    #260008 100%
+  );
+  --wheel-color: #ff39a3;
 }
 
 .color-template-adrenilar {
-    background: linear-gradient(165deg, #ffc278 0%, #ff1100 34.8%, #79161b 60.7%, #28064b 100%);
-    --wheel-color: #ff1100;
+  background: linear-gradient(
+    165deg,
+    #ffc278 0%,
+    #ff1100 34.8%,
+    #79161b 60.7%,
+    #28064b 100%
+  );
+  --wheel-color: #ff1100;
 }
 
 .color-template-macusmite {
-    background: linear-gradient(90deg, #fefffc 0%, #d9f27c 10%, #639425 30%, #84733d 40%, #6f5641 50%, #493122 70%, #290d0a 100%);
-    --wheel-color: #6f5641;
+  background: linear-gradient(
+    90deg,
+    #fefffc 0%,
+    #d9f27c 10%,
+    #639425 30%,
+    #84733d 40%,
+    #6f5641 50%,
+    #493122 70%,
+    #290d0a 100%
+  );
+  --wheel-color: #6f5641;
 }
 
 .color-template-taynalum {
-    background: #bf4356;
+  background: #bf4356;
 }
 
 .color-template-thulinyl {
-    background: linear-gradient(170deg, #000dbf 0%, #007bff 25%, #00fbff 35%, #ffffff 50%, #ffee00 65%, #ff6a00 75%, #ff0004 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(
+    170deg,
+    #000dbf 0%,
+    #007bff 25%,
+    #00fbff 35%,
+    #ffffff 50%,
+    #ffee00 65%,
+    #ff6a00 75%,
+    #ff0004 100%
+  );
+  --wheel-color: #ffffff;
 }
 
 .color-template-mezihyrium {
-    background: #ff46ed;
+  background: #ff46ed;
 }
 
 .color-template-leptonyte {
-    background: linear-gradient(117deg, #fdfcf5 0%, #ffe590 10%, #ffafab 25%, #be4872 50%, #683a61 65%, #1f1737 80%, #0f172a 100%);
-    --wheel-color: #be4872;
+  background: linear-gradient(
+    117deg,
+    #fdfcf5 0%,
+    #ffe590 10%,
+    #ffafab 25%,
+    #be4872 50%,
+    #683a61 65%,
+    #1f1737 80%,
+    #0f172a 100%
+  );
+  --wheel-color: #be4872;
 }
 
 .color-template-solarium {
-    background: linear-gradient(65deg,
-            #650900 0%, #c33701 5%, #ffdd64 15%,
-            #fa8b20 25%, #d03100 30%, #ee6c13 40%,
-            #fce19c 45%, #ffffff 50%, #fce19c 55%,
-            #ee6c13 60%, #d03100 70%, #fa8b20 75%,
-            #ffdd64 85%, #c33701 95%, #650900 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(
+    65deg,
+    #650900 0%,
+    #c33701 5%,
+    #ffdd64 15%,
+    #fa8b20 25%,
+    #d03100 30%,
+    #ee6c13 40%,
+    #fce19c 45%,
+    #ffffff 50%,
+    #fce19c 55%,
+    #ee6c13 60%,
+    #d03100 70%,
+    #fa8b20 75%,
+    #ffdd64 85%,
+    #c33701 95%,
+    #650900 100%
+  );
+  --wheel-color: #ffffff;
 }
 
 .color-template-exotic-matter {
-    background: linear-gradient(90deg, #d5ffef 0%, #d4feae 13.8%, #60efb8 27.5%, #60ff7a 41.9%, #ffe277 62.3%, #f5d34b 81.1%, #8e3618 100%);
-    --wheel-color: #60ff7a;
+  background: linear-gradient(
+    90deg,
+    #d5ffef 0%,
+    #d4feae 13.8%,
+    #60efb8 27.5%,
+    #60ff7a 41.9%,
+    #ffe277 62.3%,
+    #f5d34b 81.1%,
+    #8e3618 100%
+  );
+  --wheel-color: #60ff7a;
 }
 
 .color-template-nebulinite {
-    background: linear-gradient(125deg, #fdebaa 0%, #efcf95 18.7%, #cf7396 29.6%, #972e84 38.9%, #b18dac 49.5%, #cfd3ef 64.9%, #5f4e9a 81.1%, #1a014f 100%);
-    --wheel-color: #b18dac;
+  background: linear-gradient(
+    125deg,
+    #fdebaa 0%,
+    #efcf95 18.7%,
+    #cf7396 29.6%,
+    #972e84 38.9%,
+    #b18dac 49.5%,
+    #cfd3ef 64.9%,
+    #5f4e9a 81.1%,
+    #1a014f 100%
+  );
+  --wheel-color: #b18dac;
 }
 
 .color-template-chronon {
-    background: linear-gradient(90deg, #ffffff 0%, #dcf6ff 21.6%, #87dfff 44.3%, #0055d4 100%);
-    --wheel-color: #87dfff;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #dcf6ff 21.6%,
+    #87dfff 44.3%,
+    #0055d4 100%
+  );
+  --wheel-color: #87dfff;
 }
 
 .color-template-arkivyll {
-    background: linear-gradient(90deg, #ffffff 0%, #d995e4 9.34%, #bb6bc7 17.1%, #f0b0bc 31.7%, #c8537c 45.8%, #871254 62.3%, #32013c 100%);
-    --wheel-color: #c8537c;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #d995e4 9.34%,
+    #bb6bc7 17.1%,
+    #f0b0bc 31.7%,
+    #c8537c 45.8%,
+    #871254 62.3%,
+    #32013c 100%
+  );
+  --wheel-color: #c8537c;
 }
 
 .color-template-aureum {
-    background: #ff54fd;
+  background: #ff54fd;
 }
 
 .color-template-aurorum {
-    background: linear-gradient(90deg, #8affbf 0%, #9bdfff 32.7%, #e897ff 62.6%, #311dc5 100%);
-    --wheel-color: #9bdfff;
+  background: linear-gradient(
+    90deg,
+    #8affbf 0%,
+    #9bdfff 32.7%,
+    #e897ff 62.6%,
+    #311dc5 100%
+  );
+  --wheel-color: #9bdfff;
 }
 
 .color-template-korenil {
-    background: linear-gradient(112deg, #ffffff 0%, #e093ff 15%, #c34cff 36%, #894eff 49%, #6a85ff 69%, #6abeff 86%, #32a0c1 100%);
-    --wheel-color: #894eff;
+  background: linear-gradient(
+    112deg,
+    #ffffff 0%,
+    #e093ff 15%,
+    #c34cff 36%,
+    #894eff 49%,
+    #6a85ff 69%,
+    #6abeff 86%,
+    #32a0c1 100%
+  );
+  --wheel-color: #894eff;
 }
 
 .color-template-stellar-sediment {
-    background: linear-gradient(127deg, #c778ff 0%, #5e389b 18%, #482b86 35%, #6840ac 52%, #ae6cff 64%, #421e77 82%, #2a0c58 100%);
-    --wheel-color: #6840ac;
+  background: linear-gradient(
+    127deg,
+    #c778ff 0%,
+    #5e389b 18%,
+    #482b86 35%,
+    #6840ac 52%,
+    #ae6cff 64%,
+    #421e77 82%,
+    #2a0c58 100%
+  );
+  --wheel-color: #6840ac;
 }
 
 .color-template-apiastrine {
-    background: linear-gradient(90deg, #ff2d86 0%, #f2b2cd 50%, #56ffaa 100%);
-    --wheel-color: #f2b2cd;
+  background: linear-gradient(
+    90deg, 
+    #ff2d86 0%, 
+    #f2b2cd 50%, 
+    #56ffaa 100%
+  );
+  --wheel-color: #f2b2cd;
 }
 
 .color-template-abyssal-sludge {
-    background: linear-gradient(90deg, #9b8be2 0%, #b9a9ff 20%, #615ebc 50%, #424196 80%, #162145 100%);
-    --wheel-color: #615ebc;
+  background: linear-gradient(
+    90deg,
+    #9b8be2 0%,
+    #b9a9ff 20%,
+    #615ebc 50%,
+    #424196 80%,
+    #162145 100%
+  );
+  --wheel-color: #615ebc;
 }
 
 .color-template-primordian {
-    background: linear-gradient(90deg, #f7f8fc 0%, #83b8e8 20%, #487bbb 40%, #203ead 70%, #342f66 100%);
-    --wheel-color: #487bbb;
+  background: linear-gradient(
+    90deg,
+    #f7f8fc 0%,
+    #83b8e8 20%,
+    #487bbb 40%,
+    #203ead 70%,
+    #342f66 100%
+  );
+  --wheel-color: #487bbb;
 }
 
 .color-template-cosmodium {
-    background: #3e2d82;
+  background: #3e2d82;
 }
 
 .color-template-hexflame {
-    background: linear-gradient(0deg, #edfe94 0%, #d5fb81 18.5%, #5feb26 47.4%, #098b06 80.3%, #034f08 100%);
-    --wheel-color: #5feb26;
+  background: linear-gradient(
+    0deg,
+    #edfe94 0%,
+    #d5fb81 18.5%,
+    #5feb26 47.4%,
+    #098b06 80.3%,
+    #034f08 100%
+  );
+  --wheel-color: #5feb26;
 }
 
 .color-template-tetraquark {
-    background: linear-gradient(135deg, #34895e 0%, #68b849 10%, #f5d03e 20%, #fbffc3 35.3%, #fff47a 50%, #c4ff37 60%, #34895e 80%, #0f6350 100%);
-    --wheel-color: #fff47a;
+  background: linear-gradient(
+    135deg,
+    #34895e 0%,
+    #68b849 10%,
+    #f5d03e 20%,
+    #fbffc3 35.3%,
+    #fff47a 50%,
+    #c4ff37 60%,
+    #34895e 80%,
+    #0f6350 100%
+  );
+  --wheel-color: #fff47a;
 }
 
 .color-template-mauraline {
-    background: #474297;
+  background: #474297;
 }
 
 .color-template-amperisilt {
-    background: #6c6184;
+  background: #6c6184;
 }
 
 .color-template-nyrvinoris {
-    background: #e575c7;
+  background: #e575c7;
 }
 
 .color-template-nihinoris {
-    background: #5bcec4;
+  background: #5bcec4;
 }
 
 .color-template-infrarian {
-    background: linear-gradient(90deg, #ffffff 0%, #fff6f6 15%, #ff9b9b 30%, #ff6868 35%, #ff422d 50%, #980000 70%, #520402 100%);
-    --wheel-color: #ff422d;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #fff6f6 15%,
+    #ff9b9b 30%,
+    #ff6868 35%,
+    #ff422d 50%,
+    #980000 70%,
+    #520402 100%
+  );
+  --wheel-color: #ff422d;
 }
 
 .color-template-revalyte {
-    background: linear-gradient(
-        75deg,
-        #b9aede 0%, #f0e7f9 20%,
-        #b9aede 35%, #f0afd4 50%, #6b367b 75%,
-        #242d51 100%);
-    --wheel-color: #b9aede;
+  background: linear-gradient(
+    75deg,
+    #b9aede 0%,
+    #f0e7f9 20%,
+    #b9aede 35%,
+    #f0afd4 50%,
+    #6b367b 75%,
+    #242d51 100%
+  );
+  --wheel-color: #b9aede;
 }
 
 .color-template-ultranium {
-    background: #65c67e;
+  background: #65c67e;
 }
 
 .color-template-auricallium {
-    background: linear-gradient(105deg, #ffffff 0%, #9eedff 15%, #79cad3 27.5%, #79cad3 40%, #ffe7ac 60%, #e5d07b 80%, #965009 100%);
-    --wheel-color: #79cad3;
+  background: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #9eedff 15%,
+    #79cad3 27.5%,
+    #79cad3 40%,
+    #ffe7ac 60%,
+    #e5d07b 80%,
+    #965009 100%
+  );
+  --wheel-color: #79cad3;
 }
 
 .color-template-unobtainium {
-    background: linear-gradient(124deg, #f0d3e0 0%, #e65c9a 42%, #920f44 72%, #5c0d4b 87%, #540d4c 100%);
-    --wheel-color: #e65c9a;
+  background: linear-gradient(
+    124deg,
+    #f0d3e0 0%,
+    #e65c9a 42%,
+    #920f44 72%,
+    #5c0d4b 87%,
+    #540d4c 100%
+  );
+  --wheel-color: #e65c9a;
 }
 
 .color-template-zeronian {
-    background: linear-gradient(90deg, #ffffff 0%, #db93ff 20%, #b67be1 40%, #6c2f7e 55.9%, #2e3186 80%, #20003f 100%);
-    --wheel-color: #b67be1;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #db93ff 20%,
+    #b67be1 40%,
+    #6c2f7e 55.9%,
+    #2e3186 80%,
+    #20003f 100%
+  );
+  --wheel-color: #b67be1;
 }
 
 .color-template-exodian {
-    background: linear-gradient(180deg, #b1b1b1 0%, #ffffff 50%, #323232 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(180deg, #b1b1b1 0%, #ffffff 50%, #323232 100%);
+  --wheel-color: #ffffff;
 }
 
 .color-template-lattiglass {
-    background: #ffb5b6;
+  background: #ffb5b6;
 }
 
 .color-template-etherfilm {
-    background: linear-gradient(
-        81deg,
-        #6a45c6 0%, #e85aff 40%, #a636a6 50%, 
-        #ff41f1 60%, #3a1854 80%
-        );
-    --wheel-color: #6a45c6;
+  background: linear-gradient(
+    81deg,
+    #6a45c6 0%,
+    #e85aff 40%,
+    #a636a6 50%,
+    #ff41f1 60%,
+    #3a1854 80%
+  );
+  --wheel-color: #6a45c6;
 }
+
 .color-template-aetherice {
-    background: linear-gradient(135deg, #efc6ff 0%, #9252ec 35%, #bf2bff 50%, #5218ff 60%, #3007ff 80%, #1d00ac 100%);
-    --wheel-color: #bf2bff;
+  background: linear-gradient(
+    135deg,
+    #efc6ff 0%,
+    #9252ec 35%,
+    #bf2bff 50%,
+    #5218ff 60%,
+    #3007ff 80%,
+    #1d00ac 100%
+  );
+  --wheel-color: #bf2bff;
 }
 
 .color-template-starniferus {
-    background: linear-gradient(75deg, #2d1076 0%, #802bd6 15%, #ec1dff 30%, #faa1f0 38.2%, #ffcdeb 50%, #fbacef 61.9%, #ec1dff 70%, #802bd6 85%, #2d1076 100%);
-    --wheel-color: #ffcdeb;
+  background: linear-gradient(
+    75deg,
+    #2d1076 0%,
+    #802bd6 15%,
+    #ec1dff 30%,
+    #faa1f0 38.2%,
+    #ffcdeb 50%,
+    #fbacef 61.9%,
+    #ec1dff 70%,
+    #802bd6 85%,
+    #2d1076 100%
+  );
+  --wheel-color: #ffcdeb;
 }
 
 .color-template-ethanerite {
-    background: linear-gradient(90deg, #ffb7b7 0%, #bf0000 20%, #6600ff 50%, #4cd5ff 80%, #0004ff 100%);
-    --wheel-color: #6600ff;
+  background: linear-gradient(
+    90deg,
+    #ffb7b7 0%,
+    #bf0000 20%,
+    #6600ff 50%,
+    #4cd5ff 80%,
+    #0004ff 100%
+  );
+  --wheel-color: #6600ff;
 }
 
 .color-template-lumenyl {
-    background: linear-gradient(123deg, #9de8f1 0%, #eafdfd 11.4%, #7cd2f2 25.8%, #609cdc 38.2%, #7267c8 50.2%, #aa65cc 62.1%, #4c3490 78.2%, #2b3092 88.6%, #110b38 100%);
-    --wheel-color: #7267c8;
+  background: linear-gradient(
+    123deg,
+    #9de8f1 0%,
+    #eafdfd 11.4%,
+    #7cd2f2 25.8%,
+    #609cdc 38.2%,
+    #7267c8 50.2%,
+    #aa65cc 62.1%,
+    #4c3490 78.2%,
+    #2b3092 88.6%,
+    #110b38 100%
+  );
+  --wheel-color: #7267c8;
 }
 
 .color-template-ulirazite {
-    background: linear-gradient(
-        115deg, #e57fa1 25%, #ffe5d8 30%,
-        #e57fa1 35%, #f0b4c9 40%, #cb487a 45%,
-        #8548ab 60%, #271649 80%);
-    --wheel-color: #e57fa1;
+  background: linear-gradient(
+    115deg,
+    #e57fa1 25%,
+    #ffe5d8 30%,
+    #e57fa1 35%,
+    #f0b4c9 40%,
+    #cb487a 45%,
+    #8548ab 60%,
+    #271649 80%
+  );
+  --wheel-color: #e57fa1;
 }
 
 .color-template-impervium {
-    background: #455f71;
+  background: #455f71;
 }
 
 .color-template-kryposilus {
-    background: linear-gradient(90deg, #fdbeff 0%, #f48afa 20.4%, #cd65d9 33.4%, #f58a89 45.7%, #aa1747 58%, #670020 100%);
-    --wheel-color: #f58a89;
+  background: linear-gradient(
+    90deg,
+    #fdbeff 0%,
+    #f48afa 20.4%,
+    #cd65d9 33.4%,
+    #f58a89 45.7%,
+    #aa1747 58%,
+    #670020 100%
+  );
+  --wheel-color: #f58a89;
 }
 
 .color-template-vythusilyte {
-    background: linear-gradient(105deg, #ffffff 0%, #c0caf0 27%, #6c5c9e 45%, #4b316f 55%, #372c6c 65%, #1e144e 100%);
-    --wheel-color: #6c5c9e;
+  background: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #c0caf0 27%,
+    #6c5c9e 45%,
+    #4b316f 55%,
+    #372c6c 65%,
+    #1e144e 100%
+  );
+  --wheel-color: #6c5c9e;
 }
 
 .color-template-nethrastine {
-    background: #464a87;
+  background: #464a87;
 }
 
 .color-template-formicite {
-    background: linear-gradient(101deg, #d9f3f9 0%, #bfecf9 13.1%, #67d4f8 24.6%, #168fef 35.6%, #0777ff 44.3%, #7589a9 50%, #39455a 70.9%, #121b2c 100%);
-    --wheel-color: #0777ff;
+  background: linear-gradient(
+    101deg,
+    #d9f3f9 0%,
+    #bfecf9 13.1%,
+    #67d4f8 24.6%,
+    #168fef 35.6%,
+    #0777ff 44.3%,
+    #7589a9 50%,
+    #39455a 70.9%,
+    #121b2c 100%
+  );
+  --wheel-color: #0777ff;
 }
 
 .color-template-raw-energy {
-    background: linear-gradient(85deg, #ffffff 0%, #efafff 39.4%, #d54aa0 100%);
+    background: linear-gradient(85deg,
+            #ffffff 0%,
+            #efafff 39.4%,
+            #d54aa0 100%);
     --wheel-color: #efafff;
 }
 
 .color-template-obliviril {
-    background: linear-gradient(64deg, #430000 0%, #ff3a3a 20%, #ff0000 30%, #ff9292 40%, #ffffff 50%, #ff9292 60%, #ff0000 70%, #ff3a3a 80%, #430000 100%);
-    --wheel-color: #ff3a3a;
+  background: linear-gradient(
+    64deg,
+    #430000 0%,
+    #ff3a3a 20%,
+    #ff0000 30%,
+    #ff9292 40%,
+    #ffffff 50%,
+    #ff9292 60%,
+    #ff0000 70%,
+    #ff3a3a 80%,
+    #430000 100%
+  );
+  --wheel-color: #ff3a3a;
 }
 
 .color-template-enceladrum {
-    background: linear-gradient(135deg, #ddfcff 0%, #9bb3e3 15%, #8498d1 50%, #332a46 95%, #1a162c 100%);
-    --wheel-color: #8498d1;
+  background: linear-gradient(
+    135deg,
+    #ddfcff 0%,
+    #9bb3e3 15%,
+    #8498d1 50%,
+    #332a46 95%,
+    #1a162c 100%
+  );
+  --wheel-color: #8498d1;
 }
 
 .color-template-essence-of-the-cosmos {
-    background: #4437d6;
+  background: #4437d6;
 }
 
 .color-template-essence-of-the-sun {
-    background: #ffc130;
+  background: #ffc130;
 }
 
 .color-template-essence-of-the-void {
-    background: linear-gradient(
-        90deg, #9d69bc 0%, #683cc4 20%, 
-        #ac4248 50%, #c65559 70%, #bd565f 100%);
+  background: linear-gradient(
+    90deg,
+    #9d69bc 0%,
+    #683cc4 20%,
+    #ac4248 50%,
+    #c65559 70%,
+    #bd565f 100%
+  );
 }
 
 .color-template-essence-of-purity {
-    background: #ffe3b2;
+  background: #ffe3b2;
 }
 
 .color-template-essence-of-violence {
-    background: #9a1617;
+  background: #9a1617;
 }
 
 .color-template-essence-of-vitality {
-    background: #75ff7e;
+  background: #75ff7e;
 }
 
-
 .color-template-evrasalt {
-    background: linear-gradient(115deg, #875b6e 0%, #603f4e 30%, #2c1821 100%);
-    --wheel-color: #603f4e;
+  background: linear-gradient(115deg, #875b6e 0%, #603f4e 30%, #2c1821 100%);
+  --wheel-color: #603f4e;
 }
 
 .color-template-qylicryst {
-    background: linear-gradient(95deg, #ffffff 0%, #b8eaff 33%, #cd8bd4 55%, #441b68 100%);
-    --wheel-color: #cd8bd4;
+  background: linear-gradient(
+    95deg,
+    #ffffff 0%,
+    #b8eaff 33%,
+    #cd8bd4 55%,
+    #441b68 100%
+  );
+  --wheel-color: #cd8bd4;
 }
 
 .color-template-kafsium {
-    background: #6c8eb8;
+  background: #6c8eb8;
 }
 
 .color-template-zetaslime {
-    background: linear-gradient(135deg, #ffc1dc 0%, #ff9cc7 10%, #ff5e91 33%, #902042 100%);
-    --wheel-color: #ff5e91;
+  background: linear-gradient(
+    135deg,
+    #ffc1dc 0%,
+    #ff9cc7 10%,
+    #ff5e91 33%,
+    #902042 100%
+  );
+  --wheel-color: #ff5e91;
 }
 
 .color-template-ochistrite {
-    background: linear-gradient(115deg, #ffcdef 0%, #ff5cce 25%, #a347ff 50%, #0019bf 70%, #0a3bc1 85%, #43ffd0 100%);
-    --wheel-color: #a347ff;
+  background: linear-gradient(
+    115deg,
+    #ffcdef 0%,
+    #ff5cce 25%,
+    #a347ff 50%,
+    #0019bf 70%,
+    #0a3bc1 85%,
+    #43ffd0 100%
+  );
+  --wheel-color: #a347ff;
 }
 
 .color-template-reithum {
-    background: linear-gradient(135deg, #ac0000 0%, #ff5500 35%, #ff8e2c 45%, #ffefa0 55%, #ff8e2c 65%, #ff5500 75%, #ac0000 100%);
-    --wheel-color: #ffefa0;
+  background: linear-gradient(
+    135deg,
+    #ac0000 0%,
+    #ff5500 35%,
+    #ff8e2c 45%,
+    #ffefa0 55%,
+    #ff8e2c 65%,
+    #ff5500 75%,
+    #ac0000 100%
+  );
+  --wheel-color: #ffefa0;
 }
 
 .color-template-truth-quark {
-    background: linear-gradient(114deg, #ffc377 0%, #f23951 30%, #ab1d62 50%, #6d0957 73%, #3c004a 100%);
-    --wheel-color: #ab1d62;
+  background: linear-gradient(
+    114deg,
+    #ffc377 0%,
+    #f23951 30%,
+    #ab1d62 50%,
+    #6d0957 73%,
+    #3c004a 100%
+  );
+  --wheel-color: #ab1d62;
 }
 
 .color-template-wish-alloy {
-    background: linear-gradient(135deg, #ffdb73 0%, #fff8c5 10%, #ffdb73 20%, #ec900f 35%, #a84f1c 63.7%, #57263a 85%, #491f3f 100%);
-    --wheel-color: #ffdb73;
+  background: linear-gradient(
+    135deg,
+    #ffdb73 0%,
+    #fff8c5 10%,
+    #ffdb73 20%,
+    #ec900f 35%,
+    #a84f1c 63.7%,
+    #57263a 85%,
+    #491f3f 100%
+  );
+  --wheel-color: #ffdb73;
 }
 
 .color-template-vorazylith {
-    background: linear-gradient(95deg, #e3e0fc 0%, #f2f0fe 7.5%, #d4cffb 17%, #a398f8 30%, #6442a9 70%, #481565 100%);
-    --wheel-color: #a398f8;
+  background: linear-gradient(
+    95deg,
+    #e3e0fc 0%,
+    #f2f0fe 7.5%,
+    #d4cffb 17%,
+    #a398f8 30%,
+    #6442a9 70%,
+    #481565 100%
+  );
+  --wheel-color: #a398f8;
 }
 
 .color-template-phantasmorite {
-    background: linear-gradient(156deg, #ffffff 0%, #77abbc 20%, #c7d5ef 50%, #f0cdf9 80%, #7d50a4 100%);
-    --wheel-color: #c7d5ef;
+  background: linear-gradient(
+    156deg,
+    #ffffff 0%,
+    #77abbc 20%,
+    #c7d5ef 50%,
+    #f0cdf9 80%,
+    #7d50a4 100%
+  );
+  --wheel-color: #c7d5ef;
 }
 
 .color-template-profelis {
-    background: linear-gradient(167deg, #ffead3 0%, #e4b5ff 29%, #ffcc54 64%, #821600 100%);
-    --wheel-color: #ffcc54;
+  background: linear-gradient(
+    167deg,
+    #ffead3 0%,
+    #e4b5ff 29%,
+    #ffcc54 64%,
+    #821600 100%
+  );
+  --wheel-color: #ffcc54;
 }
 
 .color-template-ogleum {
-    background: #b3ffb4;
+  background: #b3ffb4;
 }
 
 .color-template-protireal {
-    background: linear-gradient(180deg, #fefaea 0%, #fdecb0 20%, #f8cd6b 40%, #cd6d86 70%, #953b6f 80%, #4f1e6f 100%);
-    --wheel-color: #f8cd6b;
+  background: linear-gradient(
+    180deg,
+    #fefaea 0%,
+    #fdecb0 20%,
+    #f8cd6b 40%,
+    #cd6d86 70%,
+    #953b6f 80%,
+    #4f1e6f 100%
+  );
+  --wheel-color: #f8cd6b;
 }
 
 .color-template-xerutherum {
-    background: linear-gradient(90deg, #ff9e9e 0%, #fd6a6a 20%, #fae993 40%, #ea81ff 60%, #310c2a 100%);
-    --wheel-color: #fae993;
+  background: linear-gradient(
+    90deg,
+    #ff9e9e 0%,
+    #fd6a6a 20%,
+    #fae993 40%,
+    #ea81ff 60%,
+    #310c2a 100%
+  );
+  --wheel-color: #fae993;
 }
 
 .color-template-mesmirian {
-    background: linear-gradient(90deg, #ffe7fe 0%, #cd94de 45%, #779ce1 55%, #d0f2ff 100%);
-    --wheel-color: #cd94de;
+  background: linear-gradient(
+    90deg,
+    #ffe7fe 0%,
+    #cd94de 45%,
+    #779ce1 55%,
+    #d0f2ff 100%
+  );
+  --wheel-color: #cd94de;
 }
 
 .color-template-equilibrium {
-    background: linear-gradient(90deg, #ac1010 0%, #ff4343 32.5%,
-            #db9eff 42.5%, #f6c7ff 50%, #db9eff 57.5%,
-            #9ba5ff 67.5%, #1d34ff 100%);
-    --wheel-color: #f6c7ff;
+  background: linear-gradient(
+    90deg,
+    #ac1010 0%,
+    #ff4343 32.5%,
+    #db9eff 42.5%,
+    #f6c7ff 50%,
+    #db9eff 57.5%,
+    #9ba5ff 67.5%,
+    #1d34ff 100%
+  );
+  --wheel-color: #f6c7ff;
 }
 
 .color-template-quark-matter {
-    background: linear-gradient(90deg,
-            #ff4646 0%, #3748bc 20%,
-            #43d5d5 40%, #3dd15a 60%,
-            #c8bc32 74%, #c60000 89%,
-            #e045ff 100%);
-    --wheel-color: #43d5d5;
+  background: linear-gradient(
+    90deg,
+    #ff4646 0%,
+    #3748bc 20%,
+    #43d5d5 40%,
+    #3dd15a 60%,
+    #c8bc32 74%,
+    #c60000 89%,
+    #e045ff 100%
+  );
+  --wheel-color: #43d5d5;
 }
 
 .color-template-periglise {
-    background: linear-gradient(146deg,
-            #ffffff 0%, #ffe875 25%,
-            #ffb8ee 43.9%, #ff53d1 61.2%,
-            #bd437f 72.8%, #622b89 90.1%,
-            #47248c 100%);
-    --wheel-color: #ffb8ee;
+  background: linear-gradient(
+    146deg,
+    #ffffff 0%,
+    #ffe875 25%,
+    #ffb8ee 43.9%,
+    #ff53d1 61.2%,
+    #bd437f 72.8%,
+    #622b89 90.1%,
+    #47248c 100%
+  );
+  --wheel-color: #ffb8ee;
 }
 
 .color-template-isoronil {
-    background: linear-gradient(90deg,
-            #1035ad 0%, #346fc0 10%,
-            #a0e8f1 22.5%, #d7fcff 35%,
-            #f7ebff 42.5%, #fefcfc 50%,
-            #f7ebff 57.5%, #fef7cf 65%,
-            #f5c97c 80%, #703664 100%);
-    --wheel-color: #fefcfc;
+  background: linear-gradient(
+    90deg,
+    #1035ad 0%,
+    #346fc0 10%,
+    #a0e8f1 22.5%,
+    #d7fcff 35%,
+    #f7ebff 42.5%,
+    #fefcfc 50%,
+    #f7ebff 57.5%,
+    #fef7cf 65%,
+    #f5c97c 80%,
+    #703664 100%
+  );
+  --wheel-color: #fefcfc;
 }
 
 .color-template-ambrosine {
-    background: linear-gradient(90deg, #ffcc66 0%, #f9f575 20%, #f07f53 42.2%, #ec82ff 80%, #b050eb 100%);
-    --wheel-color: #f07f53;
+  background: linear-gradient(
+    90deg,
+    #ffcc66 0%,
+    #f9f575 20%,
+    #f07f53 42.2%,
+    #ec82ff 80%,
+    #b050eb 100%
+  );
+  --wheel-color: #f07f53;
 }
 
 .color-template-universallium {
-    background: linear-gradient(124deg, #fdf3fc 0%, #f38cf9 23.4%, #f072f8 43.9%, #cb32d5 58%, #9133d2 77.3%, #5216b0 100%);
-    --wheel-color: #cb32d5;
+  background: linear-gradient(
+    124deg,
+    #fdf3fc 0%,
+    #f38cf9 23.4%,
+    #f072f8 43.9%,
+    #cb32d5 58%,
+    #9133d2 77.3%,
+    #5216b0 100%
+  );
+  --wheel-color: #cb32d5;
 }
 
 .color-template-neutrine {
-    background: linear-gradient(135deg, #fffcce 0%, #ffe873 24.4%, #ff8000 51.4%, #ff0000 70.2%, #9b0f0f 86.7%, #633f3f 100%);
-    --wheel-color: #ff8000;
+  background: linear-gradient(
+    135deg,
+    #fffcce 0%,
+    #ffe873 24.4%,
+    #ff8000 51.4%,
+    #ff0000 70.2%,
+    #9b0f0f 86.7%,
+    #633f3f 100%
+  );
+  --wheel-color: #ff8000;
 }
 
 .color-template-torn-fabric {
-    background: linear-gradient(123deg, #feffff 0%, #ccffff 20%, #8ec5d8 30%, #476ccc 40%, #887dc5 50%, #a17cc3 60%, #403e68 84.3%, #171c41 100%);
-    --wheel-color: #887dc5;
+  background: linear-gradient(
+    123deg,
+    #feffff 0%,
+    #ccffff 20%,
+    #8ec5d8 30%,
+    #476ccc 40%,
+    #887dc5 50%,
+    #a17cc3 60%,
+    #403e68 84.3%,
+    #171c41 100%
+  );
+  --wheel-color: #887dc5;
 }
 
 .color-template-singularity {
-    background: linear-gradient(135deg, #fdfcef 0%, #d3f8f8 20%, #faedfd 30%, #f2caff 37.5%, #ffffff 50%, #ffd9a1 62.5%, #edebd6 70%, #ecf9df 80%, #b7dce1 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #fdfcef 0%,
+    #d3f8f8 20%,
+    #faedfd 30%,
+    #f2caff 37.5%,
+    #ffffff 50%,
+    #ffd9a1 62.5%,
+    #edebd6 70%,
+    #ecf9df 80%,
+    #b7dce1 100%
+  );
+  --wheel-color: #ffffff;
 }
 
 .color-template-zynulvinite {
-    background: linear-gradient(93deg, #286c46 0%, #87bc9c 20%, #f4fef7 37%, #87bc9c 50%, #5e7163 60%, #614d4c 69.7%, #741a39 78%, #d28c73 89.4%, #c37857 100%);
-    --wheel-color: #f4fef7;
+  background: linear-gradient(
+    93deg,
+    #286c46 0%,
+    #87bc9c 20%,
+    #f4fef7 37%,
+    #87bc9c 50%,
+    #5e7163 60%,
+    #614d4c 69.7%,
+    #741a39 78%,
+    #d28c73 89.4%,
+    #c37857 100%
+  );
+  --wheel-color: #f4fef7;
 }
 
 .color-template-violecil {
-    background: linear-gradient(90deg, #ff3939 0%, #ff8989 16%, #dc2020 30%, #740000 60%, #580000 70%, #422a2a 85%, #312727 100%);
-    --wheel-color: #dc2020;
+  background: linear-gradient(
+    90deg,
+    #ff3939 0%,
+    #ff8989 16%,
+    #dc2020 30%,
+    #740000 60%,
+    #580000 70%,
+    #422a2a 85%,
+    #312727 100%
+  );
+  --wheel-color: #dc2020;
 }
 
 .color-template-neutrino {
-    background: linear-gradient(90deg, #ff8eff 0%, #ff91ff 40%, #e9caff 100%);
-    --wheel-color: #ff91ff;
+  background: linear-gradient(90deg, #ff8eff 0%, #ff91ff 40%, #e9caff 100%);
+  --wheel-color: #ff91ff;
 }
 
 .color-template-malbrane {
-    background: linear-gradient(115deg, #fff8c2 0%, #ffd657 20%, #ffb508 41.9%, #9e3f00 59.7%, #542200 80%, #312424 100%);
-    --wheel-color: #ffb508;
+  background: linear-gradient(
+    115deg,
+    #fff8c2 0%,
+    #ffd657 20%,
+    #ffb508 41.9%,
+    #9e3f00 59.7%,
+    #542200 80%,
+    #312424 100%
+  );
+  --wheel-color: #ffb508;
 }
 
 .color-template-dystranum {
-    background: linear-gradient(45deg, #32009d 0%, #f565ff 25%, #c70000 35%, #ff4646 40%, #ffffff 50%, #ff4646 60%, #c70000 65%, #f565ff 75%, #32009d 100%);
-    --wheel-color: #ffffff;
+  background: linear-gradient(
+    45deg,
+    #32009d 0%,
+    #f565ff 25%,
+    #c70000 35%,
+    #ff4646 40%,
+    #ffffff 50%,
+    #ff4646 60%,
+    #c70000 65%,
+    #f565ff 75%,
+    #32009d 100%
+  );
+  --wheel-color: #f565ff;
 }
 
 .color-template-ectokelyte {
-    background: linear-gradient(135deg, #f3c4ff 0%, #e98ef0 25.6%, #c97cd5 40%, #673fa1 63%, #553588 77%, #371e63 100%);
-    --wheel-color: #c97cd5;
+  background: linear-gradient(
+    135deg,
+    #f3c4ff 0%,
+    #e98ef0 25.6%,
+    #c97cd5 40%,
+    #673fa1 63%,
+    #553588 77%,
+    #371e63 100%
+  );
+  --wheel-color: #c97cd5;
 }
 
 .color-template-havicron {
-    background: linear-gradient(90deg, #e3a21a 0%, #fff77e 21.1%, #d2ffc0 35%, #8bff95 45%, #45dc46 55.4%, #3ac8d0 75%, #094973 100%);
-    --wheel-color: #45dc46;
+  background: linear-gradient(
+    90deg,
+    #e3a21a 0%,
+    #fff77e 21.1%,
+    #d2ffc0 35%,
+    #8bff95 45%,
+    #45dc46 55.4%,
+    #3ac8d0 75%,
+    #094973 100%
+  );
+  --wheel-color: #45dc46;
 }
 
 .color-template-rhylazil {
-    background: linear-gradient(90deg,
-            #42155c 0%, #944171 10%, #c15a6b 20%,
-            #eab38d 30%, #f8f1cf 37.5%, #eab38d 42.5%,
-            #eab38d 57.5%, #f8f1cf 62.5%, #eab38d 70%,
-            #c15a6b 80%, #944171 90%, #42155c 100%);
-    --wheel-color: #f8f1cf;
+  background: linear-gradient(
+    90deg,
+    #42155c 0%,
+    #944171 10%,
+    #c15a6b 20%,
+    #eab38d 30%,
+    #f8f1cf 37.5%,
+    #eab38d 42.5%,
+    #eab38d 57.5%,
+    #f8f1cf 62.5%,
+    #eab38d 70%,
+    #c15a6b 80%,
+    #944171 90%,
+    #42155c 100%
+  );
+  --wheel-color: #c15a6b;
 }
 
 .color-template-ubriniale {
-    background: linear-gradient(102deg, #ffe0e9 0%, #f19db7 29.2%, #bd2e61 75%, #341d7e 100%);
-    --wheel-color: #f19db7;
+  background: linear-gradient(
+    102deg,
+    #ffe0e9 0%,
+    #f19db7 29.2%,
+    #bd2e61 75%,
+    #341d7e 100%
+  );
+  --wheel-color: #f19db7;
 }
 
 .color-template-meteorite {
-    background: #85665c;
+  background: #85665c;
 }
 
 .color-template-panolethrium {
-    background: linear-gradient(90deg, #ffd36f 0%, #ffff8e 15%, #ffb149 30%, #ed6525 50%, #a10b0b 56.7%, #260202 100%);
-    --wheel-color: #ed6525;
+  background: linear-gradient(
+    90deg,
+    #ffd36f 0%,
+    #ffff8e 15%,
+    #ffb149 30%,
+    #ed6525 50%,
+    #a10b0b 56.7%,
+    #260202 100%
+  );
+  --wheel-color: #ed6525;
 }
 
 .color-template-astathian {
-    background: linear-gradient(90deg, #ff0000 0%, #4a0000 50%, #ff0000 100%);
-    --wheel-color: #4a0000;
+  background: linear-gradient(90deg, #ff0000 0%, #4a0000 50%, #ff0000 100%);
+  --wheel-color: #4a0000;
 }
 
 .color-template-sunstone {
-    background: #ffb458;
+  background: #ffb458;
 }
 
 .color-template-chalcedony {
-    background: #647ab4;
+  background: #647ab4;
 }
 
 .color-template-amber {
-    background: #c35700;
+  background: #c35700;
 }
 
 .color-template-onyx {
-    background: linear-gradient(
-        100deg, #6a6970 0%, #817f88 10%,
-        #bfc7e2 25%, #817f88 50%, #302f35 100%
-    );
-    --wheel-color: #302f35;
+  background: linear-gradient(
+    100deg,
+    #6a6970 0%,
+    #817f88 10%,
+    #bfc7e2 25%,
+    #817f88 50%,
+    #302f35 100%
+  );
+  --wheel-color: #302f35;
 }
 
 .color-template-jalabono {
-    background: #ff4040;
+  background: #ff4040;
 }
 
 .color-template-egg {
-    background: linear-gradient(90deg, #f4ce99 0%, #fff4e2 13.5%, #f7dbad 29.8%, #bc9165 100%);
-    --wheel-color: #f7dbad;
+  background: linear-gradient(
+    90deg,
+    #f4ce99 0%,
+    #fff4e2 13.5%,
+    #f7dbad 29.8%,
+    #bc9165 100%
+  );
+  --wheel-color: #f7dbad;
 }
 
 .color-template-fishium {
-    background: #99a6e6;
+  background: #99a6e6;
 }
 
 .color-template-goldfishium {
-    background: #e5ad55;
+  background: #e5ad55;
 }
 
-
 .color-template-hollevite {
-    background: #ffba2f;
+  background: #ffba2f;
 }
 
 .color-template-vicious-shard {
-    background: linear-gradient(112deg, #ffaa6e 0%, #ffa82e 17.8%, #ffdea9 27.9%, #dd7226 35.6%, #8b263d 51.6%, #dc672e 71.8%, #f8e3b6 80%, #f0b657 87.4%, #7e262c 100%);
-    --wheel-color: #8b263d;
+  background: linear-gradient(
+    112deg,
+    #ffaa6e 0%,
+    #ffa82e 17.8%,
+    #ffdea9 27.9%,
+    #dd7226 35.6%,
+    #8b263d 51.6%,
+    #dc672e 71.8%,
+    #f8e3b6 80%,
+    #f0b657 87.4%,
+    #7e262c 100%
+  );
+  --wheel-color: #8b263d;
 }
 
 .color-template-verglazium {
-    background: #545c6d;
+  background: #545c6d;
 }
 
 .color-template-pout {
-    background: linear-gradient(112deg, #004700 0%, #9eff1c 25%, #b2fca5 50%, #075800 100%);
-    --wheel-color: #b2fca5;
+  background: linear-gradient(
+    112deg,
+    #004700 0%,
+    #9eff1c 25%,
+    #b2fca5 50%,
+    #075800 100%
+  );
+  --wheel-color: #b2fca5;
 }

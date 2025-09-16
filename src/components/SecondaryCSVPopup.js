@@ -1,28 +1,28 @@
+import React, { useState, useContext } from "react";
+import { MiscContext } from "../context/MiscContext";
+import { OreNames } from "../data/OreNames";
 
-import React, { useState, useContext } from 'react';
-import { MiscContext } from '../context/MiscContext';
-import { OreNames } from '../data/OreNames';
-
-import '../styles/SecondaryCSVPopup.css';
+import "../styles/SecondaryCSVPopup.css";
 
 function SecondaryCSVPopup({ onClose }) {
   const { setSecondaryCSVData } = useContext(MiscContext);
-  const [csvInput, setCSVInput] = useState('');
+  const [csvInput, setCSVInput] = useState("");
 
   const handleSave = () => {
     if (!csvInput) return;
     const newAmounts = csvInput.split(",").map(Number);
     const updatedData = {};
     OreNames.sort((a, b) => a.localeCompare(b)).forEach((ore, index) => {
-      updatedData[ore] = newAmounts[index] !== undefined && !isNaN(newAmounts[index])
-        ? newAmounts[index]
-        : 0;
+      updatedData[ore] =
+        newAmounts[index] !== undefined && !isNaN(newAmounts[index])
+          ? newAmounts[index]
+          : 0;
     });
     setSecondaryCSVData(updatedData);
     onClose();
   };
 
-    return (
+  return (
     <div className="c-modal-overlay">
       <div className="c-editor-popup">
         <div className="c-editor-header">
@@ -30,21 +30,23 @@ function SecondaryCSVPopup({ onClose }) {
           <div
             className="box-button"
             style={{
-              width: '40px',
-              height: '40px',
+              width: "40px",
+              height: "40px",
             }}
           >
-          <button
-            onClick={onClose}
-            style={{
-              background: "red",
-              display: "flex",
-              fontSize: "25px",
-              color: "white",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >✖</button>
+            <button
+              onClick={onClose}
+              style={{
+                background: "red",
+                display: "flex",
+                fontSize: "25px",
+                color: "white",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              ✖
+            </button>
           </div>
         </div>
         <div className="c-csv-output">
@@ -55,24 +57,16 @@ function SecondaryCSVPopup({ onClose }) {
             style={{
               backgroundColor: "var(--background-color)",
               color: "var(--text-color)",
-              outline: "2px solid var(--switch-outline)"
+              outline: "2px solid var(--switch-outline)",
             }}
           />
         </div>
         <div className="button-container">
           <div className="box-button">
-            <button
-              onClick={handleSave}
-            >
-              Save
-            </button>
+            <button onClick={handleSave}>Save</button>
           </div>
           <div className="box-button">
-            <button
-              onClick={onClose}
-            >
-              Cancel
-            </button>
+            <button onClick={onClose}>Cancel</button>
           </div>
         </div>
       </div>

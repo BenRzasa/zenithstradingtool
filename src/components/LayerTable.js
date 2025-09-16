@@ -261,11 +261,12 @@ const LayerTable = ({
   }
 
   return (
-    <div 
+    <div
       className="table-wrapper"
       style={{
         width: title.includes("Essences") ? "430px" : undefined,
-        marginRight: title.includes("Essences") ? "195px" : undefined, }}
+        marginRight: title.includes("Essences") ? "195px" : undefined,
+      }}
     >
       <pre>
         <h2
@@ -324,15 +325,22 @@ const LayerTable = ({
             const baseValue = getValueForMode(item);
             const percentage = calculatePercentage(item, inventory);
             const unroundedNumV = inventory / calculateValue(item);
-            const roundedNumV = 
-              currentMode === 1 ? unroundedNumV.toFixed(0)
-            : currentMode === 2 ? unroundedNumV.toFixed(1)
-            : currentMode === 3 ? unroundedNumV.toFixed(2)
-            : currentMode === 4 ? unroundedNumV.toFixed(3)
-            : currentMode === 5 ? unroundedNumV.toFixed(3)
-            : currentMode === 6 ? unroundedNumV.toFixed(2)
-            : currentMode === 7 ? unroundedNumV.toFixed(2)
-            : "0";
+            const roundedNumV =
+              currentMode === 1
+                ? unroundedNumV.toFixed(0)
+                : currentMode === 2
+                ? unroundedNumV.toFixed(1)
+                : currentMode === 3
+                ? unroundedNumV.toFixed(2)
+                : currentMode === 4
+                ? unroundedNumV.toFixed(3)
+                : currentMode === 5
+                ? unroundedNumV.toFixed(3)
+                : currentMode === 6
+                ? unroundedNumV.toFixed(2)
+                : currentMode === 7
+                ? unroundedNumV.toFixed(2)
+                : "0";
 
             return (
               <tr key={index}>

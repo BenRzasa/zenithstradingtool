@@ -1,6 +1,6 @@
-import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MiscContext } from '../context/MiscContext';
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { MiscContext } from "../context/MiscContext";
 
 const HotkeyHandler = ({ children }) => {
   const { hotkeysEnabled, setSettingsOpen } = useContext(MiscContext);
@@ -9,8 +9,12 @@ const HotkeyHandler = ({ children }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       // Don't trigger if typing in an input/textarea or hotkeys disabled
-      if (!hotkeysEnabled || 
-          ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+      if (
+        !hotkeysEnabled ||
+        ["INPUT", "TEXTAREA", "SELECT"].includes(
+          document.activeElement?.tagName
+        )
+      ) {
         return;
       }
 
@@ -18,43 +22,43 @@ const HotkeyHandler = ({ children }) => {
       if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
 
       switch (e.key.toLowerCase()) {
-        case 's':
+        case "s":
           e.preventDefault();
-          setSettingsOpen(prev => !prev);
+          setSettingsOpen((prev) => !prev);
           break;
-        case 'h':
+        case "h":
           e.preventDefault();
-          navigate('/');
+          navigate("/");
           break;
-        case 'v':
+        case "v":
           e.preventDefault();
-          navigate('/valuechart');
+          navigate("/valuechart");
           break;
-        case 't':
+        case "t":
           e.preventDefault();
-          navigate('/tradetool');
+          navigate("/tradetool");
           break;
-        case 'u':
+        case "u":
           e.preventDefault();
-          navigate('/customvalues');
+          navigate("/customvalues");
           break;
-        case 'r':
+        case "r":
           e.preventDefault();
-          navigate('/findtracker');
+          navigate("/findtracker");
           break;
-        case 'm':
+        case "m":
           e.preventDefault();
-          navigate('/misc');
+          navigate("/misc");
           break;
-        case 'w':
+        case "w":
           e.preventDefault();
-          navigate('/wheelspage');
+          navigate("/wheelspage");
           break;
-        case 'e':
+        case "e":
           e.preventDefault();
-          navigate('/credits');
+          navigate("/credits");
           break;
-        case 'k':
+        case "k":
           e.preventDefault();
           break;
         default:
@@ -62,8 +66,8 @@ const HotkeyHandler = ({ children }) => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [hotkeysEnabled, navigate, setSettingsOpen]); // Added setSettingsOpen to dependencies
 
   return children;

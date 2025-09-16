@@ -9,7 +9,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
@@ -33,7 +33,7 @@
   padding: 5vw;
   width: 90vw;
   height: 85vh;
-  transform: translate3d(-50%,-50%,0);
+  transform: translate3d(-50%, -50%, 0);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -68,14 +68,13 @@
 .welcome-page .title {
   top: 15vh;
   font-size: 4vw;
-  letter-spacing: 0.0em;
+  letter-spacing: 0em;
   font-weight: 900;
   overflow: hidden;
   color: var(--welcome-text);
   position: relative;
   max-width: 60vw;
 }
-
 
 .welcome-page .name,
 .welcome-page .copyright {
@@ -85,8 +84,8 @@
   left: 50%;
   margin: 0;
   padding: 0;
-  transition: all .1s cubic-bezier(0.46, 0.03, 0.52, 0.96);
-  transform: translate3d(-50%,0,0);
+  transition: all 0.1s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+  transform: translate3d(-50%, 0, 0);
   font-weight: 800;
   overflow: hidden;
   font-size: 1.25vw;
@@ -106,7 +105,7 @@
 }
 
 .welcome-page .copy-wrap {
-  font-family: 'Segoe UI';
+  font-family: "Segoe UI";
   display: block;
   text-align: center;
   letter-spacing: 1px;
@@ -116,11 +115,11 @@
 }
 
 .welcome-page .title .copy-wrap {
-    font-family: 'Caprasimo';
+  font-family: "Caprasimo";
 }
 
 .welcome-page .copyright {
-  font-family: 'Segoe UI';
+  font-family: "Segoe UI";
   bottom: 2vh;
   overflow: hidden;
   height: 5vh;
@@ -136,5 +135,5 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate3d(-50%,-50%,0);
+  transform: translate3d(-50%, -50%, 0);
 }
