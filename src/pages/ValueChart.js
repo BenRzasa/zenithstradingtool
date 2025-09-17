@@ -89,9 +89,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: "Sep 12, 2025",
+    zenith: "Sep 16, 2025",
     nan: "Sep 12, 2025",
-    john: "Jan 19, 2025",
   });
 
   // UI control states
@@ -219,9 +218,6 @@ function ValueChart() {
         (ore) => {
           let newValue;
           switch (source) {
-            case "john":
-              newValue = ore.johnVal;
-              break;
             case "nan":
               newValue = ore.nanVal;
               break;
@@ -656,12 +652,6 @@ function ValueChart() {
                 >
                   NAN Vals
                 </button>
-                <button
-                  onClick={() => initializeCustomValues("john")}
-                  className="color-template-pout"
-                >
-                  John Vals
-                </button>
               </div>
               <button
                 onClick={() => setShowCustomModal(false)}
@@ -674,13 +664,6 @@ function ValueChart() {
         )}
 
         {/* Tables section */}
-        {/* Makes use of the LayerTable component
-            - Accounts for John/NAN vals
-            - Finds the gradient key (color-template-oreName) and applies
-            - Layer name is the header outside of the table in the wrapper
-            - Layer data, name, mode, csv data, gradient, and search filter
-            is passed in
-        */}
         <div className="tables-container">
           {Object.values(oreValsDict).map((layer) => {
             const layerName = layer.layerName;

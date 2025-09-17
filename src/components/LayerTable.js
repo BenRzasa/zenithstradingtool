@@ -5,7 +5,6 @@
 import React, { useContext, useState } from "react";
 import { MiscContext } from "../context/MiscContext";
 import {
-  johnPlaceholderOres,
   nanPlaceholderOres,
   zenithPlaceholderOres,
 } from "../data/PlaceholderOres";
@@ -241,8 +240,6 @@ const LayerTable = ({
     switch (valueMode) {
       case "nan":
         return nanPlaceholderOres.includes(itemName);
-      case "john":
-        return johnPlaceholderOres.includes(itemName);
       case "zenith":
         return zenithPlaceholderOres.includes(itemName);
       default:
