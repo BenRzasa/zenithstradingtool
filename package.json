@@ -29,7 +29,8 @@
     "bump:fix": "npm version patch --no-git-tag-version",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build && npm run log-version",
-    "log-version": "echo Successfully deployed to GitHub Pages"
+    "log-version": "echo Successfully deployed to GitHub Pages",
+    "gen-orevals-json": "node scripts/generateOreValsJSON.js"
   },
   "eslintConfig": {
     "extends": [

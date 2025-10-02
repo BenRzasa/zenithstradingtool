@@ -57,7 +57,7 @@ export const MiscValueFunctions = ({
       const layerData = layer.layerOres;
 
       // Skip essences
-      if (layerName.includes("Essence")) return;
+      if (layerName.includes("Essences")) return;
 
       let tableCompletion = 0;
       let itemCount = 0;
@@ -121,12 +121,12 @@ export const MiscValueFunctions = ({
   const calculateExtremes = useCallback(() => {
     const excludedOres = ["Stone", "Grimstone"];
     const excludedLayers = [
-      "True Rares",
-      "Rares",
-      "Uniques",
-      "Compounds",
-      "Surface",
-      "Essences",
+      "True Rares\n1/33,333 or Rarer",
+      "Rares\nMore Common Than 1/33,333",
+      "Uniques\nNon-Standard Obtainment",
+      "Compounds\nCrafted via Synthesis",
+      "Surface / Shallow\n[0m-74m]",
+      "Essences\nObtained from Wisps",
     ];
 
     let minLayer = { value: Infinity, name: "", ore: "" };
@@ -141,13 +141,17 @@ export const MiscValueFunctions = ({
       const layerName = layer.layerName;
       const layerData = layer.layerOres;
 
-      if (excludedLayers.includes(layerName)) return;
+      // Check if layer should be excluded (exact match)
+      if (excludedLayers.includes(layerName)) {
+        return;
+      }
 
       let layerSum = 0;
       let layerHasValidOres = false;
 
       layerData.forEach((ore) => {
-        if (excludedOres.includes(ore.name)) return;
+        // Check if ore should be excluded (exact match)
+        if (excludedOres.includes(ore.name) || ore.name.includes("Essence")) return;
 
         const inventory = csvData[ore.name] || 0;
         const oreValue = calculateValue(ore);

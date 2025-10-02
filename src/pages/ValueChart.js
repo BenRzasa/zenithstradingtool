@@ -89,8 +89,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: "Sep 16, 2025",
-    nan: "Sep 12, 2025",
+    zenith: "Oct 1, 2025",
+    nan: "Oct 1, 2025",
   });
 
   // UI control states
@@ -321,37 +321,33 @@ function ValueChart() {
               <>
                 <p>
                   ⮝ Highest Value (Layer):
-                  <div>
+                  <br></br>
                     <span className="placeholder">
                       {maxLayer.name.substring(0, maxLayer.name.indexOf("\n"))}{" "}
                       ({maxLayer.value.toLocaleString()} {modeStr})
                     </span>
-                  </div>
                 </p>
                 <p>
                   ⮟ Lowest Value (Layer):
-                  <div>
+                  <br></br>
                     <span className="placeholder">
                       {minLayer.name.substring(0, minLayer.name.indexOf("\n"))}{" "}
                       ({minLayer.value.toLocaleString()} {modeStr})
                     </span>
-                  </div>
                 </p>
                 <p>
                   ⮝ Highest Value (Ore):
-                  <div>
+                  <br></br>
                     <span className="placeholder">
                       {maxOre.name} ({maxOre.value.toLocaleString()} {modeStr})
                     </span>
-                  </div>
                 </p>
                 <p>
                   ⮟ Lowest Value (Ore):
-                  <div>
+                  <br></br>
                     <span className="placeholder">
                       {minOre.name} ({minOre.value.toLocaleString()} {modeStr})
                     </span>
-                  </div>
                 </p>
               </>
             )}

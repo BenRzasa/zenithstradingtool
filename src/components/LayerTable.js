@@ -36,7 +36,8 @@ const LayerTable = ({
   const csvData = getCurrentCSV();
 
   // Check if CV is a multiple of NVs
-  const isNV = customMultiplier % 100 === 0;
+  const isNV = (customMultiplier % 100 === 0 && customMultiplier < 1000);
+  const isSV = customMultiplier % 1000 === 0;
   // For displaying the current mode dynamically
   const modeStr =
     currentMode === 1
@@ -51,10 +52,12 @@ const LayerTable = ({
       ? "SV"
       : currentMode === 6
       ? "RV"
-      : !isNV && currentMode === 7
+      : (!isNV && !isSV) && currentMode === 7
       ? "CV"
       : isNV && currentMode === 7
       ? `${customMultiplier / 100}NV`
+      : isSV && currentMode === 7
+      ? `${customMultiplier / 1000}SV`
       : "BAD";
 
   // Function to generate the className based on ore name

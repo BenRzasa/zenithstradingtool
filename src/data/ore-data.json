@@ -1,0 +1,1614 @@
+{
+  "True Rares": [
+    {
+      "name": "Universallium",
+      "obtainVal": 0.1,
+      "zenithVal": 0.1,
+      "nanVal": 0.1
+    },
+    {
+      "name": "Neutrine",
+      "obtainVal": 0.01,
+      "zenithVal": 0.01,
+      "nanVal": 0.01
+    },
+    {
+      "name": "Torn Fabric",
+      "obtainVal": 0.002,
+      "zenithVal": 0.002,
+      "nanVal": 0.002
+    },
+    {
+      "name": "Singularity",
+      "obtainVal": 0.001,
+      "zenithVal": 0.001,
+      "nanVal": 0.001
+    },
+    {
+      "name": "Egg",
+      "obtainVal": 0.025,
+      "zenithVal": 0.025,
+      "nanVal": 0.02
+    },
+    {
+      "name": "Violecil",
+      "obtainVal": 0.2,
+      "zenithVal": 0.2,
+      "nanVal": 0.2
+    },
+    {
+      "name": "Dystranum",
+      "obtainVal": 0.06666666666666667,
+      "zenithVal": 0.06666666666666667,
+      "nanVal": 0.06666666666666667
+    },
+    {
+      "name": "Havicron",
+      "obtainVal": 0.1,
+      "zenithVal": 0.1,
+      "nanVal": 0.1
+    },
+    {
+      "name": "Rhylazil",
+      "obtainVal": 0.02,
+      "zenithVal": 0.02,
+      "nanVal": 0.02
+    },
+    {
+      "name": "Ubriniale",
+      "obtainVal": 0.01,
+      "zenithVal": 0.01,
+      "nanVal": 0.01
+    }
+  ],
+  "Rares": [
+    {
+      "name": "Ambrosine",
+      "obtainVal": 1,
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Zynulvinite",
+      "obtainVal": 1,
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Cindrasil",
+      "obtainVal": 0.3333333333333333,
+      "zenithVal": 0.3333333333333333,
+      "nanVal": 0.3333333333333333
+    },
+    {
+      "name": "Neutrino",
+      "obtainVal": 1,
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Malbrane",
+      "obtainVal": 1,
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Ectokelyte",
+      "obtainVal": 0.3333333333333333,
+      "zenithVal": 0.3333333333333333,
+      "nanVal": 0.3333333333333333
+    }
+  ],
+  "Uniques": [
+    {
+      "name": "Vicious Shard",
+      "zenithVal": 0.006666666666666667,
+      "nanVal": 0.005555555555555556
+    },
+    {
+      "name": "Jalabono",
+      "zenithVal": 0.5,
+      "nanVal": 1
+    },
+    {
+      "name": "Hollevite",
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Verglazium",
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Meteorite",
+      "zenithVal": 3,
+      "nanVal": 2
+    },
+    {
+      "name": "Panolethrium",
+      "zenithVal": 1.5,
+      "nanVal": 1
+    },
+    {
+      "name": "Astathian",
+      "zenithVal": 0.5,
+      "nanVal": 0.5
+    },
+    {
+      "name": "Sunstone",
+      "zenithVal": 5,
+      "nanVal": 5
+    },
+    {
+      "name": "Amber",
+      "zenithVal": 2,
+      "nanVal": 2
+    },
+    {
+      "name": "Chalcedony",
+      "zenithVal": 2.5,
+      "nanVal": 2.5
+    },
+    {
+      "name": "Onyx",
+      "zenithVal": 2.5,
+      "nanVal": 2.5
+    },
+    {
+      "name": "Rimrock",
+      "zenithVal": 6,
+      "nanVal": 4
+    }
+  ],
+  "Compounds": [
+    {
+      "name": "Equilibrium",
+      "zenithVal": 5,
+      "nanVal": 5
+    },
+    {
+      "name": "Quark Matter",
+      "zenithVal": 2,
+      "nanVal": 2
+    },
+    {
+      "name": "Periglise",
+      "zenithVal": 2,
+      "nanVal": 2
+    },
+    {
+      "name": "Isoronil",
+      "zenithVal": 1,
+      "nanVal": 1
+    }
+  ],
+  "Surface / Shallow": [
+    {
+      "name": "Stone",
+      "zenithVal": 2000,
+      "nanVal": 2000
+    },
+    {
+      "name": "Coal",
+      "zenithVal": 300,
+      "nanVal": 300
+    },
+    {
+      "name": "Moonstone",
+      "zenithVal": 4,
+      "nanVal": 3
+    },
+    {
+      "name": "Kyanite",
+      "zenithVal": 7,
+      "nanVal": 6
+    },
+    {
+      "name": "Topaz",
+      "zenithVal": 4,
+      "nanVal": 3
+    },
+    {
+      "name": "Opal",
+      "zenithVal": 6,
+      "nanVal": 5
+    },
+    {
+      "name": "Aluminum",
+      "zenithVal": 200,
+      "nanVal": 200
+    },
+    {
+      "name": "Copper",
+      "zenithVal": 300,
+      "nanVal": 250
+    },
+    {
+      "name": "Iron",
+      "zenithVal": 250,
+      "nanVal": 250
+    },
+    {
+      "name": "Sulfur",
+      "zenithVal": 200,
+      "nanVal": 200
+    },
+    {
+      "name": "Silver",
+      "zenithVal": 150,
+      "nanVal": 200
+    },
+    {
+      "name": "Zinc",
+      "zenithVal": 100,
+      "nanVal": 100
+    },
+    {
+      "name": "Gold",
+      "zenithVal": 20,
+      "nanVal": 20
+    },
+    {
+      "name": "Sapphire",
+      "zenithVal": 10,
+      "nanVal": 10
+    }
+  ],
+  "Caverns / Dusk": [
+    {
+      "name": "Ruby",
+      "zenithVal": 12,
+      "nanVal": 10
+    },
+    {
+      "name": "Emerald",
+      "zenithVal": 22,
+      "nanVal": 25
+    },
+    {
+      "name": "Peridot",
+      "zenithVal": 7,
+      "nanVal": 6
+    },
+    {
+      "name": "Amethyst",
+      "zenithVal": 5,
+      "nanVal": 6
+    },
+    {
+      "name": "Thallium",
+      "zenithVal": 6,
+      "nanVal": 6
+    },
+    {
+      "name": "Tungsten",
+      "zenithVal": 10,
+      "nanVal": 8
+    },
+    {
+      "name": "Diamond",
+      "zenithVal": 15,
+      "nanVal": 10
+    },
+    {
+      "name": "Garnet",
+      "zenithVal": 7,
+      "nanVal": 8
+    },
+    {
+      "name": "Platinum",
+      "zenithVal": 10,
+      "nanVal": 12
+    },
+    {
+      "name": "Malachite",
+      "zenithVal": 5,
+      "nanVal": 6
+    },
+    {
+      "name": "Lithium",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Boron",
+      "zenithVal": 80,
+      "nanVal": 80
+    }
+  ],
+  "Volatile": [
+    {
+      "name": "Shale",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Boomite",
+      "zenithVal": 32,
+      "nanVal": 20
+    },
+    {
+      "name": "Titanium",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Plutonium",
+      "zenithVal": 14,
+      "nanVal": 12
+    },
+    {
+      "name": "Technetium",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Uranium",
+      "zenithVal": 16,
+      "nanVal": 10
+    },
+    {
+      "name": "Caesium",
+      "zenithVal": 9,
+      "nanVal": 8
+    },
+    {
+      "name": "Osmium",
+      "zenithVal": 9,
+      "nanVal": 9
+    },
+    {
+      "name": "Hematite",
+      "zenithVal": 60,
+      "nanVal": 90
+    }
+  ],
+  "Mystic / Inbetween": [
+    {
+      "name": "Calcite",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Rose Quartz",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Rainbonite",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Chrysoprase",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Soul Crystal",
+      "zenithVal": 16,
+      "nanVal": 15
+    },
+    {
+      "name": "Cobalt",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Lapis",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Bismuth",
+      "zenithVal": 10,
+      "nanVal": 9
+    },
+    {
+      "name": "Demonite",
+      "zenithVal": 7,
+      "nanVal": 6
+    },
+    {
+      "name": "Mithril",
+      "zenithVal": 4,
+      "nanVal": 4
+    }
+  ],
+  "Igneous / Mantle": [
+    {
+      "name": "Vanadium",
+      "zenithVal": 6,
+      "nanVal": 6
+    },
+    {
+      "name": "Dragonglass",
+      "zenithVal": 45,
+      "nanVal": 35
+    },
+    {
+      "name": "Carnelian",
+      "zenithVal": 22,
+      "nanVal": 20
+    },
+    {
+      "name": "Magmium",
+      "zenithVal": 15,
+      "nanVal": 13
+    },
+    {
+      "name": "Firecrystal",
+      "zenithVal": 12,
+      "nanVal": 12
+    },
+    {
+      "name": "Magnesium",
+      "zenithVal": 11,
+      "nanVal": 10
+    },
+    {
+      "name": "Hellstone",
+      "zenithVal": 25,
+      "nanVal": 22
+    },
+    {
+      "name": "Jasper",
+      "zenithVal": 9,
+      "nanVal": 8
+    },
+    {
+      "name": "Mantle Fragment",
+      "zenithVal": 16,
+      "nanVal": 15
+    },
+    {
+      "name": "Gargantium",
+      "zenithVal": 12,
+      "nanVal": 12
+    }
+  ],
+  "Irradiated / Caustic": [
+    {
+      "name": "Toxirock",
+      "zenithVal": 500,
+      "nanVal": 500
+    },
+    {
+      "name": "Radium",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Tellurium",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Newtonium",
+      "zenithVal": 35,
+      "nanVal": 25
+    },
+    {
+      "name": "Yunium",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Thorium",
+      "zenithVal": 14,
+      "nanVal": 12
+    },
+    {
+      "name": "Lead",
+      "zenithVal": 90,
+      "nanVal": 80
+    },
+    {
+      "name": "Blastium",
+      "zenithVal": 16,
+      "nanVal": 10
+    },
+    {
+      "name": "Coronium",
+      "zenithVal": 42,
+      "nanVal": 25
+    },
+    {
+      "name": "Tritium",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Polonium",
+      "zenithVal": 4,
+      "nanVal": 4
+    }
+  ],
+  "Mirage": [
+    {
+      "name": "Altoplast",
+      "zenithVal": 38,
+      "nanVal": 40
+    },
+    {
+      "name": "Illusinium",
+      "zenithVal": 42,
+      "nanVal": 40
+    },
+    {
+      "name": "Starlite",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Prismaline",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Miramire",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Stratocrit",
+      "zenithVal": 7,
+      "nanVal": 5
+    },
+    {
+      "name": "Tantalum",
+      "zenithVal": 4,
+      "nanVal": 4
+    }
+  ],
+  "Dread": [
+    {
+      "name": "Nightmica",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Crimstone",
+      "zenithVal": 300,
+      "nanVal": 500
+    },
+    {
+      "name": "Horrorstone",
+      "zenithVal": 12,
+      "nanVal": 12
+    },
+    {
+      "name": "Strange Matter",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Vermillium",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Magnetite",
+      "zenithVal": 7,
+      "nanVal": 7
+    },
+    {
+      "name": "Dark Matter",
+      "zenithVal": 12,
+      "nanVal": 10
+    },
+    {
+      "name": "Antimatter",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Surrenderock",
+      "zenithVal": 600,
+      "nanVal": 500
+    },
+    {
+      "name": "Iridium",
+      "zenithVal": 800,
+      "nanVal": 500
+    }
+  ],
+  "Void": [
+    {
+      "name": "Vantaslate",
+      "zenithVal": 300,
+      "nanVal": 500
+    },
+    {
+      "name": "Cometite",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Adamantite",
+      "zenithVal": 4,
+      "nanVal": 3
+    },
+    {
+      "name": "Eclipsium",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Ebonakite",
+      "zenithVal": 10,
+      "nanVal": 8
+    },
+    {
+      "name": "Palladium",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Neptunium",
+      "zenithVal": 8,
+      "nanVal": 6
+    },
+    {
+      "name": "Void Orb",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Nilidust",
+      "zenithVal": 10,
+      "nanVal": 8
+    },
+    {
+      "name": "Asthenocrit",
+      "zenithVal": 7,
+      "nanVal": 6
+    }
+  ],
+  "Achrothesi / Whitespace": [
+    {
+      "name": "Kronosilt",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Nilglass",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Kreosyte",
+      "zenithVal": 6,
+      "nanVal": 6
+    },
+    {
+      "name": "Cadmium",
+      "zenithVal": 15,
+      "nanVal": 15
+    },
+    {
+      "name": "Chromium",
+      "zenithVal": 13,
+      "nanVal": 15
+    },
+    {
+      "name": "Null",
+      "zenithVal": 16,
+      "nanVal": 16
+    },
+    {
+      "name": "Geometrium",
+      "zenithVal": 6,
+      "nanVal": 7
+    },
+    {
+      "name": "Noise",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Inversium",
+      "zenithVal": 6,
+      "nanVal": 6
+    },
+    {
+      "name": "Navitalc",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Myriroule",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Argibar",
+      "zenithVal": 7,
+      "nanVal": 8
+    },
+    {
+      "name": "Perilium",
+      "zenithVal": 3,
+      "nanVal": 2
+    }
+  ],
+  "Grayscale": [
+    {
+      "name": "Gallium",
+      "zenithVal": 15,
+      "nanVal": 15
+    },
+    {
+      "name": "Amnesite",
+      "zenithVal": 20,
+      "nanVal": 15
+    },
+    {
+      "name": "Shadow Quartz",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Glowstone",
+      "zenithVal": 4,
+      "nanVal": 3
+    },
+    {
+      "name": "Graphene",
+      "zenithVal": 6,
+      "nanVal": 5
+    },
+    {
+      "name": "Quicksilver",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Gray Matter",
+      "zenithVal": 6,
+      "nanVal": 5
+    }
+  ],
+  "Frigid": [
+    {
+      "name": "Hyfrost",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Larimar",
+      "zenithVal": 11,
+      "nanVal": 10
+    },
+    {
+      "name": "Frostarium",
+      "zenithVal": 12,
+      "nanVal": 11
+    },
+    {
+      "name": "Anetrium",
+      "zenithVal": 15,
+      "nanVal": 15
+    },
+    {
+      "name": "Polarveril",
+      "zenithVal": 3,
+      "nanVal": 2
+    },
+    {
+      "name": "Cryonine",
+      "zenithVal": 5,
+      "nanVal": 3
+    },
+    {
+      "name": "Soimabarium",
+      "zenithVal": 10,
+      "nanVal": 10
+    }
+  ],
+  "Marine": [
+    {
+      "name": "Nerolin",
+      "zenithVal": 16,
+      "nanVal": 12
+    },
+    {
+      "name": "Tenebris",
+      "zenithVal": 10,
+      "nanVal": 7
+    },
+    {
+      "name": "Yilantibris",
+      "zenithVal": 8,
+      "nanVal": 5
+    },
+    {
+      "name": "Aquamarine",
+      "zenithVal": 12,
+      "nanVal": 12
+    },
+    {
+      "name": "Hydrolyth",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Naquadah",
+      "zenithVal": 10,
+      "nanVal": 9
+    },
+    {
+      "name": "Pearl",
+      "zenithVal": 6,
+      "nanVal": 6
+    },
+    {
+      "name": "Eidoliphyll",
+      "zenithVal": 3,
+      "nanVal": 2
+    }
+  ],
+  "Cosmic": [
+    {
+      "name": "Cosmic Glass",
+      "zenithVal": 20,
+      "nanVal": 15
+    },
+    {
+      "name": "Cosmaline",
+      "zenithVal": 10,
+      "nanVal": 11
+    },
+    {
+      "name": "Astratine",
+      "zenithVal": 7,
+      "nanVal": 7
+    },
+    {
+      "name": "Starsteel",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Stardust",
+      "zenithVal": 8,
+      "nanVal": 5
+    },
+    {
+      "name": "Endotravine",
+      "zenithVal": 8,
+      "nanVal": 7
+    }
+  ],
+  "Molten": [
+    {
+      "name": "Nickel",
+      "zenithVal": 50,
+      "nanVal": 50
+    },
+    {
+      "name": "Molten Iron",
+      "zenithVal": 16,
+      "nanVal": 15
+    },
+    {
+      "name": "Corium",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Cinnabar",
+      "zenithVal": 16,
+      "nanVal": 12
+    },
+    {
+      "name": "Liquid Gold",
+      "zenithVal": 16,
+      "nanVal": 15
+    },
+    {
+      "name": "Pyroscorium",
+      "zenithVal": 10,
+      "nanVal": 7
+    },
+    {
+      "name": "Samarium",
+      "zenithVal": 14,
+      "nanVal": 12
+    }
+  ],
+  "Serenity": [
+    {
+      "name": "Bedrock",
+      "zenithVal": 1000,
+      "nanVal": 500
+    },
+    {
+      "name": "Yzlafrost",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Jade",
+      "zenithVal": 7,
+      "nanVal": 5
+    },
+    {
+      "name": "Redsteel",
+      "zenithVal": 7,
+      "nanVal": 4
+    },
+    {
+      "name": "Celesteel",
+      "zenithVal": 6,
+      "nanVal": 3
+    },
+    {
+      "name": "Cryoplasm",
+      "zenithVal": 6,
+      "nanVal": 5
+    },
+    {
+      "name": "Andrium",
+      "zenithVal": 11,
+      "nanVal": 9
+    },
+    {
+      "name": "Neutronium",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Shadowspec",
+      "zenithVal": 3,
+      "nanVal": 2
+    },
+    {
+      "name": "Spiralium",
+      "zenithVal": 5,
+      "nanVal": 2
+    },
+    {
+      "name": "Frozen Nitrogen",
+      "zenithVal": 12,
+      "nanVal": 12
+    },
+    {
+      "name": "Orichalican",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Scorched Bedrock",
+      "zenithVal": 1000,
+      "nanVal": 500
+    }
+  ],
+  "Plasma Field": [
+    {
+      "name": "Plasma",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Pyroplasm",
+      "zenithVal": 8,
+      "nanVal": 6
+    },
+    {
+      "name": "Crystalline Plasma",
+      "zenithVal": 20,
+      "nanVal": 20
+    },
+    {
+      "name": "Electrium",
+      "zenithVal": 9,
+      "nanVal": 8
+    },
+    {
+      "name": "Infernilus",
+      "zenithVal": 8,
+      "nanVal": 9
+    },
+    {
+      "name": "Convectine",
+      "zenithVal": 10,
+      "nanVal": 11
+    },
+    {
+      "name": "Protonium",
+      "zenithVal": 9,
+      "nanVal": 9
+    },
+    {
+      "name": "Galvanium",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Ferozium",
+      "zenithVal": 1000,
+      "nanVal": 500
+    }
+  ],
+  "Quantum": [
+    {
+      "name": "Crystal Photon",
+      "zenithVal": 24,
+      "nanVal": 20
+    },
+    {
+      "name": "Photalizine",
+      "zenithVal": 18,
+      "nanVal": 12
+    },
+    {
+      "name": "Gluonium",
+      "zenithVal": 3,
+      "nanVal": 2
+    },
+    {
+      "name": "Up Quark",
+      "zenithVal": 24,
+      "nanVal": 20
+    },
+    {
+      "name": "Down Quark",
+      "zenithVal": 26,
+      "nanVal": 20
+    },
+    {
+      "name": "Positron",
+      "zenithVal": 30,
+      "nanVal": 20
+    },
+    {
+      "name": "Supermatter",
+      "zenithVal": 14,
+      "nanVal": 11
+    },
+    {
+      "name": "Charm Quark",
+      "zenithVal": 12,
+      "nanVal": 11
+    },
+    {
+      "name": "Top Quark",
+      "zenithVal": 15,
+      "nanVal": 10
+    },
+    {
+      "name": "Bottom Quark",
+      "zenithVal": 15,
+      "nanVal": 12
+    },
+    {
+      "name": "Strange Quark",
+      "zenithVal": 12,
+      "nanVal": 10
+    }
+  ],
+  "Stability": [
+    {
+      "name": "Universal Barrier",
+      "zenithVal": 1000,
+      "nanVal": 500
+    },
+    {
+      "name": "Rifted Barrier",
+      "zenithVal": 6,
+      "nanVal": 6
+    },
+    {
+      "name": "Fabric",
+      "zenithVal": 16,
+      "nanVal": 15
+    },
+    {
+      "name": "Mavrikine",
+      "zenithVal": 7,
+      "nanVal": 8
+    },
+    {
+      "name": "Irulisteel",
+      "zenithVal": 2,
+      "nanVal": 2
+    }
+  ],
+  "Planck": [
+    {
+      "name": "String",
+      "zenithVal": 20,
+      "nanVal": 15
+    },
+    {
+      "name": "Hadronil",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Axion",
+      "zenithVal": 14,
+      "nanVal": 10
+    },
+    {
+      "name": "Graviton",
+      "zenithVal": 10,
+      "nanVal": 9
+    },
+    {
+      "name": "Mesonyte",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Tachyon",
+      "zenithVal": 10,
+      "nanVal": 4
+    },
+    {
+      "name": "Desmentinum",
+      "zenithVal": 10,
+      "nanVal": 10
+    }
+  ],
+  "Upper Instability": [
+    {
+      "name": "Ailmentin",
+      "zenithVal": 750,
+      "nanVal": 500
+    },
+    {
+      "name": "Territane",
+      "zenithVal": 18,
+      "nanVal": 15
+    },
+    {
+      "name": "Sinfurmium",
+      "zenithVal": 10,
+      "nanVal": 8
+    },
+    {
+      "name": "Gyrivarium",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Krazmite",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Anaxinite",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Tendrock",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Dark Energy",
+      "zenithVal": 12,
+      "nanVal": 10
+    },
+    {
+      "name": "Corrodoil",
+      "zenithVal": 32,
+      "nanVal": 25
+    },
+    {
+      "name": "Antireal",
+      "zenithVal": 6,
+      "nanVal": 7
+    },
+    {
+      "name": "Hyperium",
+      "zenithVal": 10,
+      "nanVal": 10
+    },
+    {
+      "name": "Thermisine",
+      "zenithVal": 14,
+      "nanVal": 9
+    },
+    {
+      "name": "Alkanite",
+      "zenithVal": 1000,
+      "nanVal": 500
+    }
+  ],
+  "Lower Instability": [
+    {
+      "name": "Grimstone",
+      "zenithVal": 2000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Phosphyll",
+      "zenithVal": 45,
+      "nanVal": 40
+    },
+    {
+      "name": "Vrimsten",
+      "zenithVal": 40,
+      "nanVal": 40
+    },
+    {
+      "name": "Zilithorus",
+      "zenithVal": 25,
+      "nanVal": 20
+    },
+    {
+      "name": "Korundum",
+      "zenithVal": 30,
+      "nanVal": 25
+    },
+    {
+      "name": "Cytosol",
+      "zenithVal": 750,
+      "nanVal": 750
+    },
+    {
+      "name": "Ichor",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Centriale",
+      "zenithVal": 11,
+      "nanVal": 10
+    },
+    {
+      "name": "Neuroplast",
+      "zenithVal": 16,
+      "nanVal": 10
+    },
+    {
+      "name": "Trinasine",
+      "zenithVal": 9,
+      "nanVal": 7
+    },
+    {
+      "name": "Adrenilar",
+      "zenithVal": 8,
+      "nanVal": 7
+    },
+    {
+      "name": "Macusmite",
+      "zenithVal": 24,
+      "nanVal": 20
+    }
+  ],
+  "Murk": [
+    {
+      "name": "Leptonyte",
+      "zenithVal": 16,
+      "nanVal": 13
+    },
+    {
+      "name": "Mezihyrium",
+      "zenithVal": 12,
+      "nanVal": 9
+    },
+    {
+      "name": "Taynalum",
+      "zenithVal": 10,
+      "nanVal": 11
+    },
+    {
+      "name": "Thulinyl",
+      "zenithVal": 2.5,
+      "nanVal": 2
+    }
+  ],
+  "Event Horizon": [
+    {
+      "name": "Solarium",
+      "zenithVal": 30,
+      "nanVal": 20
+    },
+    {
+      "name": "Exotic Matter",
+      "zenithVal": 40,
+      "nanVal": 30
+    },
+    {
+      "name": "Nebulinite",
+      "zenithVal": 12,
+      "nanVal": 10
+    },
+    {
+      "name": "Arkivyll",
+      "zenithVal": 11,
+      "nanVal": 10
+    },
+    {
+      "name": "Chronon",
+      "zenithVal": 35,
+      "nanVal": 30
+    },
+    {
+      "name": "Aurorum",
+      "zenithVal": 25,
+      "nanVal": 15
+    },
+    {
+      "name": "Korenil",
+      "zenithVal": 12,
+      "nanVal": 6
+    },
+    {
+      "name": "Stellar Sediment",
+      "zenithVal": 1000,
+      "nanVal": 1500
+    },
+    {
+      "name": "Apiastrine",
+      "zenithVal": 20,
+      "nanVal": 15
+    }
+  ],
+  "Abyss": [
+    {
+      "name": "Abyssal Sludge",
+      "zenithVal": 16,
+      "nanVal": 12
+    },
+    {
+      "name": "Primordian",
+      "zenithVal": 25,
+      "nanVal": 25
+    },
+    {
+      "name": "Cosmodium",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Hexflame",
+      "zenithVal": 12,
+      "nanVal": 8
+    },
+    {
+      "name": "Tetraquark",
+      "zenithVal": 10,
+      "nanVal": 7
+    },
+    {
+      "name": "Mauraline",
+      "zenithVal": 10,
+      "nanVal": 8
+    }
+  ],
+  "Inner Horizon": [
+    {
+      "name": "Amperisilt",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Nihinoris",
+      "zenithVal": 14,
+      "nanVal": 12
+    },
+    {
+      "name": "Nyrvinoris",
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Revalyte",
+      "zenithVal": 8,
+      "nanVal": 8
+    },
+    {
+      "name": "Infrarian",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Ultranium",
+      "zenithVal": 10,
+      "nanVal": 8
+    },
+    {
+      "name": "Auricallium",
+      "zenithVal": 12,
+      "nanVal": 9
+    },
+    {
+      "name": "Zeronian",
+      "zenithVal": 5,
+      "nanVal": 4
+    },
+    {
+      "name": "Exodian",
+      "zenithVal": 10,
+      "nanVal": 8
+    },
+    {
+      "name": "Unobtainium",
+      "zenithVal": 1,
+      "nanVal": 1
+    },
+    {
+      "name": "Lattiglass",
+      "zenithVal": 70,
+      "nanVal": 80
+    }
+  ],
+  "Quintessence": [
+    {
+      "name": "Etherfilm",
+      "zenithVal": 1000,
+      "nanVal": 1000
+    },
+    {
+      "name": "Aetherice",
+      "zenithVal": 10,
+      "nanVal": 6
+    },
+    {
+      "name": "Starniferus",
+      "zenithVal": 11,
+      "nanVal": 8
+    },
+    {
+      "name": "Ethanerite",
+      "zenithVal": 12,
+      "nanVal": 8
+    },
+    {
+      "name": "Lumenyl",
+      "zenithVal": 13,
+      "nanVal": 9
+    },
+    {
+      "name": "Ulirazite",
+      "zenithVal": 7,
+      "nanVal": 6
+    },
+    {
+      "name": "Impervium",
+      "zenithVal": 20,
+      "nanVal": 15
+    },
+    {
+      "name": "Kryposilus",
+      "zenithVal": 7,
+      "nanVal": 7
+    },
+    {
+      "name": "Vythusilyte",
+      "zenithVal": 10,
+      "nanVal": 8
+    }
+  ],
+  "Interstice": [
+    {
+      "name": "Nethrastine",
+      "zenithVal": 1000,
+      "nanVal": 500
+    },
+    {
+      "name": "Formicite",
+      "zenithVal": 12,
+      "nanVal": 8
+    },
+    {
+      "name": "Raw Energy",
+      "zenithVal": 16,
+      "nanVal": 12
+    },
+    {
+      "name": "Obliviril",
+      "zenithVal": 7,
+      "nanVal": 5
+    },
+    {
+      "name": "Enceladrum",
+      "zenithVal": 11,
+      "nanVal": 7
+    }
+  ],
+  "Essences": [
+    {
+      "name": "Essence of the Cosmos"
+    },
+    {
+      "name": "Essence of the Sun"
+    },
+    {
+      "name": "Essence of the Void"
+    },
+    {
+      "name": "Essence of Purity"
+    },
+    {
+      "name": "Essence of Violence"
+    },
+    {
+      "name": "Essence of Vitality"
+    }
+  ],
+  "Empyrean": [
+    {
+      "name": "Evrasalt",
+      "zenithVal": 250,
+      "nanVal": 250
+    },
+    {
+      "name": "Qylicryst",
+      "zenithVal": 6,
+      "nanVal": 3
+    },
+    {
+      "name": "Kafsium",
+      "zenithVal": 30,
+      "nanVal": 12
+    },
+    {
+      "name": "Zetaslime",
+      "zenithVal": 16,
+      "nanVal": 12
+    },
+    {
+      "name": "Ochistrite",
+      "zenithVal": 20,
+      "nanVal": 15
+    },
+    {
+      "name": "Reithum",
+      "zenithVal": 7,
+      "nanVal": 6
+    },
+    {
+      "name": "Vorazylith",
+      "zenithVal": 8,
+      "nanVal": 5
+    },
+    {
+      "name": "Truth Quark",
+      "zenithVal": 10,
+      "nanVal": 6
+    },
+    {
+      "name": "Wish Alloy",
+      "zenithVal": 15,
+      "nanVal": 7
+    },
+    {
+      "name": "Phantasmorite",
+      "zenithVal": 10,
+      "nanVal": 5
+    },
+    {
+      "name": "Profelis",
+      "zenithVal": 12,
+      "nanVal": 7
+    },
+    {
+      "name": "Ogleum",
+      "zenithVal": 9,
+      "nanVal": 4
+    },
+    {
+      "name": "Protireal",
+      "zenithVal": 20,
+      "nanVal": 14
+    },
+    {
+      "name": "Xerutherum",
+      "zenithVal": 8,
+      "nanVal": 4
+    },
+    {
+      "name": "Mesmirian",
+      "zenithVal": 14,
+      "nanVal": 7
+    }
+  ]
+}
