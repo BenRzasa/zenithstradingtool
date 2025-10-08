@@ -1,27 +1,62 @@
 .pinlist-container {
   position: fixed;
-  top: 100px;
+  top: 90px;
   margin-left: 1vw;
   left: -22vw;
-  width: 20vw;
-  height: 40vh;
+  width: fit-content;
+  height: fit-content;
+  max-height: 90vh;
   background-color: var(--background-color);
-  opacity: 1;
+  opacity: 0;
+  visibility: hidden;
   box-shadow: -5px 0px 25px 1px #000000;
   outline: 3px solid var(--switch-outline);
   border-radius: 15px;
   color: var(--text-color);
   z-index: 100000;
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -ms-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-  padding: 20px;
+  transition: all 0.3s ease-in-out;
+  padding: 15px;
   box-sizing: border-box;
   overflow-y: auto;
+  overflow-x: hidden;
+  resize: both;
+  transform: translateX(-20px);
 }
 
 .pinlist-container.open {
+  opacity: 1;
+  visibility: visible;
   left: 0;
+  transform: translateX(0);
+}
+
+.pinlist-header h2 {
+  margin-top: -5px;
+}
+
+.pinlist-container .search-container {
+  margin-top: -30px;
+}
+
+.progress-bar-container {
+  margin-left: 20px;
+  width: 150px;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-bar.complete {
+  background-color: #4caf50;
+}
+
+.progress-bar.incomplete {
+  background-color: #ff0000;
 }

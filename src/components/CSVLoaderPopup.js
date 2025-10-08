@@ -44,41 +44,90 @@ function CSVLoaderPopup({ onClose, isOpen }) {
 
   const csvData = getCurrentCSV();
 
-  // Initialize completionChange from localStorage or default to 0
+  // Initialize completionChange & total ores from localStorage or default to 0
   const [completionChange, setCompletionChange] = useState(() => {
     const savedChange = localStorage.getItem("completionChange");
     const parsed = parseFloat(savedChange);
     return !isNaN(parsed) ? parsed : 0;
   });
 
-  // Store previous completion in ref
-  const prevCompletionRef = useRef(() => {
-    const savedPrev = localStorage.getItem("prevCompletion");
-    const parsed = parseFloat(savedPrev);
-    return !isNaN(parsed) ? parsed : avgCompletion;
+  const [totalOresChange, setTotalOresChange] = useState(() => {
+    const savedChange = localStorage.getItem("totalOresChange");
+    const parsed = parseFloat(savedChange);
+    return !isNaN(parsed) ? parsed : 0;
   });
 
-  // Update completion change only when we have valid data
+  // Store previous completion & ores num in ref
+  const prevCompletionRef = useRef(0);
+  const prevTotalOresRef = useRef(0);
+
+  // Track if this is the initial load
+  const isInitialLoadRef = useRef(true);
+  const hasValidDataRef = useRef(false);
+
+  // Initialize refs from localStorage on component mount
   useEffect(() => {
-    if (typeof avgCompletion === "number" && !isNaN(avgCompletion)) {
-      const current = capCompletion
+    const savedPrevCompletion = localStorage.getItem("prevCompletion");
+    const savedPrevTotalOres = localStorage.getItem("prevTotalOres");
+
+    const prevCompletion = savedPrevCompletion ? parseFloat(savedPrevCompletion) : 0;
+    const prevTotalOres = savedPrevTotalOres ? parseFloat(savedPrevTotalOres) : 0;
+
+    // Only set if we have valid numbers
+    if (!isNaN(prevCompletion)) {
+      prevCompletionRef.current = prevCompletion;
+    }
+    if (!isNaN(prevTotalOres)) {
+      prevTotalOresRef.current = prevTotalOres;
+    }
+
+    // Mark that we've loaded initial data
+    hasValidDataRef.current = true;
+  }, []);
+
+  // Update completion change & total ores # only when we have valid data
+  useEffect(() => {
+    // Don't calculate changes on initial load or if we don't have valid data yet
+    if (isInitialLoadRef.current || !hasValidDataRef.current) {
+      isInitialLoadRef.current = false;
+      return;
+    }
+
+    if (typeof avgCompletion === "number" && !isNaN(avgCompletion) && 
+        typeof totalOres === "number" && !isNaN(totalOres)) {
+      
+      const currentComp = capCompletion
         ? Math.min(100, avgCompletion)
         : avgCompletion;
-      const previous = capCompletion
+      const previousComp = capCompletion
         ? Math.min(100, prevCompletionRef.current)
         : prevCompletionRef.current;
 
-      // Only calculate change if previous was a valid number
-      if (typeof previous === "number" && !isNaN(previous)) {
-        const change = current - previous;
-        setCompletionChange(change);
-        prevCompletionRef.current = current;
+      const currentTotalOres = totalOres;
+      const previousTotalOres = prevTotalOresRef.current;
 
-        localStorage.setItem("completionChange", change.toString());
-        localStorage.setItem("prevCompletion", current.toString());
+      // Only calculate change if previous was a valid number
+      if (typeof previousComp === "number" && !isNaN(previousComp) &&
+          typeof previousTotalOres === "number" && !isNaN(previousTotalOres)) {
+        
+        const compChange = currentComp - previousComp;
+        setCompletionChange(compChange);
+
+        const totalOresChange = currentTotalOres - previousTotalOres;
+        setTotalOresChange(totalOresChange);
+
+        // Store current values as previous for next calculation
+        prevCompletionRef.current = currentComp;
+        prevTotalOresRef.current = currentTotalOres;
+
+        // Persist to localStorage
+        localStorage.setItem("completionChange", compChange.toString());
+        localStorage.setItem("prevCompletion", currentComp.toString());
+        localStorage.setItem("totalOresChange", totalOresChange.toString());
+        localStorage.setItem("prevTotalOres", currentTotalOres.toString());
       }
     }
-  }, [avgCompletion, capCompletion]);
+  }, [avgCompletion, totalOres, capCompletion]); 
 
   // State for dropdown visibility
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
@@ -516,6 +565,26 @@ function CSVLoaderPopup({ onClose, isOpen }) {
                   <span className="placeholder">
                     {" "}
                     {totalOres.toLocaleString()}
+                  </span>
+                </h3>
+                <h3>
+                  ⛏ Total Ores {" "}
+                  {totalOresChange === 0
+                    ? "Gained: No Change"
+                    : totalOresChange > 0
+                    ? "Gained: "
+                    : "Lost: "}
+                  <span
+                    className={
+                      totalOresChange === 0
+                        ? ""
+                        : totalOresChange > 0
+                        ? "positive-change"
+                        : "negative-change"
+                    }
+                  >
+                    {totalOresChange > 0 ? "+" : ""}
+                    {totalOresChange === 0 ? "" : totalOresChange.toLocaleString()}
                   </span>
                 </h3>
               </div>

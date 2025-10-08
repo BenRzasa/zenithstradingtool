@@ -1,4 +1,3 @@
-// SettingsPanel.js
 import React, { useEffect, useRef, useContext } from 'react';
 import { MiscContext } from '../context/MiscContext';
 import ValueModeSelector from './ValueModeSelector';
@@ -29,12 +28,21 @@ const SettingsPanel = ({
     setUseObtainRateVals,
     hotkeysEnabled,
     setHotkeysEnabled,
+    // Add new states for rare value mode
+    useSeparateRareMode,
+    setUseSeparateRareMode,
+    rareValueMode,
+    setRareValueMode,
+    customMultiplier,
+    setCustomMultiplier,
+    rareCustomMultiplier,
+    setRareCustomMultiplier,
   } = useContext(MiscContext);
 
   const toggleHotkeys = () => setHotkeysEnabled(!hotkeysEnabled);
-
   const toggleObtainRate = () => setUseObtainRateVals(!useObtainRateVals);
   const toggleCapCompletion = () => setCapCompletion(!capCompletion);
+  const toggleSeparateRareMode = () => setUseSeparateRareMode(!useSeparateRareMode);
 
   const panelRef = useRef(null);
   const settingsIconRef = useRef(null);
@@ -64,7 +72,7 @@ const SettingsPanel = ({
   }, [isOpen, onClose]);
 
   return (
-    <div 
+    <div
       ref={panelRef}
       className={`settings-panel ${isOpen ? 'open' : ''}`}
     >
@@ -78,7 +86,13 @@ const SettingsPanel = ({
             currentMode={currentMode}
             setCurrentMode={setCurrentMode}
           />
-          <CustomMultiplierInput />
+          {currentMode === 7 ? (
+          <CustomMultiplierInput
+            currentMode={currentMode}
+            customMultiplier={customMultiplier}
+            setCustomMultiplier={setCustomMultiplier}
+          />
+          ) : <></>}
           <ul>
             <li>AV = Ambrosine Value</li>
             <li>UV = Universallium Value (10 AV)</li>
@@ -88,6 +102,51 @@ const SettingsPanel = ({
             <li>SV = Singularity Value (1000 AV)</li>
             <li>CUSTOM = Your custom multiplier (# AV)</li>
           </ul>
+      </div>
+
+      <div className="settings-section">
+        <h2 className="section-title">Change Rare Value Mode</h2>
+        <div className="theme-control">
+          <label className="sswitch">
+            <input
+              type="checkbox"
+              id="rare-mode-switch"
+              checked={useSeparateRareMode}
+              onChange={toggleSeparateRareMode}
+            />
+            <span className="sslider"></span>
+          </label>
+          <span>
+            <p>[{useSeparateRareMode ? "ENABLED" : "DISABLED"}] Use different value mode for rare and true rare ores.</p>
+          </span>
+        </div>
+
+        {useSeparateRareMode && (
+          <>
+            <h3>Rare Value Mode Selector</h3>
+            <div className="value-mode-selector">
+            <ValueModeSelector
+              currentMode={rareValueMode}
+              setCurrentMode={setRareValueMode}
+            />
+            </div>
+
+            {rareValueMode === 7 && (
+              <CustomMultiplierInput
+                currentMode={rareValueMode}
+                customMultiplier={rareCustomMultiplier}
+                setCustomMultiplier={setRareCustomMultiplier}
+              />
+            )}
+
+            <div className="rare-mode-info">
+              <p>
+                <strong>Note:</strong> When enabled, rare and true rare ores will use the selected value mode above,
+                while all other ores will use the main value mode selected in the first section.
+              </p>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="settings-section">
@@ -103,6 +162,7 @@ const SettingsPanel = ({
             <li><span className="placeholder">Custom:</span> Your custom values, modified from the Value Chart page or the "Custom Values" page.</li>
           </ul>
       </div>
+
       <div className="settings-section">
         <h2 className="section-title">Miscellaneous Settings</h2>
         <h3>Toggle Obtain Rate Values for Rares</h3>
@@ -110,7 +170,7 @@ const SettingsPanel = ({
           <label className="sswitch">
             <input
               type="checkbox"
-              id="sswitch-input"
+              id="obtain-rate-switch"
               checked={useObtainRateVals}
               onChange={toggleObtainRate}
             />
@@ -118,19 +178,20 @@ const SettingsPanel = ({
           </label>
           <span><p>[{useObtainRateVals === true ? "ENABLED" : "DISABLED"}] This switch will toggle between obtain rate values for rares (community-agreed standard), or user-specific values.</p></span>
         </div>
+
         <h3>Toggle Completion % Cap</h3>
         <div className="theme-control">
           <label className="sswitch">
             <input
               type="checkbox"
-              id="sswitch-input"
+              id="completion-cap-switch"
               checked={capCompletion}
               onChange={toggleCapCompletion}
             />
             <span className="sslider"></span>
           </label>
           <span><p>[{capCompletion === true ? "CAPPED" : "UNCAPPED"}] This switch will toggle the completion % between being capped at 100% and uncapped.</p></span>
-          </div>
+        </div>
       </div>
 
       <div className="settings-section">
@@ -208,7 +269,6 @@ const SettingsPanel = ({
               >
                 Apply Background
               </button>
-
           )}
           <button
             onClick={onResetBg}

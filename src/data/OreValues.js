@@ -60,7 +60,7 @@ export const initialOreValsDict = [
       "linear-gradient(112deg, #ffaa6e 0%, #ffa82e 17.8%, #ffdea9 27.9%, #dd7226 35.6%, #8b263d 51.6%, #dc672e 71.8%, #f8e3b6 80%, #f0b657 87.4%, #7e262c 100%)",
     layerOres:
       [
-        { name: "Vicious Shard", zenithVal: 1 / 150, nanVal: 1 / 180, customVal: 1 / 180 },
+        { name: "Vicious Shard", zenithVal: 0.05, nanVal: 0.05, customVal: 0.05 },
         { name: "Jalabono", zenithVal: 0.5, nanVal: 1.0, customVal: 0.5 },
         { name: "Hollevite", zenithVal: 10, nanVal: 8, customVal: 10 },
         { name: "Verglazium", zenithVal: 1.0, nanVal: 1.0, customVal: 1.0 },

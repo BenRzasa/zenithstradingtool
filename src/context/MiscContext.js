@@ -90,6 +90,33 @@ export const MiscProvider = ({ children }) => {
     return savedRareFinds ? JSON.parse(savedRareFinds) : {};
   });
 
+  const [useSeparateRareMode, setUseSeparateRareMode] = useState(() => {
+    const savedRareMode = localStorage.getItem("useSeparateRareMode");
+    return savedRareMode ? JSON.parse(savedRareMode) : false;
+  });
+
+  const [rareValueMode, setRareValueMode] = useState(() => {
+    const savedRareValueMode = localStorage.getItem("rareValueMode");
+    return savedRareValueMode ? JSON.parse(savedRareValueMode) : 1; // Default to AV
+  });
+
+  const [rareCustomMultiplier, setRareCustomMultiplier] = useState(() => {
+    const savedRareMultiplier = localStorage.getItem("rareCustomMultiplier");
+    return savedRareMultiplier ? JSON.parse(savedRareMultiplier) : 100;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("useSeparateRareMode", JSON.stringify(useSeparateRareMode));
+  }, [useSeparateRareMode]);
+
+  useEffect(() => {
+    localStorage.setItem("rareValueMode", JSON.stringify(rareValueMode));
+  }, [rareValueMode]);
+
+  useEffect(() => {
+    localStorage.setItem("rareCustomMultiplier", JSON.stringify(rareCustomMultiplier));
+  }, [rareCustomMultiplier]);
+
   // Function to merge ore values while preserving custom values
   const mergeOreValues = (baseDict, customDict) => {
     const merged = JSON.parse(JSON.stringify(baseDict));
@@ -186,6 +213,7 @@ export const MiscProvider = ({ children }) => {
     () => localStorage.setItem("valueMode", JSON.stringify(valueMode)),
     [valueMode]
   );
+
   useEffect(
     () => localStorage.setItem("currentMode", JSON.stringify(currentMode)),
     [currentMode]
@@ -333,6 +361,10 @@ export const MiscProvider = ({ children }) => {
     return newOreVals;
   };
 
+  const getOreClassName = (oreName) => {
+    return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
+  };
+
   // Get the value for a given ore based on the value mode / obtain rate selected
   const getValueForMode = (oreData) => {
     if (!oreData || !oreData.name || oreData.name.includes("Essence")) return 0;
@@ -433,6 +465,13 @@ export const MiscProvider = ({ children }) => {
     setCapCompletion,
     valueMode,
     setValueMode,
+    useSeparateRareMode,
+    setUseSeparateRareMode,
+    rareValueMode,
+    setRareValueMode,
+    rareCustomMultiplier,
+    setRareCustomMultiplier,
+    getOreClassName,
     getValueForMode,
     currentMode,
     setCurrentMode,

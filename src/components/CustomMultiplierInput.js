@@ -1,10 +1,6 @@
-import React, { useContext } from "react";
-import { MiscContext } from "../context/MiscContext";
+import React from "react";
 
-const CustomMultiplierInput = () => {
-  const { currentMode, customMultiplier, setCustomMultiplier } =
-    useContext(MiscContext);
-
+const CustomMultiplierInput = ({ currentMode, customMultiplier, setCustomMultiplier }) => {
   if (currentMode !== 7) return null;
 
   return (

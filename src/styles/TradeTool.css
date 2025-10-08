@@ -288,6 +288,7 @@
   list-style: none;
   padding: 0;
   background-color: var(--background-color);
+  outline: 2px solid var(--switch-outline);
   border-radius: 0 0 8px 8px;
   max-height: 300px;
   overflow-y: auto;

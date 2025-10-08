@@ -22,6 +22,9 @@ function ValueChart() {
     valueMode,
     setValueMode,
     getValueForMode,
+    useSeparateRareMode,
+    rareValueMode,
+    rareCustomMultiplier,
     oreValsDict,
     setOreValsDict,
     capCompletion,
@@ -40,6 +43,9 @@ function ValueChart() {
     getValueForMode,
     oreValsDict,
     capCompletion,
+    useSeparateRareMode,
+    rareValueMode,
+    rareCustomMultiplier,
   });
 
   const {
@@ -54,6 +60,7 @@ function ValueChart() {
     minOre,
     maxOre,
     incompleteOres,
+    modeStrings,
   } = allValues;
 
   const navigate = useNavigate();
@@ -154,27 +161,6 @@ function ValueChart() {
   const tableNames = Object.values(oreValsDict).map(
     (layer) => layer.layerName.split("\n")[0]
   );
-
-  const isNV = customMultiplier % 100 === 0;
-  // For displaying the current mode dynamically
-  const modeStr =
-    currentMode === 1
-      ? "AV"
-      : currentMode === 2
-      ? "UV"
-      : currentMode === 3
-      ? "NV"
-      : currentMode === 4
-      ? "TV"
-      : currentMode === 5
-      ? "SV"
-      : currentMode === 6
-      ? "RV"
-      : !isNV && currentMode === 7
-      ? "CV"
-      : isNV && currentMode === 7
-      ? `${customMultiplier / 100}NV`
-      : "BAD";
 
   const [tableSelected, setTableSelected] = useState("");
   // Function to handle dropdown selection
@@ -296,25 +282,25 @@ function ValueChart() {
               <span className="placeholder">{totalOres.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Total Rare {modeStr}:{" "}
+              ⛏ Total Rare {modeStrings.rareModeStr}:{" "}
               <span className="placeholder">{rareTotal.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Unique {modeStr}:{" "}
+              ⛏ Unique {modeStrings.mainModeStr}:{" "}
               <span className="placeholder">
                 {uniqueTotal.toLocaleString()}
               </span>
             </p>
             <p>
-              ⛏ Layer {modeStr}:{" "}
+              ⛏ Layer {modeStrings.mainModeStr}:{" "}
               <span className="placeholder">{layerTotal.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Grand Total {modeStr}:{" "}
+              ⛏ Grand Total {modeStrings.mainModeStr}:{" "}
               <span className="placeholder">{grandTotal.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Total {modeStr} Completion:{" "}
+              ⛏ Total Completion:{" "}
               <span className="placeholder">{avgCompletion.toFixed(3)}%</span>
             </p>
             {moreStats && (
@@ -324,7 +310,7 @@ function ValueChart() {
                   <br></br>
                     <span className="placeholder">
                       {maxLayer.name.substring(0, maxLayer.name.indexOf("\n"))}{" "}
-                      ({maxLayer.value.toLocaleString()} {modeStr})
+                      ({maxLayer.value.toLocaleString()} {modeStrings.mainModeStr})
                     </span>
                 </p>
                 <p>
@@ -332,21 +318,21 @@ function ValueChart() {
                   <br></br>
                     <span className="placeholder">
                       {minLayer.name.substring(0, minLayer.name.indexOf("\n"))}{" "}
-                      ({minLayer.value.toLocaleString()} {modeStr})
+                      ({minLayer.value.toLocaleString()} {modeStrings.mainModeStr})
                     </span>
                 </p>
                 <p>
                   ⮝ Highest Value (Ore):
                   <br></br>
                     <span className="placeholder">
-                      {maxOre.name} ({maxOre.value.toLocaleString()} {modeStr})
+                      {maxOre.name} ({maxOre.value.toLocaleString()} {modeStrings.mainModeStr})
                     </span>
                 </p>
                 <p>
                   ⮟ Lowest Value (Ore):
                   <br></br>
                     <span className="placeholder">
-                      {minOre.name} ({minOre.value.toLocaleString()} {modeStr})
+                      {minOre.name} ({minOre.value.toLocaleString()} {modeStrings.mainModeStr})
                     </span>
                 </p>
               </>
@@ -526,7 +512,7 @@ function ValueChart() {
               >
                 <div className="modal-header">
                   <h3>
-                    Ores Remaining for {modeStr} Completion:{" "}
+                    Ores Remaining for {modeStrings.mainModeStr} Completion:{" "}
                     {incompleteOres.length}
                   </h3>
                   <button
@@ -541,7 +527,7 @@ function ValueChart() {
                   <div className="completion-header">
                     <span>Ore</span>
                     <span>Layer</span>
-                    <span>{modeStr} Completion %</span>
+                    <span>{modeStrings.mainModeStr} Completion %</span>
                     <span># Remaining</span>
                   </div>
                   {incompleteOres.map((ore, index) => (
