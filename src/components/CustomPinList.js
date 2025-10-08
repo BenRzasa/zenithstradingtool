@@ -156,8 +156,6 @@ const CustomPinList = ({ isOpen, onClose }) => {
 
   const pinTotals = calculatePinTotals();
 
-  // REMOVED: if (!isOpen) return null;
-
   return (
     <div className={`pinlist-container ${isOpen ? "open" : ""}`}>
       <div className="pinlist-header">
@@ -215,20 +213,22 @@ const CustomPinList = ({ isOpen, onClose }) => {
         <button onClick={clearPinList}>
           Clear
         </button>
+        
         </div>
+        {/* Totals */}
+        {pinListState.pinnedOres.length > 0 && (
+          <div className="pinlist-totals">
+            <p>
+              💲Total AV: <span className="placeholder">{pinTotals.totalAV.toFixed(1)}</span>
+            </p>
+            <p>
+              ⛏️Total # Ores: <span className="placeholder">{pinTotals.totalOres}</span>
+            </p>
+          </div>
+        )}
       </div>
 
-      {/* Totals */}
-      {pinListState.pinnedOres.length > 0 && (
-        <div className="pinlist-totals">
-          <p>
-            💲Total AV: <span className="placeholder">{pinTotals.totalAV.toFixed(1)}</span>
-          </p>
-          <p>
-            ⛏️Total # Ores: <span className="placeholder">{pinTotals.totalOres}</span>
-          </p>
-        </div>
-      )}
+
 
       {/* Pinned Ores Table */}
       <div className="pinlist-content">

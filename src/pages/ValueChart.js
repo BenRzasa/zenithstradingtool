@@ -60,7 +60,8 @@ function ValueChart() {
     minOre,
     maxOre,
     incompleteOres,
-    modeStrings,
+    getCurrentModeStr,
+    calculateDisplayValue,
   } = allValues;
 
   const navigate = useNavigate();
@@ -250,6 +251,8 @@ function ValueChart() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [hotkeysEnabled, showCSVLoader]);
 
+  const currentModeString = getCurrentModeStr();
+
   return (
     <div className="outer-frame">
       {/* Quick Summary Dropdown */}
@@ -282,21 +285,21 @@ function ValueChart() {
               <span className="placeholder">{totalOres.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Total Rare {modeStrings.rareModeStr}:{" "}
+              ⛏ Total Rare {getCurrentModeStr("Rares\nMore")}:{" "}
               <span className="placeholder">{rareTotal.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Unique {modeStrings.mainModeStr}:{" "}
+              ⛏ Unique {currentModeString}:{" "}
               <span className="placeholder">
                 {uniqueTotal.toLocaleString()}
               </span>
             </p>
             <p>
-              ⛏ Layer {modeStrings.mainModeStr}:{" "}
+              ⛏ Layer {currentModeString}:{" "}
               <span className="placeholder">{layerTotal.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Grand Total {modeStrings.mainModeStr}:{" "}
+              ⛏ Grand Total {currentModeString}:{" "}
               <span className="placeholder">{grandTotal.toLocaleString()}</span>
             </p>
             <p>
@@ -310,7 +313,7 @@ function ValueChart() {
                   <br></br>
                     <span className="placeholder">
                       {maxLayer.name.substring(0, maxLayer.name.indexOf("\n"))}{" "}
-                      ({maxLayer.value.toLocaleString()} {modeStrings.mainModeStr})
+                      ({maxLayer.value.toLocaleString()} {currentModeString})
                     </span>
                 </p>
                 <p>
@@ -318,21 +321,21 @@ function ValueChart() {
                   <br></br>
                     <span className="placeholder">
                       {minLayer.name.substring(0, minLayer.name.indexOf("\n"))}{" "}
-                      ({minLayer.value.toLocaleString()} {modeStrings.mainModeStr})
+                      ({minLayer.value.toLocaleString()} {currentModeString})
                     </span>
                 </p>
                 <p>
                   ⮝ Highest Value (Ore):
                   <br></br>
                     <span className="placeholder">
-                      {maxOre.name} ({maxOre.value.toLocaleString()} {modeStrings.mainModeStr})
+                      {maxOre.name} ({maxOre.value.toLocaleString()} {currentModeString})
                     </span>
                 </p>
                 <p>
                   ⮟ Lowest Value (Ore):
                   <br></br>
                     <span className="placeholder">
-                      {minOre.name} ({minOre.value.toLocaleString()} {modeStrings.mainModeStr})
+                      {minOre.name} ({minOre.value.toLocaleString()} {currentModeString})
                     </span>
                 </p>
               </>
@@ -512,7 +515,7 @@ function ValueChart() {
               >
                 <div className="modal-header">
                   <h3>
-                    Ores Remaining for {modeStrings.mainModeStr} Completion:{" "}
+                    Ores Remaining for {currentModeString} Completion:{" "}
                     {incompleteOres.length}
                   </h3>
                   <button
@@ -527,7 +530,7 @@ function ValueChart() {
                   <div className="completion-header">
                     <span>Ore</span>
                     <span>Layer</span>
-                    <span>{modeStrings.mainModeStr} Completion %</span>
+                    <span>{currentModeString} Completion %</span>
                     <span># Remaining</span>
                   </div>
                   {incompleteOres.map((ore, index) => (
@@ -655,6 +658,8 @@ function ValueChart() {
               layer.background ||
               "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
 
+            const tableModeStr = getCurrentModeStr(layerName);
+
             return (
               <div
                 id={layerName
@@ -672,6 +677,11 @@ function ValueChart() {
                   gradient={gradientStyle}
                   searchFilters={searchFilters}
                   valueMode={valueMode}
+                  modeStr={tableModeStr}
+                  calculateDisplayValue={calculateDisplayValue}
+                  useSeparateRareMode={useSeparateRareMode}
+                  rareValueMode={rareValueMode}
+                  rareCustomMultiplier={rareCustomMultiplier}
                 />
               </div>
             );

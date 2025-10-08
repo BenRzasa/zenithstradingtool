@@ -8,7 +8,6 @@ export const MiscValueFunctions = ({
   oreValsDict,
   capCompletion,
   valueMode,
-  // Add new parameters for rare mode
   useSeparateRareMode = false,
   rareValueMode = 1,
   rareCustomMultiplier = 100,
@@ -143,7 +142,7 @@ export const MiscValueFunctions = ({
   // Calculate base totals - ALWAYS uses normal mode for grand total calculations
   const calculateBaseTotals = useCallback(() => {
     let rareTotal = 0;
-    let rareDisplayTotal = 0; // For display purposes only
+    let rareDisplayTotal = 0;
     let uniqueTotal = 0;
     let layerTotal = 0;
     let grandTotal = 0;
@@ -167,8 +166,7 @@ export const MiscValueFunctions = ({
         }
 
         const inventory = csvData[ore.name] || 0;
-        
-        // ALWAYS use normal mode for grand total calculations
+
         const oreValue = calculateValue(ore);
         const perValue = oreValue.toFixed(getPrecision(oreValue));
         const numV = parseFloat((inventory / perValue).toFixed(1));
@@ -181,7 +179,7 @@ export const MiscValueFunctions = ({
 
         if (layerName.includes("True Rares") || layerName.includes("Rares")) {
           rareTotal += numV;
-          
+
           // Calculate display value for rare total (using rare mode if enabled)
           const displayOreValue = calculateRareDisplayValue(ore);
           const displayPerValue = displayOreValue.toFixed(getPrecision(displayOreValue));
@@ -212,8 +210,8 @@ export const MiscValueFunctions = ({
         : 0;
 
     return {
-      rareTotal: useSeparateRareMode ? rareDisplayTotal : rareTotal, // Use display total when rare mode enabled
-      rareBaseTotal: rareTotal, // Always the normal mode calculation
+      rareTotal: useSeparateRareMode ? rareDisplayTotal : rareTotal,
+      rareBaseTotal: rareTotal,
       uniqueTotal,
       layerTotal,
       grandTotal,
@@ -226,14 +224,14 @@ export const MiscValueFunctions = ({
   }, [
     csvData,
     oreValsDict,
-    calculateValue, // ALWAYS uses normal mode for calculations
-    calculateRareDisplayValue, // For rare display total only
+    calculateValue,
+    calculateRareDisplayValue,
     capCompletion,
     getPrecision,
     useSeparateRareMode
   ]);
 
-  // Calculate min/max info (with exclusions) - ALWAYS uses normal mode
+  // Calculate min/max info (with exclusions)
   const calculateExtremes = useCallback(() => {
     const excludedOres = ["Stone", "Grimstone"];
     const excludedLayers = [
@@ -270,7 +268,7 @@ export const MiscValueFunctions = ({
         if (excludedOres.includes(ore.name) || ore.name.includes("Essence")) return;
 
         const inventory = csvData[ore.name] || 0;
-        const oreValue = calculateValue(ore); // ALWAYS uses normal mode
+        const oreValue = calculateValue(ore);
         const numV = parseFloat((inventory / oreValue).toFixed(3));
 
         validOresFound = true;
@@ -311,7 +309,7 @@ export const MiscValueFunctions = ({
   }, [
     csvData,
     oreValsDict,
-    calculateValue // ALWAYS uses normal mode
+    calculateValue
   ]);
 
   const calculateIncompleteOres = useCallback(() => {
@@ -325,7 +323,7 @@ export const MiscValueFunctions = ({
 
       layerData.forEach((ore) => {
         const inventory = csvData[ore.name] || 0;
-        const orePerUnit = calculateValue(ore); // ALWAYS uses normal mode
+        const orePerUnit = calculateValue(ore);
 
         const completionRatio =
           orePerUnit > 0
@@ -363,7 +361,7 @@ export const MiscValueFunctions = ({
   }, [
     csvData,
     oreValsDict,
-    calculateValue, // ALWAYS uses normal mode
+    calculateValue,
     valueMode,
     capCompletion,
     useSeparateRareMode,
@@ -372,60 +370,38 @@ export const MiscValueFunctions = ({
     currentMode
   ]);
 
-  // Get mode strings for display
-  const getModeStrings = useCallback(() => {
-    const isNV = customMultiplier % 100 === 0;
-    const isRareNV = rareCustomMultiplier % 100 === 0;
-    const isSV = customMultiplier % 1000 === 0;
-    const isRareSV = rareCustomMultiplier % 1000 === 0;
+  const getCurrentModeStr = useCallback((layerName = null) => {
+    const isRareLayer = layerName ? 
+      (layerName.includes("Rares\nMore") || layerName.includes("True Rares")) : 
+      false;
+    const useRareMode = useSeparateRareMode && isRareLayer;
 
-    const mainModeStr =
-      currentMode === 1
-        ? "AV"
-        : currentMode === 2
-        ? "UV"
-        : currentMode === 3
-        ? "NV"
-        : currentMode === 4
-        ? "TV"
-        : currentMode === 5
-        ? "SV"
-        : currentMode === 6
-        ? "RV"
-        : !(isNV && isSV) && currentMode === 7
-        ? "CV"
-        : isNV && currentMode === 7
-        ? `${customMultiplier / 100} NV`
-        : isSV && currentMode === 7
-        ? `${customMultiplier / 1000} NV`
-        : "BAD";
+    const effectiveMode = useRareMode ? rareValueMode : currentMode;
+    const effectiveMultiplier = useRareMode ? rareCustomMultiplier : customMultiplier;
 
-    const rareModeStr =
-      rareValueMode === 1
-        ? "AV"
-        : rareValueMode === 2
-        ? "UV"
-        : rareValueMode === 3
-        ? "NV"
-        : rareValueMode === 4
-        ? "TV"
-        : rareValueMode === 5
-        ? "SV"
-        : rareValueMode === 6
-        ? "RV"
-        : !(isRareNV && isRareSV) && rareValueMode === 7
-        ? "CV"
-        : isRareNV && rareValueMode === 7
-        ? `${rareCustomMultiplier / 100} NV`
-        : isRareSV && rareValueMode === 7
-        ? `${rareCustomMultiplier / 1000} SV`
-        : "BAD";
+    const isNV = effectiveMultiplier % 100 === 0;
+    const isSV = effectiveMultiplier % 1000 === 0;
 
-    return {
-      mainModeStr,
-      rareModeStr,
-      usingSeparateRareMode: useSeparateRareMode,
-    };
+    switch (effectiveMode) {
+      case 1:
+        return "AV";
+      case 2:
+        return "UV";
+      case 3:
+        return "NV";
+      case 4:
+        return "TV";
+      case 5:
+        return "SV";
+      case 6:
+        return "RV";
+      case 7:
+        if (isNV) return `${effectiveMultiplier / 100}NV`;
+        if (isSV) return `${effectiveMultiplier / 1000}SV`;
+        return "CV";
+      default:
+        return "AV";
+    }
   }, [
     currentMode,
     customMultiplier,
@@ -439,15 +415,13 @@ export const MiscValueFunctions = ({
     const baseTotals = calculateBaseTotals();
     const extremes = calculateExtremes();
     const incompleteOres = calculateIncompleteOres();
-    const modeStrings = getModeStrings();
 
     return {
-      // Base totals (calculated with appropriate modes)
-      rareTotal: baseTotals.rareTotal, // Uses rare mode for display when enabled
-      rareBaseTotal: baseTotals.rareBaseTotal, // Always uses normal mode
+      rareTotal: baseTotals.rareTotal,
+      rareBaseTotal: baseTotals.rareBaseTotal,
       uniqueTotal: baseTotals.uniqueTotal,
       layerTotal: baseTotals.layerTotal,
-      grandTotal: baseTotals.grandTotal, // ALWAYS uses normal mode
+      grandTotal: baseTotals.grandTotal,
       avgCompletion: baseTotals.avgCompletion,
       totalOres: baseTotals.totalOres,
       tableCompletions: baseTotals.tableCompletions,
@@ -459,14 +433,12 @@ export const MiscValueFunctions = ({
       layerValues: extremes.layerValues,
 
       incompleteOres,
-
-      modeStrings,
-
-      calculateValue, // Normal mode only
-      calculateRareDisplayValue, // Rare mode for display only
-      calculateDisplayValue, // For display purposes
+      calculateValue,
+      calculateRareDisplayValue,
+      calculateDisplayValue,
       getPrecision,
       isRareOre,
+      getCurrentModeStr
     };
   }, [
     calculateBaseTotals,
@@ -475,8 +447,8 @@ export const MiscValueFunctions = ({
     calculateRareDisplayValue,
     calculateDisplayValue,
     getPrecision,
+    getCurrentModeStr,
     calculateIncompleteOres,
-    getModeStrings,
     isRareOre,
   ]);
 

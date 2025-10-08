@@ -569,6 +569,7 @@ export const initialOreValsDict = [
       ],
   },
 
+  /*
   {
     layerName: "Essences\nObtained from Wisps",
     background: "linear-gradient(180deg, #ffd0d0 0%, #ffc2a5 20%, #ff5a8e 50%, #6a0028 80%, #580020 100%)",
@@ -582,6 +583,7 @@ export const initialOreValsDict = [
         { name: "Essence of Vitality" },
       ],
   },
+  */
 
   {
     layerName: "Empyrean\n[12250m-12999m]",

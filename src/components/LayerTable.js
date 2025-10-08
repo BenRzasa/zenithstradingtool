@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 
-import { MiscValueFunctions } from "./MiscValueFunctions";
 import { MiscContext } from "../context/MiscContext";
 import {
   nanPlaceholderOres,
@@ -21,6 +20,10 @@ const LayerTable = ({
   customMultiplier,
   gradient,
   searchFilters,
+  modeStr,
+  calculateDisplayValue,
+  useSeparateRareMode,
+  rareCustomMultiplier,
 }) => {
   const {
     getCurrentCSV,
@@ -30,31 +33,11 @@ const LayerTable = ({
     getValueForMode,
     capCompletion,
     oreValsDict,
-    useSeparateRareMode,
-    rareValueMode,
-    rareCustomMultiplier,
   } = useContext(MiscContext);
 
   const csvData = getCurrentCSV();
 
   const [copiedFilter, setCopiedFilter] = useState(null);
-
-  const allValues = MiscValueFunctions({
-    csvData: csvData,
-    currentMode,
-    customMultiplier,
-    getValueForMode,
-    oreValsDict,
-    capCompletion,
-    valueMode,
-    useSeparateRareMode,
-    rareValueMode,
-    rareCustomMultiplier,
-  });
-
-  const {
-    modeStrings,
-  } = allValues;
 
   // null check for oreValsDict
   if (!oreValsDict) {
@@ -69,38 +52,9 @@ const LayerTable = ({
   // Determine if this table shows rares
   const isRaresTable = title.includes("Rares\nMore") || title.includes("True Rares");
 
-  // Use rare mode if enabled and this is a rares table
-  const effectiveMode = useSeparateRareMode && isRaresTable ? rareValueMode : currentMode;
-
-  // Function to calculate the value based on the effective mode
-  const calculateValue = (ore) => {
-    const baseValue = getValueForMode(ore);
-    const mode = useSeparateRareMode && isRaresTable ? rareValueMode : currentMode;
-    const multiplier = useSeparateRareMode && isRaresTable ? rareCustomMultiplier : customMultiplier;
-
-    switch (mode) {
-      case 1:
-        return baseValue * 1; // AV
-      case 2:
-        return baseValue * 10; // UV
-      case 3:
-        return baseValue * 100; // NV
-      case 4:
-        return baseValue * 500; // TV
-      case 5:
-        return baseValue * 1000; // SV
-      case 6:
-        return baseValue * 50; // RV
-      case 7:
-        return baseValue * multiplier; // Custom
-      default:
-        return baseValue;
-    }
-  };
-
   // Function to calculate the percentage with bounds
   const calculatePercentage = (ore, inventory) => {
-    const orePerUnit = calculateValue(ore);
+    const orePerUnit = calculateDisplayValue(ore);
     return orePerUnit > 0
       ? capCompletion
         ? Math.min(100, (inventory / orePerUnit) * 100).toFixed(2)
@@ -108,7 +62,7 @@ const LayerTable = ({
       : 0;
   };
 
-  const formatValue = (value, mode = effectiveMode) => {
+  const formatValue = (value, mode = currentMode) => {
     const num = Number(value);
     if (!Number.isFinite(num)) return 0;
 
@@ -140,7 +94,7 @@ const LayerTable = ({
     };
 
     // Return the numeric value based on mode
-    switch (effectiveMode) {
+    switch (currentMode) {
       case 1:
         return truncate(scaledValue, 3);
       case 2:
@@ -174,7 +128,7 @@ const LayerTable = ({
   const getAverageCompletion = () => {
     const totalCompletion = data.reduce((sum, item) => {
       const inventory = csvData[item.name] || 0;
-      const orePerUnit = calculateValue(item);
+      const orePerUnit = calculateDisplayValue(item);
       const completion =
         orePerUnit > 0
           ? capCompletion
@@ -190,11 +144,11 @@ const LayerTable = ({
   const getTotalValue = () => {
     const total = data.reduce((sum, item) => {
       const inventory = csvData[item.name] || 0;
-      const orePerUnit = calculateValue(item);
+      const orePerUnit = calculateDisplayValue(item);
       return orePerUnit > 0 ? sum + inventory / orePerUnit : sum;
     }, 0);
 
-    return `${parseFloat(total.toFixed(1))} ${modeStrings.mainModeStr}`;
+    return `${parseFloat(total.toFixed(1))} ${modeStr}`;
   };
 
   // Find highest value ore
@@ -202,14 +156,14 @@ const LayerTable = ({
     const highestItem = data.reduce(
       (max, item) => {
         const inventory = csvData[item.name] || 0;
-        const orePerUnit = calculateValue(item);
+        const orePerUnit = calculateDisplayValue(item);
         const numV = orePerUnit > 0 ? inventory / orePerUnit : 0;
         return numV > max.value ? { name: item.name, value: numV } : max;
       },
       { name: "", value: 0 }
     );
 
-    return `${highestItem.name} (${highestItem.value.toFixed(2)} ${modeStrings.mainModeStr})`;
+    return `${highestItem.name} (${highestItem.value.toFixed(2)} ${modeStr})`;
   };
 
   // Handle inventory changes
@@ -276,7 +230,7 @@ const LayerTable = ({
           {title}
           {getAverageCompletion() === "100.00" &&
             !title.includes("Essences") && (
-              <span className="nv-comp-check">{useSeparateRareMode ? "✦" : "✔"}</span>
+              <span className="nv-comp-check">{useSeparateRareMode && isRaresTable ? "✦" : "✔"}</span>
             )}
         </h2>
       </pre>
@@ -284,13 +238,13 @@ const LayerTable = ({
         <thead>
           <tr>
             <th>Ore Name</th>
-            {!title.includes("Essences") && <th>{isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr}%</th>}
+            {!title.includes("Essences") && <th>{modeStr}%</th>}
 
             <th>&nbsp;&nbsp;#&nbsp;&nbsp;</th>
 
             {!title.includes("Essences") && (
               <>
-                <th>{isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr}s</th>
+                <th>{modeStr}s</th>
                 {!title.includes("Rares") && !title.includes("True Rares") && (
                   <th>1 AV</th>
                 )}
@@ -298,8 +252,8 @@ const LayerTable = ({
                   <th>AV</th>
                 )}
                 <th>{
-                  effectiveMode === 7 ? `${isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr}`
-                  : `1 ${isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr}`}</th>
+                  currentMode === 7 ? `${modeStr}`
+                  : `1 ${modeStr}`}</th>
               </>
             )}
           </tr>
@@ -312,21 +266,21 @@ const LayerTable = ({
             const inventory = csvData[item.name] || 0;
             const baseValue = getValueForMode(item);
             const percentage = calculatePercentage(item, inventory);
-            const unroundedNumV = inventory / calculateValue(item);
+            const unroundedNumV = inventory / calculateDisplayValue(item);
             const roundedNumV =
-              effectiveMode === 1
+              currentMode === 1
                 ? unroundedNumV.toFixed(0)
-                : effectiveMode === 2
+                : currentMode === 2
                 ? unroundedNumV.toFixed(1)
-                : effectiveMode === 3
+                : currentMode === 3
                 ? unroundedNumV.toFixed(2)
-                : effectiveMode === 4
+                : currentMode === 4
                 ? unroundedNumV.toFixed(3)
-                : effectiveMode === 5
+                : currentMode === 5
                 ? unroundedNumV.toFixed(3)
-                : effectiveMode === 6
+                : currentMode === 6
                 ? unroundedNumV.toFixed(2)
-                : effectiveMode === 7
+                : currentMode === 7
                 ? unroundedNumV.toFixed(2)
                 : "0";
 
@@ -430,7 +384,7 @@ const LayerTable = ({
                     )}
                     {isTrueRares && <td>{1 / baseValue}</td>}
                     {isRares && <td>{(1 / baseValue).toFixed(2)}</td>}
-                    <td>{formatDisplayValue(baseValue, effectiveMode)}</td>
+                    <td>{formatDisplayValue(baseValue, currentMode)}</td>
                   </>
                 )}
               </tr>
@@ -441,19 +395,19 @@ const LayerTable = ({
       <div className="table-footer">
         <ul className="info-list">
           <li>
-            ⛏ {isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr} Completion:{" "}
+            ⛏ {modeStr} Completion:{" "}
             <span className="placeholder">
               {title.includes("Essence") ? "N/A" : `${getAverageCompletion()}%`}
             </span>
           </li>
           <li>
-            ⛏ Total {isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr}:{" "}
+            ⛏ Total {modeStr}:{" "}
             <span className="placeholder">
               {title.includes("Essence") ? "N/A" : getTotalValue()}
             </span>
           </li>
           <li>
-            ⛏ Highest {isRaresTable ? modeStrings.rareModeStr : modeStrings.mainModeStr}:{" "}
+            ⛏ Highest {modeStr}:{" "}
             <span className="placeholder">
               {title.includes("Essence") ? "N/A" : getHighestValue()}
             </span>
