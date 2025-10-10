@@ -18,7 +18,7 @@ const HotkeyHandler = ({ children }) => {
         return;
       }
 
-      // Check for modifier keys (don't trigger if Ctrl/Alt/Shift/Meta is pressed)
+      // Don't trigger on modifier keys
       if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) return;
 
       switch (e.key.toLowerCase()) {
@@ -68,7 +68,7 @@ const HotkeyHandler = ({ children }) => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [hotkeysEnabled, navigate, setSettingsOpen]); // Added setSettingsOpen to dependencies
+  }, [hotkeysEnabled, navigate, setSettingsOpen]);
 
   return children;
 };
