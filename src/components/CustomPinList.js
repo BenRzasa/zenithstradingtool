@@ -164,8 +164,7 @@ const CustomPinList = ({ isOpen, onClose }) => {
           ×
         </button>
       </div>
-
-      {/* Search Section */}
+      {/* Search box */}
       <div className="search-container">
         <label htmlFor="pinlist-search-input">
           <input
@@ -227,10 +226,7 @@ const CustomPinList = ({ isOpen, onClose }) => {
           </div>
         )}
       </div>
-
-
-
-      {/* Pinned Ores Table */}
+      {/* Pinned ores table */}
       <div className="pinlist-content">
         {pinListState.pinnedOres.length > 0 ? (
           <table 
