@@ -28,7 +28,6 @@ const SettingsPanel = ({
     setUseObtainRateVals,
     hotkeysEnabled,
     setHotkeysEnabled,
-    // Add new states for rare value mode
     useSeparateRareMode,
     setUseSeparateRareMode,
     rareValueMode,
@@ -218,6 +217,7 @@ const SettingsPanel = ({
             <p><strong>T</strong> - Trade Tool</p>
             <p><strong>U</strong> - Custom Values</p>
             <p><strong>R</strong> - Rare Tracker</p>
+            <p><strong>P</strong> - Pinlist</p>
             <p><strong>M</strong> - Miscellaneous</p>
             <p><strong>W</strong> - Spin the Wheel</p>
             <p><strong>E</strong> - Credits</p>
