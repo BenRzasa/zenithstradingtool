@@ -165,7 +165,7 @@ const OreAndLayerWheel = () => {
         .filter((ore) => ore !== "");
 
       if (customOresArray.length > 0) {
-        ores = ores.filter((ore) => customOresArray.includes(ore.name));
+        ores = ores.filter((ore) => customOresArray.includes(ore.name.toLowerCase()));
       }
     }
 
