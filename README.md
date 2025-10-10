@@ -1,6 +1,6 @@
 # Zenith's Trading Tool | Created for The Celestial Caverns
-
-## Feature Ideas & Assets Credits:
+Link: https://benrzasa.github.io/zenithstradingtool/
+## Feature Ideas & Assets Credits (Currently outdated):
  - **Multiple Users**
    - Feedback and improvements for mobile compatibility!!
  - **Glitch**
