@@ -7,14 +7,13 @@ import "../styles/LayerTable.css";
 import "../styles/ValueChart.css";
 
 /*
-  Import like:
+  Import similar to:
   <ValueModeSelector
     currentMode={currentMode}
     setCurrentMode={setCurrentMode}
   />
 */
 
-// Extracting row rendering into a separate component for reusability
 const RareRow = ({
   item,
   count,
