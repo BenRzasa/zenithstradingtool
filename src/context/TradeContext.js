@@ -70,7 +70,7 @@ export const TradeProvider = ({ children }) => {
     [persistState]
   );
 
-  // Memoize the updateTradeOres function to prevent unnecessary recreations
+  // Update trade ores any time a value or data actually changes
   const updateTradeOres = useCallback(
     (allOres) => {
       persistentSetTradeState((prev) => {
