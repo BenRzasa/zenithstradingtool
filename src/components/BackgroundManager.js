@@ -1,7 +1,4 @@
 
-// BackgroundManager.js
-import React from 'react';
-
 const BackgroundManager = ({ children, background, opacity }) => {
   const bgStyle = {
     position: 'relative',
