@@ -1,4 +1,3 @@
-// context/PinListContext.js
 import React, { createContext, useState, useCallback, useEffect, useRef } from "react";
 
 export const PinListContext = createContext();
@@ -12,7 +11,6 @@ export const PinListProvider = ({ children }) => {
     }
   }, []);
 
-  // Persistent state for pin list
   const [pinListState, setPinListState] = useState(() => {
     try {
       const savedData = localStorage.getItem("pinListState");
@@ -26,7 +24,7 @@ export const PinListProvider = ({ children }) => {
             searchFocused: false,
             selectedSearchIndex: -1,
             batchQuantity: 0,
-            batchMode: "quantity", // 'quantity' or 'av'
+            batchMode: "quantity",
           };
     } catch (e) {
       console.error("Failed to parse saved pin list state", e);
@@ -61,14 +59,13 @@ export const PinListProvider = ({ children }) => {
   // Add ore to pin list
   const addToPinList = useCallback((ore) => {
     persistentSetPinListState((prev) => {
-      // Check if ore already exists in pin list
       const existing = prev.pinnedOres.find((item) => item.name === ore.name);
       if (existing) {
-        return prev; // Don't add duplicates
+        return prev;
       }
       
       const newPinnedOres = [...prev.pinnedOres, ore];
-      // Initialize quantity to 1 if not set
+
       const newQuantities = { ...prev.quantities };
       if (!newQuantities[ore.name]) {
         newQuantities[ore.name] = 1;
@@ -78,7 +75,7 @@ export const PinListProvider = ({ children }) => {
         ...prev,
         pinnedOres: newPinnedOres,
         quantities: newQuantities,
-        searchTerm: "", // Clear search after adding
+        searchTerm: "",
       };
     });
   }, [persistentSetPinListState]);
@@ -90,7 +87,6 @@ export const PinListProvider = ({ children }) => {
       const newQuantities = { ...prev.quantities };
       delete newQuantities[oreName];
       
-      // Also remove from selected ores
       const newSelectedPinnedOres = prev.selectedPinnedOres.filter(
         (name) => name !== oreName
       );
@@ -104,7 +100,6 @@ export const PinListProvider = ({ children }) => {
     });
   }, [persistentSetPinListState]);
 
-  // Update quantity for pinned ore
   const updatePinQuantity = useCallback((oreName, quantity) => {
     const numericValue = quantity === "" ? "" : Math.max(0, Number(quantity) || 0);
     
@@ -152,7 +147,7 @@ export const PinListProvider = ({ children }) => {
     persistentSetPinListState((prev) => ({
       ...prev,
       searchTerm: term,
-      selectedSearchIndex: -1, // Reset selection when term changes
+      selectedSearchIndex: -1,
     }));
   }, [persistentSetPinListState]);
 
