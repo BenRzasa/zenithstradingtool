@@ -1,11 +1,3 @@
-/* ZTT | Custom Value Editor Page
-  - Allows the user to customize a full set of values in table form
-  - Results in a custom value dictionary in similar format to the John and NAN dicts
-  - Can be exported (and later, imported), to save for later
-  - Can be reset to NAN or John's default values
-  - Saving or cancelling will result in immediate navigation to the Value Chart page
-*/
-
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MiscContext } from "../context/MiscContext";
@@ -86,16 +78,13 @@ function CustomValuesEditor() {
     navigate("/valuechart");
   };
 
-  // Handle cancellation (navigate 1 page backward -> Value Chart)
   const handleCancel = () => {
     navigate(-1);
   };
 
   // Handle resetting of the dictionary
-  // Enhanced reset handler
   const handleReset = async (source) => {
     if (window.confirm(`Reset all values to ${source.toUpperCase()} values?`)) {
-      // Reset and wait for completion
       await resetCustomValues(source);
       window.scrollTo(0, 0);
     }
@@ -148,11 +137,6 @@ function CustomValuesEditor() {
             >
               Reset to NAN's Values
             </button>
-            {/*
-          <button onClick={() => handleReset('john')} className="color-template-pout">
-            Reset to John's Values
-          </button>
-          */}
             <button
               onClick={() => handleReset("custom")}
               className="color-template-obliviril"
