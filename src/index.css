@@ -139,7 +139,6 @@ li {
   border-radius: 5px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #6353d0;
 }
@@ -228,7 +227,6 @@ li {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Value button styles */
 .val-button-container {
   justify-content: center;
   display: flex;
@@ -250,7 +248,6 @@ li {
   }
 }
 
-/* Slide button */
 .slide-btn {
   font-family: 'Comfortaa';
   width: 200px;
@@ -332,7 +329,6 @@ li {
   border-bottom: none;
 }
 
-/* Table Header Styles */
 th {
   background-color: var(--header-bg);
   color: var(--header-text);
@@ -341,26 +337,22 @@ th {
   border: 1px solid var(--border-color);
 }
 
-/* Light Mode */
 :root {
   --header-bg: #2a2a2a;
   --header-text: #ffffff;
   --border-color: #e0e0e0;
 }
 
-/* Dark Mode */
 [data-theme="dark"] th {
   --header-bg: #1a1a1a;
   --header-text: #ffffff;
   --border-color: #444;
 }
 
-/* Add smooth scrolling to the entire site */
 html {
   scroll-behavior: smooth;
 }
 
-/* Support older browsers */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
