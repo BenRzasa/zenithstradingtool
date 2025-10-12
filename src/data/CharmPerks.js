@@ -39,6 +39,21 @@ const charmPerks = [
     description: "Ores with over 2.5s of mine time will be mined 20% faster",
   },
   {
+    name: "Isoronil Necklace",
+    ore: "Isoronil",
+    description: "55% chance to double and 45% chance to void a mined ore",
+  },
+  {
+    name: "Red Diamond Ring",
+    ore: "Red Diamond",
+    description: "Increases number of Red Diamonds obtained per ore by 2",
+  },
+  {
+    name: "Polarflare Necklace",
+    ore: "Polarveril",
+    description: "You are immune to extreme temperatures",
+  },
+  {
     name: "Ambrosine Band",
     ore: "Ambrosine",
     description: "Increases XP yield from ores by 15%",
@@ -49,14 +64,9 @@ const charmPerks = [
     description: "Increases critical hit strength by 20%",
   },
   {
-    name: "Red Diamond Ring",
-    ore: "Red Diamond",
-    description: "Increases number of Red Diamonds obtained per ore by 2",
-  },
-  {
-    name: "Isoronil Necklace",
-    ore: "Isoronil",
-    description: "55% chance to double and 45% chance to void a mined ore",
+    name: "Ichor Band",
+    ore: "Ichor",
+    description: "Spawning Growths from mining Cytosol will be 10x rarer",
   },
   {
     name: "Oblivion Band",
@@ -114,6 +124,11 @@ const charmPerks = [
     name: "Quicksilver Band",
     ore: "Quicksilver",
     description: "Increases walkspeed by 3",
+  },
+  {
+    name: "Kyanite Ring",
+    ore: "Kyanite",
+    description: "Increases inventory space by 27%",
   },
   {
     name: "Emerald Necklace",

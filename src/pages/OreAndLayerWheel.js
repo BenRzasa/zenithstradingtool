@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useCallback } from "react";
+import React, { useState, useContext, useMemo, useCallback, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
 import { MiscContext } from "../context/MiscContext";
 import { useWheel } from "../context/WheelContext";
@@ -19,6 +19,9 @@ const OreAndLayerWheel = () => {
     getValueForMode,
     valueMode,
     capCompletion,
+    useSeparateRareMode,
+    rareValueMode,
+    rareCustomMultiplier,
   } = useContext(MiscContext);
 
   const { settings, updateSetting } = useWheel();
@@ -32,6 +35,9 @@ const OreAndLayerWheel = () => {
     getValueForMode,
     oreValsDict,
     capCompletion,
+    useSeparateRareMode,
+    rareValueMode,
+    rareCustomMultiplier,
   });
 
   // Wheel state
@@ -44,6 +50,35 @@ const OreAndLayerWheel = () => {
 
   const layerColors = [];
 
+  useEffect(() => {
+    // Reset selected ore and layer when rare mode settings change
+    // This ensures the display updates with the new calculations
+    setSelectedOre(null);
+    setSelectedLayer(null);
+}, [useSeparateRareMode, rareValueMode, rareCustomMultiplier]);
+
+  const isRareOre = useCallback(
+    (ore) => {
+      const raresLayer = Object.values(oreValsDict).find((layer) =>
+        layer.layerName.includes("Rares\nMore")
+      );
+      const trueRaresLayer = Object.values(oreValsDict).find((layer) =>
+        layer.layerName.includes("True Rares")
+      );
+
+      return (
+        raresLayer?.layerOres.some((rareOre) => rareOre.name === ore.name) ||
+        trueRaresLayer?.layerOres.some((rareOre) => rareOre.name === ore.name)
+      );
+    },
+    [oreValsDict]
+  );
+
+  const isRareLayer = useCallback((layerName) => {
+    return (
+      layerName.includes("Rares\nMore") || layerName.includes("True Rares")
+    );
+  }, []);
   const getMatchingLayerName = useCallback(
     (layerName) => {
       // Find layer by name in the new structure
@@ -65,11 +100,26 @@ const OreAndLayerWheel = () => {
   const calculateOreCompletion = useCallback(
     (ore) => {
       const inventory = csvData[ore.name] || 0;
-      const oreValue = valueFunctions.calculateValue(ore);
+      const oreValue =
+        useSeparateRareMode && isRareOre(ore)
+          ? valueFunctions.calculateDisplayValue(ore)
+          : valueFunctions.calculateValue(ore);
       const completion = oreValue > 0 ? (inventory / oreValue) * 100 : 0;
       return capCompletion ? Math.min(100, completion) : completion;
     },
-    [csvData, valueFunctions, capCompletion]
+    [csvData, valueFunctions, capCompletion, useSeparateRareMode, isRareOre]
+  );
+
+  const calculateOreValue = useCallback(
+    (ore) => {
+      const inventory = csvData[ore.name] || 0;
+      const oreValue =
+        useSeparateRareMode && isRareOre(ore)
+          ? valueFunctions.calculateDisplayValue(ore)
+          : valueFunctions.calculateValue(ore);
+      return oreValue > 0 ? inventory / oreValue : 0;
+    },
+    [csvData, valueFunctions, useSeparateRareMode, isRareOre]
   );
 
   const calculateLayerCompletion = useCallback(
@@ -96,15 +146,6 @@ const OreAndLayerWheel = () => {
       return countedOres > 0 ? (totalCompletion / countedOres) * 100 : 0;
     },
     [oreValsDict, valueFunctions, calculateOreCompletion]
-  );
-
-  const calculateOreValue = useCallback(
-    (ore) => {
-      const inventory = csvData[ore.name] || 0;
-      const oreValue = valueFunctions.calculateValue(ore);
-      return oreValue > 0 ? inventory / oreValue : 0;
-    },
-    [csvData, valueFunctions]
   );
 
   const calculateLayerValue = useCallback(
@@ -232,6 +273,9 @@ const OreAndLayerWheel = () => {
     settings.includeOver100LayerCompletion,
     calculateLayerCompletion,
     getFilteredLayers,
+    useSeparateRareMode,
+    rareValueMode,
+    rareCustomMultiplier,
   ]);
 
   const getOreColor = useCallback((oreName) => {
@@ -340,7 +384,11 @@ const OreAndLayerWheel = () => {
         },
       };
     });
-  }, [allOres, getOreColor, getTextColorForBackground]);
+  }, [
+    allOres,
+    getOreColor,
+    getTextColorForBackground,
+  ]);
 
   const layerWheelData = useMemo(() => {
     if (!allLayers || allLayers.length === 0) {
@@ -394,31 +442,61 @@ const OreAndLayerWheel = () => {
     return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
   };
 
-  const getModeString = () => {
-    switch (currentMode) {
-      case 1:
-        return "AV";
-      case 2:
-        return "UV";
-      case 3:
-        return "NV";
-      case 4:
-        return "TV";
-      case 5:
-        return "SV";
-      case 6:
-        return "RV";
-      case 7: {
-        if (customMultiplier % 100 === 0) {
-          return `${customMultiplier / 100}NV`;
+  const getModeString = useCallback(
+    (oreOrLayer = null) => {
+      // Determine if this is for a rare ore/layer
+      let isRare = false;
+
+      if (oreOrLayer) {
+        if (typeof oreOrLayer === "string") {
+          // It's a layer name
+          isRare = isRareLayer(oreOrLayer);
         } else {
-          return "CV";
+          // It's an ore object
+          isRare = isRareOre(oreOrLayer);
         }
       }
-      default:
-        return "NV";
-    }
-  };
+
+      const useRareMode = useSeparateRareMode && isRare;
+      const effectiveMode = useRareMode ? rareValueMode : currentMode;
+      const effectiveMultiplier = useRareMode
+        ? rareCustomMultiplier
+        : customMultiplier;
+
+      const isNV = effectiveMultiplier % 100 === 0;
+      const isSV = effectiveMultiplier % 1000 === 0;
+
+      switch (effectiveMode) {
+        case 1:
+          return "AV";
+        case 2:
+          return "UV";
+        case 3:
+          return "NV";
+        case 4:
+          return "TV";
+        case 5:
+          return "SV";
+        case 6:
+          return "RV";
+        case 7:
+          if (isNV) return `${effectiveMultiplier / 100}NV`;
+          if (isSV) return `${effectiveMultiplier / 1000}SV`;
+          return "CV";
+        default:
+          return "NV";
+      }
+    },
+    [
+      currentMode,
+      customMultiplier,
+      rareValueMode,
+      rareCustomMultiplier,
+      useSeparateRareMode,
+      isRareLayer,
+      isRareOre,
+    ]
+  );
 
   const handleOreSpinStop = () => {
     setMustSpinOre(false);
@@ -554,7 +632,7 @@ const OreAndLayerWheel = () => {
                 {!settings.includeOver100Completion && (
                   <>
                     <br></br>
-                    <br></br>Ores Remaining for {getModeString()} Completion:{" "}
+                    <br></br>Ores Remaining for {getModeString()} {useSeparateRareMode ? " + Custom Rare" : ""} Completion:{" "}
                     {allOres.length}
                   </>
                 )}
@@ -599,11 +677,11 @@ const OreAndLayerWheel = () => {
                 </div>
                 <div className="ore-stats">
                   <div>
-                    <strong>{getModeString()} Completion:</strong>{" "}
+                    <strong>{getModeString(selectedOre)} Completion:</strong>{" "}
                     {calculateOreCompletion(selectedOre).toFixed(3)}%
                   </div>
                   <div>
-                    <strong>Total {getModeString()}s:</strong>{" "}
+                    <strong>Total {getModeString(selectedOre)}s:</strong>{" "}
                     {calculateOreValue(selectedOre).toFixed(3)}
                   </div>
                   <div>
@@ -681,7 +759,7 @@ const OreAndLayerWheel = () => {
               {!settings.includeOver100LayerCompletion && (
                 <>
                   <br></br>
-                  <br></br>Layers Remaining for {getModeString()} Completion:{" "}
+                  <br></br>Layers Remaining for {getModeString()} {useSeparateRareMode ? " + Custom Rare" : ""} Completion:{" "}
                   {allLayers.length}
                 </>
               )}
@@ -717,11 +795,11 @@ const OreAndLayerWheel = () => {
                 </div>
                 <div className="ore-stats">
                   <div>
-                    <strong>{getModeString()} Completion:</strong>{" "}
+                    <strong>{getModeString(selectedLayer)} Completion:</strong>{" "}
                     {calculateLayerCompletion(selectedLayer).toFixed(3)}%
                   </div>
                   <div>
-                    <strong>Total {getModeString()}s:</strong>{" "}
+                    <strong>Total {getModeString(selectedLayer)}s:</strong>{" "}
                     {calculateLayerValue(selectedLayer).toFixed(3)}
                   </div>
                 </div>

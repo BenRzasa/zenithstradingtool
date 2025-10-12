@@ -650,42 +650,45 @@ function ValueChart() {
 
         {/* Tables section */}
         <div className="tables-container">
-          {Object.values(oreValsDict).map((layer) => {
-            const layerName = layer.layerName;
-            const layerData = layer.layerOres;
+          {Object.values(oreValsDict)
+            .filter(layer => !layer.layerName.includes("Essences"))
+            .map((layer) => {
+              const layerName = layer.layerName;
+              const layerData = layer.layerOres;
 
-            const gradientStyle =
-              layer.background ||
-              "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
+              const gradientStyle =
+                layer.background ||
+                "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
 
-            const tableModeStr = getCurrentModeStr(layerName);
+              const tableModeStr = getCurrentModeStr(layerName);
 
-            return (
-              <div
-                id={layerName
-                  .split("\n")[0]
-                  .replace(/\s+/g, "-")
-                  .replace(/\n/g, "-")}
-                key={layerName}
-              >
-                <LayerTable
-                  data={layerData}
-                  title={layerName}
-                  currentMode={currentMode}
-                  customMultiplier={customMultiplier}
-                  csvData={csvData}
-                  gradient={gradientStyle}
-                  searchFilters={searchFilters}
-                  valueMode={valueMode}
-                  modeStr={tableModeStr}
-                  calculateDisplayValue={calculateDisplayValue}
-                  useSeparateRareMode={useSeparateRareMode}
-                  rareValueMode={rareValueMode}
-                  rareCustomMultiplier={rareCustomMultiplier}
-                />
-              </div>
-            );
-          })}
+              return (
+                <div
+                  id={layerName
+                    .split("\n")[0]
+                    .replace(/\s+/g, "-")
+                    .replace(/\n/g, "-")}
+                  key={layerName}
+                >
+                  <LayerTable
+                    data={layerData}
+                    title={layerName}
+                    currentMode={currentMode}
+                    customMultiplier={customMultiplier}
+                    csvData={csvData}
+                    gradient={gradientStyle}
+                    searchFilters={searchFilters}
+                    valueMode={valueMode}
+                    modeStr={tableModeStr}
+                    calculateDisplayValue={calculateDisplayValue}
+                    useSeparateRareMode={useSeparateRareMode}
+                    rareValueMode={rareValueMode}
+                    rareCustomMultiplier={rareCustomMultiplier}
+                  />
+                </div>
+              );
+            })
+          }
         </div>
       </div>
     </div>

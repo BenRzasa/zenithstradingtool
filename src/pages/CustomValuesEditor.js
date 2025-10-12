@@ -240,7 +240,7 @@ function CustomValuesEditor() {
                                   : ore.customVal
                               }
                               onChange={(e) => {
-                                console.log("Change");
+                                console.log(`${ore.name} Value Change from ${localValues[`${layerName}-${ore.name}`]} to ${e.target.value}`);
                                 setLocalValues((prev) => ({
                                   ...prev,
                                   [`${layerName}-${ore.name}`]: e.target.value,

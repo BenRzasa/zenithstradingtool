@@ -396,8 +396,8 @@ export const MiscValueFunctions = ({
       case 6:
         return "RV";
       case 7:
-        if (isNV) return `${effectiveMultiplier / 100}NV`;
-        if (isSV) return `${effectiveMultiplier / 1000}SV`;
+        if (isNV) return `${effectiveMultiplier / 100} NV`;
+        if (isSV) return `${effectiveMultiplier / 1000} SV`;
         return "CV";
       default:
         return "AV";

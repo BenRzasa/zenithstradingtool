@@ -33,6 +33,7 @@ const LayerTable = ({
     getValueForMode,
     capCompletion,
     oreValsDict,
+    rareValueMode
   } = useContext(MiscContext);
 
   const csvData = getCurrentCSV();
@@ -106,7 +107,7 @@ const LayerTable = ({
       case 7:
         return truncate(scaledValue, 3);
       default:
-        return Math.round(truncate(scaledValue, 3));
+        return truncate(scaledValue, 3);
     }
   };
 
@@ -384,7 +385,7 @@ const LayerTable = ({
                     )}
                     {isTrueRares && <td>{1 / baseValue}</td>}
                     {isRares && <td>{(1 / baseValue).toFixed(2)}</td>}
-                    <td>{formatDisplayValue(baseValue, currentMode)}</td>
+                    <td>{(useSeparateRareMode && isRaresTable) ? formatDisplayValue(baseValue, rareValueMode) : formatDisplayValue(baseValue, currentMode)}</td>
                   </>
                 )}
               </tr>

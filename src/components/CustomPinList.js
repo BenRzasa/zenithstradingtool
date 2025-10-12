@@ -33,13 +33,13 @@ const CustomPinList = ({ isOpen, onClose }) => {
   const resultsRef = useRef(null);
 
   // Prepare complete ore list
-  const allOresWithLayers = oreValsDict
-  .filter(layer => !layer.layerName.includes("Essences"))
+  const allOresWithLayers = Object.values(oreValsDict)
+  .filter(layer => !layer.layerName?.includes("Essences"))
   .flatMap((layer) =>
-    layer.layerOres.map((ore) => ({
+    layer.layerOres?.map((ore) => ({
       ...ore,
       layer: layer.layerName,
-    }))
+    })) || []
   );
 
   const { searchTerm, searchFocused, selectedSearchIndex, quantities } = pinListState;

@@ -1,3 +1,12 @@
-export const nanPlaceholderOres = [];
 
-export const zenithPlaceholderOres = [];
+export const nanPlaceholderOres = [
+  "Kymizalum", "Aerolyte", "Paliatite", "Ammolite", "Citrine",
+  "Serpentine", "Tourmaline", "Turquoise", "Skoralite",
+  "Topaz", "Turf", "Soil",
+];
+
+export const zenithPlaceholderOres = [
+  "Kymizalum", "Aerolyte", "Paliatite", "Ammolite", "Citrine",
+  "Serpentine", "Tourmaline", "Turquoise", "Skoralite",
+  "Topaz", "Turf", "Soil",
+];

@@ -1,3 +1,11 @@
+.color-template-turf {
+  background: #6b8839;
+}
+
+.color-template-soil {
+  background: #544728;
+}
+
 .color-template-stone {
   background: #a7a7a7;
 }
@@ -20,10 +28,6 @@
 
 .color-template-opal {
   background: #fad0ed;
-}
-
-.color-template-aluminum {
-  background: #9ea6a6;
 }
 
 .color-template-copper {
@@ -83,9 +87,7 @@
   --wheel-color: #92c6db;
 }
 
-.color-template-garnet {
-  background: #a51111;
-}
+
 
 .color-template-platinum {
   background: #919191;
@@ -194,15 +196,16 @@
 .color-template-bismuth {
   background: linear-gradient(
     113deg,
-    #ffeec7 0%,
-    #ffd36c 20%,
-    #ff81ad 35%,
-    #61eaff 52%,
-    #46ffcb 71%,
-    #b380ff 86%,
-    #4d29ff 100%
+  #ffeec7 0%,
+  #ffffec 12.5%,
+  #ffd36c 25%,
+  #e9889e 40%,
+  #fbd274 55%,
+  #b3fde7 65%,
+  #cc92db 80%,
+  #4d29ff 100%
   );
-  --wheel-color: #61eaff;
+  --wheel-color: #ffeec7;
 }
 
 .color-template-demonite {
@@ -212,6 +215,49 @@
 .color-template-mithril {
   background: #7cc7f7;
 }
+
+.color-template-sandstone {
+  background: #8e7655;
+}
+
+.color-template-turquoise {
+  background: #33c4bc;
+}
+
+
+.color-template-aerolyte {
+  background: #c8faff;
+}
+
+.color-template-citrine {
+  background: #eeae53;
+}
+
+.color-template-paliatite {
+  background: #9d7279;
+}
+
+.color-template-serpentine {
+  background: #38aa56;
+}
+
+.color-template-tourmaline {
+  background: linear-gradient(
+    90deg,
+    #c94c7c 0%,
+    #eab9c5 12.5%,
+    #ee4d8a 30%,
+    #ee9eac 50%,
+    #aae8b1 65%,
+    #74b558 80%,
+    #355513 100%
+  );
+}
+
+.color-template-ammolite {
+  background: #a87658;
+}
+
 
 .color-template-vanadium {
   background: linear-gradient(
@@ -258,8 +304,8 @@
   background: #ff8921;
 }
 
-.color-template-hellstone {
-  background: #a11515;
+.color-template-garnet {
+  background: #a51111;
 }
 
 .color-template-jasper {
@@ -464,7 +510,15 @@
 }
 
 .color-template-void-orb {
-  background: #e22f74;
+  background: linear-gradient(
+    75deg,
+    #8e1923 0%,
+    #e54852 15%,
+    #fae2f0 50%,
+    #e54852 85%,
+    #8e1923 100%
+  );
+  --wheel-color: #8e1923
 }
 
 .color-template-nilidust {
@@ -546,12 +600,13 @@
 .color-template-chromium {
   background: linear-gradient(
     90deg,
-    #feffeb 0%,
-    #c5f4ff 45%,
-    #f1d6ef 99%,
-    #eeb9ff 100%
+    #ccb6ca 0%,
+    #fff1fd 25%,
+    #f2fff2 50%,
+    #ffeedf 75%,
+    #af8b71 100%,
   );
-  --wheel-color: #c5f4ff;
+  --wheel-color: #fff1fd;
 }
 
 .color-template-null {
@@ -594,7 +649,17 @@
 }
 
 .color-template-inversium {
-  background: #383c44;
+  background: linear-gradient(
+    90deg,
+    #ccd9d6 0%,
+    #ffffff 44%,
+    #fdb8ff 45%,
+    #ffffff 50%,
+    #c5ffb3 55%,
+    #5c504d 56%,
+    hsl(0, 0%, 0%) 100%
+  );
+  --wheel-color: #ccd9d6;
 }
 
 .color-template-navitalc {
@@ -878,15 +943,19 @@
 }
 
 .color-template-spiralium {
-  background: #9a37d2;
-}
-
-.color-template-frozen-nitrogen {
-  background: #90b5c8;
+  background: linear-gradient(
+    90deg,
+    #e88ff3 0%,
+    #9a37d2 25%,
+    #4210aa 50%,
+    #5d71d3 75%,
+    #9fc5f5 100%,
+  );
+  --wheel-color: #9a37d2;
 }
 
 .color-template-orichalican {
-  background: #b54d6e;
+  background: #ae4268;
 }
 
 .color-template-scorched-bedrock {
@@ -1082,17 +1151,8 @@
   background: #ffffff;
 }
 
-.color-template-rifted-barrier {
-  background: linear-gradient(
-    180deg,
-    #535353 0%,
-    #c7c7c7 15%,
-    #ffffff 40%,
-    #ffffff 60%,
-    #c7c7c7 85%,
-    #535353 100%
-  );
-  --wheel-color: #ffffff;
+.color-template-skoralite {
+  background: #96869b
 }
 
 .color-template-fabric {
@@ -1663,15 +1723,14 @@
 
 .color-template-revalyte {
   background: linear-gradient(
-    75deg,
-    #b9aede 0%,
-    #f0e7f9 20%,
-    #b9aede 35%,
-    #f0afd4 50%,
-    #6b367b 75%,
-    #242d51 100%
+    105deg,
+    #d0b7e0 0%,
+    #f8d7ff 20%,
+    #f6abdf 50%,
+    #8d5296 75%,
+    #382c62 100%
   );
-  --wheel-color: #b9aede;
+  --wheel-color: #f8d7ff;
 }
 
 .color-template-ultranium {
@@ -1695,13 +1754,13 @@
 .color-template-unobtainium {
   background: linear-gradient(
     124deg,
-    #f0d3e0 0%,
-    #e65c9a 42%,
-    #920f44 72%,
-    #5c0d4b 87%,
-    #540d4c 100%
+    #ea8bb3 0%,
+    #ebebeb 20%,
+    #e7669c 50%,
+    #831246 80%,
+    #590d47 100%
   );
-  --wheel-color: #e65c9a;
+  --wheel-color: #831246;
 }
 
 .color-template-zeronian {
@@ -1740,15 +1799,16 @@
 
 .color-template-aetherice {
   background: linear-gradient(
-    135deg,
-    #efc6ff 0%,
-    #9252ec 35%,
-    #bf2bff 50%,
-    #5218ff 60%,
-    #3007ff 80%,
-    #1d00ac 100%
+    45deg,
+    #f6d3f9 0%,
+    #fff4ff 15%,
+    #dda2f3 26.3%,
+    #c83cec 35%,
+    #a139db 55.5%,
+    #3a28c2 80.1%,
+    #210e78 100%
   );
-  --wheel-color: #bf2bff;
+  --wheel-color: #c83cec;
 }
 
 .color-template-starniferus {
@@ -1770,13 +1830,17 @@
 .color-template-ethanerite {
   background: linear-gradient(
     90deg,
-    #ffb7b7 0%,
-    #bf0000 20%,
-    #6600ff 50%,
-    #4cd5ff 80%,
-    #0004ff 100%
+    #a60022 0%,
+    #fe8aae 15%,
+    #a60022 27.5%,
+    #b14dc9 37.5%,
+    #b14dc9 62.5%,
+    #6ebbff 72.5%,
+    #9bffff 80%,
+    #6ebbff 90%,
+    #223f86 100%
   );
-  --wheel-color: #6600ff;
+  --wheel-color: #fe8aae;
 }
 
 .color-template-lumenyl {
@@ -1843,6 +1907,24 @@
   background: #464a87;
 }
 
+.color-template-kymizalum {
+  background: linear-gradient(
+    90deg,
+    #3d4582 0%,
+    #7a96c5 10%,
+    #3d4582 20%,
+    #2e006d 30%,
+    #8e0bab 40%,
+    #f68ba6 50%,
+    #8e0bab 60%,
+    #2e006d 70%,
+    #3d4582 80%,
+    #7a96c5 90%,
+    #3d4582 100%
+  );
+  --wheel-color: #3d4582;
+}
+
 .color-template-formicite {
   background: linear-gradient(
     101deg,
@@ -1859,11 +1941,14 @@
 }
 
 .color-template-raw-energy {
-    background: linear-gradient(85deg,
-            #ffffff 0%,
-            #efafff 39.4%,
-            #d54aa0 100%);
-    --wheel-color: #efafff;
+  background: linear-gradient(
+    85deg,
+    #ffffff 0%,
+    #efafff 39.4%,
+    #d54aa0 100%
+  );
+
+  --wheel-color: #efafff;
 }
 
 .color-template-obliviril {
@@ -1947,13 +2032,14 @@
 
 .color-template-zetaslime {
   background: linear-gradient(
-    135deg,
-    #ffc1dc 0%,
-    #ff9cc7 10%,
-    #ff5e91 33%,
-    #902042 100%
+    105deg,
+    #f3a4ac 0%,
+    #f1d8c8 10%,
+    #f3a4ac 20%,
+    #ca5696 65%,
+    #792337 100%
   );
-  --wheel-color: #ff5e91;
+  --wheel-color: #f1d8c8;
 }
 
 .color-template-ochistrite {
@@ -2036,13 +2122,15 @@
 
 .color-template-profelis {
   background: linear-gradient(
-    167deg,
-    #ffead3 0%,
-    #e4b5ff 29%,
-    #ffcc54 64%,
-    #821600 100%
+    15deg,
+    #e9cdb1 0%,
+    #fffefe 15%,
+    #bda2ae 30%,
+    #b1886b 50%,
+    #5d3225 75%,
+    #37120d 100%
   );
-  --wheel-color: #ffcc54;
+  --wheel-color: #fffefe;
 }
 
 .color-template-ogleum {
@@ -2184,17 +2272,21 @@
 
 .color-template-torn-fabric {
   background: linear-gradient(
-    123deg,
-    #feffff 0%,
-    #ccffff 20%,
-    #8ec5d8 30%,
-    #476ccc 40%,
-    #887dc5 50%,
-    #a17cc3 60%,
-    #403e68 84.3%,
+    160deg,
+    #171c41 0%,
+    #403e68 5%,
+    #887dc5 15%,
+    #a17cc3 22.5%,
+    #5dc1ff 35%,
+    #ccffff 45%,
+    #ffffff 50%,
+    #5dc1ff 65%,
+    #a17cc3 77.5%,
+    #887dc5 85%,
+    #403e68 95%,
     #171c41 100%
   );
-  --wheel-color: #887dc5;
+  --wheel-color: #403e68;
 }
 
 .color-template-singularity {
@@ -2263,31 +2355,33 @@
 
 .color-template-dystranum {
   background: linear-gradient(
-    45deg,
+    63deg,
     #32009d 0%,
-    #f565ff 25%,
-    #c70000 35%,
+    #c859c8 17.5%,
+    #ad2b2a 30%,
     #ff4646 40%,
+    #ffc898 45%,
     #ffffff 50%,
+    #ffc898 55%,
     #ff4646 60%,
-    #c70000 65%,
-    #f565ff 75%,
+    #ad2b2a 70%,
+    #c859c8 82.5%,
     #32009d 100%
   );
-  --wheel-color: #f565ff;
+  --wheel-color: #c859c8;
 }
 
 .color-template-ectokelyte {
   background: linear-gradient(
     135deg,
-    #f3c4ff 0%,
-    #e98ef0 25.6%,
-    #c97cd5 40%,
+    #f5a9f7 0%,
+    #fbe8f6 15%,
+    #e98ef0 30%,
+    #b370ca 45%,
     #673fa1 63%,
-    #553588 77%,
     #371e63 100%
   );
-  --wheel-color: #c97cd5;
+  --wheel-color: #673fa1;
 }
 
 .color-template-havicron {
@@ -2325,13 +2419,15 @@
 
 .color-template-ubriniale {
   background: linear-gradient(
-    102deg,
-    #ffe0e9 0%,
-    #f19db7 29.2%,
-    #bd2e61 75%,
-    #341d7e 100%
+    105deg,
+    #f0b8bb 0%,
+    #fae9e7 20%,
+    #e68ba7 40%,
+    #65275b 65%,
+    #5d346f 80%,
+    #2f1c49 100%
   );
-  --wheel-color: #f19db7;
+  --wheel-color: #fae9e7;
 }
 
 .color-template-meteorite {
@@ -2352,8 +2448,15 @@
 }
 
 .color-template-astathian {
-  background: linear-gradient(90deg, #ff0000 0%, #4a0000 50%, #ff0000 100%);
-  --wheel-color: #4a0000;
+  background: linear-gradient(
+    135deg,
+    #5f0000 0%,
+    #e22610 30%,
+    #fff07b 50%,
+    #e22610 70%,
+    #5f0000 100%
+  );
+  --wheel-color: #e22610;
 }
 
 .color-template-sunstone {

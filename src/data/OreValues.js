@@ -94,13 +94,13 @@ export const initialOreValsDict = [
       "linear-gradient(180deg, rgb(110, 158, 96) 0%,rgb(160, 160, 160) 100%)",
     layerOres:
       [
+        { name: "Turf", zenithVal: 250, nanVal: 250, customVal: 250 },
+        { name: "Soil", zenithVal: 500, nanVal: 500, customVal: 500 },
         { name: "Stone", zenithVal: 2000, nanVal: 2000, customVal: 2000 },
         { name: "Coal", zenithVal: 300, nanVal: 300, customVal: 300 },
         { name: "Moonstone", zenithVal: 4, nanVal: 3, customVal: 4 },
         { name: "Kyanite", zenithVal: 7, nanVal: 6, customVal: 7 },
-        { name: "Topaz", zenithVal: 4, nanVal: 3, customVal: 4 },
         { name: "Opal", zenithVal: 6, nanVal: 5, customVal: 5 },
-        { name: "Aluminum", zenithVal: 200, nanVal: 200, customVal: 200 },
         { name: "Copper", zenithVal: 300, nanVal: 250, customVal: 300 },
         { name: "Iron", zenithVal: 250, nanVal: 250, customVal: 250 },
         { name: "Sulfur", zenithVal: 200, nanVal: 200, customVal: 200 },
@@ -124,7 +124,6 @@ export const initialOreValsDict = [
         { name: "Thallium", zenithVal: 6, nanVal: 6, customVal: 6 },
         { name: "Tungsten", zenithVal: 10, nanVal: 8, customVal: 10 },
         { name: "Diamond", zenithVal: 15, nanVal: 10, customVal: 15 },
-        { name: "Garnet", zenithVal: 7, nanVal: 8, customVal: 7 },
         { name: "Platinum", zenithVal: 10, nanVal: 12, customVal: 10 },
         { name: "Malachite", zenithVal: 5, nanVal: 6, customVal: 5 },
         { name: "Lithium", zenithVal: 9, nanVal: 7, customVal: 9 },
@@ -150,8 +149,8 @@ export const initialOreValsDict = [
   },
 
   {
-    layerName: "Mystic / Inbetween\n[1000m-1499m | 1500m-1999m]",
-    background: "rgb(108, 137, 231)",
+    layerName: "Mystic / Shimmer\n[1000m-1299mm | 1300m-1699m]",
+    background: "linear-gradient(45deg, #6c89e7, 947ffc)",
     layerOres:
       [
         { name: "Calcite", zenithVal: 1000, nanVal: 1000, customVal: 1000 },
@@ -162,11 +161,27 @@ export const initialOreValsDict = [
         { name: "Cobalt", zenithVal: 10, nanVal: 10, customVal: 7 },
         { name: "Lapis", zenithVal: 8, nanVal: 8, customVal: 8 },
         { name: "Bismuth", zenithVal: 10, nanVal: 9, customVal: 10 },
+        { name: "Topaz", zenithVal: 6, nanVal: 3, customVal: 6 },
         { name: "Demonite", zenithVal: 7, nanVal: 6, customVal: 7 },
         { name: "Mithril", zenithVal: 4, nanVal: 4, customVal: 4 }
       ],
   },
 
+  {
+    layerName: "Arid\n[1700m-1999m]",
+    background: "#ebc56b",
+    layerOres:
+      [
+        { name: "Sandstone", zenithVal: 1000, nanVal: 1000, customVal: 1000 },
+        { name: "Turquoise", zenithVal: 2, nanVal: 2, customVal: 2 },
+        { name: "Aerolyte", zenithVal: 4, nanVal: 4, customVal: 4 },
+        { name: "Citrine", zenithVal: 12, nanVal: 12, customVal: 12 },
+        { name: "Paliatite", zenithVal: 13, nanVal: 13, customVal: 13 },
+        { name: "Serpentine", zenithVal: 11, nanVal: 11, customVal: 11 },
+        { name: "Tourmaline", zenithVal: 7, nanVal: 7, customVal: 7 },
+        { name: "Ammolite", zenithVal: 3, nanVal: 3, customVal: 3 }
+      ],
+  },
   {
     layerName: "Igneous / Mantle\n[2000m-2499m | 2500m-2999m]",
     background: "#d63636",
@@ -178,7 +193,7 @@ export const initialOreValsDict = [
         { name: "Magmium", zenithVal: 15,  nanVal: 13, customVal: 15 },
         { name: "Firecrystal", zenithVal: 12, nanVal: 12, customVal: 12 },
         { name: "Magnesium", zenithVal: 11, nanVal: 10, customVal: 11 },
-        { name: "Hellstone", zenithVal: 25, nanVal: 22, customVal: 25 },
+        { name: "Garnet", zenithVal: 25, nanVal: 22, customVal: 25 },
         { name: "Jasper", zenithVal: 9, nanVal: 8, customVal: 9 },
         { name: "Mantle Fragment", zenithVal: 16, nanVal: 15, customVal: 16 },
         { name: "Gargantium", zenithVal: 12, nanVal: 12, customVal: 12 }
@@ -366,7 +381,6 @@ export const initialOreValsDict = [
         { name: "Neutronium", zenithVal: 10, nanVal: 10, customVal: 8 },
         { name: "Shadowspec", zenithVal: 3, nanVal: 2, customVal: 2 },
         { name: "Spiralium", zenithVal: 5, nanVal: 2, customVal: 3 },
-        { name: "Frozen Nitrogen", zenithVal: 12, nanVal: 12, customVal: 10 },
         { name: "Orichalican", zenithVal: 8, nanVal: 7, customVal: 8 },
         { name: "Scorched Bedrock", zenithVal: 1000, nanVal: 500, customVal: 1000 }
       ],
@@ -414,9 +428,9 @@ export const initialOreValsDict = [
     layerOres:
       [
         { name: "Universal Barrier", zenithVal: 1000, nanVal: 500, customVal: 1000 },
-        { name: "Rifted Barrier", zenithVal: 6, nanVal: 6, customVal: 6 },
+        { name: "Skoralite", zenithVal: 10, nanVal: 10, customVal: 10 },
         { name: "Fabric", zenithVal: 16, nanVal: 15, customVal: 16 },
-        { name: "Mavrikine", zenithVal: 7, nanVal: 8, customVal: 7 },
+        { name: "Mavrikine", zenithVal: 6, nanVal: 8, customVal: 6 },
         { name: "Irulisteel", zenithVal: 2, nanVal: 2, customVal: 2 }
       ],
   },
@@ -562,6 +576,7 @@ export const initialOreValsDict = [
     layerOres:
       [
         { name: "Nethrastine", zenithVal: 1000, nanVal: 500, customVal: 1000 },
+        { name: "Kymizalum", zenithVal: 4, nanVal: 4, customVal: 4 },
         { name: "Formicite", zenithVal: 12, nanVal: 8, customVal: 12 },
         { name: "Raw Energy", zenithVal: 16, nanVal: 12, customVal: 16 },
         { name: "Obliviril", zenithVal: 7, nanVal: 5, customVal: 7 },
@@ -569,7 +584,6 @@ export const initialOreValsDict = [
       ],
   },
 
-  /*
   {
     layerName: "Essences\nObtained from Wisps",
     background: "linear-gradient(180deg, #ffd0d0 0%, #ffc2a5 20%, #ff5a8e 50%, #6a0028 80%, #580020 100%)",
@@ -583,7 +597,6 @@ export const initialOreValsDict = [
         { name: "Essence of Vitality" },
       ],
   },
-  */
 
   {
     layerName: "Empyrean\n[12250m-12999m]",
