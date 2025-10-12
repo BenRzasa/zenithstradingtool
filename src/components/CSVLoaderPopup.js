@@ -302,6 +302,10 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     };
   };
 
+  // Get the mode string using the function from MiscValueFunctions
+  const modeStr = allValues.getCurrentModeStr();
+
+
   // Export the CSV data and put it in the input box
   const exportCSV = () => {
     const csvValues = OreNames.map((ore) => csvData[ore] || 0);

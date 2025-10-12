@@ -124,13 +124,13 @@ const RareFindsTracker = () => {
     return allRares;
   }, [oreValsDict]);
 
-  const raresGradient = oreValsDict.find(
+  const raresGradient = Object.values(oreValsDict).find(
     (layer) =>
       layer.layerName.includes("Rares") &&
       !layer.layerName.includes("True Rares")
   )?.background;
-
-  const superRaresGradient = oreValsDict.find((layer) =>
+  
+  const superRaresGradient = Object.values(oreValsDict).find((layer) =>
     layer.layerName.includes("True Rares")
   )?.background;
 
