@@ -6,6 +6,7 @@ const PinlistToggle = ({ onClick }) => {
       onClick={onClick}
       style={{
         title: "pinlist toggle",
+        alt: "pinlist toggle",
         scale: "1.25",
         position: "fixed",
         top: "20px",
@@ -24,13 +25,6 @@ const PinlistToggle = ({ onClick }) => {
         zIndex: "10001",
       }}
     >
-      {/*
-    <img
-      src={settingIcon}
-      alt="Settings toggle"
-      loading="lazy"
-    ></img>
-    */}
       <i className="fas fa-thumbtack"></i>
     </button>
   );

@@ -6,6 +6,7 @@ const SettingsToggle = ({ onClick }) => {
       onClick={onClick}
       style={{
         title:'Settings icon',
+        altText: 'Settings icon',
         scale:'1.25',
         position: 'fixed',
         top: '20px',
@@ -24,13 +25,6 @@ const SettingsToggle = ({ onClick }) => {
         zIndex: "10001",
       }}
     >
-    {/*
-    <img
-      src={settingIcon}
-      alt="Settings toggle"
-      loading="lazy"
-    ></img>
-    */}
     <i className="fas fa-gear"></i>
     </button>
   );

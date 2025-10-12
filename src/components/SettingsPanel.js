@@ -9,7 +9,7 @@ import '../styles/Switch.css';
 
 const SettingsPanel = ({
   isOpen,
-  onClose,
+  onClose, 
   opacity,
   onOpacityChange,
   onBgChange,
@@ -28,7 +28,6 @@ const SettingsPanel = ({
     setUseObtainRateVals,
     hotkeysEnabled,
     setHotkeysEnabled,
-    // Add new states for rare value mode
     useSeparateRareMode,
     setUseSeparateRareMode,
     rareValueMode,
@@ -142,7 +141,7 @@ const SettingsPanel = ({
             <div className="rare-mode-info">
               <p>
                 <strong>Note:</strong> When enabled, rare and true rare ores will use the selected value mode above,
-                while all other ores will use the main value mode selected in the first section.
+                while all other ores will use the main value mode selected in the first section. These will not be counted towards overall completion (for now).
               </p>
             </div>
           </>
@@ -157,7 +156,7 @@ const SettingsPanel = ({
             setValueMode={setValueMode}
           />
           <ul>
-            <li><span className="placeholder">Zenith:</span> ZenithFlare, an active grinder and one of the main traders in TCC. (Also, I made this tool! Sup!)</li>
+            <li><span className="placeholder">Zenith:</span> ZenithFlare, an active grinder and one of the main traders in TCC. (If you're reading this, ping @geosy!)</li>
             <li><span className="placeholder">NAN:</span> NAN4736, a long-time player, active grinder and one of the largest traders in TCC.</li>
             <li><span className="placeholder">Custom:</span> Your custom values, modified from the Value Chart page or the "Custom Values" page.</li>
           </ul>
@@ -176,7 +175,7 @@ const SettingsPanel = ({
             />
             <span className="sslider"></span>
           </label>
-          <span><p>[{useObtainRateVals === true ? "ENABLED" : "DISABLED"}] This switch will toggle between obtain rate values for rares (community-agreed standard), or user-specific values.</p></span>
+          <span><p>[{useObtainRateVals === true ? "ENABLED" : "DISABLED"}] Toggles between obtain rate values for rares (community-agreed standard), or user-specific values.</p></span>
         </div>
 
         <h3>Toggle Completion % Cap</h3>
@@ -190,7 +189,7 @@ const SettingsPanel = ({
             />
             <span className="sslider"></span>
           </label>
-          <span><p>[{capCompletion === true ? "CAPPED" : "UNCAPPED"}] This switch will toggle the completion % between being capped at 100% and uncapped.</p></span>
+          <span><p>[{capCompletion === true ? "CAPPED" : "UNCAPPED"}] Toggles the completion % between being capped at 100% and uncapped (no upper limit).</p></span>
         </div>
       </div>
 
@@ -218,6 +217,7 @@ const SettingsPanel = ({
             <p><strong>T</strong> - Trade Tool</p>
             <p><strong>U</strong> - Custom Values</p>
             <p><strong>R</strong> - Rare Tracker</p>
+            <p><strong>P</strong> - Pinlist</p>
             <p><strong>M</strong> - Miscellaneous</p>
             <p><strong>W</strong> - Spin the Wheel</p>
             <p><strong>E</strong> - Credits</p>

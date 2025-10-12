@@ -80,14 +80,12 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     if (!isNaN(prevTotalOres)) {
       prevTotalOresRef.current = prevTotalOres;
     }
-
-    // Mark that we've loaded initial data
+    
     hasValidDataRef.current = true;
   }, []);
 
   // Update completion change & total ores # only when we have valid data
   useEffect(() => {
-    // Don't calculate changes on initial load or if we don't have valid data yet
     if (isInitialLoadRef.current || !hasValidDataRef.current) {
       isInitialLoadRef.current = false;
       return;
@@ -106,7 +104,6 @@ function CSVLoaderPopup({ onClose, isOpen }) {
       const currentTotalOres = totalOres;
       const previousTotalOres = prevTotalOresRef.current;
 
-      // Only calculate change if previous was a valid number
       if (typeof previousComp === "number" && !isNaN(previousComp) &&
           typeof previousTotalOres === "number" && !isNaN(previousTotalOres)) {
         
@@ -120,7 +117,6 @@ function CSVLoaderPopup({ onClose, isOpen }) {
         prevCompletionRef.current = currentComp;
         prevTotalOresRef.current = currentTotalOres;
 
-        // Persist to localStorage
         localStorage.setItem("completionChange", compChange.toString());
         localStorage.setItem("prevCompletion", currentComp.toString());
         localStorage.setItem("totalOresChange", totalOresChange.toString());
@@ -129,16 +125,13 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     }
   }, [avgCompletion, totalOres, capCompletion]); 
 
-  // State for dropdown visibility
   const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
 
-  // State for sorting configuration
   const [sortConfig, setSortConfig] = useState({
     key: "change",
     direction: "desc",
   });
 
-  // State for CSV editor popup
   const [showCSVEditor, setShowCSVEditor] = useState(false);
 
   // Function to handle header clicks and toggle sorting
@@ -233,27 +226,6 @@ function CSVLoaderPopup({ onClose, isOpen }) {
       direction: "desc",
     });
   };
-
-  const isNV = customMultiplier % 100 === 0;
-  // For displaying the current mode dynamically
-  const modeStr =
-    currentMode === 1
-      ? "AV"
-      : currentMode === 2
-      ? "UV"
-      : currentMode === 3
-      ? "NV"
-      : currentMode === 4
-      ? "TV"
-      : currentMode === 5
-      ? "SV"
-      : currentMode === 6
-      ? "RV"
-      : !isNV && currentMode === 7
-      ? "CV"
-      : isNV && currentMode === 7
-      ? `${customMultiplier / 100}NV`
-      : "BAD";
 
   // Calculate total value change from last update
   const calculateValueChanges = () => {
@@ -529,7 +501,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
                   </ul>
                 </div>
               </div>
-
+              {/* Summary details since last update */}
               <div className="ore-changes-details">
                 <h3>
                   ⛏ {modeStr} %{" "}
