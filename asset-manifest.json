@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/zenithstradingtool/static/css/main.48a0670e.css",
-    "main.js": "/zenithstradingtool/static/js/main.1e965d6d.js",
+    "main.css": "/zenithstradingtool/static/css/main.beb9228c.css",
+    "main.js": "/zenithstradingtool/static/js/main.83b758bf.js",
     "static/media/patic3.png": "/zenithstradingtool/static/media/patic3.ee8b1734257d54a9611d.png",
     "static/media/patik.png": "/zenithstradingtool/static/media/patik.c46cb18674fcbbbceeff.png",
     "static/media/patic.png": "/zenithstradingtool/static/media/patic.efe12edf4910078d844d.png",
@@ -60,6 +60,7 @@
     "static/media/Endotravine_Icon.webp": "/zenithstradingtool/static/media/Endotravine_Icon.5a7f597f621e1f6ee38d.webp",
     "static/media/Surrenderock_Icon.webp": "/zenithstradingtool/static/media/Surrenderock_Icon.317bc8e4d7139465e5d4.webp",
     "static/media/Crimstone_Icon.webp": "/zenithstradingtool/static/media/Crimstone_Icon.b85c564ff95994921fe2.webp",
+    "static/media/Zutrumite_Icon.webp": "/zenithstradingtool/static/media/Zutrumite_Icon.5bbe9594ff640456148d.webp",
     "static/media/Serpentine_Icon.webp": "/zenithstradingtool/static/media/Serpentine_Icon.1a5d61c742dae4d7b053.webp",
     "static/media/Gilded_Ultranium_Band.webp": "/zenithstradingtool/static/media/Gilded_Ultranium_Band.ac20fb22b9b8170213be.webp",
     "static/media/Aquamarine_Icon.webp": "/zenithstradingtool/static/media/Aquamarine_Icon.6566d4b9a6423266934d.webp",
@@ -366,11 +367,11 @@
     "static/media/Amnesite_Icon.webp": "/zenithstradingtool/static/media/Amnesite_Icon.d4f3d4a7b4ab71501d08.webp",
     "static/media/Red_Diamond_Icon.webp": "/zenithstradingtool/static/media/Red_Diamond_Icon.15f999b7100b1173c9fd.webp",
     "static/media/Nilglass_Icon.webp": "/zenithstradingtool/static/media/Nilglass_Icon.d13f9c99294b923b0eaa.webp",
-    "main.48a0670e.css.map": "/zenithstradingtool/static/css/main.48a0670e.css.map",
-    "main.1e965d6d.js.map": "/zenithstradingtool/static/js/main.1e965d6d.js.map"
+    "main.beb9228c.css.map": "/zenithstradingtool/static/css/main.beb9228c.css.map",
+    "main.83b758bf.js.map": "/zenithstradingtool/static/js/main.83b758bf.js.map"
   },
   "entrypoints": [
-    "static/css/main.48a0670e.css",
-    "static/js/main.1e965d6d.js"
+    "static/css/main.beb9228c.css",
+    "static/js/main.83b758bf.js"
   ]
 }
