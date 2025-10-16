@@ -16,11 +16,12 @@ Sample CSV:
    - Custom background image!!
    - Emblem list with useful perks (with icons)
  - **Hiyo**
+   - Separate rare value mode settings
    - RV mode suggestion
    - Custom value multiplier (for completion)
    - CSV Loader sorting options (alphabetically, change amount, etc.)
    - I forgot LIQUID GOLD somehow
-   - CSV backward compatibility (STILL UNKNOWN IF THIS WORKS, NEW ORES HAVE NOT BEEN ADDED SINCE)
+   - CSV backward compatibility
  - **NAN**
    - CSV editor concept
    - Checkmark & inventory comparison for trade tool quantities
