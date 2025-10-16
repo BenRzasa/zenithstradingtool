@@ -9,11 +9,12 @@
   box-shadow: -5px 0px 25px 1px #000000;
   color: var(--text-color);
   z-index: 10000;
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -ms-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  opacity: 0;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -21,6 +22,8 @@
 
 .settings-panel.open {
   right: 0;
+  opacity: 1;
+  border-left: 3px solid var(--switch-outline);
 }
 
 .settings-header {

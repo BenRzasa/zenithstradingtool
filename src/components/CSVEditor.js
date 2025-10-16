@@ -1,10 +1,3 @@
-/* ZTT | CSV String Editor
-  Allows the user to:
-  - Display their current CSV string with the names of the ores
-  - Edit the numbers and save the new values into a temporary CSV
-  - Export the temporary CSV for copying and usage in their ZTT
-*/
-
 import React, { useContext, useEffect, useState } from "react";
 
 import { MiscContext } from "../context/MiscContext";
@@ -14,8 +7,6 @@ import "../styles/CSVLoader.css";
 import "../styles/CSVEditor.css";
 
 function CSVEditor({ onClose }) {
-  // onClose component to allow closing the popup
-
   const { getCurrentCSV } = useContext(MiscContext);
 
   const csvData = getCurrentCSV();
@@ -61,7 +52,7 @@ function CSVEditor({ onClose }) {
       newCSV = editedValue.split(",\n").map((num) => parseInt(num) || 0);
     }
     setTempCSV(newCSV);
-    showCSVAndNames(newCSV); // Update the display with the new values
+    showCSVAndNames(newCSV);
   };
 
   return (

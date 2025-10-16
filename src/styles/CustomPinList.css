@@ -14,7 +14,7 @@
   border-radius: 15px;
   color: var(--text-color);
   z-index: 100000;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   padding: 15px;
   box-sizing: border-box;
   overflow-y: auto;

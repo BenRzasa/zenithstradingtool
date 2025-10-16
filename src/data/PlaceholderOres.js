@@ -8,5 +8,5 @@ export const nanPlaceholderOres = [
 export const zenithPlaceholderOres = [
   "Kymizalum", "Aerolyte", "Paliatite", "Ammolite", "Citrine",
   "Serpentine", "Tourmaline", "Turquoise", "Skoralite",
-  "Topaz", "Turf", "Soil",
+  "Topaz", "Turf", "Soil", "Nilidust", "Strange Quark",
 ];

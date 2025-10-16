@@ -71,7 +71,6 @@ import Demonite from '../images/ore-icons/Demonite_Icon.webp';
 import Desmentinum from '../images/ore-icons/Desmentinum_Icon.webp';
 import Diamond from '../images/ore-icons/Diamond_Icon.webp';
 import Down_Quark from '../images/ore-icons/Down_Quark_Icon.webp';
-import Dragonglass from '../images/ore-icons/Dragonglass_Icon.webp';
 import Dystranum from '../images/ore-icons/Dystranum_Icon.webp';
 import Ebonakite from '../images/ore-icons/Ebonakite_Icon.webp';
 import Eclipsium from '../images/ore-icons/Eclipsium_Icon.webp';
@@ -194,6 +193,7 @@ import Noise from '../images/ore-icons/Noise_Icon.webp';
 import Null from '../images/ore-icons/Null_Icon.webp';
 import Nyrvinoris from '../images/ore-icons/Nyrvinoris_Icon.webp';
 import Obliviril from '../images/ore-icons/Obliviril_Icon.webp';
+import Obsidian from '../images/ore-icons/Obsidian_Icon.webp';
 import Ochistrite from '../images/ore-icons/Ochistrite_Icon.webp';
 import Ogleum from '../images/ore-icons/Ogleum_Icon.webp';
 import Onyx from '../images/ore-icons/Onyx_Icon.webp';
@@ -325,6 +325,7 @@ import Zeronian from '../images/ore-icons/Zeronian_Icon.webp';
 import Zetaslime from '../images/ore-icons/Zetaslime_Icon.webp';
 import Zilithorus from '../images/ore-icons/Zilithorus_Icon.webp';
 import Zinc from '../images/ore-icons/Zinc_Icon.webp';
+import Zutrumite from '../images/ore-icons/Zutrumite_Icon.webp';
 import Zynulvinite from '../images/ore-icons/Zynulvinite_Icon.webp';
 
 export const OreIcons = {
@@ -401,7 +402,6 @@ export const OreIcons = {
   Desmentinum,
   Diamond,
   Down_Quark,
-  Dragonglass,
   Dystranum,
   Ebonakite,
   Eclipsium,
@@ -524,6 +524,7 @@ export const OreIcons = {
   Null,
   Nyrvinoris,
   Obliviril,
+  Obsidian,
   Ochistrite,
   Ogleum,
   Onyx,
@@ -655,5 +656,6 @@ export const OreIcons = {
   Zetaslime,
   Zilithorus,
   Zinc,
+  Zutrumite,
   Zynulvinite
 };

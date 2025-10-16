@@ -1,48 +1,112 @@
+import { initialOreValsDict } from "./OreValues";
 
-// Search filters that the user can copy from the misc page or tables to use in-game
-// -> Exported as simple array of strings
-const searchFilters = [
-  "True Rares: sall/utrine/hav/dy/torn/ubri/singu/viol/rhy/egg",
-  "Rares: ambr/neutrino/ecto/malb/zyn/cind",
-  "All: ambr/sall/neutri/hav/dy/ecto/malb/zyn/egg/ubri/torn/singu/ecil/rhy/Cind/ sh",
-  "Condensed: ambr/sall/utrine/hav/dy/Torn/ubri/singu/ecil/rhy/cind/ecto",
-  "Torn Materials: qy/bla/chron/com/cons/dy/ok/ecil/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
-  "Useful Emblems: auri/boom/blast/bism/egg/ v/exod/hadr/isor/lept/malb/noise/nili/perig/phosp/posit/quark m/ed d/rhy/sola/th q/ult/unob/zyn",
-  "Uniques: sh/ñ/vergl/holle/ambe/onyx/chalc/suns/pano/mete/rimr",
-  "Compounds: quark m/iso/perig/eq",
-  "Surface / Shallow: turf/soi/coal/moon/kyan/opaz/opal/minu/copp/iron/silver/sulf/zinc/gold/sapph",
-  "Caverns / Dusk: ruby/emer/perid/amet/thall/tung/diam/plat/mala/lithi/boro",
-  "Volatile: shal/boom/tita/plut/techn/urani/caes/osmiu/hemat",
-  "Mystic: calc/ose q/rainb/chry/l c/coba/lapi/bism/demon/mith",
-  "Shimmer: paz",
-  "Arid: aer/amm/citr/pali/ser/san/tou/turq",
-  "Igneous / Mantle: vana/ongl/carne/magm/firec/magnes/garn/jasp/le f/garga",
-  "Irradiated / Caustic: toxi/rad/tellu/new/yun/thori/lead/blas/coro/triti/polo/zyn",
-  "Mirage: alto/illus/starl/prism/miram/strato/tanta",
-  "Dread: nigh/crims/rorst/ge m/milli/netite/irid/surre/ v/antim/dark m",
-  "Void: vant/pall/nili/asth/nep/ecl/adam/com/void/ebo",
-  "Achrothesi / Whitespace: krono/nilg/kreo/cadm/chrom/null/geom/inve/navi/myri/argi/peril/nois",
-  "Grayscale: gall/amn/w q/glows/graph/quicks/y m",
-  "Frigid: hyf/larim/frost/anet/veril/cryon/soima/diam/verg/kyan",
-  "Marine: nero/tene/yil/aquam/naq/hyd/pea/eid",
-  "Cosmic: c g/cosma/astra/arst/ardu/endot",
-  "Molten: nic/mol/cori/liq/cinn/sam/cind/zyn",
-  "Serenity: bedro/yz/ade/red/cele/cryop/and/troni/spec/spira/orich",
-  "Plasma: cind/plasma/pyrop/infer/proto/galv/feroz/elec/conv",
-  "Quantum: rino/gluo/up /own /osit/perm/arm /top /tom /ge q/ ph/ota",
-  "Stability: al b/skor/fabric/mavri/irul",
-  "Planck: string/hadr/axio/viton/meso/tachy/desme",
-  "Upper Instability: ailm/terr/sinf/gyri/kraz/anax/tendro/rk e/corro/antir/hype/therm/alkan",
-  "Lower Instability: gri/phos/vrim/zili/und/cyt/icho/cen/neur/trina/adre/mac",
-  "Murk: lep/mez/tay/thul",
-  "Event Horizon: r s/nebu/arki/non/auro/kore/apia/solar",
-  "Sediment: rhy/ubri/havi/ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
-  "Abyss: l s/prim/modi/hexf/tetr/maur/ecto/havi",
-  "Inner Horizon: amper/nyr/nih/ult/rev/infr/auri/unob/zero/exod/latti",
-  "Quintessence: ether/nif/etha/lume/ulir/impe/kryp/vyth",
-  "Interstice: kym/exod/neth/raw/obl/for/encel/vyth",
-  "Essences: essence",
-  "Empyrean: evra/zeta/kafsi/ochis/qy/rei/vor/tru/wi/pha/prof/ogl/proti/xe/mesm",
-];
+// Function to generate shortest unique substrings across ALL ores
+function generateShortestSubstrings(allLayers) {
+  const allOres = [];
+  const substrings = {};
 
+  // Collect all ores from all layers
+  allLayers.forEach(layer => {
+    layer.layerOres.forEach(ore => {
+      allOres.push(ore);
+    });
+  });
+
+  // Generate unique substrings across all ores
+  allOres.forEach(ore => {
+    const name = ore.name.toLowerCase();
+    let foundSubstring = '';
+
+    // Try increasingly longer substrings from different positions
+    outer: for (let length = 1; length <= name.length; length++) {
+      // Try all possible starting positions for this length
+      for (let start = 0; start <= name.length - length; start++) {
+        const currentSubstring = name.slice(start, start + length);
+
+        // Check if this substring is unique across all ores
+        let isUnique = true;
+        for (let j = 0; j < allOres.length; j++) {
+          const otherOre = allOres[j];
+          if (otherOre !== ore && otherOre.name.toLowerCase().includes(currentSubstring)) {
+            isUnique = false;
+            break;
+          }
+        }
+
+        if (isUnique) {
+          foundSubstring = currentSubstring;
+          break outer;
+        }
+      }
+    }
+
+    substrings[ore.name] = foundSubstring || name;
+  });
+
+  return substrings;
+}
+
+// Create combined rares filter (appears first)
+function createCombinedRaresFilter(layers) {
+  const rareOres = [];
+
+  // Find ores from both True Rares and normal Rares layers
+  const rareLayers = layers.filter(layer => {
+    const layerName = layer.layerName.toLowerCase();
+    return layerName.includes('true rare') || layerName.includes('rares');
+  });
+
+  rareLayers.forEach(layer => {
+    rareOres.push(...layer.layerOres);
+  });
+
+  if (rareOres.length > 0) {
+    const globalSubstrings = generateShortestSubstrings(layers);
+    const searchString = rareOres
+      .map(ore => globalSubstrings[ore.name])
+      .join('/');
+
+    return `Combined Rares: ${searchString}`;
+  }
+
+  return null;
+}
+
+// Convert your layer data to the search filter format
+function layersToSearchFilters(layers) {
+  const filters = [];
+  const globalSubstrings = generateShortestSubstrings(layers);
+
+  layers.forEach(layer => {
+    // Truncate layer name at newline
+    const layerName = layer.layerName.split('\n')[0];
+    const searchString = layer.layerOres
+      .map(ore => globalSubstrings[ore.name])
+      .join('/');
+
+    filters.push(`${layerName}: ${searchString}`);
+  });
+
+  return filters;
+}
+
+// Full conversion
+function convertLayersToSearchFilters(layers) {
+  const combinedRaresFilter = createCombinedRaresFilter(layers);
+  const layerFilters = layersToSearchFilters(layers);
+
+  const additionalFilters = [
+    "Torn Synthesis: qy/bla/chron/com/cons/dy/ok/ecil/fab/galv/gyr/inv/iso/malb/meso/trino/nihi/nili/obli/peril/veri/w e/ardu/llari/ge q/sall/unob/vora",
+    "Stellar Sediment: rhy/ubri/havi/ecto/r s/sall/c m/chron/apia/kore/rimr/primo",
+  ];
+
+  // Combined Rares appears first, then additional filters, then all other layers
+  return [
+    ...(combinedRaresFilter ? [combinedRaresFilter] : []),
+    ...additionalFilters,
+    ...layerFilters
+  ];
+}
+
+const searchFilters = convertLayersToSearchFilters(initialOreValsDict);
 export default searchFilters;

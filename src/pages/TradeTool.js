@@ -76,6 +76,7 @@ function TradeTool() {
         ...ore,
         layer: layer.layerName,
       })),
+      background: layer.background
     }));
 
   // Memoize the ores data
@@ -855,11 +856,12 @@ function TradeTool() {
               </tr>
             </thead>
             <tbody>
-              {oresByLayer.map(({ layer, ores }) => (
+              {oresByLayer.map(({ layer, ores, background }) => (
                 <React.Fragment key={layer}>
                   {/* Collapsible layer header */}
                   <tr
                     className="layer-header"
+                    style={{ background: background }}
                     onClick={() => toggleLayerCollapse(layer)}
                   >
                     <td colSpan="3">

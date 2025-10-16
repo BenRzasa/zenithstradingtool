@@ -253,6 +253,70 @@ function ValueChart() {
 
   const currentModeString = getCurrentModeStr();
 
+  // Calculate combined completion percentage for rares and true rares
+  const calculateRaresCompletion = useCallback(() => {
+    let totalCompletion = 0;
+    let totalItems = 0;
+
+    // Find rares and true rares layers
+    const raresLayer = Object.values(oreValsDict).find(layer =>
+      layer.layerName.includes("Rares") && !layer.layerName.includes("True Rares")
+    );
+    const trueRaresLayer = Object.values(oreValsDict).find(layer =>
+      layer.layerName.includes("True Rares")
+    );
+
+    // Process rares layer
+    if (raresLayer && raresLayer.layerOres) {
+      raresLayer.layerOres.forEach(ore => {
+        const inventory = csvData[ore.name] || 0;
+        const value = useSeparateRareMode ?
+          calculateDisplayValue(ore) :
+          getValueForMode(ore);
+
+        if (value > 0) {
+          const completion = capCompletion ?
+            Math.min(1, inventory / value) :
+            inventory / value;
+          totalCompletion += completion;
+          totalItems++;
+        }
+      });
+    }
+
+    // Process true rares layer
+    if (trueRaresLayer && trueRaresLayer.layerOres) {
+      trueRaresLayer.layerOres.forEach(ore => {
+        const inventory = csvData[ore.name] || 0;
+        const value = useSeparateRareMode ?
+          calculateDisplayValue(ore) :
+          getValueForMode(ore);
+
+        if (value > 0) {
+          const completion = capCompletion ?
+            Math.min(1, inventory / value) :
+            inventory / value;
+          totalCompletion += completion;
+          totalItems++;
+        }
+      });
+    }
+
+    // Calculate average completion percentage
+    const avgCompletion = totalItems > 0 ? (totalCompletion / totalItems) * 100 : 0;
+    return capCompletion ? Math.min(100, avgCompletion) : avgCompletion;
+  }, [
+    oreValsDict,
+    csvData,
+    useSeparateRareMode,
+    calculateDisplayValue,
+    getValueForMode,
+    capCompletion
+  ]);
+
+  // Calculate the value
+  const raresCompletion = calculateRaresCompletion();
+
   return (
     <div className="outer-frame">
       {/* Quick Summary Dropdown */}
@@ -289,6 +353,10 @@ function ValueChart() {
               <span className="placeholder">{rareTotal.toLocaleString()}</span>
             </p>
             <p>
+              ⛏ Rare {getCurrentModeStr("Rares\nMore")} Completion:{" "}
+              <span className="placeholder">{raresCompletion.toFixed(3)}%</span>
+            </p>
+            <p>
               ⛏ Unique {currentModeString}:{" "}
               <span className="placeholder">
                 {uniqueTotal.toLocaleString()}
@@ -303,7 +371,7 @@ function ValueChart() {
               <span className="placeholder">{grandTotal.toLocaleString()}</span>
             </p>
             <p>
-              ⛏ Total Completion:{" "}
+              ⛏ Total {currentModeString} Completion:{" "}
               <span className="placeholder">{avgCompletion.toFixed(3)}%</span>
             </p>
             {moreStats && (

@@ -178,7 +178,13 @@
 }
 
 .color-template-soul-crystal {
-  background: #d7e0ff;
+    background: linear-gradient(
+      90deg,
+      #e3effa 0%,
+      #fcfdfe 25%,
+      #a5b9ff 100%
+    );
+    --wheel-color: #fcfdfe;
 }
 
 .color-template-cobalt {
@@ -284,7 +290,7 @@
   --wheel-color: #cc7b93;
 }
 
-.color-template-dragonglass {
+.color-template-obsidian {
   background: #7a21b9;
 }
 
@@ -604,7 +610,7 @@
     #fff1fd 25%,
     #f2fff2 50%,
     #ffeedf 75%,
-    #af8b71 100%,
+    #af8b71 100%
   );
   --wheel-color: #fff1fd;
 }
@@ -923,7 +929,16 @@
 }
 
 .color-template-andrium {
-  background: #19d9a9;
+  background: linear-gradient(
+    90deg,
+    #65de97 0%,
+    #baf9f5 20%,
+    #a1faff 35%,
+    #66cede 50%,
+    #3ea373 70%,
+    #1b5283 100%
+  );
+  --wheel-color: #65de97;
 }
 
 .color-template-neutronium {
@@ -949,7 +964,7 @@
     #9a37d2 25%,
     #4210aa 50%,
     #5d71d3 75%,
-    #9fc5f5 100%,
+    #9fc5f5 100%
   );
   --wheel-color: #9a37d2;
 }
@@ -987,7 +1002,18 @@
 }
 
 .color-template-protonium {
-  background: #9c240c;
+  background: linear-gradient(
+    180deg,
+    #470100 0%,
+    #ab0000 10%,
+    #cf4f24 25%,
+    #ff7a75 40%,
+    #ffeed1 50%,
+    #ff7a75 60%,
+    #cf4f24 75%,
+    #b5150a 100%
+  );
+  --wheel-color: #ab0000;
 }
 
 .color-template-galvanium {
@@ -1225,16 +1251,16 @@
 
 .color-template-tachyon {
   background: linear-gradient(
-    94deg,
-    #ffffd1 0%,
-    #a0ff67 25%,
+    90deg,
+    #e8ffa8 0%,
+    #fbffd3 12.5%,
+    #a0ff67 30%,
     #5ddc40 40%,
     #3e9e23 49.1%,
-    #4aac90 60.9%,
-    #343880 90%,
-    #2e265a 100%
+    #4aac90 67%,
+    #002641 100%
   );
-  --wheel-color: #5ddc40;
+  --wheel-color: #fbffd3;
 }
 
 .color-template-desmentinum {
@@ -1601,15 +1627,15 @@
 .color-template-korenil {
   background: linear-gradient(
     112deg,
-    #ffffff 0%,
-    #e093ff 15%,
-    #c34cff 36%,
-    #894eff 49%,
-    #6a85ff 69%,
-    #6abeff 86%,
-    #32a0c1 100%
+    #efdafd 0%,
+    #fefefe 10%,
+    #e093ff 20%,
+    #7c48ff 40%,
+    #8ac1f9 60%,
+    #6a85ff 75.4%,
+    #172b75 100%
   );
-  --wheel-color: #894eff;
+  --wheel-color: #fefefe;
 }
 
 .color-template-stellar-sediment {
@@ -1628,9 +1654,9 @@
 
 .color-template-apiastrine {
   background: linear-gradient(
-    90deg, 
-    #ff2d86 0%, 
-    #f2b2cd 50%, 
+    90deg,
+    #ff2d86 0%,
+    #f2b2cd 50%,
     #56ffaa 100%
   );
   --wheel-color: #f2b2cd;
@@ -1904,7 +1930,7 @@
 }
 
 .color-template-nethrastine {
-  background: #464a87;
+  background: #39365e;
 }
 
 .color-template-kymizalum {
@@ -2122,7 +2148,7 @@
 
 .color-template-profelis {
   background: linear-gradient(
-    15deg,
+    105deg,
     #e9cdb1 0%,
     #fffefe 15%,
     #bda2ae 30%,
@@ -2171,6 +2197,11 @@
     #d0f2ff 100%
   );
   --wheel-color: #cd94de;
+}
+
+.color-template-zutrumite {
+  background: #8e2cb2;
+  --wheel-color: #8e2cb2;
 }
 
 .color-template-equilibrium {
@@ -2270,9 +2301,17 @@
   --wheel-color: #ff8000;
 }
 
+/* Moving gradients */
+
+@property --property-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .color-template-torn-fabric {
   background: linear-gradient(
-    160deg,
+    var(--property-angle, 30deg),
     #171c41 0%,
     #403e68 5%,
     #887dc5 15%,
@@ -2280,14 +2319,39 @@
     #5dc1ff 35%,
     #ccffff 45%,
     #ffffff 50%,
+    #ccffff 55%,
     #5dc1ff 65%,
     #a17cc3 77.5%,
     #887dc5 85%,
     #403e68 95%,
     #171c41 100%
   );
-  --wheel-color: #403e68;
+  animation: torn-fabric-animation 1.65s linear infinite;
 }
+
+@keyframes torn-fabric-animation {
+  0%   { --property-angle:  30deg; }
+  50%  { --property-angle: -30deg; }
+  100% { --property-angle:  30deg; }
+}
+
+.color-template-astathian {
+background: linear-gradient(
+  var(--property-angle, 135deg),
+  #5f0000 0%,
+  #e22610 30%,
+  #fff07b 50%,
+  #e22610 70%,
+  #5f0000 100%
+);
+  animation: astathian-animation 6s linear infinite;
+}
+
+@keyframes astathian-animation {
+  0%   { --property-angle:   0deg; }
+  100% { --property-angle: 360deg; }
+}
+
 
 .color-template-singularity {
   background: linear-gradient(
@@ -2445,18 +2509,6 @@
     #260202 100%
   );
   --wheel-color: #ed6525;
-}
-
-.color-template-astathian {
-  background: linear-gradient(
-    135deg,
-    #5f0000 0%,
-    #e22610 30%,
-    #fff07b 50%,
-    #e22610 70%,
-    #5f0000 100%
-  );
-  --wheel-color: #e22610;
 }
 
 .color-template-sunstone {
