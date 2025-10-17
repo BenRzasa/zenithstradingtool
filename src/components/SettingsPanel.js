@@ -110,6 +110,7 @@ const SettingsPanel = ({
             <input
               type="checkbox"
               id="rare-mode-switch"
+              title="rare-switch"
               checked={useSeparateRareMode}
               onChange={toggleSeparateRareMode}
             />
@@ -170,6 +171,7 @@ const SettingsPanel = ({
             <input
               type="checkbox"
               id="obtain-rate-switch"
+              title="obtain-switch"
               checked={useObtainRateVals}
               onChange={toggleObtainRate}
             />
@@ -184,6 +186,7 @@ const SettingsPanel = ({
             <input
               type="checkbox"
               id="completion-cap-switch"
+              title="completion-switch"
               checked={capCompletion}
               onChange={toggleCapCompletion}
             />
@@ -201,6 +204,7 @@ const SettingsPanel = ({
             <input
               type="checkbox"
               id="hotkeys-switch"
+              title="hotkeys-switch"
               checked={hotkeysEnabled}
               onChange={toggleHotkeys}
             />

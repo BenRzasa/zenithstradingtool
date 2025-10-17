@@ -2367,6 +2367,18 @@ background: linear-gradient(
     #b7dce1 100%
   );
   --wheel-color: #ffffff;
+
+  background-size: 300% 100%;
+  animation: horizontalMove 20s linear infinite;
+}
+
+@keyframes horizontalMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
 }
 
 .color-template-zynulvinite {

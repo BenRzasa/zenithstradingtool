@@ -632,7 +632,7 @@ const OreAndLayerWheel = () => {
                 {!settings.includeOver100Completion && (
                   <>
                     <br></br>
-                    <br></br>Ores Remaining for {getModeString()} {useSeparateRareMode ? " + Custom Rare" : ""} Completion:{" "}
+                    <br></br>Ores Remaining for {getModeString()} {(useSeparateRareMode && settings.includeOreRaresAndTrueRares) ? " + Custom Rare" : ""} Completion:{" "}
                     {allOres.length}
                   </>
                 )}
@@ -759,7 +759,7 @@ const OreAndLayerWheel = () => {
               {!settings.includeOver100LayerCompletion && (
                 <>
                   <br></br>
-                  <br></br>Layers Remaining for {getModeString()} {useSeparateRareMode ? " + Custom Rare" : ""} Completion:{" "}
+                  <br></br>Layers Remaining for {getModeString()} {(useSeparateRareMode && settings.includeRaresAndTrueRares) ? " + Custom Rare" : ""} Completion:{" "}
                   {allLayers.length}
                 </>
               )}

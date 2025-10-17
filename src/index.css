@@ -102,6 +102,7 @@ body {
   transition: background-image 0.5s ease;
   background-color: var(--background-color);
   font-family: 'Comfortaa';
+  font-display: optional;
   /*font-family: system-ui;*/
   font-weight: 700;
   margin: 0;

@@ -3,10 +3,10 @@ import React from 'react';
 const SettingsToggle = ({ onClick }) => {
   return (
     <button
+      title="Settings"
+      aria-label="Settings"
       onClick={onClick}
       style={{
-        title:'Settings icon',
-        altText: 'Settings icon',
         scale:'1.25',
         position: 'fixed',
         top: '20px',
@@ -26,6 +26,7 @@ const SettingsToggle = ({ onClick }) => {
       }}
     >
     <i className="fas fa-gear"></i>
+    {}
     </button>
   );
 };

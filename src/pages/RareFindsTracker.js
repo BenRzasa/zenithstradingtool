@@ -348,43 +348,6 @@ const RareFindsTracker = () => {
         </div>
 
         <div className="r-tables-container">
-          {/* Regular rares table */}
-          <div className="table-wrapper" style={{ width: "800px" }}>
-            <h2
-              className="table-wrapper h2"
-              style={{ background: raresGradient }}
-              data-text="Regular Rares"
-            >
-              Regular Rares
-            </h2>
-            <table className="rare-table" style={{ id: "test" }}>
-              <thead>
-                <tr>
-                  <th>Ore Name</th>
-                  <th>Amount Found</th>
-                  <th># {modeStr}</th>
-                  <th>Last Found</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rareOres.map((item, index) => (
-                  <RareRow
-                    key={index}
-                    item={item}
-                    count={rareFindsData[item.name] || 0}
-                    lastUpdated={lastUpdatedDates[item.name]}
-                    incrementValue={incrementValue}
-                    decrementValue={decrementValue}
-                    handleCountChange={handleCountChange}
-                    getOreClassName={getOreClassName}
-                    calculateNumV={calculateNumV}
-                    formatDate={formatDate}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
-
           {/* Super rares table */}
           <div
             className="table-wrapper"
@@ -424,7 +387,43 @@ const RareFindsTracker = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        {/* Regular rares table */}
+          <div className="table-wrapper" style={{ width: "800px" }}>
+            <h2
+              className="table-wrapper h2"
+              style={{ background: raresGradient }}
+              data-text="Regular Rares"
+            >
+              Regular Rares
+            </h2>
+            <table className="rare-table" style={{ id: "test" }}>
+              <thead>
+                <tr>
+                  <th>Ore Name</th>
+                  <th>Amount Found</th>
+                  <th># {modeStr}</th>
+                  <th>Last Found</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rareOres.map((item, index) => (
+                  <RareRow
+                    key={index}
+                    item={item}
+                    count={rareFindsData[item.name] || 0}
+                    lastUpdated={lastUpdatedDates[item.name]}
+                    incrementValue={incrementValue}
+                    decrementValue={decrementValue}
+                    handleCountChange={handleCountChange}
+                    getOreClassName={getOreClassName}
+                    calculateNumV={calculateNumV}
+                    formatDate={formatDate}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+          </div>
       </div>
     </>
   );

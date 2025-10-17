@@ -9,7 +9,8 @@ import "../styles/CustomPinList.css";
 import "../styles/TradeTool.css";
 
 const CustomPinList = ({ isOpen, onClose }) => {
-  const { oreValsDict, getValueForMode, getOreClassName, getCurrentCSV } = useContext(MiscContext);
+  const { oreValsDict, getValueForMode, getOreClassName, getCurrentCSV } =
+    useContext(MiscContext);
   const {
     pinListState,
     addToPinList,
@@ -34,15 +35,17 @@ const CustomPinList = ({ isOpen, onClose }) => {
 
   // Prepare complete ore list
   const allOresWithLayers = Object.values(oreValsDict)
-  .filter(layer => !layer.layerName?.includes("Essences"))
-  .flatMap((layer) =>
-    layer.layerOres?.map((ore) => ({
-      ...ore,
-      layer: layer.layerName,
-    })) || []
-  );
+    .filter((layer) => !layer.layerName?.includes("Essences"))
+    .flatMap(
+      (layer) =>
+        layer.layerOres?.map((ore) => ({
+          ...ore,
+          layer: layer.layerName,
+        })) || []
+    );
 
-  const { searchTerm, searchFocused, selectedSearchIndex, quantities } = pinListState;
+  const { searchTerm, searchFocused, selectedSearchIndex, quantities } =
+    pinListState;
   const filteredOres = filterOres(searchTerm, allOresWithLayers);
 
   // Get available amount from inventory for pinned ore
@@ -154,6 +157,78 @@ const CustomPinList = ({ isOpen, onClose }) => {
     );
   };
 
+  // Function to generate shortest unique substrings for pinned ores
+  const generatePinnedOresFilter = () => {
+    if (pinListState.pinnedOres.length === 0) return "";
+
+    // Get all ores (pinned + all available) for comparison
+    const allOres = [...allOresWithLayers];
+    const pinnedOres = pinListState.pinnedOres;
+
+    const substrings = {};
+
+    // Generate unique substrings for each pinned ore
+    pinnedOres.forEach((pinnedOre) => {
+      const name = pinnedOre.name.toLowerCase();
+      let foundSubstring = "";
+
+      // Try increasingly longer substrings from different positions
+      outer: for (let length = 1; length <= name.length; length++) {
+        // Try all possible starting positions for this length
+        for (let start = 0; start <= name.length - length; start++) {
+          const currentSubstring = name.slice(start, start + length);
+
+          // Check if this substring is unique across all ores
+          let isUnique = true;
+          for (let j = 0; j < allOres.length; j++) {
+            const otherOre = allOres[j];
+            if (
+              otherOre.name !== pinnedOre.name &&
+              otherOre.name.toLowerCase().includes(currentSubstring)
+            ) {
+              isUnique = false;
+              break;
+            }
+          }
+
+          if (isUnique) {
+            foundSubstring = currentSubstring;
+            break outer;
+          }
+        }
+      }
+
+      substrings[pinnedOre.name] = foundSubstring || name;
+    });
+
+    // Remove redundant substrings - if multiple ores share the same substring, only keep one
+    const uniqueSubstrings = new Set();
+    const finalSubstrings = [];
+
+    pinnedOres.forEach((ore) => {
+      const substring = substrings[ore.name];
+      if (!uniqueSubstrings.has(substring)) {
+        uniqueSubstrings.add(substring);
+        finalSubstrings.push(substring);
+      }
+    });
+
+    // Create the search filter string
+    const searchString = finalSubstrings.join("/");
+
+    return `${searchString}`;
+  };
+
+  // Function to copy to clipboard
+  const copyPinnedFilterToClipboard = () => {
+    const filterString = generatePinnedOresFilter();
+    if (!filterString) {
+      return;
+    }
+
+    navigator.clipboard.writeText(filterString);
+  };
+
   const pinTotals = calculatePinTotals();
 
   return (
@@ -208,38 +283,47 @@ const CustomPinList = ({ isOpen, onClose }) => {
 
       {/* Actions*/}
       <div className="pinlist-actions">
-        <div className="box-button" style={{width:"fit-content"}}>
-        <button onClick={clearPinList}>
-          Clear
-        </button>
-        
+        <div className="box-button" style={{ width: "fit-content" }}>
+          <button onClick={clearPinList}>Clear</button>
         </div>
         {/* Totals */}
         {pinListState.pinnedOres.length > 0 && (
           <div className="pinlist-totals">
             <p>
-              💲Total AV: <span className="placeholder">{pinTotals.totalAV.toFixed(1)}</span>
+              💲Total AV:{" "}
+              <span className="placeholder">
+                {pinTotals.totalAV.toFixed(1)}
+              </span>
             </p>
             <p>
-              ⛏️Total # Ores: <span className="placeholder">{pinTotals.totalOres}</span>
+              ⛏️Total # Ores:{" "}
+              <span className="placeholder">{pinTotals.totalOres}</span>
             </p>
+          </div>
+        )}
+        {pinListState.pinnedOres.length > 0 && (
+          <div className="box-button" style={{ width: "fit-content" }}>
+            <button onClick={copyPinnedFilterToClipboard}>
+              <i class="fa-solid fa-clipboard"></i> Copy Filter
+            </button>
           </div>
         )}
       </div>
       {/* Pinned ores table */}
       <div className="pinlist-content">
         {pinListState.pinnedOres.length > 0 ? (
-          <table 
+          <table
             className="trade-table pinlist-table"
             style={{
-              whiteSpace: "nowrap", 
-              marginLeft: "-15px", 
-              marginTop: "15px", 
-              marginRight: "-500px", 
-              transform:"scale(1)", 
-              transformOrigin: "top left", 
-              width: "fit-content"
-            }}>
+              whiteSpace: "nowrap",
+              marginLeft: "-15px",
+              marginTop: "15px",
+              marginRight: "-500px",
+              transform: "scale(1)",
+              transformOrigin: "top left",
+              width: "fit-content",
+            }}
+          >
             <thead>
               <tr>
                 <th>Ore</th>
@@ -252,17 +336,16 @@ const CustomPinList = ({ isOpen, onClose }) => {
                 .map((ore) => (
                   <tr
                     key={ore.name}
-                    className={
-                      isPinSelected(ore.name) ? "selected-row" : ""
-                    }
+                    className={isPinSelected(ore.name) ? "selected-row" : ""}
                     onClick={() => togglePinSelection(ore.name)}
                   >
                     <td
-                      className={`tr-name-cell ${getOreClassName(
-                        ore.name
-                      )}`}
+                      className={`tr-name-cell ${getOreClassName(ore.name)}`}
                       data-text={ore.name}
-                      style={{ paddingRight: "10px", whiteSpace: "preserve wrap", }}
+                      style={{
+                        paddingRight: "10px",
+                        whiteSpace: "preserve wrap",
+                      }}
                     >
                       <button
                         className="delete-ore-button"
@@ -298,26 +381,35 @@ const CustomPinList = ({ isOpen, onClose }) => {
                       {ore.name}
                     </td>
                     <td>
-                      <div 
+                      <div
                         className="quantity-cell-container"
                         style={{
-                          whiteSpace: "preserve wrap", 
-                          flexDirection: "row", 
+                          whiteSpace: "preserve wrap",
+                          flexDirection: "row",
                           justifyContent: "center",
-                          width: "fit-content"
-                        }}>
-                        <div style={{flexDirection: "column"}}>
-                        <div className="inventory-count" style={{marginLeft: "5px"}}>
-                          {getAvailableAmount(ore)}/
-                          {quantities[ore.name] || 0} | {calculatePinAV(ore.name)} AV
-                        </div>
-                        {/* Progress Bar */}
-                        <div className="progress-bar-container">
-                          <div 
-                            className={`progress-bar ${hasEnoughOre(ore) ? 'complete' : 'incomplete'}`}
-                            style={{ width: `${getProgressPercentage(ore)}%` }}
-                          ></div>
-                        </div>
+                          width: "fit-content",
+                        }}
+                      >
+                        <div style={{ flexDirection: "column" }}>
+                          <div
+                            className="inventory-count"
+                            style={{ marginLeft: "5px" }}
+                          >
+                            {getAvailableAmount(ore)}/
+                            {quantities[ore.name] || 0} |{" "}
+                            {calculatePinAV(ore.name)} AV
+                          </div>
+                          {/* Progress Bar */}
+                          <div className="progress-bar-container">
+                            <div
+                              className={`progress-bar ${
+                                hasEnoughOre(ore) ? "complete" : "incomplete"
+                              }`}
+                              style={{
+                                width: `${getProgressPercentage(ore)}%`,
+                              }}
+                            ></div>
+                          </div>
                         </div>
                         <label
                           htmlFor={`pin-quantity-${ore.name}`}
@@ -344,9 +436,7 @@ const CustomPinList = ({ isOpen, onClose }) => {
             </tbody>
           </table>
         ) : (
-          <p className="pinlist-empty">
-            No ores pinned yet
-          </p>
+          <p className="pinlist-empty">No ores pinned yet</p>
         )}
       </div>
     </div>

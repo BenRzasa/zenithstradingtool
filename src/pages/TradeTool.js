@@ -76,7 +76,7 @@ function TradeTool() {
         ...ore,
         layer: layer.layerName,
       })),
-      background: layer.background
+      background: layer.background,
     }));
 
   // Memoize the ores data
@@ -392,12 +392,74 @@ function TradeTool() {
   const [copiedFilter, setCopiedFilter] = useState(null);
 
   const generateSearchFilter = () => {
-    let searchFilterString = tradeState.tradeOres
-      .map((ore) => ore.name)
-      .join("/");
+    // Function to generate shortest unique substrings for trade ores
+    const generateShortestSubstrings = (tradeOres, allOres) => {
+      const substrings = {};
+
+      tradeOres.forEach((tradeOre) => {
+        const name = tradeOre.name.toLowerCase();
+        let foundSubstring = "";
+
+        // Try increasingly longer substrings from different positions
+        outer: for (let length = 1; length <= name.length; length++) {
+          // Try all possible starting positions for this length
+          for (let start = 0; start <= name.length - length; start++) {
+            const currentSubstring = name.slice(start, start + length);
+
+            // Check if this substring is unique across all ores
+            let isUnique = true;
+            for (let j = 0; j < allOres.length; j++) {
+              const otherOre = allOres[j];
+              if (
+                otherOre.name !== tradeOre.name &&
+                otherOre.name.toLowerCase().includes(currentSubstring)
+              ) {
+                isUnique = false;
+                break;
+              }
+            }
+
+            if (isUnique) {
+              foundSubstring = currentSubstring;
+              break outer;
+            }
+          }
+        }
+
+        substrings[tradeOre.name] = foundSubstring || name;
+      });
+
+      return substrings;
+    };
+
+    if (tradeState.tradeOres.length === 0) {
+      alert("No ores in trade table to export!");
+      return;
+    }
+
+    // Generate shortest unique substrings for all trade ores
+    const substrings = generateShortestSubstrings(
+      tradeState.tradeOres,
+      allOresWithLayers
+    );
+
+    // Remove redundant substrings - if multiple ores share the same substring, only keep one
+    const uniqueSubstrings = new Set();
+    const finalSubstrings = [];
+
+    tradeState.tradeOres.forEach((ore) => {
+      const substring = substrings[ore.name];
+      if (!uniqueSubstrings.has(substring)) {
+        uniqueSubstrings.add(substring);
+        finalSubstrings.push(substring);
+      }
+    });
+
+    // Create the search filter string
+    const searchFilterString = finalSubstrings.join("/");
+
     navigator.clipboard.writeText(searchFilterString).then(() => {
       setCopiedFilter(searchFilterString);
-
       setTimeout(() => setCopiedFilter(null), 2000);
     });
   };
@@ -789,11 +851,11 @@ function TradeTool() {
                               {quantities[ore.name] || 0}
                             </div>
                             <label
-                              htmlFor={`quantity-${ore.name}`}
+                              htmlFor={`summary-quantity-${ore.name}`}
                               className="quantity-label"
                             >
                               <input
-                                id={`quantity-${ore.name}`}
+                                id={`summary-quantity-${ore.name}`}
                                 aria-label="Ore quantity input"
                                 type="number"
                                 value={quantities[ore.name] ?? ""}

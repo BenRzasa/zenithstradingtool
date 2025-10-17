@@ -6,16 +6,16 @@ function generateShortestSubstrings(allLayers) {
   const substrings = {};
 
   // Collect all ores from all layers
-  allLayers.forEach(layer => {
-    layer.layerOres.forEach(ore => {
+  allLayers.forEach((layer) => {
+    layer.layerOres.forEach((ore) => {
       allOres.push(ore);
     });
   });
 
   // Generate unique substrings across all ores
-  allOres.forEach(ore => {
+  allOres.forEach((ore) => {
     const name = ore.name.toLowerCase();
-    let foundSubstring = '';
+    let foundSubstring = "";
 
     // Try increasingly longer substrings from different positions
     outer: for (let length = 1; length <= name.length; length++) {
@@ -27,7 +27,10 @@ function generateShortestSubstrings(allLayers) {
         let isUnique = true;
         for (let j = 0; j < allOres.length; j++) {
           const otherOre = allOres[j];
-          if (otherOre !== ore && otherOre.name.toLowerCase().includes(currentSubstring)) {
+          if (
+            otherOre !== ore &&
+            otherOre.name.toLowerCase().includes(currentSubstring)
+          ) {
             isUnique = false;
             break;
           }
@@ -46,48 +49,68 @@ function generateShortestSubstrings(allLayers) {
   return substrings;
 }
 
-// Create combined rares filter (appears first)
-function createCombinedRaresFilter(layers) {
-  const rareOres = [];
-
-  // Find ores from both True Rares and normal Rares layers
-  const rareLayers = layers.filter(layer => {
-    const layerName = layer.layerName.toLowerCase();
-    return layerName.includes('true rare') || layerName.includes('rares');
-  });
-
-  rareLayers.forEach(layer => {
-    rareOres.push(...layer.layerOres);
-  });
-
-  if (rareOres.length > 0) {
-    const globalSubstrings = generateShortestSubstrings(layers);
-    const searchString = rareOres
-      .map(ore => globalSubstrings[ore.name])
-      .join('/');
-
-    return `Combined Rares: ${searchString}`;
-  }
-
-  return null;
-}
-
 // Convert your layer data to the search filter format
 function layersToSearchFilters(layers) {
   const filters = [];
   const globalSubstrings = generateShortestSubstrings(layers);
 
-  layers.forEach(layer => {
+  layers.forEach((layer) => {
     // Truncate layer name at newline
-    const layerName = layer.layerName.split('\n')[0];
-    const searchString = layer.layerOres
-      .map(ore => globalSubstrings[ore.name])
-      .join('/');
+    const layerName = layer.layerName.split("\n")[0];
 
+    // Remove redundant substrings within the layer
+    const uniqueSubstrings = new Set();
+    const finalSubstrings = [];
+
+    layer.layerOres.forEach((ore) => {
+      const substring = globalSubstrings[ore.name];
+      if (!uniqueSubstrings.has(substring)) {
+        uniqueSubstrings.add(substring);
+        finalSubstrings.push(substring);
+      }
+    });
+
+    const searchString = finalSubstrings.join("/");
     filters.push(`${layerName}: ${searchString}`);
   });
 
   return filters;
+}
+
+// Create combined rares filter (appears first)
+function createCombinedRaresFilter(layers) {
+  const rareOres = [];
+
+  // Find ores from both True Rares and normal Rares layers
+  const rareLayers = layers.filter((layer) => {
+    const layerName = layer.layerName.toLowerCase();
+    return layerName.includes("true rare") || layerName.includes("rares");
+  });
+
+  rareLayers.forEach((layer) => {
+    rareOres.push(...layer.layerOres);
+  });
+
+  if (rareOres.length > 0) {
+    const globalSubstrings = generateShortestSubstrings(layers);
+
+    // Remove redundant substrings within combined rares
+    const uniqueSubstrings = new Set();
+    const finalSubstrings = [];
+
+    rareOres.forEach((ore) => {
+      const substring = globalSubstrings[ore.name];
+      if (!uniqueSubstrings.has(substring)) {
+        uniqueSubstrings.add(substring);
+        finalSubstrings.push(substring);
+      }
+    });
+
+    const searchString = finalSubstrings.join("/");
+    return `Combined Rares: ${searchString}`;
+  }
+
+  return null;
 }
 
 // Full conversion
@@ -104,7 +127,7 @@ function convertLayersToSearchFilters(layers) {
   return [
     ...(combinedRaresFilter ? [combinedRaresFilter] : []),
     ...additionalFilters,
-    ...layerFilters
+    ...layerFilters,
   ];
 }
 

@@ -352,10 +352,12 @@ function ValueChart() {
               ⛏ Total Rare {getCurrentModeStr("Rares\nMore")}:{" "}
               <span className="placeholder">{rareTotal.toLocaleString()}</span>
             </p>
-            <p>
-              ⛏ Rare {getCurrentModeStr("Rares\nMore")} Completion:{" "}
-              <span className="placeholder">{raresCompletion.toFixed(3)}%</span>
-            </p>
+            {useSeparateRareMode && (
+              <p>
+                ⛏ Rare {getCurrentModeStr("Rares\nMore")} Completion:{" "}
+                <span className="placeholder">{raresCompletion.toFixed(3)}%</span>
+              </p>
+            )}
             <p>
               ⛏ Unique {currentModeString}:{" "}
               <span className="placeholder">
@@ -669,6 +671,7 @@ function ValueChart() {
         <div className="table-navigation">
           <select
             id="table-select"
+            title="table-select"
             value={tableSelected}
             onChange={handleTableSelect}
             style={{ appearance: "none" }}

@@ -4,9 +4,9 @@ const PinlistToggle = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
+      title="Pinlist"
+      aria-label="Pinlist"
       style={{
-        title: "pinlist toggle",
-        alt: "pinlist toggle",
         scale: "1.25",
         position: "fixed",
         top: "20px",
