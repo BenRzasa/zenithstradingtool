@@ -18,6 +18,7 @@ STUFFTODO.md
 /src/images/
 /images/
 /scripts/
+.vscode
 
 # System files
 .DS_Store
