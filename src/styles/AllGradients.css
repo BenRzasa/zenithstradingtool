@@ -2369,10 +2369,10 @@ background: linear-gradient(
   --wheel-color: #ffffff;
 
   background-size: 300% 100%;
-  animation: horizontalMove 20s linear infinite;
+  animation: singularityAnim 20s linear infinite;
 }
 
-@keyframes horizontalMove {
+@keyframes singularityAnim {
   0% {
     background-position: 0% 0%;
   }

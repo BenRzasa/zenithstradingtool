@@ -325,16 +325,6 @@ const RareFindsTracker = () => {
 
         {/* Totals display */}
         <div className="totals-container">
-          <div className="total-box">
-            <h3>Total Rare Finds</h3>
-            <p>{totalRareFinds}</p>
-          </div>
-          <div className="total-box">
-            <h3>Value of Rares Found</h3>
-            <p>
-              {totalRareVal} {modeStr}
-            </p>
-          </div>
           <div className="total-box super-rare">
             <h3>Super Rare Finds</h3>
             <p>{totalSuperRareFinds}</p>
@@ -343,6 +333,16 @@ const RareFindsTracker = () => {
             <h3>Value of Super Rares Found</h3>
             <p>
               {totalSuperRareVal} {modeStr}
+            </p>
+          </div>
+          <div className="total-box">
+            <h3>Total Rare Finds</h3>
+            <p>{totalRareFinds}</p>
+          </div>
+          <div className="total-box">
+            <h3>Value of Rares Found</h3>
+            <p>
+              {totalRareVal} {modeStr}
             </p>
           </div>
         </div>

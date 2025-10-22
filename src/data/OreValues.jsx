@@ -64,8 +64,8 @@ export const initialOreValsDict = [
         { name: "Jalabono", zenithVal: 0.5, nanVal: 1.0, customVal: 0.5 },
         { name: "Hollevite", zenithVal: 10, nanVal: 8, customVal: 10 },
         { name: "Verglazium", zenithVal: 1.0, nanVal: 1.0, customVal: 1.0 },
-        { name: "Meteorite", zenithVal: 3, nanVal: 2.0, customVal: 2.0 },
-        { name: "Panolethrium", zenithVal: 1.5, nanVal: 1.0, customVal: 1.0 },
+        { name: "Meteorite", zenithVal: 4, nanVal: 2.0, customVal: 4 },
+        { name: "Panolethrium", zenithVal: 2, nanVal: 1.0, customVal: 2 },
         { name: "Astathian", zenithVal: 1, nanVal: 0.5, customVal: 1 },
         { name: "Sunstone", zenithVal: 5.0, nanVal: 5.0, customVal: 5.0 },
         { name: "Amber", zenithVal: 2.0, nanVal: 2.0, customVal: 2.0 },
@@ -179,7 +179,7 @@ export const initialOreValsDict = [
         { name: "Paliatite", zenithVal: 13, nanVal: 13, customVal: 13 },
         { name: "Serpentine", zenithVal: 11, nanVal: 11, customVal: 11 },
         { name: "Tourmaline", zenithVal: 7, nanVal: 7, customVal: 7 },
-        { name: "Ammolite", zenithVal: 3, nanVal: 3, customVal: 3 }
+        { name: "Ammolite", zenithVal: 4, nanVal: 3, customVal: 4 }
       ],
   },
   {

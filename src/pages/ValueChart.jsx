@@ -681,7 +681,7 @@ function ValueChart() {
             </option>
 
             {/* Map all tables/layers to the results based on the names */}
-            {tableNames.map((name) => (
+            {tableNames.filter(name => !name.includes("Essences")).map((name) => (
               <option key={name} value={name}>
                 {name}
               </option>

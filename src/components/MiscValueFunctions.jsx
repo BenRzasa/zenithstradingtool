@@ -168,8 +168,8 @@ export const MiscValueFunctions = ({
         const inventory = csvData[ore.name] || 0;
 
         const oreValue = calculateValue(ore);
-        const perValue = oreValue.toFixed(getPrecision(oreValue));
-        const numV = parseFloat((inventory / perValue).toFixed(1));
+        const perValue = oreValue.toFixed(3);
+        const numV = parseFloat((inventory / perValue).toFixed(3));
         const completion = capCompletion
           ? Math.min(1, inventory / oreValue)
           : inventory / oreValue;
@@ -182,8 +182,8 @@ export const MiscValueFunctions = ({
 
           // Calculate display value for rare total (using rare mode if enabled)
           const displayOreValue = calculateRareDisplayValue(ore);
-          const displayPerValue = displayOreValue.toFixed(getPrecision(displayOreValue));
-          const displayNumV = parseFloat((inventory / displayPerValue).toFixed(1));
+          const displayPerValue = displayOreValue.toFixed(3);
+          const displayNumV = parseFloat((inventory / displayPerValue).toFixed(3));
           rareDisplayTotal += displayNumV;
         } else if (layerName.includes("Unique")) {
           uniqueTotal += numV;
@@ -227,7 +227,6 @@ export const MiscValueFunctions = ({
     calculateValue,
     calculateRareDisplayValue,
     capCompletion,
-    getPrecision,
     useSeparateRareMode
   ]);
 
@@ -342,12 +341,12 @@ export const MiscValueFunctions = ({
           incompleteOres.push({
             name: ore.name,
             layer: layerName,
-            completion: parseFloat(completionPercentage.toFixed(2)),
+            completion: parseFloat(completionPercentage.toFixed(3)),
             remaining: Math.max(0, orePerUnit - inventory),
             valueMode: valueMode,
             inventory: inventory,
             required: orePerUnit,
-            numV: orePerUnit > 0 ? (inventory / orePerUnit).toFixed(2) : "0",
+            numV: orePerUnit > 0 ? (inventory / orePerUnit).toFixed(3) : "0",
             completionRatio: completionRatio,
             isRare: isRare,
             effectiveDisplayMode: effectiveDisplayMode,

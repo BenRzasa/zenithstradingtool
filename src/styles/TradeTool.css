@@ -203,6 +203,7 @@
   font-size: 24px;
   font-family: "Segoe UI";
   cursor: pointer;
+  color: white;
   -webkit-text-stroke: 4px black;
   text-stroke: 4px black;
   paint-order: stroke fill;
