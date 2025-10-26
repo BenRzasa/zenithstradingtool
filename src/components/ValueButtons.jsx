@@ -7,6 +7,11 @@ const ValueButtons = ({ valueMode, setValueMode }) => {
       label: "Zenith's Values",
     },
     {
+      mode: "random",
+      className: "color-template-verglazium-custom",
+      label: "Random's Values",
+    },
+    {
       mode: "custom",
       className: "color-template-havicron",
       label: "Custom Values",

@@ -2604,6 +2604,27 @@ background: linear-gradient(
   background: #545c6d;
 }
 
+.color-template-verglazium-custom {
+  background: linear-gradient(
+    90deg,
+    #151924 0%,
+    #9ba3b2 12%,
+    #626a7e 22.5%,
+    #b0f2ec 27%,
+    #fcfffe 30%,
+    #b0f2ec 33%,
+    #626a7e 37.5%,
+    #090b11 50%,
+    #626a7e 62.5%,
+    #b0f2ec 67%,
+    #fcfffe 70%,
+    #b0f2ec 73%,
+    #626a7e 77.5%,
+    #9ba3b2 88%,
+    #151924 100%
+  );
+}
+
 .color-template-pout {
   background: linear-gradient(
     112deg,

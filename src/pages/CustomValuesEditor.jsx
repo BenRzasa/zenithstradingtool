@@ -11,8 +11,13 @@ import "../styles/LayerTable.css";
 
 function CustomValuesEditor() {
   const navigate = useNavigate();
-  const { oreValsDict, setOreValsDict, setValueMode, resetCustomValues } =
-    useContext(MiscContext);
+  const { 
+    oreValsDict, 
+    setOreValsDict, 
+    valueMode, 
+    setValueMode, 
+    resetCustomValues 
+  } = useContext(MiscContext);
 
   // Initialize localValues with proper fallbacks
   const [localValues, setLocalValues] = useState(() => {
@@ -132,10 +137,15 @@ function CustomValuesEditor() {
               Reset to Zenith's Values
             </button>
             <button
-              onClick={() => handleReset("nan")}
-              className="color-template-diamond"
+              onClick={() => handleReset("random")}
+              className="color-template-verglazium-custom"
+              style={{ 
+                color: "white", 
+                textShadow: "1px 2px 2px black"
+              }}
             >
-              Reset to NAN's Values
+              Reset to Random's Vals
+              <br/>(Active, based off NAN's old vals)
             </button>
             <button
               onClick={() => handleReset("custom")}
@@ -161,7 +171,7 @@ function CustomValuesEditor() {
 
               const gradientStyle =
                 layer.background ||
-                "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
+                  "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
 
               return (
                 <div
@@ -190,8 +200,8 @@ function CustomValuesEditor() {
                         <tr key={index}>
                           <td
                             className={`name-column ${getOreClassName(
-                              ore.name
-                            )}`}
+ore.name
+)}`}
                             data-text={ore.name}
                           >
                             {OreIcons[ore.name.replace(/ /g, "_")] ? (
@@ -208,8 +218,8 @@ function CustomValuesEditor() {
                                 }}
                               />
                             ) : (
-                              <span>🖼️</span>
-                            )}
+                                <span>🖼️</span>
+                              )}
                             {ore.name}
                           </td>
                           <td>
@@ -219,7 +229,7 @@ function CustomValuesEditor() {
                               step="any"
                               value={
                                 localValues[`${layerName}-${ore.name}`] !==
-                                undefined
+                                  undefined
                                   ? localValues[`${layerName}-${ore.name}`]
                                   : ore.customVal
                               }
@@ -233,7 +243,7 @@ function CustomValuesEditor() {
                               onBlur={(e) => {
                                 if (
                                   e.target.value <= 0 ||
-                                  e.target.value > 10000
+                                    e.target.value > 10000
                                 ) {
                                   window.alert(
                                     "Please enter a value between 1 and 10000. Defaulting to '1'..."
@@ -261,8 +271,8 @@ function CustomValuesEditor() {
                                   setLocalValues((prev) => {
                                     const newValues = { ...prev };
                                     delete newValues[
-                                      `${layerName}-${ore.name}`
-                                    ];
+                                    `${layerName}-${ore.name}`
+                                  ];
                                     return newValues;
                                   });
                                 }

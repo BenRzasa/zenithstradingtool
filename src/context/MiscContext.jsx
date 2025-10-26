@@ -345,8 +345,8 @@ export const MiscProvider = ({ children }) => {
           customVal:
                 source === "zenith"
               ? ore.zenithVal
-              : source === "nan"
-              ? ore.nanVal
+              : source === "random"
+              ? ore.randomsVal
               : source === "custom"
               ? ore.customVal
               : ore.customVal,
@@ -373,8 +373,8 @@ export const MiscProvider = ({ children }) => {
         return oreData.zenithVal || 0;
       case "john":
         return oreData.johnVal || 0;
-      case "nan":
-        return oreData.nanVal || 0;
+      case "random":
+        return oreData.randomsVal || 0;
       case "custom":
         return oreData.customVal || 0;
       default:

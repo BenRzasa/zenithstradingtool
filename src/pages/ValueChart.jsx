@@ -97,7 +97,8 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: "Oct 21, 2025",
+    zenith: "Oct 26, 2025",
+    random: "Oct 26, 2025",
   });
 
   // UI control states
@@ -206,6 +207,8 @@ function ValueChart() {
           switch (source) {
             case "zenith":
               newValue = ore.zenithVal;
+            case "random":
+              newValue = ore.randomsVal;
               break;
             default:
               newValue = ore.zenithVal;
@@ -463,6 +466,26 @@ function ValueChart() {
               <span>Zenith Vals</span>
               <div className="v-last-updated">
                 Updated {lastUpdatedDates.zenith}
+              </div>
+            </button>
+          </div>
+          <div className="box-button">
+            <button
+              onClick={() => {
+                toggleValueMode("random");
+              }}
+              className={
+                valueMode === "random" ? "color-template-verglazium-custom" : ""
+              }
+              style={{ 
+                color: valueMode === "random" ? "white" : "black", 
+                textShadow: 
+                  valueMode === "random" ? "1px 2px 2px black" : "" 
+              }}
+            >
+              <span>Random's Vals</span>
+              <div className="v-last-updated">
+                Updated {lastUpdatedDates.random}
               </div>
             </button>
           </div>
