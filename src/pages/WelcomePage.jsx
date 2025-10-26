@@ -64,7 +64,7 @@ Arid is here!
           <h1 className="name">
             <span className="copy-wrap">
               Created by ZenithFlare for The Celestial Caverns
-              <br/>[TEST MESSAGE WITH NEW BUILD TOOL]
+              <br/> We'll miss you NAN, thanks for everything :)
             </span>
           </h1>
           <div className="square"></div>

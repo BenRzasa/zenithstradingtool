@@ -158,7 +158,6 @@ const SettingsPanel = ({
           />
           <ul>
             <li><span className="placeholder">Zenith:</span> ZenithFlare, an active grinder and one of the main traders in TCC. (If you're reading this, ping @geosy!)</li>
-            <li><span className="placeholder">NAN:</span> NAN4736, a long-time player, active grinder and one of the largest traders in TCC.</li>
             <li><span className="placeholder">Custom:</span> Your custom values, modified from the Value Chart page or the "Custom Values" page.</li>
           </ul>
       </div>

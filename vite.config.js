@@ -10,5 +10,6 @@ export default defineConfig(() => {
       open: true,
     },
     plugins: [react()],
+    base: '/zenithstradingtool/',
   };
 });

@@ -7,11 +7,6 @@ const ValueButtons = ({ valueMode, setValueMode }) => {
       label: "Zenith's Values",
     },
     {
-      mode: "nan",
-      className: "color-template-diamond",
-      label: "NAN's Values",
-    },
-    {
       mode: "custom",
       className: "color-template-havicron",
       label: "Custom Values",

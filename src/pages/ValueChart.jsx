@@ -97,8 +97,7 @@ function ValueChart() {
 
   // eslint-disable-next-line
   const [lastUpdatedDates, setLastUpdatedDates] = useState({
-    zenith: "Oct 1, 2025",
-    nan: "Oct 1, 2025",
+    zenith: "Oct 21, 2025",
   });
 
   // UI control states
@@ -205,8 +204,8 @@ function ValueChart() {
         (ore) => {
           let newValue;
           switch (source) {
-            case "nan":
-              newValue = ore.nanVal;
+            case "zenith":
+              newValue = ore.zenithVal;
               break;
             default:
               newValue = ore.zenithVal;
@@ -469,17 +468,6 @@ function ValueChart() {
           </div>
           <div className="box-button">
             <button
-              onClick={() => toggleValueMode("nan")}
-              className={valueMode === "nan" ? "color-template-diamond" : ""}
-            >
-              <span>NAN Vals</span>
-              <div className="v-last-updated">
-                Updated {lastUpdatedDates.nan}
-              </div>
-            </button>
-          </div>
-          <div className="box-button">
-            <button
               onClick={() => toggleValueMode("custom")}
               className={
                 valueMode === "custom" ? "color-template-havicron" : ""
@@ -701,12 +689,6 @@ function ValueChart() {
                   className="color-template-torn-fabric"
                 >
                   Zenith Vals
-                </button>
-                <button
-                  onClick={() => initializeCustomValues("nan")}
-                  className="color-template-diamond"
-                >
-                  NAN Vals
                 </button>
               </div>
               <button

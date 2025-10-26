@@ -2200,8 +2200,18 @@
 }
 
 .color-template-zutrumite {
-  background: #8e2cb2;
-  --wheel-color: #8e2cb2;
+  background: linear-gradient(
+    113deg,
+    #8421c4 0%,
+    #9060e6 20%,
+    #e0aeff 35%,
+    #9060e6 50%,
+    #8421c4 70%,
+    #3e017a 85%,
+    #031846 95%,
+    #010150 100%
+  );
+  --wheel-color: #8421c4;
 }
 
 .color-template-equilibrium {
@@ -2326,7 +2336,7 @@
     #403e68 95%,
     #171c41 100%
   );
-  animation: torn-fabric-animation 1.65s linear infinite;
+  animation: torn-fabric-animation 3s linear infinite;
 }
 
 @keyframes torn-fabric-animation {

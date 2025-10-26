@@ -1,10 +1,7 @@
 import React, { useContext, useState } from "react";
 
 import { MiscContext } from "../context/MiscContext";
-import {
-  nanPlaceholderOres,
-  zenithPlaceholderOres,
-} from "../data/PlaceholderOres";
+
 
 import { OreIcons } from "../data/OreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.webp";
@@ -29,7 +26,6 @@ const LayerTable = ({
     getCurrentCSV,
     getOreClassName,
     updateCSVData,
-    valueMode,
     getValueForMode,
     capCompletion,
     oreValsDict,
@@ -193,17 +189,6 @@ const LayerTable = ({
       });
     }
   };
-
-  function isPlaceholderOre(itemName) {
-    switch (valueMode) {
-      case "nan":
-        return nanPlaceholderOres.includes(itemName);
-      case "zenith":
-        return zenithPlaceholderOres.includes(itemName);
-      default:
-        return false;
-    }
-  }
 
   if (!data) {
     return (
@@ -380,7 +365,6 @@ const LayerTable = ({
                     {!(isRares || isTrueRares) && (
                       <td>
                         {formatDisplayValue(baseValue, 1)}
-                        {isPlaceholderOre(item.name) ? " [P]" : ""}
                       </td>
                     )}
                     {isTrueRares && <td>{1 / baseValue}</td>}

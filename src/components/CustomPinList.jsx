@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { MiscContext } from "../context/MiscContext";
 import { PinListContext } from "../context/PinListContext";
 
@@ -10,7 +10,7 @@ import "../styles/TradeTool.css";
 
 const CustomPinList = ({ isOpen, onClose }) => {
   const { oreValsDict, getValueForMode, getOreClassName, getCurrentCSV } =
-    useContext(MiscContext);
+  useContext(MiscContext);
   const {
     pinListState,
     addToPinList,
@@ -24,6 +24,8 @@ const CustomPinList = ({ isOpen, onClose }) => {
     handlePinSearchIndexChange,
     addMultipleOresToPinList,
     filterOres,
+    useAVMode,
+    setUseAVMode
   } = useContext(PinListContext);
 
   // Get user's inventory data
@@ -35,14 +37,14 @@ const CustomPinList = ({ isOpen, onClose }) => {
 
   // Prepare complete ore list
   const allOresWithLayers = Object.values(oreValsDict)
-    .filter((layer) => !layer.layerName?.includes("Essences"))
-    .flatMap(
-      (layer) =>
-        layer.layerOres?.map((ore) => ({
-          ...ore,
-          layer: layer.layerName,
-        })) || []
-    );
+  .filter((layer) => !layer.layerName?.includes("Essences"))
+  .flatMap(
+    (layer) =>
+      layer.layerOres?.map((ore) => ({
+        ...ore,
+        layer: layer.layerName,
+      })) || []
+  );
 
   const { searchTerm, searchFocused, selectedSearchIndex, quantities } =
     pinListState;
@@ -95,7 +97,7 @@ const CustomPinList = ({ isOpen, onClose }) => {
           addMultipleOresToPinList(searchTerm, allOresWithLayers);
         } else if (
           selectedSearchIndex >= 0 &&
-          selectedSearchIndex < filteredOres.length
+            selectedSearchIndex < filteredOres.length
         ) {
           addToPinList(filteredOres[selectedSearchIndex]);
         }
@@ -184,7 +186,7 @@ const CustomPinList = ({ isOpen, onClose }) => {
             const otherOre = allOres[j];
             if (
               otherOre.name !== pinnedOre.name &&
-              otherOre.name.toLowerCase().includes(currentSubstring)
+                otherOre.name.toLowerCase().includes(currentSubstring)
             ) {
               isUnique = false;
               break;
@@ -270,9 +272,7 @@ const CustomPinList = ({ isOpen, onClose }) => {
                   e.preventDefault();
                   addToPinList(ore);
                 }}
-                className={`search-result-item ${
-                  index === selectedSearchIndex ? "selected" : ""
-                }`}
+                className={`search-result-item ${ index === selectedSearchIndex ? "selected" : ""}`}
               >
                 {ore.name}
               </li>
@@ -302,11 +302,21 @@ const CustomPinList = ({ isOpen, onClose }) => {
           </div>
         )}
         {pinListState.pinnedOres.length > 0 && (
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <div className="box-button" style={{ width: "fit-content" }}>
             <button onClick={copyPinnedFilterToClipboard}>
-              <i class="fa-solid fa-clipboard"></i> Copy Filter
+              <i className="fa-solid fa-clipboard"></i> Copy Filter
             </button>
           </div>
+          <div className="box-button" style={{ width: "fit-content" }}>
+            <button 
+                onClick={() => setUseAVMode(!useAVMode)}
+                className={useAVMode ? "color-template-ambrosine" : "color-template-cindrasil"}
+            >
+              {useAVMode ? "AV Mode" : "Quantity Mode"}
+            </button>
+          </div>
+      </div>
         )}
       </div>
       {/* Pinned ores table */}
@@ -369,15 +379,15 @@ const CustomPinList = ({ isOpen, onClose }) => {
                           }}
                         />
                       ) : (
-                        // Missing icon
-                        <span>
-                          <img
-                            src={missingIcon}
-                            alt={"Missing icon"}
-                            className="t-ore-icon"
-                          ></img>
-                        </span>
-                      )}
+                          // Missing icon
+                          <span>
+                            <img
+                              src={missingIcon}
+                              alt={"Missing icon"}
+                              className="t-ore-icon"
+                            ></img>
+                          </span>
+                        )}
                       {ore.name}
                     </td>
                     <td>
@@ -396,15 +406,13 @@ const CustomPinList = ({ isOpen, onClose }) => {
                             style={{ marginLeft: "5px" }}
                           >
                             {getAvailableAmount(ore)}/
-                            {quantities[ore.name] || 0} |{" "}
-                            {calculatePinAV(ore.name)} AV
+                            {quantities[ore.name] ?? 0}
+                            {!useAVMode ? ` | ${calculatePinAV(ore.name)} AV` : ""}
                           </div>
                           {/* Progress Bar */}
                           <div className="progress-bar-container">
                             <div
-                              className={`progress-bar ${
-                                hasEnoughOre(ore) ? "complete" : "incomplete"
-                              }`}
+                              className={`progress-bar ${ hasEnoughOre(ore) ? "complete" : "incomplete"}`}
                               style={{
                                 width: `${getProgressPercentage(ore)}%`,
                               }}
@@ -419,9 +427,10 @@ const CustomPinList = ({ isOpen, onClose }) => {
                             id={`pin-quantity-${ore.name}`}
                             aria-label="Ore quantity input"
                             type="number"
+                            step={useAVMode ? "any" : "1"}
                             value={quantities[ore.name] ?? ""}
                             onChange={(e) =>
-                              updatePinQuantity(ore.name, e.target.value)
+                              updatePinQuantity(ore, e.target.value)
                             }
                             className="quantity-input"
                             min="1"
@@ -436,8 +445,8 @@ const CustomPinList = ({ isOpen, onClose }) => {
             </tbody>
           </table>
         ) : (
-          <p className="pinlist-empty">No ores pinned yet</p>
-        )}
+            <p className="pinlist-empty">No ores pinned yet</p>
+          )}
       </div>
     </div>
   );

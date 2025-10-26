@@ -1,8 +1,22 @@
-import React, { createContext, useState, useCallback, useEffect, useRef } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
+import { MiscContext } from "./MiscContext";
 
 export const PinListContext = createContext();
 
 export const PinListProvider = ({ children }) => {
+  const {
+    getValueForMode
+  } = useContext(MiscContext);
+
+  const [useAVMode, setUseAVMode] = useState(() => {
+    const savedUseAVMode = localStorage.getItem("useAVMode");
+    return savedUseAVMode !== null ? JSON.parse(savedUseAVMode) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("useAVMode", JSON.stringify(useAVMode));
+  }, [useAVMode]);
+
   const persistPinState = useCallback((state) => {
     try {
       localStorage.setItem("pinListState", JSON.stringify(state));
@@ -63,14 +77,14 @@ export const PinListProvider = ({ children }) => {
       if (existing) {
         return prev;
       }
-      
+
       const newPinnedOres = [...prev.pinnedOres, ore];
 
       const newQuantities = { ...prev.quantities };
       if (!newQuantities[ore.name]) {
         newQuantities[ore.name] = 1;
       }
-      
+
       return {
         ...prev,
         pinnedOres: newPinnedOres,
@@ -86,11 +100,11 @@ export const PinListProvider = ({ children }) => {
       const newPinnedOres = prev.pinnedOres.filter((ore) => ore.name !== oreName);
       const newQuantities = { ...prev.quantities };
       delete newQuantities[oreName];
-      
+
       const newSelectedPinnedOres = prev.selectedPinnedOres.filter(
         (name) => name !== oreName
       );
-      
+
       return {
         ...prev,
         pinnedOres: newPinnedOres,
@@ -100,16 +114,24 @@ export const PinListProvider = ({ children }) => {
     });
   }, [persistentSetPinListState]);
 
-  const updatePinQuantity = useCallback((oreName, quantity) => {
-    const numericValue = quantity === "" ? "" : Math.max(0, Number(quantity) || 0);
-    
+  const updatePinQuantity = useCallback((ore, quantityOrAV) => {
+    let valueOrQuantity = 0.0;
+    console.log("AV Mode: ", useAVMode);
+    if(!useAVMode) {
+      valueOrQuantity = quantityOrAV === "" ? "" : Math.max(0, Number(quantityOrAV) || 0);
+    } else {
+      valueOrQuantity = Math.ceil((getValueForMode(ore) * quantityOrAV).toFixed(0), 1);
+    }
+
     persistentSetPinListState((prev) => ({
       ...prev,
       quantities: {
         ...prev.quantities,
-        [oreName]: numericValue,
+        [ore.name]: valueOrQuantity,
       },
     }));
+
+    console.log(valueOrQuantity);
   }, [persistentSetPinListState]);
 
   // Clear entire pin list
@@ -239,6 +261,8 @@ export const PinListProvider = ({ children }) => {
         handlePinSearchIndexChange,
         addMultipleOresToPinList,
         filterOres,
+        useAVMode,
+        setUseAVMode,
       }}
     >
       {children}

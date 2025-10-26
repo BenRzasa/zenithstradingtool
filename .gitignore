@@ -12,6 +12,7 @@ STUFFTODO.md
 
 # Production
 /build
+.vite.config.js
 
 # Misc directories
 /public/icons/

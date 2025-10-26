@@ -247,26 +247,26 @@ function App() {
 
   return (
     <HashRouter>
-      <PinListProvider>
-        <TradeProvider>
-          <MiscProvider>
-            <PathRedirectHandler />
-            <AppWithHotkeys
-              settingsOpen={settingsOpen}
-              setSettingsOpen={setSettingsOpen}
-              background={background}
-              customBg={customBg}
-              opacity={opacity}
-              handleOpacityChange={handleOpacityChange}
-              handleBgChange={handleBgChange}
-              applyBackground={applyBackground}
-              resetBackground={resetBackground}
-              pinlistOpen={pinlistOpen}
-              setPinlistOpen={setPinlistOpen}
-            />
-          </MiscProvider>
-        </TradeProvider>
-      </PinListProvider>
+      <MiscProvider>
+        <PinListProvider>
+          <TradeProvider>
+              <PathRedirectHandler />
+              <AppWithHotkeys
+                settingsOpen={settingsOpen}
+                setSettingsOpen={setSettingsOpen}
+                background={background}
+                customBg={customBg}
+                opacity={opacity}
+                handleOpacityChange={handleOpacityChange}
+                handleBgChange={handleBgChange}
+                applyBackground={applyBackground}
+                resetBackground={resetBackground}
+                pinlistOpen={pinlistOpen}
+                setPinlistOpen={setPinlistOpen}
+              />
+          </TradeProvider>
+        </PinListProvider>
+      </MiscProvider>
     </HashRouter>
   );
 }

@@ -132,12 +132,6 @@ function CustomValuesEditor() {
               Reset to Zenith's Values
             </button>
             <button
-              onClick={() => handleReset("nan")}
-              className="color-template-diamond"
-            >
-              Reset to NAN's Values
-            </button>
-            <button
               onClick={() => handleReset("custom")}
               className="color-template-obliviril"
             >

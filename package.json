@@ -1,6 +1,6 @@
 {
   "name": "zenithstradingtool",
-  "version": "9.10.1",
+  "version": "9.10.2",
   "private": true,
   "type": "module",
   "homepage": "https://benrzasa.github.io/zenithstradingtool",
@@ -29,8 +29,9 @@
     "bump:feat": "npm version minor --no-git-tag-version",
     "bump:fix": "npm version patch --no-git-tag-version",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist && npm run log-version",
+    "deploy": "gh-pages -d build",
     "log-version": "echo Successfully deployed to GitHub Pages",
+    "postdeploy": "npm run log-version",
     "gen-orevals-json": "node scripts/generateOreValsJSON.js"
   },
   "browserslist": {
