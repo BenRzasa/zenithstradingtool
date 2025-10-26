@@ -343,8 +343,10 @@ export const MiscProvider = ({ children }) => {
         (ore) => ({
           ...ore,
           customVal:
-              source === "zenith"
+                source === "zenith"
               ? ore.zenithVal
+              : source === "nan"
+              ? ore.nanVal
               : source === "custom"
               ? ore.customVal
               : ore.customVal,
