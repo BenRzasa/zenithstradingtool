@@ -144,7 +144,7 @@ const charmPerks = [
   {
     name: "Platinum Ring",
     ore: "Platinum",
-    description: "The player emits a small amount of light",
+    description: "You mine all metals 10% faster",
   },
   {
     name: "Cursed Necklace",

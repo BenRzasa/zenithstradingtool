@@ -252,6 +252,7 @@
   cursor: pointer;
   font-size: 14px;
   font-family: "Comfortaa";
+
   transition: background-color 0.2s;
 }
 
@@ -271,6 +272,7 @@
   margin-top: 15px;
   margin-bottom: 5px;
   font-family: "Comfortaa";
+
   width: 55%;
   padding: 12px 20px;
   font-size: 20px;
@@ -339,10 +341,15 @@
 }
 
 .tr-name-cell {
-  font-family: "Segoe UI", /* Windows */ -apple-system,
-    /* macOS/iOS San Francisco */ BlinkMacSystemFont,
-    /* macOS Chrome */ "Roboto", /* Android/Google */ "Helvetica Neue",
-    /* Fallback sans-serif */ Arial, /* Universal fallback */ sans-serif; /* Final generic fallback */
+
+  font-family:
+    "Segoe UI",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Roboto",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   letter-spacing: 0px;
   position: relative;
   text-align: left;
@@ -420,7 +427,6 @@
   padding: 8px;
   margin-right: 0px;
   font-size: 20px;
-  font-family: "Comfortaa";
   text-align: center;
   border: 1px solid var(--csv-outline);
   border-radius: 8px;
@@ -430,7 +436,6 @@
 }
 
 .add-all-button {
-  font-family: "Comfortaa";
   padding: 2px 6px;
   background-color: #4caf50;
   color: white;
@@ -531,7 +536,6 @@ h2 {
 }
 
 .discount-input {
-  font-family: "Comfortaa";
   width: 50%;
   padding: 12px 20px;
   margin-top: 25px;

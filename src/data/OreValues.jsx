@@ -153,7 +153,7 @@ export const initialOreValsDict = [
     layerOres:
       [
         { name: "Sandstone", zenithVal: 1000, randomsVal: 1000, customVal: 1000 },
-        { name: "Turquoise", zenithVal: 1.5, randomsVal: 2, customVal: 1.5 },
+        { name: "Turquoise", zenithVal: 1.5, randomsVal: 1.5, customVal: 1.5 },
         { name: "Aerolyte", zenithVal: 6, randomsVal: 4, customVal: 6 },
         { name: "Citrine", zenithVal: 14, randomsVal: 12, customVal: 14 },
         { name: "Paliatite", zenithVal: 13, randomsVal: 13, customVal: 13 },
@@ -523,7 +523,7 @@ export const initialOreValsDict = [
         { name: "Nihinoris", zenithVal: 14, randomsVal: 12, customVal: 14 },
         { name: "Nyrvinoris", zenithVal: 1.0, randomsVal: 1.0, customVal: 1.0 },
         { name: "Revalyte", zenithVal: 8, randomsVal: 8, customVal: 8 },
-        { name: "Infrarian", zenithVal: 5, randomsVal: 4, customVal: 5 },
+        { name: "Infrarian", zenithVal: 5, randomsVal: 7, customVal: 5 },
         { name: "Ultranium", zenithVal: 10, randomsVal: 8, customVal: 8 },
         { name: "Auricallium", zenithVal: 12, randomsVal: 9, customVal: 12 },
         { name: "Zeronian", zenithVal: 5, randomsVal: 4, customVal: 5 },
