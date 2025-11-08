@@ -1,6 +1,10 @@
 // All charm names, primary ore, and descriptions
 
 const charmPerks = [
+  { name: "Cosmaline Necklace",
+    ore: "Cosmaline",
+    description: "Reveals all ores that glow in a 4 block radius around you"
+  },
   {
     name: "Exonil Ring",
     ore: "Exodian",

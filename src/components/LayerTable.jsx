@@ -404,10 +404,10 @@ const LayerTable = ({
             onClick={copyLayerFilter}
             title="Copy search filter for this layer"
           >
-            Copy Search Filter
+            Copy Filter
           </button>
           {copiedFilter && (
-            <div className="copy-confirmation">✓ Copied to clipboard!</div>
+            <div className="copy-confirmation">✓ Copied!</div>
           )}
         </div>
       </div>
