@@ -68,16 +68,13 @@
 .percent-90,
 .percent-100,
 .percent-over100 {
-    border-radius: 10px;
     width: 50px !important;
     color: black !important;
     font-weight: bold;
     vertical-align: middle;
-    backdrop-filter: blur(15px);
 }
 
-table {
-    border-radius: 50px;
+.table-wrapper table {
     width: 100%;
     border-collapse: collapse;
     font-size: 20px;
@@ -85,6 +82,14 @@ table {
     position: relative;
     z-index: 0;
     border: none;
+    th:first-of-type {
+        border-top-left-radius: 14px;
+        border-bottom-left-radius: 14px;
+    }
+    th:last-of-type {
+        border-top-right-radius: 14px;
+        border-bottom-right-radius: 14px;
+    }
 }
 
 th {
@@ -94,8 +99,8 @@ th {
     font-family: "Segoe UI";
     color: var(--text-col);
     background-color: var(--background-color);
+    border: none;
     border-collapse: collapse;
-    border-radius: 10px;
 }
 
 .table-wrapper h2 {
@@ -172,7 +177,6 @@ td {
     text-align: left;
     padding-left: 40px !important;
     width: fit-content !important;
-    border-radius: 10px;
     vertical-align: middle;
     padding-right: 5px;
     white-space: nowrap;
@@ -184,6 +188,8 @@ td {
     -webkit-text-stroke: 4px black;
     text-stroke: 4px black;
     paint-order: stroke fill;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
 }
 
 .ore-icon {

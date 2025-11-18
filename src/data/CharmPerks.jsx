@@ -84,12 +84,12 @@ const charmPerks = [
     description: "Damaging liquids have 75% less effect on the player",
   },
   {
-    name: "Boom Band",
+    name: "Boom Bracelet",
     ore: "Boomite",
     description: "The player can mine boomite with any pickaxe",
   },
   {
-    name: "Blast Band",
+    name: "Blast Bracelet",
     ore: "Blastium",
     description: "The player can mine blastium with any pickaxe",
   },

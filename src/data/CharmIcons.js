@@ -1,14 +1,15 @@
 import Ambrosine_Band from '../images/charms/Ambrosine_Band.webp';
 import Astral_Ring from '../images/charms/Astral_Ring.webp';
 import Auroral_Ring from '../images/charms/Auroral_Ring.webp';
-import Blast_Band from '../images/charms/Blast_Band.webp';
-import Boom_Band from '../images/charms/Boom_Band.webp';
+import Blast_Bracelet from '../images/charms/Blast_Bracelet.webp';
+import Boom_Bracelet from '../images/charms/Boom_Bracelet.webp';
 import Cosmaline_Necklace from '../images/charms/Cosmaline_Necklace.webp';
 import Cursed_Necklace from '../images/charms/Cursed_Necklace.webp';
 import Emerald_Necklace from '../images/charms/Emerald_Necklace.webp';
 import Exonil_Ring from '../images/charms/Exonil_Ring.webp';
 import Gilded_Ultranium_Band from '../images/charms/Gilded_Ultranium_Band.webp';
 import Ichor_Band from '../images/charms/Ichor_Band.webp';
+import Ichor_Bracelet from '../images/charms/Ichor_Bracelet.webp';
 import Isoronil_Necklace from '../images/charms/Isoronil_Necklace.webp';
 import Jasper_Ring from '../images/charms/Jasper_Ring.webp';
 import Kyanite_Ring from '../images/charms/Kyanite_Ring.webp';
@@ -29,19 +30,21 @@ import Sunstone_Ring from '../images/charms/Sunstone_Ring.webp';
 import Tachyon_Band from '../images/charms/Tachyon_Band.webp';
 import Thulinyl_Ring from '../images/charms/Thulinyl_Ring.webp';
 import Unobtainium_Necklace from '../images/charms/Unobtainium_Necklace.webp';
+import Unobtanium_Necklace from '../images/charms/Unobtanium_Necklace.webp';
 
 export const CharmIcons = {
   Ambrosine_Band,
   Astral_Ring,
   Auroral_Ring,
-  Blast_Band,
-  Boom_Band,
+  Blast_Bracelet,
+  Boom_Bracelet,
   Cosmaline_Necklace,
   Cursed_Necklace,
   Emerald_Necklace,
   Exonil_Ring,
   Gilded_Ultranium_Band,
   Ichor_Band,
+  Ichor_Bracelet,
   Isoronil_Necklace,
   Jasper_Ring,
   Kyanite_Ring,
@@ -61,5 +64,6 @@ export const CharmIcons = {
   Sunstone_Ring,
   Tachyon_Band,
   Thulinyl_Ring,
-  Unobtainium_Necklace
+  Unobtainium_Necklace,
+  Unobtanium_Necklace
 };

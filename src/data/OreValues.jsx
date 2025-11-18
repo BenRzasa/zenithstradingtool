@@ -40,9 +40,9 @@ export const initialOreValsDict = [
         "linear-gradient(112deg, #ffaa6e 0%, #ffa82e 17.8%, #ffdea9 27.9%, #dd7226 35.6%, #8b263d 51.6%, #dc672e 71.8%, #f8e3b6 80%, #f0b657 87.4%, #7e262c 100%)",
         layerOres:
         [
-            { name: "Vicious Shard", zenithVal: 0.05, randomsVal: 0.05, customVal: 0.05 },
+            { name: "Vicious Shard", zenithVal: 0.005, randomsVal: 0.005, customVal: 0.005 },
             { name: "Jalabono", zenithVal: 0.5, randomsVal: 1.0, customVal: 0.5 },
-            { name: "Hollevite", zenithVal: 10, randomsVal: 8, customVal: 10 },
+            { name: "Hollevite", zenithVal: 5, randomsVal: 5, customVal: 5 },
             { name: "Verglazium", zenithVal: 1.0, randomsVal: 1.0, customVal: 1.0 },
             { name: "Meteorite", zenithVal: 4, randomsVal: 2.0, customVal: 4 },
             { name: "Panolethrium", zenithVal: 2, randomsVal: 1.0, customVal: 2 },
@@ -61,9 +61,9 @@ export const initialOreValsDict = [
         "linear-gradient(90deg,#1035ad 0%, #346fc0 10%, #a0e8f1 22.5%, #d7fcff 35%, #f7ebff 42.5%, #fefcfc 50%, #f7ebff 57.5%, #fef7cf 65%, #f5c97c 80%, #703664 100%)",
         layerOres:
         [
-            { name: "Equilibrium", zenithVal: 5, randomsVal: 5, customVal: 4 },
-            { name: "Quark Matter", zenithVal: 2, randomsVal: 2, customVal: 2.5 },
-            { name: "Periglise", zenithVal: 2, randomsVal: 2, customVal: 2 },
+            { name: "Equilibrium", zenithVal: 5, randomsVal: 5, customVal: 5 },
+            { name: "Quark Matter", zenithVal: 2, randomsVal: 2, customVal: 2 },
+            { name: "Periglise", zenithVal: 2.5, randomsVal: 2, customVal: 2.5 },
             { name: "Isoronil", zenithVal: 1, randomsVal: 1, customVal: 1 },
         ],
     },
@@ -245,7 +245,7 @@ export const initialOreValsDict = [
             { name: "Palladium", zenithVal: 9, randomsVal: 7, customVal: 9 },
             { name: "Neptunium", zenithVal: 8, randomsVal: 6, customVal: 8 },
             { name: "Void Orb", zenithVal: 8, randomsVal: 8, customVal: 8 },
-            { name: "Nilidust", zenithVal: 16, randomsVal: 8, customVal: 16 },
+            { name: "Nilidust", zenithVal: 16, randomsVal: 15, customVal: 16 },
             { name: "Asthenocrit", zenithVal: 7, randomsVal: 6, customVal: 7 }
         ],
     },
@@ -295,7 +295,7 @@ export const initialOreValsDict = [
             { name: "Larimar", zenithVal: 11, randomsVal: 10, customVal: 11 },
             { name: "Frostarium", zenithVal: 12, randomsVal: 11, customVal: 12 },
             { name: "Anetrium", zenithVal: 15, randomsVal: 15, customVal: 15 },
-            { name: "Polarveril", zenithVal: 3, randomsVal: 2, customVal: 3 },
+            { name: "Polarveril", zenithVal: 4, randomsVal: 2, customVal: 4 },
             { name: "Cryonine", zenithVal: 5, randomsVal: 3, customVal: 5 },
             { name: "Soimabarium", zenithVal: 10, randomsVal: 10, customVal: 10 }
         ],
@@ -313,7 +313,7 @@ export const initialOreValsDict = [
             { name: "Hydrolyth", zenithVal: 8, randomsVal: 8, customVal: 8 },
             { name: "Naquadah", zenithVal: 10, randomsVal: 9, customVal: 10 },
             { name: "Pearl", zenithVal: 6, randomsVal: 6, customVal: 6 },
-            { name: "Eidoliphyll", zenithVal: 3, randomsVal: 2, customVal: 2 }
+            { name: "Eidoliphyll", zenithVal: 2, randomsVal: 2, customVal: 2 }
         ],
     },
 

@@ -15,7 +15,7 @@ import "../styles/ValueChart.css";
 */
 
 const RareRow = ({
-  item,
+  ore,
   count,
   lastUpdated,
   incrementValue,
@@ -31,24 +31,24 @@ const RareRow = ({
     <tr>
       {/* Ore name cell */}
       <td
-        className={`name-column ${getOreClassName(item.name)}`}
-        data-text={item.name}
+        className={`name-column ${getOreClassName(ore.name)}`}
+        data-text={ore.name}
       >
-        {OreIcons[item.name.replace(/ /g, "_")] ? (
+        {OreIcons[ore.name.replace(/ /g, "_")] ? (
           <img
-            src={OreIcons[item.name.replace(/ /g, "_")]}
-            alt={`${item.name} icon`}
+            src={OreIcons[ore.name.replace(/ /g, "_")]}
+            alt={`${ore.name} icon`}
             className="ore-icon"
             loading="lazy"
             onError={(e) => {
-              console.error(`Missing icon for: ${item.name}`);
+              console.error(`Missing icon for: ${ore.name}`);
               e.target.style.display = "none";
             }}
           />
         ) : (
           <span>🖼️</span>
         )}
-        {item.name}
+        {ore.name}
       </td>
 
       {/* Quantity cell */}
@@ -57,31 +57,31 @@ const RareRow = ({
           <button
             className="count-btn decrement"
             tabindex="-1"
-            onClick={() => decrementValue(item.name)}
-            aria-label={`Decrement ${item.name}`}
+            onClick={() => decrementValue(ore.name)}
+            aria-label={`Decrement ${ore.name}`}
           >
             -
           </button>
           <div className="count-input-wrapper">
             <input
-              id={`count-input-${item.name}`}
+              id={`count-input-${ore.name}`}
               type="number"
               value={count === 0 ? "" : count}
               min="0"
-              onChange={(e) => handleCountChange(item.name, e.target.value)}
+              onChange={(e) => handleCountChange(ore.name, e.target.value)}
               onBlur={(e) => {
                 if (e.target.value === "") {
-                  handleCountChange(item.name, 0);
+                  handleCountChange(ore.name, 0);
                 }
               }}
-              aria-label={`Edit ${item.name} count`}
+              aria-label={`Edit ${ore.name} count`}
             />
           </div>
           <button
             className="count-btn increment"
             tabindex="-1"
-            onClick={() => incrementValue(item.name)}
-            aria-label={`Increment ${item.name}`}
+            onClick={() => incrementValue(ore.name)}
+            aria-label={`Increment ${ore.name}`}
           >
             +
           </button>
@@ -89,7 +89,7 @@ const RareRow = ({
       </td>
 
       {/* NVs cell */}
-      <td>{calculateNumV(getValueForMode(item), count)}</td>
+      <td>{calculateNumV(getValueForMode(ore), count)}</td>
 
       {/* Last found cell */}
       <td>{formatDate(lastUpdated)}</td>

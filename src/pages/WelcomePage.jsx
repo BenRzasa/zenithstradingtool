@@ -13,9 +13,10 @@ function WelcomePage() {
   const [showChangelog, setShowChangelog] = useState(false);
 
   const currentChangelog = `
-  ## Current Version: v${version} - Deployed 10/16/2025
-  - Small gradient updates, patches, and changes for separate rare value mode
-  ## Last Major Version: v9.10.0 - Deployed 10/11/25
+  ## Current Version: v${version} - Deployed 11/8/2025
+  - Major UI update for tables - cool frosted glass effect!
+
+## Last Major Version: v9.10.0 - Deployed 10/11/25
 \`\`\`diff
 Arid is here!
 + Added Turf & Soil (Surface -> 10m -> 25m) @ 250 & 500 per AV respectively

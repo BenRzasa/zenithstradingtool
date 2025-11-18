@@ -143,26 +143,26 @@ const RareFindsTracker = () => {
   );
 
   // Calculate totals
-  const totalRareFinds = rareOres.reduce((total, item) => {
-    return total + (rareFindsData[item.name] || 0);
+  const totalRareFinds = rareOres.reduce((total, ore) => {
+    return total + (rareFindsData[ore.name] || 0);
   }, 0);
 
-  const totalSuperRareFinds = superRares.reduce((total, item) => {
-    return total + (rareFindsData[item.name] || 0);
+  const totalSuperRareFinds = superRares.reduce((total, ore) => {
+    return total + (rareFindsData[ore.name] || 0);
   }, 0);
 
   const totalRareVal = rareOres
-    .reduce((sum, item) => {
-      const count = rareFindsData[item.name] || 0;
-      const value = useObtainRateVals ? item.obtainVal : getValueForMode(item);
+    .reduce((sum, ore) => {
+      const count = rareFindsData[ore.name] || 0;
+      const value = useObtainRateVals ? ore.obtainVal : getValueForMode(ore);
       return sum + parseFloat(calculateNumV(value, count));
     }, 0)
     .toFixed(2);
 
   const totalSuperRareVal = superRares
-    .reduce((sum, item) => {
-      const count = rareFindsData[item.name] || 0;
-      const value = useObtainRateVals ? item.obtainVal : getValueForMode(item);
+    .reduce((sum, ore) => {
+      const count = rareFindsData[ore.name] || 0;
+      const value = useObtainRateVals ? ore.obtainVal : getValueForMode(ore);
       return sum + parseFloat(calculateNumV(value, count));
     }, 0)
     .toFixed(2);
@@ -178,28 +178,29 @@ const RareFindsTracker = () => {
   };
 
   // Handle count changes
-  const handleCountChange = (itemName, newValue) => {
+  const handleCountChange = (oreName, newValue) => {
     let numericValue =
       newValue === ""
         ? ""
         : Math.max(0, isNaN(newValue) ? 0 : Number(newValue));
     setRareFindsData((prev) => ({
       ...prev,
-      [itemName]: numericValue,
+      [oreName]: numericValue,
     }));
+    updateLastUpdated(oreName);
   };
 
   // Increment/decrement functions
-  const incrementValue = (itemName) => {
-    const currentValue = rareFindsData[itemName] || 0;
-    handleCountChange(itemName, currentValue + 1);
-    updateLastUpdated(itemName);
+  const incrementValue = (oreName) => {
+    const currentValue = rareFindsData[oreName] || 0;
+    handleCountChange(oreName, currentValue + 1);
+    updateLastUpdated(oreName);
   };
 
-  const decrementValue = (itemName) => {
-    const currentValue = rareFindsData[itemName] || 0;
-    handleCountChange(itemName, Math.max(0, currentValue - 1));
-    updateLastUpdated(itemName);
+  const decrementValue = (oreName) => {
+    const currentValue = rareFindsData[oreName] || 0;
+    handleCountChange(oreName, Math.max(0, currentValue - 1));
+    updateLastUpdated(oreName);
   };
 
   // Reset rare finds data with options
@@ -370,12 +371,12 @@ const RareFindsTracker = () => {
                 </tr>
               </thead>
               <tbody>
-                {superRares.map((item, index) => (
+                {superRares.map((ore, index) => (
                   <RareRow
                     key={index}
-                    item={item}
-                    count={rareFindsData[item.name] || 0}
-                    lastUpdated={lastUpdatedDates[item.name]}
+                    ore={ore}
+                    count={rareFindsData[ore.name] || 0}
+                    lastUpdated={lastUpdatedDates[ore.name]}
                     incrementValue={incrementValue}
                     decrementValue={decrementValue}
                     handleCountChange={handleCountChange}
@@ -406,12 +407,12 @@ const RareFindsTracker = () => {
                 </tr>
               </thead>
               <tbody>
-                {rareOres.map((item, index) => (
+                {rareOres.map((ore, index) => (
                   <RareRow
                     key={index}
-                    item={item}
-                    count={rareFindsData[item.name] || 0}
-                    lastUpdated={lastUpdatedDates[item.name]}
+                    ore={ore}
+                    count={rareFindsData[ore.name] || 0}
+                    lastUpdated={lastUpdatedDates[ore.name]}
                     incrementValue={incrementValue}
                     decrementValue={decrementValue}
                     handleCountChange={handleCountChange}

@@ -309,7 +309,7 @@
     margin-top: 0px;
     margin-bottom: 30px;
     backdrop-filter: blur(15px);
-    background-color: color-mix(in srgb, var(--background-color) 70%, transparent);
+    background-color: color-mix(in srgb, var(--background-color) 40%, transparent);
     overflow: hidden;
 }
 
