@@ -245,7 +245,7 @@ export const initialOreValsDict = [
             { name: "Palladium", zenithVal: 9, randomsVal: 7, customVal: 9 },
             { name: "Neptunium", zenithVal: 8, randomsVal: 6, customVal: 8 },
             { name: "Void Orb", zenithVal: 8, randomsVal: 8, customVal: 8 },
-            { name: "Nilidust", zenithVal: 16, randomsVal: 15, customVal: 16 },
+            { name: "Nilidust", zenithVal: 24, randomsVal: 20, customVal: 24 },
             { name: "Asthenocrit", zenithVal: 7, randomsVal: 6, customVal: 7 }
         ],
     },
@@ -323,7 +323,7 @@ export const initialOreValsDict = [
         layerOres:
         [
             { name: "Cosmic Glass", zenithVal: 20, randomsVal: 15, customVal: 20 },
-            { name: "Cosmaline", zenithVal: 10, randomsVal: 11, customVal: 10 },
+            { name: "Cosmaline", zenithVal: 12, randomsVal: 11, customVal: 12 },
             { name: "Astratine", zenithVal: 7, randomsVal: 7, customVal: 7 },
             { name: "Starsteel", zenithVal: 9, randomsVal: 7, customVal: 9 },
             { name: "Stardust", zenithVal: 8, randomsVal: 5, customVal: 8 },

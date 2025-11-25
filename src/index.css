@@ -159,8 +159,7 @@ li {
     --switch-outline: #000000;
     --background-color: #ffffff;
     --text-color: #000000;
-    --accent-color: blue;
-    --
+    --accent-color: #6353d0;
 }
 
 [data-theme="light"] {
@@ -175,7 +174,7 @@ li {
     --text-col: #ffffff;
     --table-outline: #777777;
     --background-color: #121212;
-    --accent-color: #33add6;
+    --accent-color: #a8faff;
     --switch-outline: #ffffff;
     --text-color: #ffffff;
 }
