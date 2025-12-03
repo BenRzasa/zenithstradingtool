@@ -4,7 +4,7 @@ import { MiscContext } from "../context/MiscContext";
 import { useWheel } from "../context/WheelContext";
 import NavBar from "../components/NavBar";
 import { OreIcons } from "../data/OreIcons";
-import missingIcon from "../images/ore-icons/Missing_Texture.webp";
+import missingIcon from "../images/ore-icons/Missing_Texture.png";
 import "../styles/AllGradients.css";
 import "../styles/OreAndLayerWheel.css";
 import "../styles/LayerTable.css";
@@ -651,9 +651,7 @@ const OreAndLayerWheel = () => {
                 <button
                   className="close-button"
                   onClick={() => setSelectedOre(null)}
-                >
-                  ×
-                </button>
+                >✖</button>
                 <h3>Selected Ore:</h3>
                 <div
                   className={`selected-ore-display ${getOreClassName(

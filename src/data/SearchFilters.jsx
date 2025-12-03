@@ -1,5 +1,3 @@
-import { initialOreValsDict } from "./OreValues";
-
 // Function to generate shortest unique substrings across ALL ores
 function generateShortestSubstrings(allLayers) {
     const allOres = [];
@@ -7,10 +5,15 @@ function generateShortestSubstrings(allLayers) {
 
     // Collect all ores from all layers
     allLayers.forEach((layer) => {
-        layer.layerOres.forEach((ore) => {
-            allOres.push(ore);
-        });
-        allOres.push({ name: "Essence" });
+        if (layer.layerOres && Array.isArray(layer.layerOres)) {
+            layer.layerOres.forEach((ore) => {
+                allOres.push(ore);
+            });
+        }
+        // Add Essence if not already present
+        if (!allOres.some(ore => ore.name === "Essence")) {
+            allOres.push({ name: "Essence" });
+        }
     });
 
     // Generate unique substrings across all ores
@@ -30,7 +33,7 @@ function generateShortestSubstrings(allLayers) {
                     const otherOre = allOres[j];
                     if (
                         otherOre !== ore &&
-                            otherOre.name.toLowerCase().includes(currentSubstring)
+                        otherOre.name.toLowerCase().includes(currentSubstring)
                     ) {
                         isUnique = false;
                         break;
@@ -63,13 +66,15 @@ function layersToSearchFilters(layers) {
         const uniqueSubstrings = new Set();
         const finalSubstrings = [];
 
-        layer.layerOres.forEach((ore) => {
-            const substring = globalSubstrings[ore.name];
-            if (!uniqueSubstrings.has(substring)) {
-                uniqueSubstrings.add(substring);
-                finalSubstrings.push(substring);
-            }
-        });
+        if (layer.layerOres && Array.isArray(layer.layerOres)) {
+            layer.layerOres.forEach((ore) => {
+                const substring = globalSubstrings[ore.name];
+                if (!uniqueSubstrings.has(substring)) {
+                    uniqueSubstrings.add(substring);
+                    finalSubstrings.push(substring);
+                }
+            });
+        }
 
         const searchString = finalSubstrings.join("/");
         filters.push(`${layerName}: ${searchString}`);
@@ -89,7 +94,9 @@ function createCombinedRaresFilter(layers) {
     });
 
     rareLayers.forEach((layer) => {
-        rareOres.push(...layer.layerOres);
+        if (layer.layerOres && Array.isArray(layer.layerOres)) {
+            rareOres.push(...layer.layerOres);
+        }
     });
 
     if (rareOres.length > 0) {
@@ -116,6 +123,10 @@ function createCombinedRaresFilter(layers) {
 
 // Full conversion
 function convertLayersToSearchFilters(layers) {
+    if (!Array.isArray(layers) || layers.length === 0) {
+        return [];
+    }
+
     const combinedRaresFilter = createCombinedRaresFilter(layers);
     const layerFilters = layersToSearchFilters(layers);
 
@@ -132,5 +143,18 @@ function convertLayersToSearchFilters(layers) {
     ];
 }
 
-const searchFilters = convertLayersToSearchFilters(initialOreValsDict);
-export default searchFilters;
+// Export as a utility function
+export const getSearchFilters = (oreValsDict) => {
+    if (!Array.isArray(oreValsDict) || oreValsDict.length === 0) {
+        return [];
+    }
+    return convertLayersToSearchFilters(oreValsDict);
+};
+
+// Export as a hook for React components
+import { useMemo } from "react";
+export const useSearchFilters = (oreValsDict) => {
+    return useMemo(() => {
+        return getSearchFilters(oreValsDict);
+    }, [oreValsDict]);
+};

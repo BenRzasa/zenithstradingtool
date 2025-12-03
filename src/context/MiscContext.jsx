@@ -1,24 +1,159 @@
-import React, { createContext, useState, useEffect, useRef } from "react";
-import { initialOreValsDict } from "../data/OreValues";
-import { OreNames } from "../data/OreNames";
+import React, { createContext, useState, useEffect, useRef, useMemo } from "react";
+import { useOreValues } from "../hooks/useOreValues";
+import { getOreNames } from "../data/OreNames";
 
 export const MiscContext = createContext();
 
+// ==================== UTILITY FUNCTIONS (DEFINE FIRST) ====================
+
+// Initialize custom values (default to zenithVal)
+const initializeCustomValues = (oreData) => {
+  return oreData.map(layer => ({
+    ...layer,
+    layerOres: layer.layerOres.map(ore => ({
+      ...ore,
+      customVal: ore.customVal || ore.zenithVal || ore.obtainVal || ore.randomsVal || 0
+    }))
+  }));
+};
+
+// Find matching layer by name (flexible matching)
+const findMatchingLayer = (layerName, dataArray) => {
+  const baseName = layerName.split('\n')[0].trim();
+  return dataArray.find(savedLayer => {
+    const savedBaseName = savedLayer.layerName.split('\n')[0].trim();
+    return baseName === savedBaseName || 
+      layerName.includes(savedBaseName) || 
+      savedLayer.layerName.includes(baseName);
+  });
+};
+
+// Merge hook data with saved custom values
+const mergeOreValues = (hookData, savedData) => {
+  if (!Array.isArray(savedData) || savedData.length === 0) {
+    return initializeCustomValues(hookData);
+  }
+
+  return hookData.map((hookLayer, layerIndex) => {
+    // Find matching saved layer by layer name
+    const savedLayer = findMatchingLayer(hookLayer.layerName, savedData);
+
+    if (savedLayer && savedLayer.layerOres) {
+      const mergedOres = hookLayer.layerOres.map(hookOre => {
+        const savedOre = savedLayer.layerOres.find(o => o.name === hookOre.name);
+        if (savedOre && savedOre.customVal !== undefined) {
+          // Preserve custom value from saved data
+          return { ...hookOre, customVal: savedOre.customVal };
+        }
+        // Initialize custom value if not present
+        return {
+          ...hookOre,
+          customVal: hookOre.customVal || hookOre.zenithVal || hookOre.obtainVal || hookOre.randomsVal || 0
+        };
+      });
+
+      return {
+        ...hookLayer,
+        layerOres: mergedOres
+      };
+    }
+
+    // No matching saved layer, initialize all custom values
+    return {
+      ...hookLayer,
+      layerOres: hookLayer.layerOres.map(ore => ({
+        ...ore,
+        customVal: ore.customVal || ore.zenithVal || ore.obtainVal || ore.randomsVal || 0
+      }))
+    };
+  });
+};
+
+// Convert old object format to new array format
+const convertOldFormatToNew = (oldDict) => {
+  if (Array.isArray(oldDict)) return oldDict;
+
+  const newFormat = [];
+
+  Object.entries(oldDict).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      // Old format: { "True Rares": [{...}, {...}] }
+      newFormat.push({
+        layerName: key,
+        layerOres: value,
+        background: "linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)" // Default
+      });
+    } else if (value && typeof value === 'object') {
+      // Somewhat new format
+      newFormat.push({
+        layerName: value.layerName || key,
+        layerOres: value.layerOres || [],
+        background: value.background || "linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)"
+      });
+    }
+  });
+
+  return newFormat;
+};
+
 export const MiscProvider = ({ children }) => {
+  // ==================== STATE INITIALIZATION ====================
+  // Get ore values and names from hooks
+  const oreValuesFromHook = useOreValues();
+  
+  // Use useMemo for oreNames to compute it from oreValsDict when ready
+  const [oreValsDict, setOreValsDict] = useState(() => {
+    const savedDict = localStorage.getItem("oreValsDict");
+    if (!savedDict) {
+      // No saved data, use hook data and initialize custom values
+      return initializeCustomValues(oreValuesFromHook);
+    }
+
+    try {
+      const savedData = JSON.parse(savedDict);
+
+      if (Array.isArray(savedData)) {
+        // Already in new format, merge with hook data
+        return mergeOreValues(oreValuesFromHook, savedData);
+      } else {
+        // Convert old format to new and merge
+        const convertedData = convertOldFormatToNew(savedData);
+        return mergeOreValues(oreValuesFromHook, convertedData);
+      }
+    } catch (e) {
+      console.error("Error parsing saved ore values:", e);
+      return initializeCustomValues(oreValuesFromHook);
+    }
+  });
+
+  // Compute oreNames from oreValsDict
+  const oreNames = useMemo(() => {
+    return getOreNames(oreValsDict);
+  }, [oreValsDict]);
+
+  // UI States
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [hotkeysEnabled, setHotkeysEnabled] = useState(() => {
     const savedHotkeys = localStorage.getItem("hotkeysEnabled");
     return savedHotkeys !== null ? JSON.parse(savedHotkeys) : true;
   });
-  const initialDictRef = useRef(initialOreValsDict);
 
-  // Core CSV data state
+  // CSV Data States
   const [csvData, setCSVData] = useState(() => {
     const savedCSVData = localStorage.getItem("csvData");
     return savedCSVData ? JSON.parse(savedCSVData) : {};
   });
 
-  // CSV History filtering out old entries without oreValsDict
+  const [secondaryCSVData, setSecondaryCSVData] = useState(() => {
+    const savedSecondaryCSV = localStorage.getItem("secondaryCSVData");
+    return savedSecondaryCSV ? JSON.parse(savedSecondaryCSV) : null;
+  });
+
+  const [useSecondaryCSV, setUseSecondaryCSV] = useState(() => {
+    const savedUseSecondary = localStorage.getItem("useSecondaryCSV");
+    return savedUseSecondary !== null ? JSON.parse(savedUseSecondary) : false;
+  });
+
   const [csvHistory, setCSVHistory] = useState(() => {
     const savedHistory = localStorage.getItem("csvHistory");
     try {
@@ -30,61 +165,43 @@ export const MiscProvider = ({ children }) => {
     }
   });
 
-  // Persist 2nd csv
-  const [secondaryCSVData, setSecondaryCSVData] = useState(() => {
-    const savedSecondaryCSV = localStorage.getItem("secondaryCSVData");
-    return savedSecondaryCSV ? JSON.parse(savedSecondaryCSV) : null;
-  });
-
-  // Whether to use second CSV currently
-  const [useSecondaryCSV, setUseSecondaryCSV] = useState(() => {
-    const savedUseSecondary = localStorage.getItem("useSecondaryCSV");
-    return savedUseSecondary !== null ? JSON.parse(savedUseSecondary) : false;
-  });
-
-  // Previous amounts for comparison
   const [previousAmounts, setPreviousAmounts] = useState(() => {
     const savedPreviousData = localStorage.getItem("csvPreviousData");
     return savedPreviousData ? JSON.parse(savedPreviousData) : {};
   });
 
-  // Last updated timestamp
   const [lastUpdated, setLastUpdated] = useState(() => {
     const savedTime = localStorage.getItem("csvLastUpdated");
     return savedTime ? new Date(savedTime) : null;
   });
 
-  // Value calculation settings
+  // Value Calculation States
   const [capCompletion, setCapCompletion] = useState(() => {
     const savedCapComp = localStorage.getItem("capCompletion");
     return savedCapComp !== null ? JSON.parse(savedCapComp) : true;
   });
 
-  // Current value mode
   const [valueMode, setValueMode] = useState(() => {
     const savedValueMode = localStorage.getItem("valueMode");
     return savedValueMode !== null ? JSON.parse(savedValueMode) : "zenith";
   });
 
-  // Current value dict
   const [currentMode, setCurrentMode] = useState(() => {
     const savedCalcMode = localStorage.getItem("currentMode");
     return savedCalcMode !== null ? JSON.parse(savedCalcMode) : 3;
   });
 
-  // Whether to use obtain rate vals for rares
   const [useObtainRateVals, setUseObtainRateVals] = useState(() => {
     const savedObtain = localStorage.getItem("useObtainRateVals");
     return savedObtain !== null ? JSON.parse(savedObtain) : false;
   });
 
-  // Custom AV multiplier
   const [customMultiplier, setCustomMultiplier] = useState(() => {
     const savedCustomMult = localStorage.getItem("customMultiplier");
     return savedCustomMult !== null ? JSON.parse(savedCustomMult) : 100;
   });
 
-  // Rare finds data state
+  // Rare Finds States
   const [rareFindsData, setRareFindsData] = useState(() => {
     const savedRareFinds = localStorage.getItem("rareFindsData");
     return savedRareFinds ? JSON.parse(savedRareFinds) : {};
@@ -97,7 +214,7 @@ export const MiscProvider = ({ children }) => {
 
   const [rareValueMode, setRareValueMode] = useState(() => {
     const savedRareValueMode = localStorage.getItem("rareValueMode");
-    return savedRareValueMode ? JSON.parse(savedRareValueMode) : 1; // Default to AV
+    return savedRareValueMode ? JSON.parse(savedRareValueMode) : 1;
   });
 
   const [rareCustomMultiplier, setRareCustomMultiplier] = useState(() => {
@@ -105,269 +222,50 @@ export const MiscProvider = ({ children }) => {
     return savedRareMultiplier ? JSON.parse(savedRareMultiplier) : 100;
   });
 
-  useEffect(() => {
-    localStorage.setItem("useSeparateRareMode", JSON.stringify(useSeparateRareMode));
-  }, [useSeparateRareMode]);
+  // Use a ref to track initial values
+  const initialDictRef = useRef(oreValuesFromHook);
 
-  useEffect(() => {
-    localStorage.setItem("rareValueMode", JSON.stringify(rareValueMode));
-  }, [rareValueMode]);
+  // ==================== COMPONENT FUNCTIONS ====================
 
-  useEffect(() => {
-    localStorage.setItem("rareCustomMultiplier", JSON.stringify(rareCustomMultiplier));
-  }, [rareCustomMultiplier]);
+  // Reset custom values to a specific source
+  const resetCustomValues = (source) => {
+    const resetData = oreValsDict.map(layer => {
+      const resetOres = layer.layerOres.map(ore => {
+        let newCustomVal;
+        switch(source) {
+          case "zenith":
+            newCustomVal = ore.zenithVal || 0;
+            break;
+          case "random":
+            newCustomVal = ore.randomsVal || 0;
+            break;
+          case "obtain":
+            newCustomVal = ore.obtainVal || ore.zenithVal || 0;
+            break;
+          case "custom":
+          default:
+            newCustomVal = ore.customVal || ore.zenithVal || 0;
+        }
 
-  // Function to merge ore values while preserving custom values
-  const mergeOreValues = (baseDict, customDict) => {
-    const merged = JSON.parse(JSON.stringify(baseDict));
+        return { ...ore, customVal: newCustomVal };
+      });
 
-    for (const layerKey in merged) {
-      if (customDict[layerKey]) {
-        merged[layerKey].layerOres = merged[layerKey].layerOres.map((ore) => {
-          const customOre = customDict[layerKey].layerOres.find(
-            (o) => o.name === ore.name
-          );
-          return customOre ? { ...ore, customVal: customOre.customVal } : ore;
-        });
-      }
-    }
-
-    return merged;
-  };
-
-  // Ore values dictionary state with automatic updates from initialOreValsDict
-  // Merges saved custom vals with current initial dict
-  const [oreValsDict, setOreValsDict] = useState(() => {
-    const savedDict = localStorage.getItem("oreValsDict");
-    if (savedDict) {
-      const savedData = JSON.parse(savedDict);
-      // Ensure the saved data has the new structure
-      if (savedData["1"] && savedData["1"].layerName) {
-        // Already in new format
-        return mergeOreValues(initialOreValsDict, savedData);
-      } else {
-        // Convert from old format to new format
-        const convertedData = {};
-        Object.entries(savedData).forEach(([key, value], index) => {
-          convertedData[index + 1] = {
-            layerName: key,
-            layerOres: value,
-          };
-        });
-        return mergeOreValues(initialOreValsDict, convertedData);
-      }
-    }
-    return initialOreValsDict;
-  });
-
-  // Effect to update oreValsDict when initialOreValsDict changes
-  useEffect(() => {
-    if (initialDictRef.current !== initialOreValsDict) {
-      setOreValsDict((prev) => mergeOreValues(initialOreValsDict, prev));
-      initialDictRef.current = initialOreValsDict;
-    }
-  }, []);
-
-  // Persist all data changes
-  useEffect(
-    () => localStorage.setItem("csvData", JSON.stringify(csvData)),
-    [csvData]
-  );
-  useEffect(() => {
-    if (Object.keys(previousAmounts).length > 0) {
-      localStorage.setItem("csvPreviousData", JSON.stringify(previousAmounts));
-    }
-  }, [previousAmounts]);
-  useEffect(() => {
-    if (lastUpdated) {
-      localStorage.setItem("csvLastUpdated", lastUpdated.toISOString());
-    }
-  }, [lastUpdated]);
-  useEffect(
-    () =>
-      localStorage.setItem("hotkeysEnabled", JSON.stringify(hotkeysEnabled)),
-    [hotkeysEnabled]
-  );
-  useEffect(
-    () =>
-      localStorage.setItem(
-        "secondaryCSVData",
-        JSON.stringify(secondaryCSVData)
-      ),
-    [secondaryCSVData]
-  );
-  useEffect(
-    () =>
-      localStorage.setItem("useSecondaryCSV", JSON.stringify(useSecondaryCSV)),
-    [useSecondaryCSV]
-  );
-  useEffect(
-    () => localStorage.setItem("csvHistory", JSON.stringify(csvHistory)),
-    [csvHistory]
-  );
-  useEffect(
-    () => localStorage.setItem("capCompletion", JSON.stringify(capCompletion)),
-    [capCompletion]
-  );
-  useEffect(
-    () => localStorage.setItem("valueMode", JSON.stringify(valueMode)),
-    [valueMode]
-  );
-
-  useEffect(
-    () => localStorage.setItem("currentMode", JSON.stringify(currentMode)),
-    [currentMode]
-  );
-  useEffect(
-    () =>
-      localStorage.setItem(
-        "useObtainRateVals",
-        JSON.stringify(useObtainRateVals)
-      ),
-    [useObtainRateVals]
-  );
-  useEffect(
-    () =>
-      localStorage.setItem(
-        "customMultiplier",
-        JSON.stringify(customMultiplier)
-      ),
-    [customMultiplier]
-  );
-  useEffect(
-    () => localStorage.setItem("rareFindsData", JSON.stringify(rareFindsData)),
-    [rareFindsData]
-  );
-  useEffect(
-    () => localStorage.setItem("oreValsDict", JSON.stringify(oreValsDict)),
-    [oreValsDict]
-  );
-
-  // Update the CSV data and create a new history entry set to the current structure
-  const updateCSVData = (newData) => {
-    const now = new Date();
-    const totalAV = calculateTotalAV(newData);
-    setPreviousAmounts(csvData);
-    setCSVData(newData);
-    setCSVHistory((prev) => [
-      {
-        data: newData,
-        timestamp: now.toISOString(),
-        totalAV: totalAV,
-        valueMode: valueMode,
-        customMultiplier: customMultiplier,
-        oreValsDict: oreValsDict,
-      },
-      ...prev.slice(0, 99),
-    ]);
-    setLastUpdated(now);
-  };
-
-  // Load an old CSV and its structure with old/missing ores
-  const loadOldCSV = (index) => {
-    if (index < 0 || index >= csvHistory.length) return;
-    const historyEntry = csvHistory[index];
-
-    if (!historyEntry || !historyEntry.oreValsDict) {
-      console.error("Attempted to load invalid history entry");
-      return;
-    }
-
-    // Convert old format to new format if needed
-    let convertedOreValsDict = historyEntry.oreValsDict;
-
-    // Check if it's old format (object with layer names as keys)
-    if (
-      !Array.isArray(historyEntry.oreValsDict) &&
-      typeof historyEntry.oreValsDict === "object"
-    ) {
-      convertedOreValsDict = convertOldToNewFormat(
-        historyEntry.oreValsDict,
-        oreValsDict
-      );
-    }
-
-    setOreValsDict(convertedOreValsDict);
-    setCSVData(historyEntry.data);
-    setValueMode(historyEntry.valueMode || "zenith");
-
-    if (historyEntry.valueMode === "custom" && historyEntry.customMultiplier) {
-      setCustomMultiplier(historyEntry.customMultiplier);
-    }
-
-    setLastUpdated(new Date(historyEntry.timestamp));
-  };
-
-  // Helper function to convert old format to new format
-  const convertOldToNewFormat = (oldDict, currentOreValsDict) => {
-    const newFormat = [];
-
-    // Convert currentOreValsDict to array format if it's in old format
-    let currentLayersArray = currentOreValsDict;
-    if (
-      !Array.isArray(currentOreValsDict) &&
-      typeof currentOreValsDict === "object"
-    ) {
-      currentLayersArray = Object.values(currentOreValsDict);
-    }
-
-    // Convert each old layer to new format
-    Object.entries(oldDict).forEach(([layerName, layerOres]) => {
-      // Find matching layer in current oreValsDict to get the background
-      const matchingLayer = currentLayersArray.find(
-        (layer) =>
-          layer.layerName === layerName ||
-          (layer.layerName &&
-            layerName &&
-            (layer.layerName.includes(layerName) ||
-              layerName.includes(layer.layerName)))
-      );
-
-      const newLayer = {
-        layerName: layerName,
-        layerOres: layerOres,
-        background: matchingLayer ? matchingLayer.background : "red",
-      };
-      newFormat.push(newLayer);
+      return { ...layer, layerOres: resetOres };
     });
 
-    return newFormat;
-  };
-
-  // Reset custom values to the selected value source
-  const resetCustomValues = (source) => {
-    const newOreVals = JSON.parse(JSON.stringify(initialOreValsDict));
-
-    for (const layerKey in newOreVals) {
-      newOreVals[layerKey].layerOres = newOreVals[layerKey].layerOres.map(
-        (ore) => ({
-          ...ore,
-          customVal:
-                source === "zenith"
-              ? ore.zenithVal
-              : source === "random"
-              ? ore.randomsVal
-              : source === "custom"
-              ? ore.customVal
-              : ore.customVal,
-        })
-      );
-    }
-
-    setOreValsDict(newOreVals);
+    setOreValsDict(resetData);
     setValueMode("custom");
-    return newOreVals;
+    return resetData;
   };
 
-  const getOreClassName = (oreName) => {
-    return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
-  };
-
-  // Get the value for a given ore based on the value mode / obtain rate selected
+  // Get ore value based on current mode
   const getValueForMode = (oreData) => {
     if (!oreData || !oreData.name || oreData.name.includes("Essence")) return 0;
-    if (oreData.hasOwnProperty("obtainVal") && useObtainRateVals)
-      return oreData.obtainVal;
+
+    if (oreData.hasOwnProperty("obtainVal") && useObtainRateVals) {
+      return oreData.obtainVal || 0;
+    }
+
     switch (valueMode) {
       case "zenith":
         return oreData.zenithVal || 0;
@@ -382,21 +280,21 @@ export const MiscProvider = ({ children }) => {
     }
   };
 
-  // Calculate AV totals for CSV data (MAY WANT TO MOVE TO NEW CSVCONTEXT)
+  // Calculate total AV from CSV data
   const calculateTotalAV = (data, useHistoricalOreVals = null) => {
     if (!data) return 0;
 
     let total = 0;
     const oreValuesToUse = useHistoricalOreVals || oreValsDict;
 
-    OreNames.forEach((oreName) => {
-      // Skip if it's an essence (check the ore name directly)
+    oreNames.forEach((oreName) => {
       if (oreName.includes("Essence")) return;
 
       const amount = data[oreName] || 0;
       let baseValue = 1;
 
-      Object.values(oreValuesToUse).some((layer) => {
+      // Search through all layers for the ore
+      oreValuesToUse.some((layer) => {
         const oreData = layer.layerOres.find((item) => item.name === oreName);
         if (oreData) {
           baseValue = getValueForMode(oreData);
@@ -407,22 +305,72 @@ export const MiscProvider = ({ children }) => {
 
       total += amount / baseValue;
     });
+
     return total;
   };
 
+  // ==================== CSV OPERATIONS ====================
+
+  const updateCSVData = (newData) => {
+    const now = new Date();
+    const totalAV = calculateTotalAV(newData);
+
+    setPreviousAmounts(csvData);
+    setCSVData(newData);
+
+    setCSVHistory((prev) => [
+      {
+        data: newData,
+        timestamp: now.toISOString(),
+        totalAV: totalAV,
+        valueMode: valueMode,
+        customMultiplier: customMultiplier,
+        oreValsDict: oreValsDict,
+      },
+      ...prev.slice(0, 99),
+    ]);
+
+    setLastUpdated(now);
+  };
+
+  const loadOldCSV = (index) => {
+    if (index < 0 || index >= csvHistory.length) return;
+
+    const historyEntry = csvHistory[index];
+    if (!historyEntry || !historyEntry.oreValsDict) {
+      console.error("Attempted to load invalid history entry");
+      return;
+    }
+
+    let historicalOreVals = historyEntry.oreValsDict;
+
+    // Convert if necessary
+    if (!Array.isArray(historicalOreVals)) {
+      historicalOreVals = convertOldFormatToNew(historicalOreVals);
+    }
+
+    // Merge with current hook data
+    const mergedOreVals = mergeOreValues(oreValuesFromHook, historicalOreVals);
+
+    setOreValsDict(mergedOreVals);
+    setCSVData(historyEntry.data);
+    setValueMode(historyEntry.valueMode || "zenith");
+
+    if (historyEntry.valueMode === "custom" && historyEntry.customMultiplier) {
+      setCustomMultiplier(historyEntry.customMultiplier);
+    }
+
+    setLastUpdated(new Date(historyEntry.timestamp));
+  };
+
   const clearCSVHistory = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to clear all CSV history? This action cannot be undone."
-      )
-    ) {
+    if (window.confirm("Are you sure you want to clear all CSV history? This action cannot be undone.")) {
       setCSVHistory([]);
       localStorage.removeItem("csvHistory");
     }
   };
 
   const clearCSVData = () => {
-    // Clear all CSV-related data from localStorage
     localStorage.removeItem("csvData");
     localStorage.removeItem("csvPreviousData");
     localStorage.removeItem("csvLastUpdated");
@@ -430,7 +378,6 @@ export const MiscProvider = ({ children }) => {
     localStorage.removeItem("secondaryCSVData");
     localStorage.removeItem("useSecondaryCSV");
 
-    // Reset all CSV-related states
     setCSVData({});
     setPreviousAmounts({});
     setLastUpdated(null);
@@ -441,51 +388,170 @@ export const MiscProvider = ({ children }) => {
     console.log("All CSV data cleared");
   };
 
-  // Export all settings and functions here!
-  const contextValue = {
+  // Helper function for CSS classes
+  const getOreClassName = (oreName) => {
+    return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
+  };
+
+  // Get current CSV (primary or secondary)
+  const getCurrentCSV = () => {
+    return useSecondaryCSV ? secondaryCSVData : csvData;
+  };
+
+  // ==================== EFFECTS ====================
+
+  // Update ore values when hook data changes
+  useEffect(() => {
+    if (initialDictRef.current !== oreValuesFromHook) {
+      const merged = mergeOreValues(oreValuesFromHook, oreValsDict);
+      setOreValsDict(merged);
+      initialDictRef.current = oreValuesFromHook;
+    }
+  }, [oreValuesFromHook]);
+
+  // Persist states to localStorage
+  useEffect(() => {
+    localStorage.setItem("csvData", JSON.stringify(csvData));
+  }, [csvData]);
+
+  useEffect(() => {
+    if (Object.keys(previousAmounts).length > 0) {
+      localStorage.setItem("csvPreviousData", JSON.stringify(previousAmounts));
+    }
+  }, [previousAmounts]);
+
+  useEffect(() => {
+    if (lastUpdated) {
+      localStorage.setItem("csvLastUpdated", lastUpdated.toISOString());
+    }
+  }, [lastUpdated]);
+
+  useEffect(() => {
+    localStorage.setItem("hotkeysEnabled", JSON.stringify(hotkeysEnabled));
+  }, [hotkeysEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem("secondaryCSVData", JSON.stringify(secondaryCSVData));
+  }, [secondaryCSVData]);
+
+  useEffect(() => {
+    localStorage.setItem("useSecondaryCSV", JSON.stringify(useSecondaryCSV));
+  }, [useSecondaryCSV]);
+
+  useEffect(() => {
+    localStorage.setItem("csvHistory", JSON.stringify(csvHistory));
+  }, [csvHistory]);
+
+  useEffect(() => {
+    localStorage.setItem("capCompletion", JSON.stringify(capCompletion));
+  }, [capCompletion]);
+
+  useEffect(() => {
+    localStorage.setItem("valueMode", JSON.stringify(valueMode));
+  }, [valueMode]);
+
+  useEffect(() => {
+    localStorage.setItem("currentMode", JSON.stringify(currentMode));
+  }, [currentMode]);
+
+  useEffect(() => {
+    localStorage.setItem("useObtainRateVals", JSON.stringify(useObtainRateVals));
+  }, [useObtainRateVals]);
+
+  useEffect(() => {
+    localStorage.setItem("customMultiplier", JSON.stringify(customMultiplier));
+  }, [customMultiplier]);
+
+  useEffect(() => {
+    localStorage.setItem("rareFindsData", JSON.stringify(rareFindsData));
+  }, [rareFindsData]);
+
+  useEffect(() => {
+    localStorage.setItem("oreValsDict", JSON.stringify(oreValsDict));
+  }, [oreValsDict]);
+
+  useEffect(() => {
+    localStorage.setItem("useSeparateRareMode", JSON.stringify(useSeparateRareMode));
+  }, [useSeparateRareMode]);
+
+  useEffect(() => {
+    localStorage.setItem("rareValueMode", JSON.stringify(rareValueMode));
+  }, [rareValueMode]);
+
+  useEffect(() => {
+    localStorage.setItem("rareCustomMultiplier", JSON.stringify(rareCustomMultiplier));
+  }, [rareCustomMultiplier]);
+
+  // ==================== CONTEXT VALUE ====================
+
+  const contextValue = useMemo(() => ({
+    // UI States
     settingsOpen,
     setSettingsOpen,
     hotkeysEnabled,
     setHotkeysEnabled,
-    updateCSVData,
-    previousAmounts,
-    lastUpdated,
+
+    // CSV Operations
+    csvData,
     secondaryCSVData,
     setSecondaryCSVData,
     useSecondaryCSV,
     setUseSecondaryCSV,
-    getCurrentCSV: () => (useSecondaryCSV ? secondaryCSVData : csvData),
+    getCurrentCSV,
+    updateCSVData,
+    previousAmounts,
+    lastUpdated,
+
+    // CSV History
     csvHistory,
     setCSVHistory,
     loadOldCSV,
     clearCSVHistory,
+    clearCSVData,
+
+    // Value Calculation
     capCompletion,
     setCapCompletion,
     valueMode,
     setValueMode,
-    useSeparateRareMode,
-    setUseSeparateRareMode,
-    rareValueMode,
-    setRareValueMode,
-    rareCustomMultiplier,
-    setRareCustomMultiplier,
-    getOreClassName,
-    getValueForMode,
     currentMode,
     setCurrentMode,
     customMultiplier,
     setCustomMultiplier,
     useObtainRateVals,
     setUseObtainRateVals,
-    oreValsDict,
-    setOreValsDict,
-    resetCustomValues,
+    getValueForMode,
+    calculateTotalAV,
+
+    // Rare Finds
     rareFindsData,
     setRareFindsData,
-    clearCSVData,
-  };
+    useSeparateRareMode,
+    setUseSeparateRareMode,
+    rareValueMode,
+    setRareValueMode,
+    rareCustomMultiplier,
+    setRareCustomMultiplier,
+
+    // Ore Values
+    oreValsDict,
+    setOreValsDict,
+    oreNames,
+    resetCustomValues,
+
+    // Utilities
+    getOreClassName,
+  }), [
+    settingsOpen, hotkeysEnabled, csvData, secondaryCSVData, useSecondaryCSV,
+    previousAmounts, lastUpdated, csvHistory, capCompletion, valueMode,
+    currentMode, customMultiplier, useObtainRateVals, rareFindsData,
+    useSeparateRareMode, rareValueMode, rareCustomMultiplier, oreValsDict,
+    oreNames
+  ]);
 
   return (
-    <MiscContext.Provider value={contextValue}>{children}</MiscContext.Provider>
+    <MiscContext.Provider value={contextValue}>
+      {children}
+    </MiscContext.Provider>
   );
 };

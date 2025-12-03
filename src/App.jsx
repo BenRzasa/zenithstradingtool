@@ -32,6 +32,9 @@ import PinlistToggle from "./components/PinlistToggle";
 import HotkeyHandler from "./components/HotkeyHandler";
 import packageJson from "../package.json";
 
+const MIRAHEZE_URL = "https://thecelestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
+const SUCCESSFUL_PROXY = "https://corsproxy.io/?";
+
 // IndexedDB setup
 const DB_NAME = "ZenithTradingToolDB";
 const DB_VERSION = 1;
@@ -105,6 +108,37 @@ function App() {
   const [background, setBackground] = useState("");
   const [customBg, setCustomBg] = useState("");
   const [opacity, setOpacity] = useState(0.5);
+  useEffect(() => {
+    const fetchAndStoreOreValues = async () => {
+      try {
+        const proxyURL = SUCCESSFUL_PROXY + encodeURIComponent(MIRAHEZE_URL);
+        console.log(`Fetching ore values from: ${proxyURL}`);
+
+        const response = await fetch(proxyURL);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ERROR: ${response.status}`);
+        }
+
+        const oresJSON = await response.json();
+        console.log("Fetch successful, storing ore values");
+        
+        // Store raw JSON in localStorage
+        localStorage.setItem('oreValuesData', JSON.stringify(oresJSON));
+        
+        // Dispatch event to notify components
+        window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
+          detail: oresJSON 
+        }));
+        
+      } catch (error) {
+        console.error("Failed to fetch ore values:", error);
+        // Silently fail - components will use cached or empty data
+      }
+    };
+
+    fetchAndStoreOreValues();
+  }, []);
 
   useEffect(() => {
     document.title = `Zenith's Trading Tool v${packageJson.version}`;

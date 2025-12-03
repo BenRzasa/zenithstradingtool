@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import NavBar from "../components/NavBar";
 
-import searchFilters from "../data/SearchFilters";
-import charmPerks from "../data/CharmPerks";
+import { MiscContext } from "../context/MiscContext";
+import { useSearchFilters } from "../data/SearchFilters";
 import { CharmIcons } from "../data/CharmIcons";
-import missingIcon from "../images/ore-icons/Missing_Texture.webp";
+
+import charmPerks from "../data/CharmPerks";
+import missingIcon from "../images/ore-icons/Missing_Texture.png";
 
 import "../styles/AllGradients.css";
 import "../styles/MiscPage.css";
 
 function MiscPage() {
+    const { oreValsDict } = useContext(MiscContext);
+    const searchFilters = useSearchFilters(oreValsDict);
     const [copiedFilter, setCopiedFilter] = useState(null);
 
     function setColor (elementId, color) {

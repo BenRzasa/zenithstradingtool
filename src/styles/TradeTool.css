@@ -49,7 +49,7 @@
 
 .usage-dropdown {
   margin-left: -3px;
-  position: relative;
+  position: absolute;
   width: 20vw;
 }
 

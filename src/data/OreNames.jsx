@@ -1,31 +1,31 @@
-// Array of every ore name, case-sensitively sorted (uppercase before lowercase)
-import { initialOreValsDict } from "./OreValues";
+export const getOreNames = (oreValsDict) => {
+    if (!Array.isArray(oreValsDict)) return [];
 
-// Extract all ore names from the dictionary
-const allOreNames = [];
-for (const layerKey in initialOreValsDict) {
-  if (initialOreValsDict.hasOwnProperty(layerKey)) {
-    const layer = initialOreValsDict[layerKey];
-    const oresInLayer = layer.layerOres; // Access the layerOres array
-    for (const ore of oresInLayer) {
-      allOreNames.push(ore.name);
-    }
-  }
-}
+    const allOreNames = [];
 
-const uniqueOreNames = [...new Set(allOreNames)];
+    oreValsDict.forEach(layer => {
+        if (layer.layerOres && Array.isArray(layer.layerOres)) {
+            layer.layerOres.forEach(ore => {
+                if (ore.name) {
+                    allOreNames.push(ore.name);
+                }
+            });
+        }
+    });
 
-// Custom sort function that prioritizes uppercase over lowercase
-uniqueOreNames.sort((a, b) => {
-  const minLength = Math.min(a.length, b.length);
-  for (let i = 0; i < minLength; i++) {
-    const charA = a.charCodeAt(i);
-    const charB = b.charCodeAt(i);
-    if (charA !== charB) {
-      return charA - charB;
-    }
-  }
-  return a.length - b.length;
-});
+    const uniqueOreNames = [...new Set(allOreNames)];
 
-export const OreNames = uniqueOreNames;
+    uniqueOreNames.sort((a, b) => {
+        const minLength = Math.min(a.length, b.length);
+        for (let i = 0; i < minLength; i++) {
+            const charA = a.charCodeAt(i);
+            const charB = b.charCodeAt(i);
+            if (charA !== charB) {
+                return charA - charB;
+            }
+        }
+        return a.length - b.length;
+    });
+
+    return uniqueOreNames;
+};

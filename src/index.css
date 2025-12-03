@@ -179,6 +179,29 @@ li {
     --text-color: #ffffff;
 }
 
+.close-button {
+    padding: 0px auto;
+    border: 2px solid white;
+    border-radius: 5px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+.close-button:hover {
+    cursor: pointer;
+    color: #cdcdcd;
+    background-color: #b20000;
+}
+
 .button-container {
     display: flex;
     flex-wrap: wrap;
@@ -195,13 +218,27 @@ li {
     cursor: pointer;
     border: 3px solid black;
     background-color: gray;
-    padding-bottom: 0.8vh;
+    padding-bottom: 0;
     transition: all 0.1s ease-in-out;
     user-select: none;
     text-align: center;
     position: relative;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     z-index: 0;
+    
+    box-shadow: none;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 3px 3px;
+        transition: all 0.1s ease-in-out;
+    }
 
     button {
         background-color: #dddddd;
@@ -220,22 +257,20 @@ li {
         transition: inherit;
         color: black;
         font-family: inherit;
+        position: relative;
+        z-index: 1;
     }
 }
 
 .box-button:active,
 .box-button.active {
-    padding-bottom: 0;
     margin-bottom: 10px;
     transform: translateY(10px);
-}
-
-.box-button {
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-.box-button:active {
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    
+    &::after {
+        height: 1px;
+        bottom: -1px;
+    }
 }
 
 .val-button-container {

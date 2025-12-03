@@ -4,7 +4,7 @@ import { MiscContext } from "../context/MiscContext";
 
 
 import { OreIcons } from "../data/OreIcons";
-import missingIcon from "../images/ore-icons/Missing_Texture.webp";
+import missingIcon from "../images/ore-icons/Missing_Texture.png";
 
 import "../styles/AllGradients.css";
 import "../styles/ValueChart.css";
@@ -386,13 +386,13 @@ const LayerTable = ({
             </span>
           </li>
           <li>
-            ⛏ Total {modeStr}:{" "}
+            ⛏ Total Value:{" "}
             <span className="placeholder">
               {title.includes("Essence") ? "N/A" : getTotalValue()}
             </span>
           </li>
           <li>
-            ⛏ Highest {modeStr}:{" "}
+            ⛏ Highest Value Ore:{" "}
             <span className="placeholder">
               {title.includes("Essence") ? "N/A" : getHighestValue()}
             </span>
