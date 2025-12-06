@@ -122,7 +122,7 @@ function App() {
                 }
 
                 const oresJSON = await response.json();
-                console.log("Fetch successful, storing ore values");
+                console.log("Fetch successful, storing ore values: ", oresJSON);
 
                 localStorage.setItem('oreValuesData', JSON.stringify(oresJSON));
 
