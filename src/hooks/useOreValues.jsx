@@ -47,7 +47,7 @@ export const useOreValues = () => {
                                             )
                                         ),
                                         // Keep existing custom value or use the first available number
-                                        customVal: existingOre ? existingOre.customVal : 
+                                        defaultVal: existingOre ? existingOre.defaultVal : 
                                             Object.values(oreEntry).find(val => typeof val === 'number') || 0
                                     };
                                 });

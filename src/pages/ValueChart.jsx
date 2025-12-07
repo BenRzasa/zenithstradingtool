@@ -87,7 +87,7 @@ function ValueChart() {
     const toggleValueMode = (mode) => {
         if (mode === "custom") {
             const hasCustomValues = Object.values(oreValsDict).some((layer) =>
-                layer.layerOres.some((ore) => ore.customVal !== undefined)
+                layer.layerOres.some((ore) => ore.defaultVal !== undefined)
             );
             if (!hasCustomValues) {
                 setShowCustomModal(true);
@@ -215,11 +215,11 @@ function ValueChart() {
                             newValue = ore.randomsVal;
                             break;
                         default:
-                            newValue = ore.zenithVal;
+                            newValue = ore.defaultVal;
                     }
                     return {
                         ...ore,
-                        customVal: newValue,
+                        defaultVal: newValue,
                     };
                 }
             );

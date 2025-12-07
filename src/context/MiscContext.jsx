@@ -12,7 +12,7 @@ const initializeCustomValues = (oreData) => {
         ...layer,
         layerOres: layer.layerOres.map(ore => ({
             ...ore,
-            customVal: ore.customVal || ore.zenithVal || ore.obtainVal || ore.randomsVal || 0
+            defaultVal: ore.defaultVal || ore.zenithVal || ore.obtainVal || ore.randomsVal || 0
         }))
     }));
 };
@@ -41,14 +41,14 @@ const mergeOreValues = (hookData, savedData) => {
         if (savedLayer && savedLayer.layerOres) {
             const mergedOres = hookLayer.layerOres.map(hookOre => {
                 const savedOre = savedLayer.layerOres.find(o => o.name === hookOre.name);
-                if (savedOre && savedOre.customVal !== undefined) {
+                if (savedOre && savedOre.defaultVal !== undefined) {
                     // Preserve custom value from saved data
-                    return { ...hookOre, customVal: savedOre.customVal };
+                    return { ...hookOre, defaultVal: savedOre.defaultVal };
                 }
                 // Initialize custom value if not present
                 return {
                     ...hookOre,
-                    customVal: hookOre.customVal || hookOre.zenithVal || hookOre.obtainVal || hookOre.randomsVal || 0
+                    defaultVal: hookOre.defaultVal || hookOre.zenithVal || hookOre.obtainVal || hookOre.randomsVal || 0
                 };
             });
 
@@ -63,7 +63,7 @@ const mergeOreValues = (hookData, savedData) => {
             ...hookLayer,
             layerOres: hookLayer.layerOres.map(ore => ({
                 ...ore,
-                customVal: ore.customVal || ore.zenithVal || ore.obtainVal || ore.randomsVal || 0
+                defaultVal: ore.defaultVal || ore.zenithVal || ore.obtainVal || ore.randomsVal || 0
             }))
         };
     });
@@ -251,10 +251,10 @@ export const MiscProvider = ({ children }) => {
                         break;
                     case "custom":
                     default:
-                        newCustomVal = ore.customVal || ore.zenithVal || 0;
+                        newCustomVal = ore.defaultVal || ore.zenithVal || 0;
                 }
 
-                return { ...ore, customVal: newCustomVal };
+                return { ...ore, defaultVal: newCustomVal };
             });
 
             return { ...layer, layerOres: resetOres };
@@ -281,9 +281,9 @@ export const MiscProvider = ({ children }) => {
             case "random":
                 return oreData.randomsVal || 0;
             case "custom":
-                return oreData.customVal || 0;
+                return oreData.defaultVal || 0;
             default:
-                return oreData.zenithVal || 0;
+                return oreData.defaultVal || 0;
         }
     };
 

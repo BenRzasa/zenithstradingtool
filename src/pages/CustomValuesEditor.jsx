@@ -27,7 +27,7 @@ function CustomValuesEditor() {
             const layerData = layer.layerOres;
             layerData?.forEach((ore) => {
                 const key = `${layerName}-${ore.name}`;
-                const value = ore.customVal;
+                const value = ore.defaultVal;
                 initialValues[key] = value;
             });
         });
@@ -42,7 +42,7 @@ function CustomValuesEditor() {
             const layerData = layer.layerOres;
             layerData?.forEach((item) => {
                 const key = `${layerName}-${item.name}`;
-                newValues[key] = item.customVal;
+                newValues[key] = item.defaultVal;
             });
         });
         setLocalValues(newValues);
@@ -66,7 +66,7 @@ function CustomValuesEditor() {
                         if (ore.name === oreName) {
                             return {
                                 ...ore,
-                                customVal: newValue,
+                                defaultVal: newValue,
                             };
                         }
                         return ore;
@@ -187,7 +187,7 @@ function CustomValuesEditor() {
                                     >
                                         {layerName.substring(0, layerName.indexOf("\n"))}
                                     </h2>
-                                    {/* Only needs the per AV column, since they're customizing the customVal */}
+                                    {/* Only needs the per AV column, since they're customizing the defaultVal */}
                                     <table className="table">
                                         <thead>
                                             <tr>
@@ -229,7 +229,7 @@ function CustomValuesEditor() {
                                                                 localValues[`${layerName}-${ore.name}`] !==
                                                                     undefined
                                                                     ? localValues[`${layerName}-${ore.name}`]
-                                                                    : ore.customVal
+                                                                    : ore.defaultVal
                                                             }
                                                             onChange={(e) => {
                                                                 console.log(`${ore.name} Value Change from ${localValues[`${layerName}-${ore.name}`]} to ${e.target.value}`);

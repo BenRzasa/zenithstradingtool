@@ -137,7 +137,7 @@ import Iron from '../images/ore-icons/Iron_Icon.png';
 import Irulisteel from '../images/ore-icons/Irulisteel_Icon.png';
 import Isoronil from '../images/ore-icons/Isoronil_Icon.png';
 import Jade from '../images/ore-icons/Jade_Icon.png';
-import Jalabono from '../images/ore-icons/Jalabono_Icon.png';
+import Jalaboño from '../images/ore-icons/Jalaboño_Icon.png';
 import Jasper from '../images/ore-icons/Jasper_Icon.png';
 import Kafsium from '../images/ore-icons/Kafsium_Icon.png';
 import Korenil from '../images/ore-icons/Korenil_Icon.png';
@@ -472,7 +472,7 @@ export const OreIcons = {
   Irulisteel,
   Isoronil,
   Jade,
-  Jalabono,
+  Jalaboño,
   Jasper,
   Kafsium,
   Korenil,
