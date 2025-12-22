@@ -6,7 +6,6 @@ import { OreIcons } from "../data/OreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.png";
 
 import "../styles/CustomPinList.css";
-import "../styles/TradeTool.css";
 
 const CustomPinList = ({ isOpen, onClose }) => {
     const { oreValsDict, getValueForMode, getOreClassName, getCurrentCSV } =
@@ -17,8 +16,6 @@ const CustomPinList = ({ isOpen, onClose }) => {
         removeFromPinList,
         updatePinQuantity,
         clearPinList,
-        isPinSelected,
-        togglePinSelection,
         handlePinSearchTermChange,
         handlePinSearchFocusChange,
         handlePinSearchIndexChange,
@@ -226,97 +223,83 @@ const CustomPinList = ({ isOpen, onClose }) => {
 
     return (
         <div className={`pinlist-container ${isOpen ? "open" : ""}`}>
-            <div className="pinlist-header">
-                <h2>Custom Pin List</h2>
+            {pinListState.pinnedOres.length > 0 && (
+                <button className="copy-filter-btn"
+                    onClick={copyPinnedFilterToClipboard}
+                    style={{top: "0.5em", left: "0.5em"}}
+                >
+                    <i className="fa-solid fa-clipboard"></i>
+                </button>
+            )}
+            <div className="row-container">
+                <h3>
+                    &nbsp;&nbsp; <i class="fas fa-thumbtack"></i>
+                    &nbsp;Custom Pin List</h3>
                 <button onClick={onClose} className="close-button">
                     ×
                 </button>
             </div>
-            {/* Search box */}
-            <div className="search-container">
-                <label htmlFor="pinlist-search-input">
-                    <input
-                        id="pinlist-search-input"
-                        name="search"
-                        autoComplete="off"
-                        autoCorrect="off"
-                        autoCapitalize="none"
-                        spellCheck="false"
-                        ref={searchInputRef}
-                        type="text"
-                        placeholder="Search ores..."
-                        value={searchTerm}
-                        onChange={(e) => handlePinSearchTermChange(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        onFocus={() => handlePinSearchFocusChange(true)}
-                        onBlur={() => handlePinSearchFocusChange(false)}
-                        className="search-input"
-                        autoFocus
-                    />
-                </label>
-                {searchFocused && searchTerm && (
-                    <ul className="search-results" ref={resultsRef}>
-                        {filteredOres.map((ore, index) => (
-                            <li
-                                key={`${ore.name}-${index}`}
-                                onMouseDown={(e) => {
-                                    e.preventDefault();
-                                    addToPinList(ore);
-                                }}
-                                className={`search-result-item ${ index === selectedSearchIndex ? "selected" : ""}`}
-                            >
-                                {ore.name}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            <label htmlFor="search-input" style={{tabIndex: "0"}}>
+                <input
+                    className="text-input"
+                    id="search-input"
+                    name="search"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="none"
+                    spellCheck="false"
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search ores..."
+                    value={searchTerm}
+                    onChange={(e) => handlePinSearchTermChange(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    onFocus={() => handlePinSearchFocusChange(true)}
+                    onBlur={() => handlePinSearchFocusChange(false)}
+                    autoFocus
+                />
+            </label>
+            {searchFocused && searchTerm && (
+                <ul className="search-results" ref={resultsRef}>
+                    {filteredOres.map((ore, index) => (
+                        <li
+                            key={`${ore.name}-${index}`}
+                            onMouseDown={(e) => {
+                                e.preventDefault();
+                                addToPinList(ore);
+                            }}
+                            className={`search-result-item ${ index === selectedSearchIndex ? "selected" : ""}`}
+                        >
+                            {ore.name}
+                        </li>
+                    ))}
+                </ul>
+            )}
 
-            {/* Actions*/}
-            <div className="pinlist-actions">
-                <div className="box-button" style={{ width: "fit-content" }}>
-                    <button onClick={clearPinList}>Clear</button>
-                </div>
-                {/* Totals */}
-                {pinListState.pinnedOres.length > 0 && (
-                    <div className="pinlist-totals">
-                        <p>
-                            💲Total AV:{" "}
-                            <span className="placeholder">
-                                {pinTotals.totalAV.toFixed(1)}
-                            </span>
-                        </p>
-                        <p>
-                            ⛏️Total # Ores:{" "}
-                            <span className="placeholder">{pinTotals.totalOres}</span>
-                        </p>
-                    </div>
-                )}
-                {pinListState.pinnedOres.length > 0 && (
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div className="box-button" style={{ width: "fit-content" }}>
-                            <button onClick={copyPinnedFilterToClipboard}>
-                                <i className="fa-solid fa-clipboard"></i> Copy Filter
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </div>
-            {/* Pinned ores table */}
-            <div className="pinlist-content">
-                {pinListState.pinnedOres.length > 0 ? (
-                    <table
-                        className="trade-table pinlist-table"
+            {pinListState.pinnedOres.length > 0 && (
+                <div className="box" style={{width: "100%", fontSize: "1.1rem"}}>
+                    <button 
+                        className="reset-button"
+                        onClick={clearPinList} 
                         style={{
-                            whiteSpace: "nowrap",
-                            marginLeft: "-15px",
-                            marginTop: "15px",
-                            marginRight: "-500px",
-                            transform: "scale(1)",
-                            transformOrigin: "top left",
-                            width: "fit-content",
-                        }}
-                    >
+                            width: "fit-content", 
+                            height: "fit-content",
+                            padding: "0.5em auto"
+                        }}>Clear</button>
+                        <br></br>Total AV:{" "}
+                        <span className="accent">
+                            {pinTotals.totalAV.toFixed(1)}
+                        </span>
+                        <br></br>Total Ores:{" "}
+                        <span className="accent">
+                            {pinTotals.totalOres}
+                        </span>
+                </div>
+            )}
+            {/* Pinned ores table */}
+            <div className="table-wrapper" style={{width: "350px", maxHeight: "500px", overflowY: "scroll"}}>
+                {pinListState.pinnedOres.length > 0 ? (
+                    <table>
                         <thead>
                             <tr>
                                 <th>Ore</th>
@@ -327,35 +310,16 @@ const CustomPinList = ({ isOpen, onClose }) => {
                             {pinListState.pinnedOres
                                 .sort((a, b) => a.name.localeCompare(b.name))
                                 .map((ore) => (
-                                    <tr
-                                        key={ore.name}
-                                        className={isPinSelected(ore.name) ? "selected-row" : ""}
-                                        onClick={() => togglePinSelection(ore.name)}
-                                    >
+                                    <tr key={ore.name}>
                                         <td
-                                            className={`tr-name-cell ${getOreClassName(ore.name)}`}
+                                            className={`name-column ${getOreClassName(ore.name)}`}
                                             data-text={ore.name}
-                                            style={{
-                                                paddingRight: "10px",
-                                                whiteSpace: "preserve wrap",
-                                            }}
                                         >
-                                            <button
-                                                className="delete-ore-button"
-                                                tabIndex="-1"
-                                                aria-label="Remove ore from pin list"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    removeFromPinList(ore.name);
-                                                }}
-                                            >
-                                                ✖
-                                            </button>
                                             {OreIcons[ore.name.replace(/ /g, "_")] ? (
                                                 <img
                                                     src={OreIcons[ore.name.replace(/ /g, "_")]}
                                                     alt={`${ore.name} icon`}
-                                                    className="t-ore-icon"
+                                                    className="ore-icon"
                                                     onError={(e) => {
                                                         console.error(`Missing icon for: ${ore.name}`);
                                                         e.target.style.display = "none";
@@ -367,67 +331,70 @@ const CustomPinList = ({ isOpen, onClose }) => {
                                                         <img
                                                             src={missingIcon}
                                                             alt={"Missing icon"}
-                                                            className="t-ore-icon"
+                                                            className="ore-icon"
                                                         ></img>
                                                     </span>
                                                 )}
                                             {ore.name}
                                         </td>
                                         <td>
-                                            <div
-                                                className="quantity-cell-container"
+                                            <div className="col-container" 
                                                 style={{
-                                                    whiteSpace: "preserve wrap",
-                                                    flexDirection: "row",
-                                                    justifyContent: "center",
-                                                    width: "fit-content",
-                                                }}
-                                            >
-                                                <div style={{ flexDirection: "column" }}>
-                                                    <div
-                                                        className="inventory-count"
-                                                        style={{ marginLeft: "5px" }}
+                                                    justifyContent: "left",
+                                                    alignItems: "start",
+                                                    gap: "2px",
+                                                    padding: "2px auto"
+                                                }}>
+                                                <div className="row-container" 
+                                                    style={{
+                                                        width: "100%", 
+                                                        justifyContent: "space-between",
+                                                        gap: "2px",
+                                                        padding: "2px auto"
+                                                    }}>
+                                                    <button
+                                                        className="delete-button"
+                                                        tabIndex="-1"
+                                                        aria-label="Remove ore from pin list"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            removeFromPinList(ore.name);
+                                                        }}
                                                     >
-                                                        {getAvailableAmount(ore)}/
-                                                        {quantities[ore.name] ?? 0}
-                                                    </div>
-                                                    {/* Progress Bar */}
-                                                    <div className="progress-bar-container">
-                                                        <div
-                                                            className={`progress-bar ${ hasEnoughOre(ore) ? "complete" : "incomplete"}`}
-                                                            style={{
-                                                                width: `${getProgressPercentage(ore)}%`,
-                                                            }}
-                                                        ></div>
+                                                        ✖
+                                                    </button>
+                                                    <label>
+                                                        <input
+                                                            id={`pin-quantity-${ore.name}`}
+                                                            aria-label="Ore quantity input"
+                                                            type="number"
+                                                            step="1"
+                                                            value={quantities[ore.name] ?? ""}
+                                                            onChange={(e) =>
+                                                                updatePinQuantity(ore, e.target.value)
+                                                            }
+                                                            className="quantity-input"
+                                                            min="1"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        />
+                                                    </label>                
+                                                    {hasEnoughOre(ore) &&
+                                                        (<div className="comp-check" id="pin">✓</div>)
+                                                    }
+                                                </div>
+                                                <div className="progress-wrapper">
+                                                    <div className="progress-bar">
+                                                        <span className="progress-bar-fill" style={{width: `${getProgressPercentage(ore)}%`}}></span>
                                                     </div>
                                                 </div>
-                                                <label
-                                                    htmlFor={`pin-quantity-${ore.name}`}
-                                                    className="quantity-label"
-                                                >
-                                                    <input
-                                                        id={`pin-quantity-${ore.name}`}
-                                                        aria-label="Ore quantity input"
-                                                        type="number"
-                                                        step="1"
-                                                        value={quantities[ore.name] ?? ""}
-                                                        onChange={(e) =>
-                                                            updatePinQuantity(ore, e.target.value)
-                                                        }
-                                                        className="quantity-input"
-                                                        min="1"
-                                                        onClick={(e) => e.stopPropagation()}
-                                                    />
-                                                </label>
                                             </div>
                                         </td>
-                                        <td></td>
                                     </tr>
                                 ))}
                         </tbody>
                     </table>
                 ) : (
-                        <p className="pinlist-empty">No ores pinned yet</p>
+                        <h3>No ores pinned yet</h3>
                     )}
             </div>
         </div>

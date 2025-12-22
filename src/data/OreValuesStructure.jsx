@@ -26,12 +26,12 @@ export const oreValuesStructure = [
     },
     {
         layerName: "Caverns / Dusk\n[75m-299m | 300m-599m]",
-        background: "linear-gradient(180deg,rgb(192, 181, 161) 0%,rgb(39, 52, 99) 100%)",
+        background: "linear-gradient(180deg, #dad2c3 0%, #b6c2ec 100%)",
         layerOres: [] 
     },
     {
-        layerName: "Volatile\n[600m-999m]",
-        background: "rgb(228, 174, 126)",
+        layerName: "Shade\n[600m-999m]",
+        background: "linear-gradient(180deg, #7b94ef 0%, #464d7d 100%",
         layerOres: [] 
     },
     {
@@ -45,13 +45,23 @@ export const oreValuesStructure = [
         layerOres: [] 
     },
     {
-        layerName: "Igneous / Mantle\n[2000m-2499m | 2500m-2999m]",
-        background: "#d63636",
+        layerName: "Igneous / Mantle\n[2000m-2199m | 2200m-2499m]",
+        background: "linear-gradient(45deg, #e55f5f 0%, #d63636 100%)",
         layerOres: [] 
     },
     {
-        layerName: "Irradiated / Caustic\n[3000m-3499m | 3500m-3999m]",
-        background: "linear-gradient(180deg, #49c73b 0%, #24a510 100%)",
+        layerName: "Volatile\n[2500-2999m]",
+        background: "#fc9321",
+        layerOres: [] 
+    },
+    {
+        layerName: "Caustic\n[3000m-3499m]",
+        background: "#24a510",
+        layerOres: [] 
+    },
+    {
+        layerName: "Soulscape\n[3500-3999m]",
+        background: "linear-gradient(180deg, #9edff7 0%, #cdcfd1 50%, #9edff7 100%)",
         layerOres: [] 
     },
     {

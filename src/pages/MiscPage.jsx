@@ -53,9 +53,12 @@ function MiscPage() {
             // Search filters
             id: "card1",
             title:
-            "Search Filters (Click the Icon to Copy & Paste in your inventory search bar)",
+            "Search Filters",
             content: (
-                <div className="search-filters">
+                <div 
+                    className="col-container"
+                    style={{gap: "0px"}} 
+                >
                     {searchFilters.map((category, index) => {
                         // Split at the first colon
                         const colonIndex = category.indexOf(":");
@@ -65,13 +68,14 @@ function MiscPage() {
                         return (
                             <p key={index} id={`search-filter-${titlePart}`}>
                                 <button
-                                    className="copy-btn"
+                                    className="copy-filter-btn"
+                                    id="misc"
                                     onClick={() =>
                                         copyFilter(category.substring(category.indexOf(":") + 2), titlePart)
                                     }
                                     title="Copy filters"
                                 >
-                                    ⎘
+                                <i class="fas fa-clipboard"></i>
                                 </button>
                                 <strong>{titlePart}</strong>
                                 {itemsPart}
@@ -82,72 +86,69 @@ function MiscPage() {
             ),
         },
         {
-            id: "card3",
-            title: "Charms (Ordered by Usefulness)",
+            id: "card2",
+            title: "Charms",
             content: (
-                <div className="charms-box">
-                    <table className="charms-table">
-                        <thead>
-                            <tr>
-                                <th>Charm Name</th>
-                                <th>Charm Perk</th>
+                <table className="table-wrapper" id="misc">
+                    <thead>
+                        <tr>
+                            <th>Charm Name</th>
+                            <th>Charm Perk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {charmPerks.map((charm) => (
+                            <tr key={charm.name}>
+                                <td
+                                    className={`name-column ${getOreClassName(charm.ore)}`}
+                                    data-text={charm.name}
+                                    style={{ padding: "5px"}}
+                                >
+                                    {CharmIcons[charm.name.replace(/ /g, "_")] ? (
+                                        <img
+                                            src={CharmIcons[charm.name.replace(/ /g, "_")]}
+                                            alt={`${charm.name} icon`}
+                                            className="ore-icon"
+                                            id={`${charm.name}-icon`}
+                                            onError={(e) => {
+                                                console.error(`Missing icon for: ${charm.name}`);
+                                                e.target.style.display = "none";
+                                            }}
+                                        />
+                                    ) : (
+                                            <span>
+                                                <img
+                                                    src={missingIcon}
+                                                    alt="Missing icon"
+                                                    className="ore-icon"
+                                                    loading="lazy"
+                                                />
+                                            </span>
+                                        )}
+                                    {charm.name}
+                                </td>
+                                <td style={{paddingLeft: "5px", borderBottom: "2px solid var(--switch-outline)"}}>{charm.description}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {charmPerks.map((charm) => (
-                                <tr key={charm.name}>
-                                    <td
-                                        className={`name-column ${getOreClassName(charm.ore)}`}
-                                        data-text={charm.name}
-                                        style={{ padding: "5px" }}
-                                    >
-                                        {CharmIcons[charm.name.replace(/ /g, "_")] ? (
-                                            <img
-                                                src={CharmIcons[charm.name.replace(/ /g, "_")]}
-                                                alt={`${charm.name} icon`}
-                                                className="ore-icon"
-                                                id={`${charm.name}-icon`}
-                                                onError={(e) => {
-                                                    console.error(`Missing icon for: ${charm.name}`);
-                                                    e.target.style.display = "none";
-                                                }}
-                                            />
-                                        ) : (
-                                                <span>
-                                                    <img
-                                                        src={missingIcon}
-                                                        alt="Missing icon"
-                                                        className="ore-icon"
-                                                        loading="lazy"
-                                                    />
-                                                </span>
-                                            )}
-                                        {charm.name}
-                                    </td>
-                                    <td className="description-column">{charm.description}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                        ))}
+                    </tbody>
+                </table>
             ),
         },
     ];
 
     return (
-        <div>
-            <NavBar />
-            <div className="misc-page">
-                <div className="cards-container">
-                    {cards.map((card) => (
-                        <div key={card.id} className="card">
-                            <div className="card2">
-                                <h3>{card.title}</h3>
-                                {card.content}
-                            </div>
+        <div className="page-wrapper" style={{}}>
+            <h1>Miscellaneous Items</h1>
+            <h2>Drop suggestions in my thread in the discord!</h2>
+            <div className="row-container" style={{justifyContent: "flex-start"}}>
+                {cards.map((card) => (
+                    <div key={card.id} id={card.id} className="card">
+                        <div id={card.id} className="card-interior">
+                            <h3>{card.title}</h3>
+                            {card.content}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

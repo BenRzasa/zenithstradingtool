@@ -4,7 +4,6 @@ import { MiscContext } from "../context/MiscContext";
 import CSVEditor from "./CSVEditor";
 
 import "../styles/CSVLoader.css";
-import "../styles/CSVEditor.css";
 
 function CSVLoaderPopup({ onClose, isOpen }) {
     const {
@@ -208,7 +207,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     }, [csvData, previousAmounts, sortConfig]);
 
     const updateOreAmounts = () => {
-        const csvInput = document.getElementById("csvInput").value;
+        const csvInput = document.getElementById("csv-input").value;
         if (!csvInput) return;
         // Store current completion as previous before updating
         prevCompletionRef.current = avgCompletion;
@@ -313,133 +312,108 @@ function CSVLoaderPopup({ onClose, isOpen }) {
         document.getElementById("csvInput").value = csvValues.join(",");
     };
 
-    // Close popup when clicking outside
-    const handleOverlayClick = (e) => {
-        if (e.target === e.currentTarget) {
-            onClose();
-        }
-    };
-
     if (!isOpen) return null;
 
     return (
-        <div className="csv-popup-overlay" onClick={handleOverlayClick}>
-            <div className="csv-popup">
-                <div className="csv-popup-header">
-                    <h2>CSV Loader</h2>
-                    <button className="close-button" onClick={onClose}>
-                        ✖
+        <div className="popup-overlay">
+            <div className="popup" id="csv" style={{zIndex: "15000"}}>
+                <h2>CSV Loader</h2>
+                <button 
+                    className="close-button" 
+                    onClick={onClose}>
+                    ✖
+                </button>
+
+                <h3>Usage Instructions</h3>
+                <p>
+                    ⛏ Copy and paste your CSV string from Settings ➜ Other (in TCC) in the box below.
+                </p>
+                <p>
+                    ⛏ Click "Update" button to load your CSV data into the website.
+                </p>
+                <h2 className="accent">
+                    ⛏ Last Updated:{" "}
+                    {lastUpdated ? lastUpdated.toLocaleString() : "Never"}
+                </h2>
+
+                <div className="row-container-center">
+                    <button
+                        className="color-template-havicron"
+                        onClick={() => {
+                            updateOreAmounts();
+                            setSortConfig({
+                                key: "change",
+                                direction: "desc",
+                            });
+                        }}
+                    >
+                        <span>Update</span>
                     </button>
-                </div>
-
-                <div className="csv-popup-content">
-                    <h3 style={{ marginLeft: "15px" }}>Usage Instructions</h3>
-                    <ol>
-                        <li>
-                            Copy & Paste your CSV string from Settings ➜ Other (in TCC) in the
-        box below.
-                        </li>
-                        <li>
-                            Click "Update" button to load your CSV data into the website.
-                        </li>
-                        <span className="placeholder">
-                            Last Updated:{" "}
-                            {lastUpdated ? lastUpdated.toLocaleString() : "Never"}
-                        </span>
-                    </ol>
-
-                    <div className="csv-popup-buttons">
-                        <div className="box-button" style={{ maxWidth: "fit-content" }}>
-                            <button
-                                className="color-template-havicron"
-                                onClick={() => {
-                                    updateOreAmounts();
-                                    setSortConfig({
-                                        key: "change",
-                                        direction: "desc",
-                                    });
-                                }}
-                            >
-                                <span>Update</span>
-                            </button>
-                        </div>
-                        <div className="box-button" style={{ maxWidth: "fit-content" }}>
-                            <button onClick={exportCSV}>
-                                <span>Export CSV</span>
-                            </button>
-                        </div>
-                        <div className="box-button" style={{ maxWidth: "fit-content" }}>
-                            <button
-                                onClick={() => setShowCSVEditor(!showCSVEditor)}
-                                className={showCSVEditor ? "color-template-protireal" : ""}
-                            >
-                                <span>Edit CSV</span>
-                            </button>
-                        </div>
-                        <div
-                            className="box-button c-dropdown-container"
-                            style={{ zIndex: "10000", maxWidth: "fit-content" }}
-                        >
-                            <button
-                                className={showHistoryDropdown ? "color-template-stardust" : ""}
-                                onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}
-                            >
-                                <span>Load Past CSV</span>
-                            </button>
-                            {showHistoryDropdown && (
-                                <div className="history-dropdown">
-                                    {csvHistory.length === 0 ? (
-                                        <div className="dropdown-item">No history yet</div>
-                                    ) : (
-                                            <>
+                    <button onClick={exportCSV}>
+                        <span>Export CSV</span>
+                    </button>
+                    <button
+                        onClick={() => setShowCSVEditor(!showCSVEditor)}
+                        className={showCSVEditor ? "color-template-protireal" : ""}
+                    >
+                        <span>Edit CSV</span>
+                    </button>
+                    <button
+                        className={showHistoryDropdown ? "color-template-stardust" : ""}
+                        onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}
+                    >
+                        <span>Load Past CSV</span>
+                    </button>
+                    {showHistoryDropdown && (
+                        <div className="box">
+                            <div className="search-results">
+                                {csvHistory.length === 0 ? (
+                                    <span>No History Yet</span>
+                                ) : (
+                                        <>
+                                            <button
+                                                style={{backgroundColor: "var(--red)"}}
+                                                onClick={clearCSVHistory}
+                                            >
+                                                Clear All History
+                                            </button>
+                                            {csvHistory.map((entry, index) => (
                                                 <div
-                                                    className="dropdown-item clear-history"
-                                                    onClick={clearCSVHistory}
+                                                    key={index}
+                                                    className="search-result-item"
+                                                    onClick={() => {
+                                                        loadOldCSV(index);
+                                                        setShowHistoryDropdown(false);
+                                                    }}
                                                 >
-                                                    <span style={{ color: "red", fontWeight: "bold" }}>
-                                                        Clear All History
-                                                    </span>
+                                                    {new Date(entry.timestamp).toLocaleString()}
+                                                    <br />
+                                                    {(entry.totalAV ?? 0).toFixed(1)} AV
+                                                    <br />
+                                                    {entry.valueMode === "custom"
+                                                        ? "CUSTOM"
+                                                        : entry.valueMode.toUpperCase()}
                                                 </div>
-                                                {csvHistory.map((entry, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className="dropdown-item"
-                                                        onClick={() => {
-                                                            loadOldCSV(index);
-                                                            setShowHistoryDropdown(false);
-                                                        }}
-                                                    >
-                                                        {new Date(entry.timestamp).toLocaleString()}
-                                                        <br />
-                                                        {(entry.totalAV ?? 0).toFixed(1)} AV
-                                                        <br />
-                                                        {entry.valueMode === "custom"
-                                                            ? "CUSTOM"
-                                                            : entry.valueMode.toUpperCase()}
-                                                    </div>
-                                                ))}
-                                            </>
-                                        )}
-                                </div>
-                            )}
+                                            ))}
+                                        </>
+                                    )}
+                            </div>
                         </div>
-                        <div className="box-button" style={{ maxWidth: "fit-content" }}>
-                            <button
-                                className="color-template-obliviril"
-                                onClick={() => {
-                                    if (
-                                        window.confirm(
-                                            "Are you sure you want to clear ALL CSV data? This will delete your current CSV data, previous amounts, and update history. This action cannot be undone."
-                                        )
-                                    ) {
-                                        clearCSVData();
-                                    }
-                                }}
-                            >
-                                <span>Clear CSV Data</span>
-                            </button>
-                        </div>
-                    </div>
+                    )}
+                    <button
+                        className="color-template-obliviril"
+                        onClick={() => {
+                            if (
+                                window.confirm(
+                                    "Are you sure you want to clear ALL CSV data? This will delete your current CSV data, previous amounts, and update history. This action cannot be undone."
+                                )
+                            ) {
+                                clearCSVData();
+                            }
+                        }}
+                    >
+                        <span>Clear CSV Data</span>
+                    </button>
 
                     {showCSVEditor && (
                         <CSVEditor onClose={() => setShowCSVEditor(false)} />
@@ -447,7 +421,7 @@ function CSVLoaderPopup({ onClose, isOpen }) {
 
                     {/* Total value updates from last csv update */}
                     {Object.keys(previousAmounts).length >= 0 && (
-                        <div className="value-change-summary">
+                        <div className="box-row">
                             <div className="value-change-cards">
                                 <div className="value-card gained">
                                     <span>Value Gained:</span>
@@ -481,14 +455,13 @@ calculateValueChanges().netChange >= 0
                                 </div>
                             </div>
 
-                            <div className="ore-changes-details">
-                                <h4>Changed Ores:</h4>
-                                <div className="ore-changes-list">
-                                    <ul>
+                            <div className="box">
+                                <h3>Changed Ores:</h3>
+                                <div className="search-results" style={{width: "100%"}}>
                                         {calculateValueChanges()
                                             .changedOres.sort((a, b) => b.valueChange - a.valueChange)
                                             .map(({ ore, valueChange }) => (
-                                                <li key={ore}>
+                                                <div className="search-result-item" style={{marginLeft:"5px"}} key={ore}>
                                                     {ore}:{" "}
                                                     <span
                                                         className={
@@ -501,13 +474,12 @@ calculateValueChanges().netChange >= 0
                                                             valueChange.toFixed(2)}{" "}
                                                         {modeStr}
                                                     </span>
-                                                </li>
+                                                </div>
                                             ))}
-                                    </ul>
                                 </div>
                             </div>
                             {/* Summary details since last update */}
-                            <div className="ore-changes-details">
+                            <div className="box">
                                 <h3>
                                     ⛏ {modeStr} %{" "}
                                     {completionChange === 0
@@ -529,17 +501,17 @@ calculateValueChanges().netChange >= 0
                                 </h3>
                                 <h3>
                                     ⛏ Current {modeStr} %:{" "}
-                                    <span className="placeholder">
+                                    <span className="accent">
                                         {avgCompletion.toFixed(3)}%
                                     </span>
                                 </h3>
                                 <h3>
                                     ⛏ Grand Total {modeStr}:{" "}
-                                    <span className="placeholder">{grandTotal.toFixed(2)}</span>
+                                    <span className="accent">{grandTotal.toFixed(2)}</span>
                                 </h3>
                                 <h3>
                                     ⛏ Total Ores:
-                                    <span className="placeholder">
+                                    <span className="accent">
                                         {" "}
                                         {totalOres.toLocaleString()}
                                     </span>
@@ -567,70 +539,72 @@ calculateValueChanges().netChange >= 0
                             </div>
                         </div>
                     )}
-
-                    <div className="csv-popup-main">
-                        <div className="ore-table-parent">
-                            <div className="ore-list">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                onClick={() => handleSort("ore")}
-                                                className="sortable-header"
-                                            >
-                                                Ore{displaySortArrow("ore")}
-                                            </th>
-                                            <th
-                                                onClick={() => handleSort("amount")}
-                                                className="sortable-header"
-                                            >
-                                                Amount{displaySortArrow("amount")}
-                                            </th>
-                                            <th
-                                                onClick={() => handleSort("change")}
-                                                className="sortable-header"
-                                            >
-                                                Change{displaySortArrow("change")}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {sortedOres.map((ore) => {
-                                            const currentAmount = csvData[ore] || 0;
-                                            const previousAmount = previousAmounts[ore] || 0;
-                                            const change = currentAmount - previousAmount;
-                                            return (
-                                                <tr key={ore}>
-                                                    <td>{ore}</td>
-                                                    <td>{currentAmount}</td>
-                                                    <td
-                                                        className={
-                                                            change > 0
-                                                                ? "positive-change"
-                                                                : change < 0
-                                                                    ? "negative-change"
-                                                                    : ""
-                                                        }
-                                                    >
-                                                        {change !== 0
-                                                            ? change > 0
-                                                                ? `+${change}`
-                                                                : change
-                                                            : ""}
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div className="csv-input">
-                            <textarea
-                                id="csvInput"
+                    <div className="row-container" 
+                        style={{
+                            width: "100%", 
+                            justifyContent: "space-evenly", 
+                            alignItems: "center"
+                        }}>
+                        <div className="csv-output">
+                            <textarea 
+                                id="csv-input"
                                 placeholder="Enter comma-separated numbers..."
                             />
+                        </div>
+                        <div className="table-wrapper" style={{
+                            height: "400px", 
+                            width: "350px", 
+                            overflowY: "scroll",
+                        }}>
+                            <table style={{textAlign: "left"}}>
+                                <thead>
+                                    <tr>
+                                        <th id="csv-th"
+                                            onClick={() => handleSort("ore")}
+                                        >
+                                            Ore{displaySortArrow("ore")}
+                                        </th>
+                                        <th id="csv-th"
+                                            onClick={() => handleSort("amount")}
+                                        >
+                                            Amount{displaySortArrow("amount")}
+                                        </th>
+                                        <th id="csv-th"
+                                            onClick={() => handleSort("change")}
+                                        >
+                                            Change{displaySortArrow("change")}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {sortedOres.map((ore) => {
+                                        const currentAmount = csvData[ore] || 0;
+                                        const previousAmount = previousAmounts[ore] || 0;
+                                        const change = currentAmount - previousAmount;
+                                        return (
+                                            <tr key={ore}>
+                                                <td>{ore}</td>
+                                                <td>{currentAmount}</td>
+                                                <td
+                                                    className={
+                                                        change > 0
+                                                            ? "positive-change"
+                                                            : change < 0
+                                                                ? "negative-change"
+                                                                : ""
+                                                    }
+                                                >
+                                                    {change !== 0
+                                                        ? change > 0
+                                                            ? `+${change}`
+                                                            : change
+                                                        : ""}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

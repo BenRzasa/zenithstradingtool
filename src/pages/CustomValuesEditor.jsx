@@ -5,7 +5,6 @@ import NavBar from "../components/NavBar";
 
 import { OreIcons } from "../data/OreIcons";
 
-import "../styles/CustomValuesEditor.css";
 import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
 
@@ -102,39 +101,32 @@ function CustomValuesEditor() {
 
     return (
         <>
-            <NavBar />
-            <div className="custom-editor">
-                <div className="custom-usage">
+            <div className="page-wrapper" id="custom-values">
+                <div className="box">
                     <h1>Custom Values Editor</h1>
                     <h2>Usage Instructions:</h2>
-                    <ul>
-                        <li>Here, you can customize values to your heart's content</li>
-                        <li>
-                            First, find the ore you want, then change the "/AV" (ore per AV)
-                            number
-                        </li>
-                        <li>
-                            Something like "0.001" means that the ore is worth 1000 Ambrosine
-                            This can be determined by "1 / 0.001"{" "}
-                        </li>
-                        <li>
-                            When you're done customizing values, click "Save Changes" to set
-                            the values and navigate back to the value chart page
-                        </li>
-                        <li>
-                            If you make a mistake, or want to start over, click one of the two
-                            reset buttons, then click to confirm
-                        </li>
-                    </ul>
+                    <p>
+                        ⛏ Here, you can <span className="accent">customize values</span> to your heart's content.
+                    </p>
+                    <p>
+                        ⛏ First, find the ore you want, then <span className="accent">change the "/AV"</span> (ore per AV) number.
+                    </p>
+                    <p>
+                        ⛏ Something like "0.001" in the value spot means that the ore is <span className="accent">worth 1000 Ambrosine.</span> This can be determined by "1 / 0.001".
+                    </p>
+                    <p>
+                        ⛏ When you're done customizing values, <span className="accent">click "Save Changes" to set</span> the values and navigate back to the value chart page.
+                    </p>
+                    <p>
+                        ⛏ If you make a mistake, or want to start over, <span className="accent">click one of the reset buttons (depending on values you want)</span>, then click "yes" to confirm.
+                    </p>
                 </div>
-                <div className="editor-controls">
-                    {/* Reset buttons for different value sources */}
-                    <div className="reset-buttons">
+                <div className="button-container-full-row">
                         <button
                             onClick={() => handleReset("zenith")}
                             className="color-template-torn-fabric"
                         >
-                            Reset to Zenith's Values
+                            Reset: Zenith's
                         </button>
                         <button
                             onClick={() => handleReset("random")}
@@ -144,25 +136,24 @@ function CustomValuesEditor() {
                                 textShadow: "1px 2px 2px black"
                             }}
                         >
-                            Reset to Random's Vals
-                            <br/>(Active, based off NAN's old vals)
+                            Reset: Random's
+                            <span className="v-last-updated">(Similar to NAN's)</span>
                         </button>
                         <button
                             onClick={() => handleReset("custom")}
                             className="color-template-obliviril"
                         >
-                            Reset to Default
+                            Reset: Default
                         </button>
-                        <button onClick={handleSave} className="save-button">
+                        <button onClick={handleSave} className="apply-button">
                             Save Changes
                         </button>
-                        <button onClick={handleCancel} className="cancel-button">
+                        <button onClick={handleCancel} className="reset-button">
                             Cancel
                         </button>
-                    </div>
                 </div>
                 {/* Value tables container - formatted similarly to the main Value Chart page */}
-                <div className="editor-tables-container">
+                <div className="tables-container" id="custom">
                     {Object.values(oreValsDict)
                         .filter((layer) => !layer.layerName.includes("Essences"))
                         .map((layer) => {
@@ -178,21 +169,22 @@ function CustomValuesEditor() {
                                     id={layerName.replace(/\s+/g, "-")}
                                     key={layerName}
                                     className="table-wrapper"
-                                    style={{ maxWidth: "350px" }}
+                                    style={{ width: "400px" }}
                                 >
-                                    <h2
-                                        className="table-wrapper h2"
+                                    <div className="wrapper-gradient"
                                         style={{ background: gradientStyle }}
-                                        data-text={layerName.substring(0, layerName.indexOf("\n"))}
                                     >
-                                        {layerName.substring(0, layerName.indexOf("\n"))}
-                                    </h2>
-                                    {/* Only needs the per AV column, since they're customizing the defaultVal */}
-                                    <table className="table">
+                                        <h2 className="table-header"
+                                            data-text={layerName.substring(0, layerName.indexOf("\n"))}
+                                        >
+                                            {layerName.substring(0, layerName.indexOf("\n"))}
+                                        </h2>
+                                    </div>
+                                    <table>
                                         <thead>
                                             <tr>
                                                 <th>Ore Name</th>
-                                                <th style={{ textAlign: "left" }}>Value (/AV)</th>
+                                                <th>Value (/AV)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -275,8 +267,12 @@ function CustomValuesEditor() {
                                                                     });
                                                                 }
                                                             }}
-                                                            className="base-value-input"
-                                                            style={{ textAlign: "left" }}
+                                                            className="quantity-input"
+                                                            style={{ 
+                                                                textAlign: "left",
+                                                                width: "100%",
+                                                                height: "100%",
+                                                            }}
                                                         />
                                                     </td>
                                                 </tr>

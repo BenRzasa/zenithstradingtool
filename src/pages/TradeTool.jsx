@@ -1,14 +1,13 @@
 import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
-import NavBar from "../components/NavBar";
 import { MiscContext } from "../context/MiscContext";
 import { TradeContext } from "../context/TradeContext";
 import { OreIcons } from "../data/OreIcons";
 import missingIcon from "../images/ore-icons/Missing_Texture.png";
 
 import patic from "../images/misc/patic.png";
-import "../styles/TradeTool.css";
 import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
+import "../styles/ValueChart.css";
 
 function TradeTool() {
     /* Context hooks */
@@ -27,9 +26,9 @@ function TradeTool() {
     const [batchMode, setBatchMode] = useState("quantity"); // 'quantity' or 'av'
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(-1);
-    const [showDropdown, setShowDropdown] = useState(false);
     const [searchFocused, setSearchFocused] = useState(false);
     const [allSelected, setAllSelected] = useState(false);
+    const [showUsage, setShowUsage] = useState(false);
 
     // Refs for DOM access
     const searchInputRef = useRef(null);
@@ -79,7 +78,6 @@ function TradeTool() {
         background: layer.background,
     }));
 
-    // Memoize the ores data
     const memoizedOres = useMemo(() => allOresWithLayers, [allOresWithLayers]);
 
     // Track previous quantities to detect actual changes
@@ -234,7 +232,7 @@ function TradeTool() {
     };
 
     /* Clear all quantities */
-    const clearTable = () => {
+    const clearTrade = () => {
         setTradeState((prev) => ({
             ...prev,
             quantities: {},
@@ -272,11 +270,14 @@ function TradeTool() {
 
         const searchParts = term
         .toLowerCase()
-        .split("/")
+        .replace("l:", "").split("/")
         .map((part) => part.trim());
 
-        return source.filter((ore) => {
-            return searchParts.some((part) => ore.name.toLowerCase().includes(part));
+        return source.filter((ore, layer) => {
+            return searchParts.some((part) => 
+                ore.name.toLowerCase().includes(part) 
+                    || ore.layer.toLowerCase().includes(part)
+            )
         });
     };
 
@@ -298,7 +299,7 @@ function TradeTool() {
         searchInputRef.current?.focus();
     };
 
-    const handleAddMultipleOres = (searchTerm) => {
+    const handleAddMultipleOres = (searchTerm, layerOption) => {
         const searchParts = searchTerm
         .toLowerCase()
         .split("/")
@@ -306,7 +307,9 @@ function TradeTool() {
 
         // Find all ores that match any part of the search
         const oresToAdd = allOresWithLayers.filter((ore) =>
-            searchParts.some((part) => ore.name.toLowerCase().includes(part))
+            searchParts.some((part) => 
+                layerOption ? ore.layer.toLowerCase().includes(part) : ore.name.toLowerCase().includes(part)
+            )
         );
 
         // Add all matching ores
@@ -329,7 +332,7 @@ function TradeTool() {
         updateTradeOres(allOresWithLayers);
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e, oresByLayer) => {
         if (!searchTerm) return;
 
         switch (e.key) {
@@ -351,8 +354,12 @@ function TradeTool() {
 
             case "Enter":
                 e.preventDefault();
+                const searchTermTrim = searchTerm.toLowerCase().replace("l:", "");
+                const layerFound = searchTerm.includes("l:") && oresByLayer.some(layer => layer.layer.toLowerCase().includes(searchTermTrim));
                 if (searchTerm.includes("/")) {
-                    handleAddMultipleOres(searchTerm);
+                    handleAddMultipleOres(searchTermTrim, false);
+                } else if (layerFound) {
+                    handleAddMultipleOres(searchTermTrim, true);
                 } else if (selectedIndex >= 0 && selectedIndex < filteredOres.length) {
                     handleAddOre(filteredOres[selectedIndex]);
                 }
@@ -374,9 +381,9 @@ function TradeTool() {
         const selectedItem = resultsContainer.children[index];
         if (!selectedItem) return;
 
-        const containerHeight = resultsContainer.clientHeight;
-        const itemOffsetTop = selectedItem.offsetTop;
-        const itemHeight = selectedItem.clientHeight;
+        const containerHeight = resultsContainer.clientHeight - 100;
+        const itemOffsetTop = selectedItem.offsetTop - 150;
+        const itemHeight = selectedItem.clientHeight - 10;
 
         const scrollTop = resultsContainer.scrollTop;
         const itemTop = itemOffsetTop - scrollTop;
@@ -465,169 +472,77 @@ function TradeTool() {
     };
 
     const selectAllCurrentOres = () => {
-        tradeState.tradeOres.forEach((ore) => {
-            toggleOreSelection(ore.name);
-        });
+        if(!allSelected) {
+            tradeState.tradeOres.forEach((ore) => {
+                if(!tradeState.selectedOres.includes(ore.name)) {
+                    toggleOreSelection(ore.name);
+                }
+            });
+        } else {
+            tradeState.tradeOres.forEach((ore) => {
+                if(tradeState.selectedOres.includes(ore.name)) {
+                    toggleOreSelection(ore.name);
+                }
+            });
+        }
         setAllSelected(!allSelected);
     };
 
     return (
-        <div>
-            <NavBar />
-            <div className="trade-tool-layout">
-                {/* Left side - controls */}
-                <div className="trade-controls-panel">
-                    <div className="box-button" style={{ zIndex: "10000" }}>
-                        <button onClick={() => setShowDropdown(!showDropdown)}>
-                            Click For Usage Instructions
-                        </button>
-                        {showDropdown && (
-                            <div className="usage-dropdown">
-                                <ul>
-                                    <li>
-                                        ⛏ Click the header for each layer to open the dropdown.
-                                    </li>
-                                    <li>
-                                        ⛏ Click ores to select multiple, then set their quantities
-                                        below.
-                                    </li>
-                                    <li>
-                                        ⛏ To remove an individual ore, click the red X button beside
-                                        the ore, in either the "Current Trade" table or the layer
-                                        table to the right.
-                                    </li>
-                                    <li>
-                                        ⛏ Type ore or layer names in the search bar, and hit enter
-                                        or click to add them to the current trade. You can use the
-                                        arrow keys to navigate up and down the results.
-                                    </li>
-                                    <li>
-                                        ⛏ Type in the quantity for each ore you'd like to trade.
-                                    </li>
-                                    <li>
-                                        ⛏ To add a discount to large orders, type the percent in the
-                                        "Discount %" box.
-                                    </li>
-                                    <li>
-                                        ⛏ The Batch Quantity box (below the value buttons) can set
-                                        either the AV of all selected ores, or the quantity. Click
-                                        the green button to switch between them.
-                                    </li>
-                                    <li>
-                                        ⛏ Click "Apply Quantity" to set the selected ores
-                                        (highlighted blue) to the specified quantity.
-                                    </li>
-                                    <li>⛏ Click "Clear Table" to reset the trade table.</li>
-                                </ul>
-                            </div>
-                        )}
+        <div className="page-wrapper" id="trade">
+            <div className="row-container" id="trade-row">
+                <div className="col-container">
+                    <h1>Trade Tool</h1>
+                    <button
+                        onClick={() => setShowUsage(!showUsage)}
+                    >{showUsage ? "Hide" : "Show"} Usage Instructions</button>
+                </div>
+                {showUsage && (
+                    <div className="usage-instructions" style={{top: "8em", position: "fixed", zIndex:"25000"}}>
+                        <p>
+                            ⛏ Type ore or layer names <span className="accent">in the search bar</span>, and hit enter
+                            or click to add them to the current trade. You can use the
+                            arrow keys to navigate up and down the results.
+                        </p>
+                        <p>
+                            ⛏ <span className="accent">Click ores to select multiple</span>, then set their quantities
+                            below.
+                        </p>
+                        <p>
+                            ⛏ To <span className="accent">remove an individual ore</span>, click the red X button beside
+                            the ore, in either the "Current Trade" table or the layer
+                            table to the right.
+                        </p>
+                        <p>
+                            ⛏ <span className="accent">Type in the quantity</span> for each ore you'd like to trade. You can press "tab" to cycle between them quicker.
+                        </p>
+                        <p>
+                            ⛏ To <span className="accent">add a discount</span> to large orders, type the percent in the
+                            "Discount %" box.
+                        </p>
+                        <p>
+                            ⛏ <span className="accent">The Batch Quantity box</span> can set
+                            either the AV of all selected ores, or the quantity. Click
+                            the green button to switch between them.
+                        </p>
+                        <p>
+                            ⛏ Click <span className="accent">"Apply Quantity" to set</span> the selected ores
+                            (highlighted blue) to the specified quantity.
+                        </p>
+                        <p>⛏ Click "Clear Trade" to <span className="accent">reset the trade table.</span></p>
                     </div>
 
-                    <div className="box-button" onClick={clearTable}>
-                        <button>
-                            <span className="button">Clear Table</span>
-                        </button>
-                    </div>
-
-                    {/* Batch quantity controls */}
-                    <div className="batch-controls">
-                        <h2 style={{ marginTop: "-6px" }}>Batch Selector</h2>
-                        <div className="batch-quantity-container">
-                            <div className="batch-mode-selector">
-                                <span>Selected: {tradeState.selectedOres.length} ores</span>
-                                <button
-                                    onClick={toggleBatchMode}
-                                    className="batch-apply-button"
-                                >
-                                    {batchMode === "quantity"
-                                        ? "Switch to AV Mode"
-                                        : "Switch to Quantity Mode"}
-                                </button>
-                                <button
-                                    className="add-all-button"
-                                    style={{
-                                        marginLeft: "0px",
-                                        marginTop: "10px",
-                                        padding: "10px",
-                                        fontSize: "14px",
-                                    }}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        const newQuantities = { ...tradeState.quantities };
-                                        tradeState.selectedOres.forEach((oreName) => {
-                                            const oreData = allOresWithLayers.find(
-                                                (ore) => ore.name === oreName
-                                            );
-                                            if (!oreData) return;
-                                            const availableAmount = getAvailableAmount(oreData);
-                                            if (availableAmount > 0) {
-                                                newQuantities[oreName] = availableAmount;
-                                            }
-                                        });
-
-                                        setTradeState((prev) => ({
-                                            ...prev,
-                                            quantities: newQuantities,
-                                        }));
-
-                                        updateTradeOres(allOresWithLayers);
-                                    }}
-                                    disabled={tradeState.selectedOres.length === 0}
-                                    title="Add all available quantities for selected ores"
-                                >
-                                    + Max Quantity of Selected
-                                </button>
-                            </div>
-                            <div className="batch-input-container">
-                                <label htmlFor="batch-quantity">
-                                    {batchMode === "quantity" ? "Quantity:" : "# AV:"}
-                                    <input
-                                        id="batch-quantity"
-                                        name="batch-quantity"
-                                        type="number"
-                                        min="0"
-                                        step={batchMode === "quantity" ? "1" : "any"}
-                                        value={
-                                            tradeState.batchQuantity === 0
-                                                ? ""
-                                                : tradeState.batchQuantity
-                                        }
-                                        onChange={(e) =>
-                                            setTradeState((prev) => ({
-                                                ...prev,
-                                                batchQuantity: `${
-batchMode === "quantity"
-? Math.max(0, parseInt(e.target.value) || 0)
-: Math.max(0, e.target.value || 0)
-}`,
-                                            }))
-                                        }
-                                        className="quantity-input"
-                                        onClick={(e) => e.stopPropagation()}
-                                    />
-                                </label>
-                            </div>
-                            <div className="batch-action-buttons">
-                                <button
-                                    onClick={applyBatchQuantity}
-                                    disabled={tradeState.selectedOres.length === 0}
-                                    className="batch-apply-button"
-                                >
-                                    Apply {batchMode === "quantity" ? "Quantity" : "AV"}
-                                </button>
-                                <button
-                                    onClick={clearSelection}
-                                    disabled={tradeState.selectedOres.length === 0}
-                                    className="batch-clear-button"
-                                >
-                                    Clear Selection
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Search input */}
-                    <div className="search-container">
+                )}
+                {/* Search input */}
+                <div className="box">
+                    <div className="col-container"
+                        style={{
+                            alignItems: "start",
+                            gap: "0.5em"
+                        }}>
+                        <h2>Search and Add Discount</h2>
+                        <strong>Hint: Add "/" between and hit enter <br></br> to select multiple at once!</strong>
+                        <strong>Hint 2: Add "l:" before typing a layer <br></br> and hit enter to add all its ores.</strong>
                         <label htmlFor="search-input">
                             <input
                                 id="search-input"
@@ -641,14 +556,14 @@ batchMode === "quantity"
                                 placeholder="Search ores or layers..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                onKeyDown={(e) => handleKeyDown(e)}
+                                onKeyDown={(e) => handleKeyDown(e, oresByLayer)}
                                 onFocus={() => setSearchFocused(true)}
                                 onBlur={() => setSearchFocused(false)}
-                                className="search-input"
+                                className="text-input"
                             />
                         </label>
                         {searchFocused && searchTerm && (
-                            <ul className="search-results" ref={resultsRef}>
+                            <ul className="search-results" ref={resultsRef} tabIndex="0">
                                 {filteredOres.map((ore, index) => (
                                     <li
                                         key={`${ore.name}-${index}`}
@@ -656,9 +571,7 @@ batchMode === "quantity"
                                             e.preventDefault();
                                             handleAddOre(ore);
                                         }}
-                                        className={`search-result-item ${
-index === selectedIndex ? "selected" : ""
-}`}
+                                        className={`search-result-item ${index === selectedIndex ? "selected" : ""}`}
                                     >
                                         {ore.name}
                                     </li>
@@ -669,16 +582,10 @@ index === selectedIndex ? "selected" : ""
                             <img
                                 src={patic}
                                 alt="patic"
-                                style={{
-                                    position: "absolute",
-                                    opacity: "0.1",
-                                }}
                             />
                         )}
-                    </div>
 
-                    {/* Discount input */}
-                    <div className="discount-container">
+                        {/* Discount input */}
                         <label htmlFor="discount-input">
                             <input
                                 id="discount-input"
@@ -689,128 +596,214 @@ index === selectedIndex ? "selected" : ""
                                 step="1"
                                 value={discount === 0 ? "" : discount}
                                 onChange={handleDiscountChange}
-                                className="discount-input"
+                                className="quantity-input"
                                 placeholder="Discount %"
                             />
                         </label>
                     </div>
+                </div>
 
-                    {/* Inventory status */}
-                    {allOresAvailable ? (
-                        <div className="global-checkmark">
-                            ✓ All ores available in inventory
+                <div className="box">
+                    {/* Batch quantity controls */}
+                    <h2>Batch Selector</h2>
+                    <div className="row-container">
+                        <div 
+                            className="col-container"
+                            style={{
+                                justifyContent: "left",
+                                gap: "0.5em"
+                            }}>
+                            Selected:<strong> {tradeState.selectedOres.length > 1 
+                                ? `${tradeState.selectedOres.length} Ores` 
+                                : tradeState.selectedOres.length === 0 ? "No Ores"
+                                    : "1 Ore"}</strong>
+                            <label htmlFor="batch-quantity">
+                                {batchMode === "quantity" ? "Quantity:" : "# AV:"}
+                                <input
+                                    id="batch-quantity"
+                                    name="batch-quantity"
+                                    type="number"
+                                    min="0"
+                                    step={batchMode === "quantity" ? "1" : "any"}
+                                    value={
+                                        tradeState.batchQuantity === 0
+                                            ? ""
+                                            : tradeState.batchQuantity
+                                    }
+                                    onChange={(e) =>
+                                        setTradeState((prev) => ({
+                                            ...prev,
+                                            batchQuantity: `${
+batchMode === "quantity"
+? Math.max(0, parseInt(e.target.value) || 0)
+: Math.max(0, e.target.value || 0)
+}`,
+                                        }))
+                                    }
+                                    className="quantity-input"
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                            </label>
                         </div>
-                    ) : (
-                            missingOres.length > 0 && (
-                                <div className="missing-ores-warning">
-                                    <div className="warning-header">✖ Missing:</div>
-                                    <div className="missing-ores-list">
-                                        {missingOres.map((oreObj, index) => (
-                                            <div key={index} className="missing-ore-item">
-                                                {oreObj.name}: {oreObj.missing}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )
-                        )}
+                        <div className="col-container"
+                            style={{
+                                justifyContent: "left",
+                                gap: "0.5em"
+                            }}>
+                            <button
+                                className="apply-button-small"
+                                style={{width:"fit-content"}}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    const newQuantities = { ...tradeState.quantities };
+                                    tradeState.selectedOres.forEach((oreName) => {
+                                        const oreData = allOresWithLayers.find(
+                                            (ore) => ore.name === oreName
+                                        );
+                                        if (!oreData) return;
+                                        const availableAmount = getAvailableAmount(oreData);
+                                        if (availableAmount > 0) {
+                                            newQuantities[oreName] = availableAmount;
+                                        }
+                                    });
 
-                    {/* Trade Summary Table */}
-                    <div className="trade-summary">
-                        <div className="summary-header">
-                            <h2>&nbsp;&nbsp;Current Trade</h2>
-                            {totals.totalAV > 0.0 && (
-                                <div className="filter-thing">
-                                    <div className="box-button" style={{ maxWidth: "250px" }}>
-                                        <button
-                                            className={copiedFilter ? "color-template-mesonyte" : ""}
-                                            onClick={generateSearchFilter}
-                                            title="Generate and copy search filter"
-                                        >
-                                            Generate Search Filter
-                                        </button>
-                                    </div>
-                                    {copiedFilter && (
-                                        <div className="copy-confirmation">
-                                            ✓ Copied to clipboard!
-                                        </div>
-                                    )}
-                                    <div
-                                        className="box-button"
-                                        style={{ maxWidth: "250px", marginTop: "5px" }}
-                                    >
-                                        <button
-                                            onClick={selectAllCurrentOres}
-                                            title="Select all ores currently in table"
-                                        >
-                                            {allSelected ? "Deselect All" : "Select All"}
-                                        </button>
-                                    </div>
+                                    setTradeState((prev) => ({
+                                        ...prev,
+                                        quantities: newQuantities,
+                                    }));
+
+                                    updateTradeOres(allOresWithLayers);
+                                }}
+                                disabled={tradeState.selectedOres.length === 0}
+                                title="Add all available quantities for selected ores"
+                            >
+                                +Max of Selected
+                            </button>
+                            <button onClick={toggleBatchMode}
+                                className={batchMode !== "quantity" ? "color-template-ambrosine" : ""}
+                            >   {batchMode === "quantity"
+                                    ? "Use AV Mode"
+                                    : "Use Quantity Mode"}
+                            </button>
+                            <button
+                                onClick={applyBatchQuantity}
+                                disabled={tradeState.selectedOres.length === 0}
+                            >
+                                Apply {batchMode === "quantity" ? "Quantity" : "AV"}
+                            </button>
+                            <button
+                                onClick={clearSelection}
+                                disabled={tradeState.selectedOres.length === 0}
+                                style={{backgroundColor: "var(--red)"}}
+                            >
+                                Clear Selection
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Trade summary table */}
+                <div
+                    className="box" 
+                    id="trade"
+                >
+                    <div className="row-container" style={{justifyContent: "left"}}>
+                        <h2>Current Trade</h2>
+                        <div className="col-container">
+                            <button
+                                style={{
+                                    padding: "0px", 
+                                    position: "absolute", 
+                                    width: "2em", 
+                                    height: "2em", 
+                                    fontSize: "15px",
+                                    right: "0.9em",
+                                    top: "3.5em"
+                                }}
+                                className="copy-filter-btn"
+                                id="trade"
+                                onClick={generateSearchFilter}
+                                title="Generate and copy search filter"
+                            >
+                                <i class="fas fa-clipboard"></i>
+                            </button>
+                            {copiedFilter && (
+                                <div className="copy-confirmation">
+                                    ✓  Copied!
                                 </div>
                             )}
+                            {allOresAvailable && tradeState.tradeOres > 0 &&
+                                (<div className="comp-check">✓</div>)
+                            }
+                            {allOresAvailable &&
+                                (<div className="comp-check">✓</div>)
+                            }
                         </div>
-                        {/* Totals and inventory status */}
-                        <div className="trade-totals">
-                            <p>
-                                💲Total AV: <span>{totals.totalAV.toFixed(1)}</span>
-                            </p>
-                            {discount > 0 && (
-                                <p>
-                                    💲Discounted AV ({discount}%):{" "}
-                                    <span>
-                                        {Math.round(totals.totalAV * (1 - discount / 100)).toFixed(
-                                            1
-                                        )}
-                                    </span>
-                                </p>
-                            )}
-                            <p>
-                                ⛏️Total # Ores: <span>{totals.totalOres}</span>
-                            </p>
-                        </div>
-                        {tradeState.tradeOres.length > 0 ? (
-                            <table className="trade-table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Quantity</th>
-                                        <th>AV</th>
-                                    </tr>
-                                </thead>
+                    </div>
+                    {/* Totals and inventory status */}
+                    <p>
+                        Total AV: <span className="accent">{totals.totalAV.toFixed(1)}</span>
+                    </p>
+                    {discount > 0 && (
+                        <p>
+                            Discounted AV ({discount}%):{" "}
+                            <span className="accent">
+                                {Math.round(totals.totalAV * (1 - discount / 100)).toFixed(1)}
+                            </span>
+                        </p>
+                    )}
+                    <p>
+                        Total # Ores: <span className="accent">{totals.totalOres}</span>
+                    </p>
+                    <p>&nbsp;</p>
+                    <button onClick={clearTrade} style={{backgroundColor: "var(--red)"}}>
+                        <span>Clear Trade</span>
+                    </button>
+                    {totals.totalAV > 0.000 && (
+                        <>
+                            <button style={{backgroundColor: "var(--selected-color)"}}
+                                onClick={selectAllCurrentOres}
+                                title="Select all ores currently in table"
+                            >
+                                {allSelected ? "Deselect All" : "Select All"}
+                            </button>
+                        </>
+                    )}
+                    {tradeState.tradeOres.length > 0 ? (
+                        <div className="table-wrapper"
+                            style={{
+                                width:"100%",
+                                marginTop: "1em",
+                                left: "0px",
+                                bottom: "0px",
+                                padding: "0px",
+                            }}
+                        >
+                            <table>
                                 <tbody>
                                     {tradeState.tradeOres
                                         .sort((a, b) => a.name.localeCompare(b.name))
                                         .map((ore) => (
-                                            <tr
+                                            <tr style={{cursor: "pointer"}}
                                                 key={ore.name}
                                                 className={
-                                                    isOreSelected(ore.name) ? "selected-row" : ""
+                                                    isOreSelected(ore.name) ? "selected" : ""
                                                 }
                                                 onClick={() => toggleOreSelection(ore.name)}
                                             >
                                                 <td
-                                                    className={`tr-name-cell ${getOreClassName(
-ore.name
-)}`}
+                                                    className={`name-column ${getOreClassName(ore.name)}`}
                                                     data-text={ore.name}
-                                                    style={{ paddingRight: "10px" }}
+                                                    style={{                                
+                                                        textWrap: "nowrap",
+                                                        whiteSpace: "nowrap",
+                                                    }}
                                                 >
-                                                    <button
-                                                        className="delete-ore-button"
-                                                        tabIndex="-1"
-                                                        aria-label="Clear ore from trade"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleRemoveOre(ore);
-                                                        }}
-                                                    >
-                                                        ✖
-                                                    </button>
                                                     {OreIcons[ore.name.replace(/ /g, "_")] ? (
                                                         <img
                                                             src={OreIcons[ore.name.replace(/ /g, "_")]}
                                                             alt={`${ore.name} icon`}
-                                                            className="t-ore-icon"
+                                                            className="ore-icon"
                                                             onError={(e) => {
                                                                 console.error(`Missing icon for: ${ore.name}`);
                                                                 e.target.style.display = "none";
@@ -822,16 +815,27 @@ ore.name
                                                                 <img
                                                                     src={missingIcon}
                                                                     alt={"Missing icon"}
-                                                                    className="t-ore-icon"
+                                                                    className="ore-icon"
                                                                 ></img>
                                                             </span>
                                                         )}
                                                     {ore.name}
                                                 </td>
                                                 <td>
-                                                    <div className="quantity-cell-container">
+                                                    <div className="quantity-cell">
                                                         <button
-                                                            className="add-all-button"
+                                                            className="delete-button"
+                                                            tabIndex="-1"
+                                                            aria-label="Clear ore from trade"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleRemoveOre(ore);
+                                                            }}
+                                                        >
+                                                            ✖
+                                                        </button>
+                                                        <button
+                                                            className="apply-button-small"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 const availableAmount = getAvailableAmount(ore);
@@ -843,16 +847,12 @@ ore.name
                                                                 }
                                                             }}
                                                             title={`Add all available ${ore.name} to trade`}
+                                                            tabIndex="-1"
                                                         >
-                                                            + All
+                                                            +All
                                                         </button>
-                                                        <div className="inventory-count">
-                                                            {getAvailableAmount(ore)}/
-                                                            {quantities[ore.name] || 0}
-                                                        </div>
                                                         <label
                                                             htmlFor={`summary-quantity-${ore.name}`}
-                                                            className="quantity-label"
                                                         >
                                                             <input
                                                                 id={`summary-quantity-${ore.name}`}
@@ -869,133 +869,152 @@ ore.name
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td>{calculateAV(ore.name)}</td>
+                                                <td style={{
+                                                    textAlign: "left",
+                                                    paddingLeft: "5px",
+                                                    maxWidth: "5em", 
+                                                    textOverflow: "ellipsis", 
+                                                    overflow: "hidden"
+                                                }}>{calculateAV(ore.name)}</td>
                                             </tr>
                                         ))}
                                 </tbody>
                             </table>
-                        ) : (
-                                <p>&nbsp;&nbsp;&nbsp;No ores added to trade yet</p>
-                            )}
-                    </div>
+                        </div>
+                    ) : (
+                            <div className="box">
+                                <p>No ores added to trade yet</p>
+                            </div>
+                        )}
                 </div>
-                {/* Main table */}
-                <div className="ore-table-panel">
-                    <div className="layer-controls">
-                        <button
-                            className="collapse-button"
-                            tabIndex="-1"
-                            onClick={() => {
-                                const allCollapsed = {};
-                                Object.values(oreValsDict).forEach((layerObj) => {
-                                    allCollapsed[layerObj.layerName] = true;
-                                });
-                                setCollapsedLayers(allCollapsed);
-                            }}
-                        >
-                            Collapse All
-                        </button>
-                        <button
-                            className="expand-button"
-                            tabIndex="-1"
-                            onClick={() => {
-                                const allExpanded = {};
-                                Object.values(oreValsDict).forEach((layerObj) => {
-                                    allExpanded[layerObj.layerName] = false;
-                                });
-                                setCollapsedLayers(allExpanded);
-                            }}
-                        >
-                            Expand All
-                        </button>
-                    </div>
-                    <table className="trade-table">
-                        <thead>
-                            <tr>
-                                <th>Ore Name</th>
-                                <th>Quantity</th>
-                                <th>AV</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {oresByLayer.map(({ layer, ores, background }) => (
-                                <React.Fragment key={layer}>
-                                    {/* Collapsible layer header */}
-                                    <tr
-                                        className="layer-header"
-                                        style={{ background: background }}
-                                        onClick={() => toggleLayerCollapse(layer)}
-                                    >
-                                        <td colSpan="3">
-                                            {layer.substring(0, layer.indexOf("\n"))}
-                                            <span className="collapse-icon">
-                                                {collapsedLayers[layer] ? "▶" : "▼"}
-                                            </span>
-                                        </td>
-                                    </tr>
+            </div>
 
-                                    {/* Layer content - conditionally rendered */}
-                                    {!collapsedLayers[layer] && (
-                                        <>
-                                            {/* Select All row */}
-                                            <tr className="layer-actions-row">
-                                                <td colSpan="3">
-                                                    <button
-                                                        className="select-all-button"
-                                                        tabIndex="-1"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setTradeState((prev) => {
-                                                                const newSelected = [...prev.selectedOres];
-                                                                ores.forEach((ore) => {
-                                                                    if (!newSelected.includes(ore.name)) {
-                                                                        newSelected.push(ore.name);
-                                                                    }
-                                                                });
-                                                                return {
-                                                                    ...prev,
-                                                                    selectedOres: newSelected,
-                                                                };
+            {/* Main table
+            <div 
+                className="box"
+            >
+                <button
+                    tabIndex="-1"
+                    onClick={() => {
+                        const allCollapsed = {};
+                        Object.values(oreValsDict).forEach((layerObj) => {
+                            allCollapsed[layerObj.layerName] = true;
+                        });
+                        setCollapsedLayers(allCollapsed);
+                    }}
+                >
+                    Collapse All
+                </button>
+                <button
+                    tabIndex="-1"
+                    onClick={() => {
+                        const allExpanded = {};
+                        Object.values(oreValsDict).forEach((layerObj) => {
+                            allExpanded[layerObj.layerName] = false;
+                        });
+                        setCollapsedLayers(allExpanded);
+                    }}
+                >
+                    Expand All
+                </button>
+                <table style={{
+                    width: "100%",
+                }}>
+                    <tbody>
+                        {oresByLayer.map(({ layer, ores, background }) => (
+                            <React.Fragment key={layer}
+                                style={{
+                                    width: "fit-content"
+                                }}
+                            >
+                                <tr
+                                    style={{ 
+                                        background: background,
+                                    }}
+                                    onClick={() => toggleLayerCollapse(layer)}
+                                >
+                                    <td colSpan="3" style={{cursor: "pointer"}}>
+                                        <h2 
+                                            className="table-header"
+                                            style={{
+                                                paddingTop: "5px",
+                                                paddingLeft: "5px",
+                                                paddingRight: "5px",
+                                                textAlign: "center",
+                                            }}
+                                        >{layer.substring(0, layer.indexOf("\n"))}
+                                            {collapsedLayers[layer] ? " ▶" : " ▼"}</h2>
+                                    </td>
+                                </tr>
+
+                                {!collapsedLayers[layer] && (
+                                    <>
+                                        <tr>
+                                            <td>
+                                                <button
+                                                    style={{width:"fit-content"}}
+                                                    tabIndex="-1"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setTradeState((prev) => {
+                                                            const newSelected = [...prev.selectedOres];
+                                                            ores.forEach((ore) => {
+                                                                if (!newSelected.includes(ore.name)) {
+                                                                    newSelected.push(ore.name);
+                                                                }
                                                             });
-                                                        }}
-                                                    >
-                                                        Select All in{" "}
-                                                        {layer.substring(0, layer.indexOf("\n"))}
-                                                    </button>
-                                                    <button
-                                                        className="deselect-all-button"
-                                                        tabIndex="-1"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setTradeState((prev) => ({
+                                                            return {
                                                                 ...prev,
-                                                                selectedOres: prev.selectedOres.filter(
-                                                                    (name) =>
-                                                                        !ores.some((ore) => ore.name === name)
-                                                                ),
-                                                            }));
-                                                        }}
-                                                    >
-                                                        Deselect All
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            {ores.map((ore) => (
-                                                <tr
-                                                    key={ore.name}
-                                                    className={
-                                                        isOreSelected(ore.name) ? "selected-row" : ""
-                                                    }
-                                                    onClick={() => toggleOreSelection(ore.name)}
+                                                                selectedOres: newSelected,
+                                                            };
+                                                        });
+                                                    }}
                                                 >
-                                                    <td
-                                                        className={`tr-name-cell ${getOreClassName(
+                                                    Select All
+                                                </button>
+                                                <button
+                                                    style={{width:"fit-content"}}
+                                                    tabIndex="-1"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setTradeState((prev) => ({
+                                                            ...prev,
+                                                            selectedOres: prev.selectedOres.filter(
+                                                                (name) =>
+                                                                    !ores.some((ore) => ore.name === name)
+                                                            ),
+                                                        }));
+                                                    }}
+                                                >
+                                                    Deselect All
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {ores.map((ore) => (
+                                            <tr style={{cursor: "pointer"}}
+                                                key={ore.name}
+                                                className={
+                                                    isOreSelected(ore.name) ? "selected" : ""
+                                                }
+                                                onClick={() => toggleOreSelection(ore.name)}
+                                            >
+                                                <td
+                                                    className={`name-column ${getOreClassName(
 ore.name
 )}`}
-                                                        data-text={ore.name}
-                                                    >
+                                                    data-text={ore.name}
+                                                >
+                                                    <img
+                                                        src={OreIcons[ore.name.replace(/ /g, "_")]}
+                                                        alt={`${ore.name} icon`}
+                                                        className="ore-icon"
+                                                    />
+                                                    {ore.name}
+                                                </td>
+                                                <td>
+                                                    <div className="quantity-cell">
                                                         <button
-                                                            className="delete-ore-button"
+                                                            className="delete-button"
                                                             aria-label="Clear ore from trade"
                                                             tabIndex="-1"
                                                             onClick={(e) => {
@@ -1005,68 +1024,58 @@ ore.name
                                                         >
                                                             ✖
                                                         </button>
-                                                        <img
-                                                            src={OreIcons[ore.name.replace(/ /g, "_")]}
-                                                            alt={`${ore.name} icon`}
-                                                            className="t-ore-icon"
-                                                        />
-                                                        {ore.name}
-                                                    </td>
-                                                    <td>
-                                                        <div className="quantity-cell-container">
-                                                            <button
-                                                                className="add-all-button"
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    const availableAmount =
-                                                                    getAvailableAmount(ore);
-                                                                    if (availableAmount > 0) {
-                                                                        handleQuantityChange(
-                                                                            ore.name,
-                                                                            availableAmount
-                                                                        );
-                                                                    }
-                                                                }}
-                                                                title={`Add all available ${ore.name} to trade`}
-                                                            >
-                                                                + All
-                                                            </button>
-                                                            <div className="inventory-count">
-                                                                {getAvailableAmount(ore)}/
-                                                                {quantities[ore.name] || 0}
-                                                            </div>
-                                                            <label
-                                                                htmlFor={`quantity-${ore.name}`}
-                                                                className="quantity-label"
-                                                            >
-                                                                <input
-                                                                    id={`quantity-${ore.name}`}
-                                                                    type="number"
-                                                                    value={quantities[ore.name] ?? ""}
-                                                                    onChange={(e) =>
-                                                                        handleQuantityChange(
-                                                                            ore.name,
-                                                                            e.target.value
-                                                                        )
-                                                                    }
-                                                                    className="quantity-input"
-                                                                    min="1"
-                                                                    onClick={(e) => e.stopPropagation()}
-                                                                />
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>{calculateAV(ore.name)}</td>
-                                                </tr>
-                                            ))}
-                                        </>
-                                    )}
-                                </React.Fragment>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                                                        <button
+                                                            className="apply-button-small"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                const availableAmount =
+                                                                getAvailableAmount(ore);
+                                                                if (availableAmount > 0) {
+                                                                    handleQuantityChange(
+                                                                        ore.name,
+                                                                        availableAmount
+                                                                    );
+                                                                }
+                                                            }}
+                                                            title={`Add all available ${ore.name} to trade`}
+                                                            tabIndex="-1"
+                                                        >
+                                                            +All
+                                                        </button>
+                                                        <label
+                                                            htmlFor={`quantity-${ore.name}`}
+                                                        >
+                                                            <input
+                                                                id={`quantity-${ore.name}`}
+                                                                type="number"
+                                                                value={quantities[ore.name] ?? ""}
+                                                                onChange={(e) =>
+                                                                    handleQuantityChange(
+                                                                        ore.name,
+                                                                        e.target.value
+                                                                    )
+                                                                }
+                                                                className="quantity-input"
+                                                                min="1"
+                                                                onClick={(e) => e.stopPropagation()}
+                                                            />
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td style={{
+                                                    justifycontent: "left",
+                                                    paddingleft: "5px"
+                                                }}>{calculateAV(ore.name)}</td>
+                                            </tr>
+                                        ))}
+                                    </>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </tbody>
+                </table>
             </div>
+            */}
         </div>
     );
 }

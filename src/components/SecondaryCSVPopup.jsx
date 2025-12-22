@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { MiscContext } from "../context/MiscContext";
 import { getOreNames } from "../data/OreNames";
 
-import "../styles/SecondaryCSVPopup.css";
 
 function SecondaryCSVPopup({ onClose }) {
     const { setSecondaryCSVData } = useContext(MiscContext);
@@ -25,35 +24,24 @@ function SecondaryCSVPopup({ onClose }) {
     };
 
     return (
-        <div className="c-modal-overlay">
-            <div className="c-editor-popup">
-                <div className="c-editor-header">
+        <div className="popup-overlay">
+            <div className="popup">
                     <h3>Enter Secondary CSV</h3>
                     <button
                         onClick={onClose}
                         className="close-button"
                     >✖
                     </button>
-                </div>
-                <div className="c-csv-output">
+                <div className="csv-output">
                     <textarea
                         value={csvInput}
                         onChange={(e) => setCSVInput(e.target.value)}
                         placeholder="Paste your secondary CSV string here..."
-                        style={{
-                            backgroundColor: "var(--background-color)",
-                            color: "var(--text-color)",
-                            outline: "2px solid var(--switch-outline)",
-                        }}
                     />
                 </div>
-                <div className="button-container">
-                    <div className="box-button">
-                        <button onClick={handleSave}>Save</button>
-                    </div>
-                    <div className="box-button">
-                        <button onClick={onClose}>Cancel</button>
-                    </div>
+                <div className="button-container" id="csv">
+                    <button onClick={handleSave}>Save</button>
+                    <button onClick={onClose}>Cancel</button>
                 </div>
             </div>
         </div>

@@ -3,216 +3,122 @@ import { GetVersion } from "../utils/GetVersion";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
-import "../styles/WelcomePage.css";
-
 import logo from "../images/misc/tccIconHalloween2025.png";
 
 function WelcomePage() {
-  const version = GetVersion();
-  let navigate = useNavigate();
-  const [showChangelog, setShowChangelog] = useState(false);
+    const version = GetVersion();
+    let navigate = useNavigate();
+    const [showChangelog, setShowChangelog] = useState(false);
 
-  const currentChangelog = `
-  ## Current Version: v${version} - Deployed 11/8/2025
-  - Major UI update for tables - cool frosted glass effect!
+    const currentChangelog = `
+## Current Version: v${version}
 
-## Last Major Version: v9.10.0 - Deployed 10/11/25
+## Last Major Version: v9.13.0
 \`\`\`diff
-Arid is here!
-+ Added Turf & Soil (Surface -> 10m -> 25m) @ 250 & 500 per AV respectively
-+ Added Aerolyte @ 4 per AV
-+ Added Ammolite @ 3 per AV
-+ Added Citrine @ 12 per AV
-+ Added Paliatite @ 13 per AV
-+ Added Sandstone @ 1000 per AV
-+ Added Serpentine @ 11 per AV
-+ Added Tourmaline @ 7 per AV
-+ Added Turquoise @ 2 per AV
-+ Added Skoralite (Stability) @ 10 per AV
-+ Added Kymizalum (Interstice) @ 4 per AV
-= ALL VALUES SUBJECT TO CHANGE SO DONT WHINE ABOUT THEM THANKS
-+ Added 3 charms to Miscellaneous page
-    - Kyanite ring (+27% inventory space)
-    - Ichor Band (reduces growth spawn rate from cytosol to 1/10th)
-    - Polarflare Necklace (makes the player immune to extreme temperatures)
-- Removed Aluminum
-- Removed Frozen Nitrogen
-- Removed Hellstone (Replaced with and moved Garnet)
-- Removed Rifted Barrier (no longer obtainable)
-= Garnet 7 -> 25 per AV (same rarity as old hellstone, same location)
-= Topaz: 3 -> 6 per AV (no longer cave-only)
-= Updated Bismuth, Chromium, Profelis, Astathian, Aetherice, Orichalican, Dystranum,
-  Torn Fabric, Ectokelyte, Ethanerite, Unobtanium, Ubriniale, Inversium, Revalyte,
-  Spiralium, Void Orb (Incomplete), and Zetaslime icons and gradients!
+Soulscape is here! Also I revamped the entire site UI
++ ZTT UI is now fully mobile-compatible and 100% responsive to monitor size!
++ Consistent theming, much less unnecessary HTML and CSS classes and files
++ Added all Soulscape ores, Arsenic, Tanzanite, Stygian Ooze, Noxigranite, Slate, Emberlite, Ultimatter, etc.
+= ALL VALUES SUBJECT TO CHANGE
++ Added 3 charms to Miscellaneous page: Zynulvinite Band, Impervium Ring, and Bismuth Band
+= Renamed Boomite -> Nitrolyte, Blastium -> Vitriolyte, uhhhh idk
+- Removed Newtonium, Firecrystal, Mantle Fragment
+= Multiple value changes, let me know if any values are weird. Haven't had time to look at or test any, myself
 \`\`\`
 `;
 
-  return (
-    <>
-      <div className="welcome-page">
+return (
+    <div 
+        className="page-wrapper"
+    >
+        <h1 className="page-name">
+            Welcome to ZenithFlare's Trading Tool v{version}!
+        </h1>
         <img
-          src={logo}
-          alt="tcc logo"
-          style={{
-            position: "absolute",
-            opacity: "1",
-            marginTop: "70vh",
-            width: "40vh",
-            height: "40vh",
-          }}
+            src={logo}
+            alt="tcc logo"
+            style={{
+                width: "15em",
+                height: "15em",
+                border: "5px solid var(--switch-outline)",
+                boxShadow: "10px 10px 10px 0px rgba(0, 0, 0, 0.8)",
+            }}
         />
-        <div>
-          <h1 className="name">
-            <span className="copy-wrap">
-              Created by ZenithFlare for The Celestial Caverns
-            </span>
-          </h1>
-          <div className="square"></div>
-          <div className="button-container">
-            <div className="box-button">
-              <button onClick={() => navigate("/valuechart")}>
-                ⭐ Value Chart ⭐
-              </button>
-            </div>
-            <div className="box-button">
-              <button onClick={() => navigate("/tradetool")}>
-                💲Trade Tool💲
-              </button>
-            </div>
-            <div className="box-button">
-              <button onClick={() => navigate("/customvalues")}>
+        <h2>Created by ZenithFlare for Celestial Caverns</h2>
+        <div className="button-container">
+            <button onClick={() => navigate("/valuechart")}>
+                Value Chart
+            </button>
+            <button onClick={() => navigate("/tradetool")}>
+                Trade Tool
+            </button>
+            <button onClick={() => navigate("/customvalues")}>
                 Custom Values
-              </button>
-            </div>
-            <div className="box-button">
-              <button onClick={() => navigate("/misc")}>Miscellaneous</button>
-            </div>
-            <div className="box-button">
-              <button onClick={() => navigate("/findtracker")}>
+            </button>
+            <button onClick={() => navigate("/misc")}>
+                Miscellaneous
+            </button>
+            <button onClick={() => navigate("/findtracker")}>
                 Rare Tracker
-              </button>
-            </div>
-            <div className="box-button">
-              <button onClick={() => navigate("/wheelspage")}>
+            </button>
+            <button onClick={() => navigate("/wheelspage")}>
                 Spin the Wheel!
-              </button>
-            </div>
-            <div className="box-button">
-              <button onClick={() => navigate("/credits")}>Credits</button>
-            </div>
-            <div className="box-button">
-              <button
+            </button>
+            <button onClick={() => navigate("/credits")}>
+                Credits
+            </button>
+            <button
                 onClick={() =>
-                  window.open(
-                    "https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki",
-                    "_blank"
-                  )
+                    window.open(
+                        "https://celestialcaverns.miraheze.org/wiki/Celestial_Caverns_Wiki",
+                        "_blank"
+                    )
                 }
-              >
-                📝TCC Wiki📕
-              </button>
-            </div>
-            <div className="box-button">
-              <button
+            >
+                CC Wiki
+            </button>
+            <button
                 onClick={() =>
-                  window.open("https://discord.gg/rDgqKpJyP9", "_blank")
+                    window.open("https://discord.gg/rDgqKpJyP9", "_blank")
                 }
-              >
+            >
                 My Achievements!
-              </button>
-            </div>
-            <div className="box-button">
-              <button
+            </button>
+            <button
                 onClick={() =>
-                  window.open("https://ko-fi.com/zenithflare", "_blank")
+                    window.open("https://ko-fi.com/zenithflare", "_blank")
                 }
-              >
-                🍵Buy Me a Coffee
-              </button>
-            </div>
-            <div className="box-button">
-              <button 
+            >
+                Buy Me a Coffee
+            </button>
+            <button 
                 onClick={() => setShowChangelog(!showChangelog)}
                 className={showChangelog ? "active" : ""}
-              >
-                {showChangelog ? "▼ Hide Changelog" : "▲ Show Changelog"}
-              </button>
+            >
+                {showChangelog ? "▼  Hide Changelog" : "▲  Show Changelog"}
+            </button>
+        </div>
+        {showChangelog && (
+            <div 
+                className="popup-overlay" 
+                onClick={() => setShowChangelog(false)}
+            >
+                <div className="box">
+                    <button 
+                        className="close-button"
+                        onClick={() => setShowChangelog(false)}
+                    >
+                        ✖
+                    </button>
+                    <ReactMarkdown>
+                        {currentChangelog}
+                    </ReactMarkdown>
+                </div>
             </div>
-          </div>
-          <div className="wcard">
-            <h1 className="title">
-              <span className="copy-wrap">
-                Welcome to ZenithFlare's Trading Tool v{version}!
-              </span>
-            </h1>
-          </div>
-        </div>
-
-        <h2 className="copyright">Copyright ©2025</h2>
-      </div>
-
-      {showChangelog && (
-      <>
-        <div 
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0, 0, 0, 0.5)",
-            zIndex: 9999
-          }}
-          onClick={() => setShowChangelog(false)}
-        />
-
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            fontSize: "1.75vh",
-            width: "60vw",
-            height: "fit-content",
-            maxHeight: "80vh",
-            overflow: "auto",
-            whiteSpace: "wrap",
-            padding: "3vw",
-            background: "var(--background-color)",
-            borderRadius: "2vw",
-            border: "0.2vw solid var(--switch-outline)",
-            zIndex: 10000,
-          }}
-        >
-          <button
-            onClick={() => setShowChangelog(false)}
-            style={{
-              position: "absolute",
-              top: "1vw",
-              right: "1vw",
-              background: "var(--button-background)",
-              border: "0.15vw solid var(--switch-outline)",
-              borderRadius: "0.5vw",
-              fontSize: "1.5vh",
-              cursor: "pointer",
-              color: "var(--text-color)",
-              padding: "0.5vw 1vw",
-              zIndex: 10001,
-              fontWeight: "bold"
-            }}
-          >
-            Close
-          </button>
-
-          <ReactMarkdown>
-            {currentChangelog}
-          </ReactMarkdown>
-        </div>
-      </>
-    )}
-    </>
-  );
+        )}
+        <h3>--- Copyright <i class="fas fa-copyright"></i>2025 ---</h3>
+    </div>
+);
 }
 
 export default WelcomePage;

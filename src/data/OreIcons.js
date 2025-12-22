@@ -21,6 +21,7 @@ import Apiastrine from '../images/ore-icons/Apiastrine_Icon.png';
 import Aquamarine from '../images/ore-icons/Aquamarine_Icon.png';
 import Argibar from '../images/ore-icons/Argibar_Icon.png';
 import Arkivyll from '../images/ore-icons/Arkivyll_Icon.png';
+import Arsenic from '../images/ore-icons/Arsenic_Icon.png';
 import Astathian from '../images/ore-icons/Astathian_Icon.png';
 import Asthenocrit from '../images/ore-icons/Asthenocrit_Icon.png';
 import Astratine from '../images/ore-icons/Astratine_Icon.png';
@@ -29,8 +30,6 @@ import Aurorum from '../images/ore-icons/Aurorum_Icon.png';
 import Axion from '../images/ore-icons/Axion_Icon.png';
 import Bedrock from '../images/ore-icons/Bedrock_Icon.png';
 import Bismuth from '../images/ore-icons/Bismuth_Icon.png';
-import Blastium from '../images/ore-icons/Blastium_Icon.png';
-import Boomite from '../images/ore-icons/Boomite_Icon.png';
 import Boron from '../images/ore-icons/Boron_Icon.png';
 import Bottom_Quark from '../images/ore-icons/Bottom_Quark_Icon.png';
 import Cadmium from '../images/ore-icons/Cadmium_Icon.png';
@@ -67,6 +66,7 @@ import Crystal_Photon from '../images/ore-icons/Crystal_Photon_Icon.png';
 import Cytosol from '../images/ore-icons/Cytosol_Icon.png';
 import Dark_Energy from '../images/ore-icons/Dark_Energy_Icon.png';
 import Dark_Matter from '../images/ore-icons/Dark_Matter_Icon.png';
+import Decadulum from '../images/ore-icons/Decadulum_Icon.png';
 import Demonite from '../images/ore-icons/Demonite_Icon.png';
 import Desmentinum from '../images/ore-icons/Desmentinum_Icon.png';
 import Diamond from '../images/ore-icons/Diamond_Icon.png';
@@ -76,9 +76,11 @@ import Eater from '../images/ore-icons/Eater_Icon.png';
 import Ebonakite from '../images/ore-icons/Ebonakite_Icon.png';
 import Eclipsium from '../images/ore-icons/Eclipsium_Icon.png';
 import Ectokelyte from '../images/ore-icons/Ectokelyte_Icon.png';
+import Ectoplast from '../images/ore-icons/Ectoplast_Icon.png';
 import Egg from '../images/ore-icons/Egg_Icon.png';
 import Eidoliphyll from '../images/ore-icons/Eidoliphyll_Icon.png';
 import Electrium from '../images/ore-icons/Electrium_Icon.png';
+import Emberlite from '../images/ore-icons/Emberlite_Icon.png';
 import Emerald from '../images/ore-icons/Emerald_Icon.png';
 import Enceladrum from '../images/ore-icons/Enceladrum_Icon.png';
 import Endotravine from '../images/ore-icons/Endotravine_Icon.png';
@@ -99,7 +101,6 @@ import Exodian from '../images/ore-icons/Exodian_Icon.png';
 import Exotic_Matter from '../images/ore-icons/Exotic_Matter_Icon.png';
 import Fabric from '../images/ore-icons/Fabric_Icon.png';
 import Ferozium from '../images/ore-icons/Ferozium_Icon.png';
-import Firecrystal from '../images/ore-icons/Firecrystal_Icon.png';
 import Fishium from '../images/ore-icons/Fishium_Icon.png';
 import Formicite from '../images/ore-icons/Formicite_Icon.png';
 import Frostarium from '../images/ore-icons/Frostarium_Icon.png';
@@ -127,6 +128,7 @@ import Hydrolyth from '../images/ore-icons/Hydrolyth_Icon.png';
 import Hyfrost from '../images/ore-icons/Hyfrost_Icon.png';
 import Hyperium from '../images/ore-icons/Hyperium_Icon.png';
 import Ichor from '../images/ore-icons/Ichor_Icon.png';
+import Ichracryst from '../images/ore-icons/Ichracryst_Icon.png';
 import Illusinium from '../images/ore-icons/Illusinium_Icon.png';
 import Impervium from '../images/ore-icons/Impervium_Icon.png';
 import Infernilus from '../images/ore-icons/Infernilus_Icon.png';
@@ -147,6 +149,7 @@ import Kreosyte from '../images/ore-icons/Kreosyte_Icon.png';
 import Kronosilt from '../images/ore-icons/Kronosilt_Icon.png';
 import Kryposilus from '../images/ore-icons/Kryposilus_Icon.png';
 import Kyanite from '../images/ore-icons/Kyanite_Icon.png';
+import Kymeranite from '../images/ore-icons/Kymeranite_Icon.png';
 import Kymizalum from '../images/ore-icons/Kymizalum_Icon.png';
 import Lapis from '../images/ore-icons/Lapis_Icon.png';
 import Larimar from '../images/ore-icons/Larimar_Icon.png';
@@ -162,7 +165,6 @@ import Magnesium from '../images/ore-icons/Magnesium_Icon.png';
 import Magnetite from '../images/ore-icons/Magnetite_Icon.png';
 import Malachite from '../images/ore-icons/Malachite_Icon.png';
 import Malbrane from '../images/ore-icons/Malbrane_Icon.png';
-import Mantle_Fragment from '../images/ore-icons/Mantle_Fragment_Icon.png';
 import Mauraline from '../images/ore-icons/Mauraline_Icon.png';
 import Mavrikine from '../images/ore-icons/Mavrikine_Icon.png';
 import Mesmirian from '../images/ore-icons/Mesmirian_Icon.png';
@@ -185,13 +187,14 @@ import Neuroplast from '../images/ore-icons/Neuroplast_Icon.png';
 import Neutrine from '../images/ore-icons/Neutrine_Icon.png';
 import Neutrino from '../images/ore-icons/Neutrino_Icon.png';
 import Neutronium from '../images/ore-icons/Neutronium_Icon.png';
-import Newtonium from '../images/ore-icons/Newtonium_Icon.png';
 import Nickel from '../images/ore-icons/Nickel_Icon.png';
 import Nightmica from '../images/ore-icons/Nightmica_Icon.png';
 import Nihinoris from '../images/ore-icons/Nihinoris_Icon.png';
 import Nilglass from '../images/ore-icons/Nilglass_Icon.png';
 import Nilidust from '../images/ore-icons/Nilidust_Icon.png';
+import Nitrolyte from '../images/ore-icons/Nitrolyte_Icon.png';
 import Noise from '../images/ore-icons/Noise_Icon.png';
+import Noxigranite from '../images/ore-icons/Noxigranite_Icon.png';
 import Null from '../images/ore-icons/Null_Icon.png';
 import Nyrvinoris from '../images/ore-icons/Nyrvinoris_Icon.png';
 import Obliviril from '../images/ore-icons/Obliviril_Icon.png';
@@ -215,6 +218,7 @@ import Perilium from '../images/ore-icons/Perilium_Icon.png';
 import Phantasmorite from '../images/ore-icons/Phantasmorite_Icon.png';
 import Phosphyll from '../images/ore-icons/Phosphyll_Icon.png';
 import Photalizine from '../images/ore-icons/Photalizine_Icon.png';
+import Phrylamite from '../images/ore-icons/Phrylamite_Icon.png';
 import Plasma from '../images/ore-icons/Plasma_Icon.png';
 import Platinum from '../images/ore-icons/Platinum_Icon.png';
 import Plutonium from '../images/ore-icons/Plutonium_Icon.png';
@@ -256,10 +260,13 @@ import Silver from '../images/ore-icons/Silver_Icon.png';
 import Sinfurmium from '../images/ore-icons/Sinfurmium_Icon.png';
 import Singularity from '../images/ore-icons/Singularity_Icon.png';
 import Skoralite from '../images/ore-icons/Skoralite_Icon.png';
+import Slate from '../images/ore-icons/Slate_Icon.png';
 import Soil from '../images/ore-icons/Soil_Icon.png';
 import Soimabarium from '../images/ore-icons/Soimabarium_Icon.png';
 import Solarium from '../images/ore-icons/Solarium_Icon.png';
+import Soulsilt from '../images/ore-icons/Soulsilt_Icon.png';
 import Soul_Crystal from '../images/ore-icons/Soul_Crystal_Icon.png';
+import Specteryl from '../images/ore-icons/Specteryl_Icon.png';
 import Spiralium from '../images/ore-icons/Spiralium_Icon.png';
 import Stardust from '../images/ore-icons/Stardust_Icon.png';
 import Starlite from '../images/ore-icons/Starlite_Icon.png';
@@ -271,12 +278,14 @@ import Strange_Matter from '../images/ore-icons/Strange_Matter_Icon.png';
 import Strange_Quark from '../images/ore-icons/Strange_Quark_Icon.png';
 import Stratocrit from '../images/ore-icons/Stratocrit_Icon.png';
 import String from '../images/ore-icons/String_Icon.png';
+import Stygian_Ooze from '../images/ore-icons/Stygian_Ooze_Icon.png';
 import Sulfur from '../images/ore-icons/Sulfur_Icon.png';
 import Sunstone from '../images/ore-icons/Sunstone_Icon.png';
 import Supermatter from '../images/ore-icons/Supermatter_Icon.png';
 import Surrenderock from '../images/ore-icons/Surrenderock_Icon.png';
 import Tachyon from '../images/ore-icons/Tachyon_Icon.png';
 import Tantalum from '../images/ore-icons/Tantalum_Icon.png';
+import Tanzanite from '../images/ore-icons/Tanzanite_Icon.png';
 import Taynalum from '../images/ore-icons/Taynalum_Icon.png';
 import Technetium from '../images/ore-icons/Technetium_Icon.png';
 import Tellurium from '../images/ore-icons/Tellurium_Icon.png';
@@ -302,6 +311,7 @@ import Turf from '../images/ore-icons/Turf_Icon.png';
 import Turquoise from '../images/ore-icons/Turquoise_Icon.png';
 import Ubriniale from '../images/ore-icons/Ubriniale_Icon.png';
 import Ulirazite from '../images/ore-icons/Ulirazite_Icon.png';
+import Ultimatter from '../images/ore-icons/Ultimatter_Icon.png';
 import Ultranium from '../images/ore-icons/Ultranium_Icon.png';
 import Universallium from '../images/ore-icons/Universallium_Icon.png';
 import Universal_Barrier from '../images/ore-icons/Universal_Barrier_Icon.png';
@@ -316,6 +326,7 @@ import Vermillion from '../images/ore-icons/Vermillion_Icon.png';
 import Vermillium from '../images/ore-icons/Vermillium_Icon.png';
 import Vicious_Shard from '../images/ore-icons/Vicious_Shard_Icon.png';
 import Violecil from '../images/ore-icons/Violecil_Icon.png';
+import Vitriolyte from '../images/ore-icons/Vitriolyte_Icon.png';
 import Void_Orb from '../images/ore-icons/Void_Orb_Icon.png';
 import Vorazylith from '../images/ore-icons/Vorazylith_Icon.png';
 import Vrimsten from '../images/ore-icons/Vrimsten_Icon.png';
@@ -356,6 +367,7 @@ export const OreIcons = {
   Aquamarine,
   Argibar,
   Arkivyll,
+  Arsenic,
   Astathian,
   Asthenocrit,
   Astratine,
@@ -364,8 +376,6 @@ export const OreIcons = {
   Axion,
   Bedrock,
   Bismuth,
-  Blastium,
-  Boomite,
   Boron,
   Bottom_Quark,
   Cadmium,
@@ -402,6 +412,7 @@ export const OreIcons = {
   Cytosol,
   Dark_Energy,
   Dark_Matter,
+  Decadulum,
   Demonite,
   Desmentinum,
   Diamond,
@@ -411,9 +422,11 @@ export const OreIcons = {
   Ebonakite,
   Eclipsium,
   Ectokelyte,
+  Ectoplast,
   Egg,
   Eidoliphyll,
   Electrium,
+  Emberlite,
   Emerald,
   Enceladrum,
   Endotravine,
@@ -434,7 +447,6 @@ export const OreIcons = {
   Exotic_Matter,
   Fabric,
   Ferozium,
-  Firecrystal,
   Fishium,
   Formicite,
   Frostarium,
@@ -462,6 +474,7 @@ export const OreIcons = {
   Hyfrost,
   Hyperium,
   Ichor,
+  Ichracryst,
   Illusinium,
   Impervium,
   Infernilus,
@@ -482,6 +495,7 @@ export const OreIcons = {
   Kronosilt,
   Kryposilus,
   Kyanite,
+  Kymeranite,
   Kymizalum,
   Lapis,
   Larimar,
@@ -497,7 +511,6 @@ export const OreIcons = {
   Magnetite,
   Malachite,
   Malbrane,
-  Mantle_Fragment,
   Mauraline,
   Mavrikine,
   Mesmirian,
@@ -520,13 +533,14 @@ export const OreIcons = {
   Neutrine,
   Neutrino,
   Neutronium,
-  Newtonium,
   Nickel,
   Nightmica,
   Nihinoris,
   Nilglass,
   Nilidust,
+  Nitrolyte,
   Noise,
+  Noxigranite,
   Null,
   Nyrvinoris,
   Obliviril,
@@ -550,6 +564,7 @@ export const OreIcons = {
   Phantasmorite,
   Phosphyll,
   Photalizine,
+  Phrylamite,
   Plasma,
   Platinum,
   Plutonium,
@@ -591,10 +606,13 @@ export const OreIcons = {
   Sinfurmium,
   Singularity,
   Skoralite,
+  Slate,
   Soil,
   Soimabarium,
   Solarium,
+  Soulsilt,
   Soul_Crystal,
+  Specteryl,
   Spiralium,
   Stardust,
   Starlite,
@@ -606,12 +624,14 @@ export const OreIcons = {
   Strange_Quark,
   Stratocrit,
   String,
+  Stygian_Ooze,
   Sulfur,
   Sunstone,
   Supermatter,
   Surrenderock,
   Tachyon,
   Tantalum,
+  Tanzanite,
   Taynalum,
   Technetium,
   Tellurium,
@@ -637,6 +657,7 @@ export const OreIcons = {
   Turquoise,
   Ubriniale,
   Ulirazite,
+  Ultimatter,
   Ultranium,
   Universallium,
   Universal_Barrier,
@@ -651,6 +672,7 @@ export const OreIcons = {
   Vermillium,
   Vicious_Shard,
   Violecil,
+  Vitriolyte,
   Void_Orb,
   Vorazylith,
   Vrimsten,

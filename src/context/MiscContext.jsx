@@ -145,6 +145,12 @@ export const MiscProvider = ({ children }) => {
         return savedHotkeys !== null ? JSON.parse(savedHotkeys) : true;
     });
 
+    const [moreStats, setMoreStats] = useState(() => {
+        const savedMoreStats = localStorage.getItem("moreStats");
+        return savedMoreStats !== null ? JSON.parse(savedMoreStats) : false;
+    });
+
+
     // CSV Data States
     const [csvData, setCSVData] = useState(() => {
         const savedCSVData = localStorage.getItem("csvData");
@@ -497,6 +503,8 @@ export const MiscProvider = ({ children }) => {
         setSettingsOpen,
         hotkeysEnabled,
         setHotkeysEnabled,
+        moreStats,
+        setMoreStats,
 
         // CSV Operations
         csvData,
@@ -549,7 +557,7 @@ export const MiscProvider = ({ children }) => {
         // Utilities
         getOreClassName,
     }), [
-            settingsOpen, hotkeysEnabled, csvData, secondaryCSVData, useSecondaryCSV,
+            settingsOpen, hotkeysEnabled, moreStats, csvData, secondaryCSVData, useSecondaryCSV,
             previousAmounts, lastUpdated, csvHistory, capCompletion, valueMode,
             currentMode, customMultiplier, useObtainRateVals, rareFindsData,
             useSeparateRareMode, rareValueMode, rareCustomMultiplier, oreValsDict,

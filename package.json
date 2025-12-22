@@ -1,6 +1,6 @@
 {
   "name": "zenithstradingtool",
-  "version": "9.12.1",
+  "version": "9.13.0",
   "private": true,
   "type": "module",
   "homepage": "https://benrzasa.github.io/zenithstradingtool",
@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.4",
+    "baseline-browser-mapping": "^2.9.11",
     "conventional-changelog-cli": "^5.0.0",
     "gh-pages": "^6.3.0",
     "vite": "^7.1.11",

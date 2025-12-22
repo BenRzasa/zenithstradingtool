@@ -1,79 +1,77 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import "../styles/NavBar.css";
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <nav
-      className="nav"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <div className="dropdown-container">
-        <span className="nav-h">
-          Navigation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <i className="fas fa-bars"></i>
-        </span>
-
-        {isOpen && (
-          <ul className="dropdown-menu">
-            <li>
-              <Link to="/" onClick={() => setIsOpen(false)}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/valuechart" onClick={() => setIsOpen(false)}>
-                Value Chart
-              </Link>
-            </li>
-            <li>
-              <Link to="/tradetool" onClick={() => setIsOpen(false)}>
-                Trade Tool
-              </Link>
-            </li>
-            <li>
-              <Link to="/customvalues" onClick={() => setIsOpen(false)}>
-                Custom Values
-              </Link>
-            </li>
-            <li>
-              <Link to="/findtracker" onClick={() => setIsOpen(false)}>
-                Rare Tracker
-              </Link>
-            </li>
-            <li>
-              <Link to="/misc" onClick={() => setIsOpen(false)}>
-                Miscellaneous
-              </Link>
-            </li>
-            <li>
-              <Link to="/wheelspage" onClick={() => setIsOpen(false)}>
-                Spin the Wheel!
-              </Link>
-            </li>
-            <li>
-              <Link to="/credits" onClick={() => setIsOpen(false)}>
-                Credits
-              </Link>
-            </li>
-            <li>
-              <a
-                href="https://thecelestialcaverns.miraheze.org/wiki/The_Celestial_Caverns_Wiki"
-                target="_blank"
-                rel="noreferrer"
-              >
-                TCC Wiki
-              </a>
-            </li>
-          </ul>
-        )}
-      </div>
-    </nav>
-  );
+    return (
+        <div className="nav-bar">
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/">
+                        <i className="fas fa-house"></i><span>Home</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/valuechart">
+                        <i className="fas fa-coins"></i><span>Values</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/tradetool">
+                        <i className="fas fa-sack-dollar"></i><span>Trade</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/customvalues">
+                        <i className="fas fa-pencil"></i><span>Custom</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/findtracker">
+                        <i className="fas fa-gem"></i><span>Rares</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/misc">
+                        <i class="fa-solid fa-arrow-down-short-wide"></i><span>Misc</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/wheelspage">
+                        <i class="fa-solid fa-chart-pie"></i><span>Spin!</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <Link to="/credits">
+                        <i class="fa-solid fa-circle-info"></i><span>Credits</span>
+                    </Link>
+                </div>
+            </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <a
+                        href="https://celestialcaverns.miraheze.org/wiki/Celestial_Caverns_Wiki"
+                        target="_blank"
+                        rel="noreferrer"
+                    ><i class="fa-solid fa-book"></i>
+                    </a><span>Wiki</span>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default NavBar;

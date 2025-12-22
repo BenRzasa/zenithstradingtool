@@ -23,6 +23,7 @@ import { TradeProvider } from "./context/TradeContext";
 import { WheelProvider } from "./context/WheelContext";
 import BackgroundManager from "./components/BackgroundManager";
 
+import NavBar from "./components/NavBar";
 import SettingsPanel from "./components/SettingsPanel";
 import SettingsToggle from "./components/SettingsToggle";
 
@@ -32,7 +33,7 @@ import PinlistToggle from "./components/PinlistToggle";
 import HotkeyHandler from "./components/HotkeyHandler";
 import packageJson from "../package.json";
 
-const MIRAHEZE_URL = "https://thecelestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
+const MIRAHEZE_URL = "https://celestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
 const SUCCESSFUL_PROXY = "https://corsproxy.io/?";
 
 // IndexedDB setup
@@ -366,6 +367,12 @@ function AppWithHotkeys({
     return (
         <HotkeyHandler>
             <BackgroundManager background={background} opacity={opacity}>
+                <PinlistToggle onClick={() => setPinlistOpen(!pinlistOpen)} />
+                <CustomPinList
+                    isOpen={pinlistOpen}
+                    onClose={() => setPinlistOpen(false)}
+                />
+                <NavBar/>
                 <SettingsToggle onClick={() => setSettingsOpen(!settingsOpen)} />
                 <SettingsPanel
                     isOpen={settingsOpen}
@@ -376,11 +383,6 @@ function AppWithHotkeys({
                     customBg={customBg}
                     onApplyBg={applyBackground}
                     onResetBg={resetBackground}
-                />
-                <PinlistToggle onClick={() => setPinlistOpen(!pinlistOpen)} />
-                <CustomPinList
-                    isOpen={pinlistOpen}
-                    onClose={() => setPinlistOpen(false)}
                 />
 
                 <Routes>
