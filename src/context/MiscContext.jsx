@@ -69,33 +69,6 @@ const mergeOreValues = (hookData, savedData) => {
     });
 };
 
-// Convert old object format to new array format
-const convertOldFormatToNew = (oldDict) => {
-    if (Array.isArray(oldDict)) return oldDict;
-
-    const newFormat = [];
-
-    Object.entries(oldDict).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-            // Old format: { "True Rares": [{...}, {...}] }
-            newFormat.push({
-                layerName: key,
-                layerOres: value,
-                background: "linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)" // Default
-            });
-        } else if (value && typeof value === 'object') {
-            // Somewhat new format
-            newFormat.push({
-                layerName: value.layerName || key,
-                layerOres: value.layerOres || [],
-                background: value.background || "linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)"
-            });
-        }
-    });
-
-    return newFormat;
-};
-
 export const MiscProvider = ({ children }) => {
     // ==================== STATE INITIALIZATION ====================
     // Get ore values from hook - now it returns an array directly
@@ -119,10 +92,6 @@ export const MiscProvider = ({ children }) => {
                     if (Array.isArray(savedData)) {
                         // Already in new format, merge with hook data
                         setOreValsDict(mergeOreValues(oreValuesFromHook, savedData));
-                    } else {
-                        // Convert old format to new and merge
-                        const convertedData = convertOldFormatToNew(savedData);
-                        setOreValsDict(mergeOreValues(oreValuesFromHook, convertedData));
                     }
                 } catch (e) {
                     console.error("Error parsing saved ore values:", e);
@@ -165,17 +134,6 @@ export const MiscProvider = ({ children }) => {
     const [useSecondaryCSV, setUseSecondaryCSV] = useState(() => {
         const savedUseSecondary = localStorage.getItem("useSecondaryCSV");
         return savedUseSecondary !== null ? JSON.parse(savedUseSecondary) : false;
-    });
-
-    const [csvHistory, setCSVHistory] = useState(() => {
-        const savedHistory = localStorage.getItem("csvHistory");
-        try {
-            const parsed = savedHistory ? JSON.parse(savedHistory) : [];
-            return parsed.filter((entry) => entry.oreValsDict);
-        } catch (e) {
-            console.error("Failed to parse CSV history", e);
-            return [];
-        }
     });
 
     const [previousAmounts, setPreviousAmounts] = useState(() => {
@@ -331,70 +289,20 @@ export const MiscProvider = ({ children }) => {
         setPreviousAmounts(csvData);
         setCSVData(newData);
 
-        setCSVHistory((prev) => [
-            {
-                data: newData,
-                timestamp: now.toISOString(),
-                totalAV: totalAV,
-                valueMode: valueMode,
-                customMultiplier: customMultiplier,
-                oreValsDict: oreValsDict,
-            },
-            ...prev.slice(0, 99),
-        ]);
-
         setLastUpdated(now);
     };
 
-    const loadOldCSV = (index) => {
-        if (index < 0 || index >= csvHistory.length) return;
-
-        const historyEntry = csvHistory[index];
-        if (!historyEntry || !historyEntry.oreValsDict) {
-            console.error("Attempted to load invalid history entry");
-            return;
-        }
-
-        let historicalOreVals = historyEntry.oreValsDict;
-
-        // Convert if necessary
-        if (!Array.isArray(historicalOreVals)) {
-            historicalOreVals = convertOldFormatToNew(historicalOreVals);
-        }
-
-        // Merge with current hook data
-        const mergedOreVals = mergeOreValues(oreValuesFromHook, historicalOreVals);
-
-        setOreValsDict(mergedOreVals);
-        setCSVData(historyEntry.data);
-        setValueMode(historyEntry.valueMode || "zenith");
-
-        if (historyEntry.valueMode === "custom" && historyEntry.customMultiplier) {
-            setCustomMultiplier(historyEntry.customMultiplier);
-        }
-
-        setLastUpdated(new Date(historyEntry.timestamp));
-    };
-
-    const clearCSVHistory = () => {
-        if (window.confirm("Are you sure you want to clear all CSV history? This action cannot be undone.")) {
-            setCSVHistory([]);
-            localStorage.removeItem("csvHistory");
-        }
-    };
 
     const clearCSVData = () => {
         localStorage.removeItem("csvData");
         localStorage.removeItem("csvPreviousData");
         localStorage.removeItem("csvLastUpdated");
-        localStorage.removeItem("csvHistory");
         localStorage.removeItem("secondaryCSVData");
         localStorage.removeItem("useSecondaryCSV");
 
         setCSVData({});
         setPreviousAmounts({});
         setLastUpdated(null);
-        setCSVHistory([]);
         setSecondaryCSVData(null);
         setUseSecondaryCSV(false);
 
@@ -450,10 +358,6 @@ export const MiscProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("useSecondaryCSV", JSON.stringify(useSecondaryCSV));
     }, [useSecondaryCSV]);
-
-    useEffect(() => {
-        localStorage.setItem("csvHistory", JSON.stringify(csvHistory));
-    }, [csvHistory]);
 
     useEffect(() => {
         localStorage.setItem("capCompletion", JSON.stringify(capCompletion));
@@ -516,13 +420,8 @@ export const MiscProvider = ({ children }) => {
         updateCSVData,
         previousAmounts,
         lastUpdated,
-
-        // CSV History
-        csvHistory,
-        setCSVHistory,
-        loadOldCSV,
-        clearCSVHistory,
         clearCSVData,
+
 
         // Value Calculation
         capCompletion,
@@ -558,7 +457,7 @@ export const MiscProvider = ({ children }) => {
         getOreClassName,
     }), [
             settingsOpen, hotkeysEnabled, moreStats, csvData, secondaryCSVData, useSecondaryCSV,
-            previousAmounts, lastUpdated, csvHistory, capCompletion, valueMode,
+            previousAmounts, lastUpdated, capCompletion, valueMode,
             currentMode, customMultiplier, useObtainRateVals, rareFindsData,
             useSeparateRareMode, rareValueMode, rareCustomMultiplier, oreValsDict,
             oreNames

@@ -18,9 +18,6 @@ function CSVLoaderPopup({ onClose, isOpen }) {
         customMultiplier,
         valueMode,
         getValueForMode,
-        csvHistory,
-        clearCSVHistory,
-        loadOldCSV,
         getCurrentCSV,
         clearCSVData,
     } = useContext(MiscContext);
@@ -125,8 +122,6 @@ function CSVLoaderPopup({ onClose, isOpen }) {
             }
         }
     }, [avgCompletion, totalOres, capCompletion]); 
-
-    const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
 
     const [sortConfig, setSortConfig] = useState({
         key: "change",
@@ -309,17 +304,16 @@ function CSVLoaderPopup({ onClose, isOpen }) {
     // Export the CSV data and put it in the input box
     const exportCSV = () => {
         const csvValues = ORE_NAMES.map((ore) => csvData[ore] || 0);
-        document.getElementById("csvInput").value = csvValues.join(",");
+        document.getElementById("csv-input").value = csvValues.join(",");
     };
-
     if (!isOpen) return null;
-
     return (
         <div className="popup-overlay">
             <div className="popup" id="csv" style={{zIndex: "15000"}}>
                 <h2>CSV Loader</h2>
                 <button 
                     className="close-button" 
+                    style={{zIndex:"16000"}}
                     onClick={onClose}>
                     ✖
                 </button>
@@ -358,48 +352,6 @@ function CSVLoaderPopup({ onClose, isOpen }) {
                     >
                         <span>Edit CSV</span>
                     </button>
-                    <button
-                        className={showHistoryDropdown ? "color-template-stardust" : ""}
-                        onClick={() => setShowHistoryDropdown(!showHistoryDropdown)}
-                    >
-                        <span>Load Past CSV</span>
-                    </button>
-                    {showHistoryDropdown && (
-                        <div className="box">
-                            <div className="search-results">
-                                {csvHistory.length === 0 ? (
-                                    <span>No History Yet</span>
-                                ) : (
-                                        <>
-                                            <button
-                                                style={{backgroundColor: "var(--red)"}}
-                                                onClick={clearCSVHistory}
-                                            >
-                                                Clear All History
-                                            </button>
-                                            {csvHistory.map((entry, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="search-result-item"
-                                                    onClick={() => {
-                                                        loadOldCSV(index);
-                                                        setShowHistoryDropdown(false);
-                                                    }}
-                                                >
-                                                    {new Date(entry.timestamp).toLocaleString()}
-                                                    <br />
-                                                    {(entry.totalAV ?? 0).toFixed(1)} AV
-                                                    <br />
-                                                    {entry.valueMode === "custom"
-                                                        ? "CUSTOM"
-                                                        : entry.valueMode.toUpperCase()}
-                                                </div>
-                                            ))}
-                                        </>
-                                    )}
-                            </div>
-                        </div>
-                    )}
                     <button
                         className="color-template-obliviril"
                         onClick={() => {

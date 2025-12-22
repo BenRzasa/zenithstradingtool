@@ -32,8 +32,9 @@ function SecondaryCSVPopup({ onClose }) {
                         className="close-button"
                     >✖
                     </button>
-                <div className="csv-output">
+                <div className="csv-output" style={{width: "90%"}}>
                     <textarea
+                        style={{width: "100%"}}
                         value={csvInput}
                         onChange={(e) => setCSVInput(e.target.value)}
                         placeholder="Paste your secondary CSV string here..."

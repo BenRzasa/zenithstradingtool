@@ -271,6 +271,7 @@ function ValueChart() {
     // Calculate the value
     const raresCompletion = calculateRaresCompletion();
 
+
     return (
         <div className="page-wrapper" id="value">
             {/* Quick summary dropdown */}
@@ -553,7 +554,10 @@ function ValueChart() {
 
             <CSVLoaderPopup
                 isOpen={showCSVLoader}
-                onClose={() => setShowCSVLoader(false)}
+                onClose={() => {
+                    setShowCSVLoader(false);
+                    console.log(showCSVLoader);
+                }}
             />
 
             {/* Back to Top button */}

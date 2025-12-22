@@ -3,7 +3,7 @@ import { GetVersion } from "../utils/GetVersion";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
-import logo from "../images/misc/tccIconHalloween2025.png";
+import logo from "../images/misc/CC_Thumbnail.png";
 
 function WelcomePage() {
     const version = GetVersion();
@@ -38,8 +38,8 @@ return (
             src={logo}
             alt="tcc logo"
             style={{
-                width: "15em",
-                height: "15em",
+                width: "20em",
+                height: "20em",
                 border: "5px solid var(--switch-outline)",
                 boxShadow: "10px 10px 10px 0px rgba(0, 0, 0, 0.8)",
             }}

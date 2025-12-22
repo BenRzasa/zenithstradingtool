@@ -58,7 +58,6 @@ button {
     text-stroke: 3px var(--background-color);
     font-weight: 500;
     paint-order: stroke fill;
-    text-shadow: 1px 1px 8px #000000;
 }
 
 *:after {
@@ -223,7 +222,7 @@ button:hover {
     width: 2.5em;
     height: 2.5em;
     background: none;
-    border: 3px solid var(--background-color);
+    border: 2px solid var(--switch-outline);
     background-color: var(--accent-color);
     color: var(--accent-color);
     cursor: pointer;

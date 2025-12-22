@@ -112,7 +112,6 @@
     transform: translate(-50%, -50%);
     color: white;
     font-size: 12px;
-    text-shadow: 1px 1.5px 1.5px rgba(0, 0, 0, 2);
 }
 
 .ore-name {
@@ -165,7 +164,7 @@
     }
     padding: 1rem;
     position: relative;
-    width: 550px;
+    width: 525px;
     overflow: hidden;
     height: fit-content;
     z-index: 0;

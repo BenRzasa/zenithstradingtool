@@ -51,7 +51,7 @@ export const oreValuesStructure = [
     },
     {
         layerName: "Volatile\n[2500-2999m]",
-        background: "#fc9321",
+        background: "linear-gradient(90deg, #a51919 0%, #ff9721 50%, #a51919 100%)",
         layerOres: [] 
     },
     {
@@ -61,7 +61,7 @@ export const oreValuesStructure = [
     },
     {
         layerName: "Soulscape\n[3500-3999m]",
-        background: "linear-gradient(180deg, #9edff7 0%, #cdcfd1 50%, #9edff7 100%)",
+        background: "linear-gradient(180deg, #50ffe2 0%, #acdfff 25%, #ffffff 50%, #acdfff 75%, #50ffe2 100%)",
         layerOres: [] 
     },
     {
@@ -140,8 +140,8 @@ export const oreValuesStructure = [
         layerOres: [] 
     },
     {
-        layerName: "Lower Instability\nGrim 1 | Hive | Grim 2\n[10000m-10634m]",
-        background: "linear-gradient(180deg, #3c0703 0%,rgb(39, 4, 2) 100%)",
+        layerName: "Lower Instability\nGrim | Hive | Lower Grim \n[10000m-10634m]",
+        background: "linear-gradient(90deg, #fff36f 0%, #ff8113 50%, #fff36f 100%)",
         layerOres: [] 
     },
     {
@@ -156,7 +156,7 @@ export const oreValuesStructure = [
     },
     {
         layerName: "Abyss\n[11000m-11349m]",
-        background: "linear-gradient(90deg, #deebf8 0%,rgb(83, 94, 218) 72%, #deebf8 100%)",
+        background: "linear-gradient(90deg, #61469c 0%, #f6f2ff 50%, #61469c 100%)",
         layerOres: [] 
     },
     {
@@ -166,7 +166,7 @@ export const oreValuesStructure = [
     },
     {
         layerName: "Quintessence\n[11750m-12199m]",
-        background: "linear-gradient(90deg, #ff5cf7, #81b8ff, #6430ff, #ff73b2)",
+        background: "linear-gradient(95deg, #362ca3 0%, #ff63e2 20%, #939eff 35%, #9bfdff 50%, #9f87ff 62.1%, #e062ff 75%, #9c46ff 85%, #221856 100%)",
         layerOres: [] 
     },
     {
