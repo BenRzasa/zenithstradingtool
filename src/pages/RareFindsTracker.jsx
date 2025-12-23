@@ -257,8 +257,7 @@ const RareFindsTracker = () => {
                     style={{ position: "absolute", opacity: "0.025" }}
                 />
             </div>
-            <NavBar />
-            <div className="page-wrapper">
+            <div className="page-wrapper" style={{transform: "scale(0.9)", transformOrigin: "center"}}>
                 <h1>Rare Finds Tracker</h1>
                 <div className="button-container">
                     <button
