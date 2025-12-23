@@ -15,8 +15,16 @@ function CustomValuesEditor() {
         setOreValsDict, 
         valueMode, 
         setValueMode, 
-        resetCustomValues 
+        resetCustomValues,
+        getOreClassName
     } = useContext(MiscContext);
+
+    const formatter = new Intl.NumberFormat('en-US', {
+        style:'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 3,
+        useGrouping: false
+    });
 
     // Initialize localValues with proper fallbacks
     const [localValues, setLocalValues] = useState(() => {
@@ -49,6 +57,13 @@ function CustomValuesEditor() {
 
     // Change the custom value in the dictionary
     const handleValueChange = (layer, oreName, newValue) => {
+        const num = parseFloat(newValue);
+        let formattedValue = newValue;
+
+        if (!isNaN(num)) {
+            formattedValue = formatter.format(num);
+        }
+
         setOreValsDict((prev) => {
             const newDict = { ...prev };
             const layerKey = Object.keys(newDict).find(
@@ -65,7 +80,7 @@ function CustomValuesEditor() {
                         if (ore.name === oreName) {
                             return {
                                 ...ore,
-                                defaultVal: newValue,
+                                defaultVal: formattedValue.replace(",", ""),
                             };
                         }
                         return ore;
@@ -94,10 +109,7 @@ function CustomValuesEditor() {
         }
     };
 
-    // Function to generate the className based on ore name
-    const getOreClassName = (oreName) => {
-        return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
-    };
+
 
     return (
         <>
@@ -220,31 +232,30 @@ function CustomValuesEditor() {
                                                             value={
                                                                 localValues[`${layerName}-${ore.name}`] !==
                                                                     undefined
-                                                                    ? localValues[`${layerName}-${ore.name}`]
-                                                                    : ore.defaultVal
+                                                                    ? (localValues[`${layerName}-${ore.name}`])
+                                                                    : (ore.defaultVal)
                                                             }
                                                             onChange={(e) => {
-                                                                console.log(`${ore.name} Value Change from ${localValues[`${layerName}-${ore.name}`]} to ${e.target.value}`);
                                                                 setLocalValues((prev) => ({
                                                                     ...prev,
                                                                     [`${layerName}-${ore.name}`]: e.target.value,
                                                                 }));
                                                             }}
                                                             onBlur={(e) => {
-                                                                if (
-                                                                    e.target.value <= 0 ||
-                                                                        e.target.value > 10000
-                                                                ) {
+                                                                const rawValue = e.target.value;
+                                                                const num = parseFloat(rawValue);
+
+                                                                if (isNaN(num) || num <= 0 || num > 10000) {
                                                                     window.alert(
-                                                                        "Please enter a value between 1 and 10000. Defaulting to '1'..."
+                                                                        "Please enter a value between 0 and 10000. Defaulting to '1'..."
                                                                     );
                                                                     e.target.value = 1;
+                                                                } else {
+                                                                    // Format the value for display
+                                                                    e.target.value = formatter.format(num);
                                                                 }
-                                                                handleValueChange(
-                                                                    layerName,
-                                                                    ore.name,
-                                                                    e.target.value
-                                                                );
+
+                                                                handleValueChange(layerName, ore.name, e.target.value);
                                                                 setLocalValues((prev) => {
                                                                     const newValues = { ...prev };
                                                                     delete newValues[`${layerName}-${ore.name}`];
@@ -269,8 +280,10 @@ function CustomValuesEditor() {
                                                             }}
                                                             className="quantity-input"
                                                             style={{ 
-                                                                textAlign: "left",
-                                                                width: "100%",
+                                                                justifySelf: "center",
+                                                                alignSelf: "center",
+                                                                textAlign: "center",
+                                                                width: "80%",
                                                                 height: "100%",
                                                             }}
                                                         />

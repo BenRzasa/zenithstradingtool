@@ -200,7 +200,11 @@ export const MiscProvider = ({ children }) => {
 
     // Reset custom values to a specific source
     const resetCustomValues = (source) => {
-        const resetData = oreValsDict.map(layer => {
+        const resetData = {};
+        
+        Object.keys(oreValsDict).forEach(layerKey => {
+            const layer = oreValsDict[layerKey];
+            
             const resetOres = layer.layerOres.map(ore => {
                 let newCustomVal;
                 switch(source) {
@@ -221,7 +225,7 @@ export const MiscProvider = ({ children }) => {
                 return { ...ore, defaultVal: newCustomVal };
             });
 
-            return { ...layer, layerOres: resetOres };
+            resetData[layerKey] = { ...layer, layerOres: resetOres };
         });
 
         setOreValsDict(resetData);

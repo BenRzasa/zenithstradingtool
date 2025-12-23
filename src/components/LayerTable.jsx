@@ -34,6 +34,8 @@ const LayerTable = ({
 
     const csvData = getCurrentCSV();
 
+    let formatter = Intl.NumberFormat('en', { notation: 'compact', maximumSignificantDigits: 3 });
+
     const [copiedFilter, setCopiedFilter] = useState(null);
 
     // null check for oreValsDict
@@ -61,10 +63,10 @@ const LayerTable = ({
 
     const formatValue = (value, mode = currentMode) => {
         const num = Number(value);
-        if (!Number.isFinite(num)) return 0;
+        if (!Number.isFinite(num)) return formatter.format(0);
 
         // For /AV (mode 1) - return raw number exactly as provided
-        if (mode === 1) return num;
+        if (mode === 1) return formatter.format(num);
 
         // Calculate scaled value
         const scaleFactor =
@@ -83,49 +85,7 @@ const LayerTable = ({
                                     : 1; // Default to 1
 
         const scaledValue = num * scaleFactor;
-
-        // Strict truncation function (no rounding)
-        const truncate = (n, decimals) => {
-            const factor = 10 ** decimals;
-            return Math.trunc(n * factor) / factor;
-        };
-
-        // Return the numeric value based on mode
-        switch (currentMode) {
-            case 1:
-                return truncate(scaledValue, 3);
-            case 2:
-                return truncate(scaledValue, 2);
-            case 3:
-                return truncate(scaledValue, 2);
-            case 6:
-                return truncate(scaledValue, 2);
-            case 7:
-                return truncate(scaledValue, 3);
-            default:
-                return truncate(scaledValue, 3);
-        }
-    };
-
-    const formatDisplayValue = (value, mode) => {
-        if (value === "N/A" || title.includes("Essence")) return "N/A";
-        const num = formatValue(value, mode);
-        
-        if (title.includes("True Rares") || title.includes("Common Than")) {
-            return Math.ceil(num.toFixed(3));
-        }
-
-        // Format with suffix for display purposes (M or K)
-        if (Math.abs(num) >= 1000000) {
-            return (num / 1000000).toFixed(3).replace(/\.?0+$/, "") + "M";
-        }
-
-        if (Math.abs(num) >= 1000) {
-            return (num / 1000).toFixed(3).replace(/\.?0+$/, "") + "K";
-        }
-
-
-        return num.toFixed(3).replace(/\.?0+$/, "");
+        return formatter.format(scaledValue);
     };
 
     // Calculate completion percentage
@@ -249,23 +209,7 @@ const LayerTable = ({
                         const inventory = csvData[item.name] || 0;
                         const baseValue = getValueForMode(item);
                         const percentage = calculatePercentage(item, inventory);
-                        const unroundedNumV = inventory / calculateDisplayValue(item);
-                        const roundedNumV =
-                            currentMode === 1
-                                ? unroundedNumV.toFixed(0)
-                                : currentMode === 2
-                                    ? unroundedNumV.toFixed(1)
-                                    : currentMode === 3
-                                        ? unroundedNumV.toFixed(2)
-                                        : currentMode === 4
-                                            ? unroundedNumV.toFixed(3)
-                                            : currentMode === 5
-                                                ? unroundedNumV.toFixed(3)
-                                                : currentMode === 6
-                                                    ? unroundedNumV.toFixed(2)
-                                                    : currentMode === 7
-                                                        ? unroundedNumV.toFixed(2)
-                                                        : "0";
+                        const roundedNumV = formatter.format(inventory / calculateDisplayValue(item));
 
                         return (
                             <tr key={index}>
@@ -361,12 +305,12 @@ const LayerTable = ({
                                         <td>{roundedNumV}</td>
                                         {!(isRares || isTrueRares) && (
                                             <td>
-                                                {formatDisplayValue(baseValue, 1)}
+                                                {formatter.format(baseValue)}
                                             </td>
                                         )}
                                         {isTrueRares && <td>{1 / baseValue}</td>}
                                         {isRares && <td>{(1 / baseValue).toFixed(2)}</td>}
-                                        <td>{(useSeparateRareMode && isRaresTable) ? formatDisplayValue(baseValue, rareValueMode) : formatDisplayValue(baseValue, currentMode)}</td>
+                                        <td>{(useSeparateRareMode && isRaresTable) ? formatValue(baseValue, rareValueMode) : formatValue(baseValue, currentMode)}</td>
                                     </>
                                 )}
                             </tr>

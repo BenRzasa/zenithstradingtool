@@ -84,6 +84,7 @@ function ValueChart() {
         }
     }, [getCurrentCSV]);
 
+    let formatter = Intl.NumberFormat('en', { notation: 'compact' });
 
     const toggleValueMode = (mode) => {
         if (mode === "custom") {
@@ -531,12 +532,15 @@ function ValueChart() {
                                             <td>
                                                 <div className="progress-wrapper">
                                                     <div className="progress-bar">
-                                                        <span className="progress-bar-fill" style={{width: `${ore.completion}px`}}></span>
+                                                        <span 
+                                                            className="progress-bar-fill" 
+                                                            style={{width: `${ore.completion}%`
+                                                        }}>{ore.completion}%</span>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="ore-remaining">
-                                                {Math.ceil(ore.remaining).toLocaleString()}
+                                            <td style={{textAlign: "left", paddingLeft: "0.5em"}}>
+                                                {formatter.format(ore.remaining)} / {formatter.format(ore.required)}
                                             </td>
                                         </tr>
                                     ))}
