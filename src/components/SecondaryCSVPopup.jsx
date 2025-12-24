@@ -1,19 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
-import { getOreNames } from "../data/OreNames";
 
 
 function SecondaryCSVPopup({ onClose }) {
-    const { setSecondaryCSVData } = useContext(MiscContext);
+    const { oreNames, setSecondaryCSVData } = useContext(MiscContext);
     const [csvInput, setCSVInput] = useState("");
-    const OreNames = getOreNames();
 
+     const ORE_NAMES = useMemo(() => {
+            return Object.freeze([...oreNames]);
+    }, [oreNames]);
 
     const handleSave = () => {
+        const csvInput = document.getElementById("csv-input").value;
         if (!csvInput) return;
+        // Store current completion as previous before updating
         const newAmounts = csvInput.split(",").map(Number);
         const updatedData = {};
-        OreNames.sort((a, b) => a.localeCompare(b)).forEach((ore, index) => {
+        ORE_NAMES.forEach((ore, index) => {
             updatedData[ore] =
                 newAmounts[index] !== undefined && !isNaN(newAmounts[index])
                     ? newAmounts[index]
@@ -34,9 +37,8 @@ function SecondaryCSVPopup({ onClose }) {
                     </button>
                 <div className="csv-output" style={{width: "90%"}}>
                     <textarea
+                        id="csv-input"
                         style={{width: "100%"}}
-                        value={csvInput}
-                        onChange={(e) => setCSVInput(e.target.value)}
                         placeholder="Paste your secondary CSV string here..."
                     />
                 </div>
