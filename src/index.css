@@ -456,7 +456,8 @@ h3 {
 }
 
 .box#wheel {
-    width: 300px;
+    min-width: 300px;
+    max-width: 400px;
     transform: scale(1.25);
     transform-origin: center;
     backdrop-filter: blur(10px);
@@ -464,10 +465,14 @@ h3 {
 }
 
 .box#selected {
-    width: 250px;
+    width: 300px;
     text-align: center;
     background: transparent;
-    border: none
+    border: none;
+    padding: 0px auto;
+    p {
+        margin-bottom: -2px;
+    }
 }
 
 textarea {

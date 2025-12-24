@@ -103,7 +103,7 @@ const OreAndLayerWheel = () => {
         [oreValsDict]
     );
 
-    const calculateOreCompletion = useCallback(
+    const getOreCompletion = useCallback(
         (ore) => {
             const foundOre = allValues.incompleteOres.find(({name}) => 
                 name?.toLowerCase() === ore.name?.toLowerCase()
@@ -111,6 +111,30 @@ const OreAndLayerWheel = () => {
 
             if(!foundOre) return 100.00;
             else if(foundOre) return foundOre.completion;
+        },
+        [allValues.incompleteOres]
+    );
+
+    const getOreRemaining = useCallback(
+        (ore) => {
+            const foundOre = allValues.incompleteOres.find(({name}) => 
+                name?.toLowerCase() === ore.name?.toLowerCase()
+            );
+
+            if(!foundOre) return 0;
+            else if(foundOre) return foundOre.remaining;
+        },
+        [allValues.incompleteOres]
+    );
+
+    const getOreTotal = useCallback(
+        (ore) => {
+            const foundOre = allValues.incompleteOres.find(({name}) => 
+                name?.toLowerCase() === ore.name?.toLowerCase()
+            );
+
+            if(!foundOre) return 0;
+            else if(foundOre) return foundOre.required;
         },
         [allValues.incompleteOres]
     );
@@ -142,15 +166,15 @@ const OreAndLayerWheel = () => {
             layer.layerOres.forEach((ore) => {
                 const value = allValues.calculateValue(ore);
                 if (value > 0) {
-                    const completion = calculateOreCompletion(ore);
+                    const completion = getOreCompletion(ore);
                     totalCompletion += completion;
                     countedOres++;
                 }
             });
-
-            return countedOres > 0 ? (totalCompletion / countedOres) * 100 : 0;
+            const avgCompletion = totalCompletion / countedOres;
+            return countedOres > 0 ? avgCompletion : 0;
         },
-        [oreValsDict, allValues, calculateOreCompletion]
+        [oreValsDict, allValues, getOreCompletion]
     );
 
     const calculateLayerValue = useCallback(
@@ -217,7 +241,7 @@ const OreAndLayerWheel = () => {
 
         if (!settings.includeOver100Completion) {
             ores = ores.filter((ore) => {
-                const completion = calculateOreCompletion(ore);
+                const completion = getOreCompletion(ore);
                 return completion < 100;
             });
         }
@@ -229,7 +253,7 @@ const OreAndLayerWheel = () => {
             settings.useCustomList,
             settings.customOreList,
             settings.includeOver100Completion,
-            calculateOreCompletion,
+            getOreCompletion,
         ]);
 
     const getFilteredLayers = useCallback(() => {
@@ -268,7 +292,7 @@ const OreAndLayerWheel = () => {
         settings.useCustomList,
         settings.customOreList,
         settings.includeOver100Completion,
-        calculateOreCompletion,
+        getOreCompletion,
         getFilteredOres,
     ]);
 
@@ -577,6 +601,7 @@ const OreAndLayerWheel = () => {
                     <button
                         onClick={spinOreWheel}
                         disabled={mustSpinOre || allOres.length === 0}
+                        className={mustSpinOre ? "color-template-singularity" : ""}
                     >
                         {mustSpinOre ? "..." : "SPIN"}
                     </button>
@@ -671,7 +696,7 @@ const OreAndLayerWheel = () => {
                                     data-text={selectedOre.name}
                                     style={{
                                         fontSize: "18px",
-                                        webkitTextStroke: "5px black",
+                                        WebkitTextStroke: "5px black",
                                         textStroke: "5px black",
                                         paintOrder: "stroke fill",
                                         width: "fit-content",
@@ -696,15 +721,23 @@ const OreAndLayerWheel = () => {
                             <div className="box" id="selected">
                                 <p>
                                     {getModeString(selectedOre)} Completion:{" "}
-                                    <span className="accent">{calculateOreCompletion(selectedOre).toFixed(3)}%</span>
+                                    <span className="accent">{getOreCompletion(selectedOre).toFixed(3)}%</span>
                                 </p>
                                 <p>
                                     Total {getModeString(selectedOre)}s:{" "}
                                     <span className="accent">{calculateOreValue(selectedOre).toFixed(3)}</span>
                                 </p>
                                 <p>
-                                    # in Inventory:{" "}
-                                    <span className="accent">{csvData[selectedOre.name] || 0}</span>
+                                    Amount in Inventory:{" "}
+                                    <span className="accent">{(csvData[selectedOre.name] || 0).toLocaleString()}</span>
+                                </p>
+                                <p>
+                                    Amount Remaining:{" "}
+                                    <span className="accent">{getOreRemaining(selectedOre).toLocaleString()}</span>
+                                </p>
+                                <p>
+                                    Total for {getModeString(selectedOre)}:{" "}
+                                    <span className="accent">{getOreTotal(selectedOre).toLocaleString()}</span>
                                 </p>
                             </div>
                         </div>
@@ -734,6 +767,7 @@ const OreAndLayerWheel = () => {
                     <button
                         onClick={spinLayerWheel}
                         disabled={mustSpinLayer || allLayers.length === 0}
+                        className={mustSpinLayer ? "color-template-singularity" : ""}
                     >
                         {mustSpinLayer ? "..." : "SPIN"}
                     </button>
@@ -761,14 +795,15 @@ const OreAndLayerWheel = () => {
                                 type="checkbox"
                                 checked={settings.includeRaresAndTrueRares}
                                 onChange={(e) =>
-                                    updateSetting("includeRaresAndTrueRares", e.targe<spant.checked)
+                                    updateSetting("includeRaresAndTrueRares", e.target.checked)
                                 }
                             />
                             Include Rares & True Rares
                             {!settings.includeOver100LayerCompletion && (
                                 <>
                                     <br></br>
-                                    <br></br>Layers Remaining for {getModeString()} {(useSeparateRareMode && settings.includeRaresAndTrueRares) ? " + Custom Rare" : ""} Completion:{" "}
+                                    <br></br>Layers Remaining for {getModeString()}
+                                    <br></br>{(useSeparateRareMode && settings.includeRaresAndTrueRares) ? " + Custom Rare" : ""} Completion:{" "}
                                     <span className="accent">{allLayers.length}</span>
                                 </>
                             )}
@@ -799,7 +834,7 @@ const OreAndLayerWheel = () => {
                                         textAlign: "center",
                                         fontSize: "20px",
                                         textStroke: "5px black",
-                                        webkitTextStroke: "5px black",
+                                        WebkitTextStroke: "5px black",
                                         paintOrder: "stroke fill"
                                     }}
                                 >

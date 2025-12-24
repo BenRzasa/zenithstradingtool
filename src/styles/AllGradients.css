@@ -93,8 +93,14 @@
 }
 
 .color-template-tanzanite {
-	--gradient: linear-gradient(90deg, #3e3291 0%, #bf93f6 15%, #779bfc 50%, #7de0fe 85%, #004aad 100%);
-	background: var(--gradient)
+	background: linear-gradient(
+        90deg, 
+        #3e3291 0%, 
+        #bf93f6 15%, 
+        #779bfc 50%, 
+        #7de0fe 85%, 
+        #004aad 100%);
+    --wheel-color: #779bfc;
 }
 
 .color-template-titanium {
@@ -265,6 +271,7 @@
         #74b558 80%,
         #355513 100%
         );
+    --wheel-color: #ee4d8a;
 }
 
 .color-template-ammolite {
@@ -365,8 +372,7 @@
 }
 
 .color-template-coronium {
-	background: #b74023;
-	--gradient: linear-gradient(
+	background: linear-gradient(
         0deg, 
         #790000 0%, 
         #da716c 15%, 
@@ -375,7 +381,7 @@
         #edc66f 60%,
         #da716c 85%,
         #790000 100%);
-	background: var(--gradient)
+    --wheel-color: #da716c;
 }
 
 .color-template-yunium {
@@ -424,16 +430,10 @@
 
 .color-template-kymeranite {
 	background: #3a213b;
-	--gradient: linear-gradient(
-        90deg, 
-        #bcffad, 
-        #bcffad);
-	background: var(--gradient)
 }
 
 .color-template-phrylamite {
-	background: #0e1823;
-	--gradient: linear-gradient(
+	background: linear-gradient(
         90deg, 
         #6a3d7b 0%, 
         #98dfe5 20%, 
@@ -441,7 +441,7 @@
         #dafffc 60%, 
         #ac9be9 80%, 
         #2f4a73 100%);
-	background: var(--gradient)
+    --wheel-color: #2f4a73;
 }
 
 .color-template-specteryl {
@@ -1491,7 +1491,7 @@
 }
 
 .color-template-ichracryst {
-	--gradient: linear-gradient(
+	background: linear-gradient(
         100deg, 
         #392521 0%,
         #623e24 20%,
@@ -1502,7 +1502,7 @@
         #ff983d 70%,
         #b14622 80%,
         #663829 100%);
-	background: var(--gradient)
+    --wheel-color: #ff983d;
 }
 
 .color-template-ichor {
@@ -2300,7 +2300,7 @@
 }
 
 .color-template-stygian-ooze {
-    --gradient: linear-gradient(
+    background: linear-gradient(
         180deg, 
         #0d185a 0%, 
         #556dc6 25%, 
@@ -2309,7 +2309,7 @@
         #a8abf0 65%, 
         #556dc6 75%, 
         #0d185a 100%);
-    background: var(--gradient)
+    --wheel-color: #556dc6;
 }
 
 .color-template-equilibrium {
@@ -2341,8 +2341,8 @@
 }
 
 .color-template-ultimatter {
-    --gradient: linear-gradient();
-    background: var(--gradient)
+    background: linear-gradient();
+    --wheel-color: #ffffff;
 }
 
 .color-template-periglise {
@@ -2458,6 +2458,7 @@
         #5f0000 100%
         );
     animation: astathian-animation 6s linear infinite;
+    --wheel-color: #e22610
 }
 
 @keyframes astathian-animation {
