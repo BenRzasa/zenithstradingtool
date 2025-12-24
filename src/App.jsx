@@ -35,12 +35,12 @@ import packageJson from "../package.json";
 
 const MIRAHEZE_URL = "https://celestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
 const SUCCESSFUL_PROXY = "https://corsproxy.io/?";
+const BACKUP_PROXY = "http://alloworigin.com/get?";
 
 // IndexedDB setup
 const DB_NAME = "ZenithTradingToolDB";
 const DB_VERSION = 1;
 const STORE_NAME = "backgrounds";
-
 async function initDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -110,29 +110,92 @@ function App() {
     const [customBg, setCustomBg] = useState("");
     const [opacity, setOpacity] = useState(0.5);
 
+    function checkResource (url) {
+        var req = new XMLHttpRequest();
+        req.open('HEAD', url, true);
+        req.send();
+        if (req.status === 404) {
+            return false;
+        }
+        if (req.status === 403) {
+            return false;
+        }
+    };
+
     useEffect(() => {
         const fetchAndStoreOreValues = async () => {
-            try {
-                const proxyURL = SUCCESSFUL_PROXY + encodeURIComponent(MIRAHEZE_URL);
-                console.log(`Fetching ore values from: ${proxyURL}`);
+            const proxyTemplates = [
+                'https://corsproxy.io/?',
+                'https://api.allorigins.win/raw?url=',
+                'https://api.codetabs.com/v1/proxy?quest=',
+                'https://cors-anywhere.herokuapp.com/',
+                SUCCESSFUL_PROXY,
+                BACKUP_PROXY
+            ];
 
-                const response = await fetch(proxyURL);
+            const targetURL = encodeURIComponent(MIRAHEZE_URL);
 
-                if (!response.ok) {
-                    throw new Error(`HTTP ERROR: ${response.status}`);
+            // Create full URLs from templates
+            const proxyURLs = proxyTemplates.map(proxy => {
+                if (proxy === SUCCESSFUL_PROXY || proxy === BACKUP_PROXY) {
+                    return proxy + targetURL; // Your proxies already handle encoding
                 }
+                return proxy + targetURL;
+            });
 
-                const oresJSON = await response.json();
-                console.log("Fetch successful, storing ore values: ", oresJSON);
+            console.log(`Trying ${proxyURLs.length} proxy URLs for: ${MIRAHEZE_URL}`);
 
-                localStorage.setItem('oreValuesData', JSON.stringify(oresJSON));
+            for (let i = 0; i < proxyURLs.length; i++) {
+                try {
+                    console.log(`Attempt ${i + 1}/${proxyURLs.length}: ${new URL(proxyURLs[i]).hostname}`);
 
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+                    const response = await fetch(proxyURLs[i], {
+                        signal: controller.signal,
+                        headers: {
+                            // Some proxies require specific headers
+                            'Accept': 'application/json',
+                        }
+                    });
+
+                    clearTimeout(timeoutId);
+
+                    if (response.ok) {
+                        const oresJSON = await response.json();
+                        console.log(`Proxy ${i + 1} succeeded!`);
+
+                        // Store data
+                        localStorage.setItem('oreValuesData', JSON.stringify(oresJSON));
+                        localStorage.setItem('lastSuccessfulProxy', proxyURLs[i]);
+                        localStorage.setItem('lastFetchTime', Date.now().toString());
+
+                        window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
+                            detail: oresJSON 
+                        }));
+                        return;
+                    }
+
+                    console.log(`Proxy ${i + 1} failed with status: ${response.status}`);
+
+                } catch (error) {
+                    console.log(`Proxy ${i + 1} error:`, error.name === 'AbortError' ? 'Timeout' : error.message);
+                }
+            }
+
+            // All proxies failed - use cache as fallback
+            const cachedData = localStorage.getItem('oreValuesData');
+            if (cachedData) {
+                console.warn("All proxies failed, using cached data");
                 window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
-                    detail: oresJSON 
+                    detail: JSON.parse(cachedData) 
                 }));
-
-            } catch (error) {
-                console.error("Failed to fetch ore values:", error);
+            } else {
+                console.error("All proxies failed and no cached data available!");
+                window.dispatchEvent(new CustomEvent('oreValuesError', { 
+                    detail: 'Failed to fetch data' 
+                }));
             }
         };
 
