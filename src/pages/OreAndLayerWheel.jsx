@@ -26,7 +26,7 @@ const OreAndLayerWheel = () => {
     const { settings, updateSetting } = useWheel();
 
     const csvData = getCurrentCSV();
-    const valueFunctions = MiscValueFunctions({
+    const allValues = MiscValueFunctions({
         csvData: getCurrentCSV(),
         currentMode,
         customMultiplier,
@@ -38,6 +38,13 @@ const OreAndLayerWheel = () => {
         rareValueMode,
         rareCustomMultiplier,
     });
+
+    const {
+        avgCompletion,
+        incompleteOres,
+        getCurrentModeStr,
+        layerTotal
+    } = allValues;
 
     // Wheel state
     const [selectedOre, setSelectedOre] = useState(null);
@@ -98,15 +105,14 @@ const OreAndLayerWheel = () => {
 
     const calculateOreCompletion = useCallback(
         (ore) => {
-            const inventory = csvData[ore.name] || 0;
-            const oreValue =
-                useSeparateRareMode && isRareOre(ore)
-                    ? valueFunctions.calculateDisplayValue(ore)
-                    : valueFunctions.calculateValue(ore);
-            const completion = oreValue > 0 ? (inventory / oreValue) * 100 : 0;
-            return capCompletion ? Math.min(100, completion) : completion;
+            const foundOre = allValues.incompleteOres.find(({name}) => 
+                name?.toLowerCase() === ore.name?.toLowerCase()
+            );
+
+            if(!foundOre) return 100.00;
+            else if(foundOre) return foundOre.completion;
         },
-        [csvData, valueFunctions, capCompletion, useSeparateRareMode, isRareOre]
+        [allValues.incompleteOres]
     );
 
     const calculateOreValue = useCallback(
@@ -114,11 +120,11 @@ const OreAndLayerWheel = () => {
             const inventory = csvData[ore.name] || 0;
             const oreValue =
                 useSeparateRareMode && isRareOre(ore)
-                    ? valueFunctions.calculateDisplayValue(ore)
-                    : valueFunctions.calculateValue(ore);
+                    ? allValues.calculateDisplayValue(ore)
+                    : allValues.calculateValue(ore);
             return oreValue > 0 ? inventory / oreValue : 0;
         },
-        [csvData, valueFunctions, useSeparateRareMode, isRareOre]
+        [csvData, allValues, useSeparateRareMode, isRareOre]
     );
 
     const calculateLayerCompletion = useCallback(
@@ -134,9 +140,9 @@ const OreAndLayerWheel = () => {
             let countedOres = 0;
 
             layer.layerOres.forEach((ore) => {
-                const value = valueFunctions.calculateValue(ore);
+                const value = allValues.calculateValue(ore);
                 if (value > 0) {
-                    const completion = calculateOreCompletion(ore) / 100;
+                    const completion = calculateOreCompletion(ore);
                     totalCompletion += completion;
                     countedOres++;
                 }
@@ -144,7 +150,7 @@ const OreAndLayerWheel = () => {
 
             return countedOres > 0 ? (totalCompletion / countedOres) * 100 : 0;
         },
-        [oreValsDict, valueFunctions, calculateOreCompletion]
+        [oreValsDict, allValues, calculateOreCompletion]
     );
 
     const calculateLayerValue = useCallback(

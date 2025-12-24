@@ -475,7 +475,7 @@ function ValueChart() {
                             id="remaining"
                             style={{
                                 paddingTop: "3em",
-                                zIndex: "25000"
+                                zIndex: "25000",
                             }}>
                             <button
                                 className="close-button"
@@ -487,10 +487,15 @@ function ValueChart() {
                                 Ores Remaining for 100% {currentModeString}s: {" "}
                                 {incompleteOres.length}
                             </h2>
-                            <div className="table-wrapper">
+                            <div 
+                                className="table-wrapper"
+                                style={{
+                                    maxHeight: "800px",
+                                    overflowY: "scroll",
+                                }}
+                            >
                                 <table style={{
                                     position: "relative", 
-                                    overflowY: "scroll", 
                                     textAlign: "left",
                                     marginLeft: "-1em"
                                 }}>

@@ -32,7 +32,7 @@ const RareRow = ({
             {/* Ore name cell */}
             <td
                 className={`name-column ${getOreClassName(ore.name)}`}
-                style={{fontSize: "20px"}}
+                style={{fontSize: "20px", textWrap: "nowrap"}}
                 data-text={ore.name}
             >
                 {OreIcons[ore.name.replace(/ /g, "_")] ? (

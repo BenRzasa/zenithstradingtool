@@ -126,21 +126,6 @@ const RareFindsTracker = () => {
         return total + (rareFindsData[ore.name] || 0);
     }, 0);
 
-    const totalRareVal = rareOres
-    .reduce((sum, ore) => {
-        const count = rareFindsData[ore.name] || 0;
-        const value = (useObtainRateVals ? ore.obtainVal : getValueForMode(ore)) || ore.defaultVal;
-        return sum + parseFloat(calculateNumV(value, count));
-    }, 0)
-    .toFixed(2);
-
-    const totalSuperRareVal = superRares
-    .reduce((sum, ore) => {
-        const count = rareFindsData[ore.name] || 0;
-        const value = useObtainRateVals ? ore.obtainVal : getValueForMode(ore);
-        return sum + parseFloat(calculateNumV(value, count));
-    }, 0)
-    .toFixed(2);
 
     const updateLastUpdated = (oreName) => {
         const newDates = {
@@ -257,7 +242,7 @@ const RareFindsTracker = () => {
                     style={{ position: "absolute", opacity: "0.025" }}
                 />
             </div>
-            <div className="page-wrapper" style={{transform: "scale(0.9)", transformOrigin: "center"}}>
+            <div className="page-wrapper">
                 <h1>Rare Finds Tracker</h1>
                 <div className="button-container">
                     <button
@@ -284,21 +269,9 @@ const RareFindsTracker = () => {
                         <h2>Total Super Rare Finds</h2>
                         <h3>{totalSuperRareFinds}</h3>
                     </div>
-                    <div className="box" id="super-rare">
-                        <h2>Value of Super Rares Found</h2>
-                        <h3>
-                            {totalSuperRareVal} {modeStr}
-                        </h3>
-                    </div>
                     <div className="box">
                         <h2>Total Rare Finds</h2>
                         <h3>{totalRareFinds}</h3>
-                    </div>
-                    <div className="box">
-                        <h2>Value of Rares Found</h2>
-                        <h3>
-                            {totalRareVal} {modeStr}
-                        </h3>
                     </div>
                 </div>
 
