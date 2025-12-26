@@ -127,7 +127,6 @@
 }
 
 .name-column {
-    font-family: var(--standard-font);
     font-size: 15px;
     width: fit-content !important;
     text-align: left;

@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useRef, useContext, useState } from 'react';
 import { MiscContext } from '../context/MiscContext';
 import ValueModeSelector from './ValueModeSelector';
 import ValueButtons from './ValueButtons';
 import ThemeSwitch from './ThemeSwitch';
 import CustomMultiplierInput from './CustomMultiplierInput';
+import FontPicker from 'react-fontpicker-ts';
+import 'react-fontpicker-ts/dist/index.css';
 import '../styles/SettingsPanel.css';
 import '../styles/Switch.css';
 
@@ -73,17 +75,48 @@ const SettingsPanel = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isOpen, onClose]);
 
+    const [currentFont, setCurrentFont] = useState(() => {
+        const savedFont = localStorage.getItem("currentFont");
+        return savedFont !== null ? JSON.parse(savedFont) : "Jetbrains Mono";
+    });
+
+    const handleFontChange = (selectedFont) => {
+        // Update the CSS variable
+        document.documentElement.style.setProperty(
+            '--global-font-family', 
+            `'${selectedFont}', sans-serif`
+        );
+        console.log("Font changed to:", selectedFont);
+        setCurrentFont(selectedFont);
+    };
+
+    useEffect(() => {
+        localStorage.setItem("currentFont", JSON.stringify(currentFont));
+        console.log("Current font saved:", currentFont);
+    }, [currentFont]);
+
+    // Apply the saved font when component mounts
+    useEffect(() => {
+        // Apply the saved font to CSS on initial load
+        document.documentElement.style.setProperty(
+            '--global-font-family', 
+            `'${currentFont}', sans-serif`
+        );
+    }, [currentFont]);
+
     return (
         <div
             ref={panelRef}
             className={`settings-panel ${isOpen ? 'open' : ''}`}
         >
-            <div className="settings-header">
-                <h2 className="settings-title">Settings</h2>
-            </div>
-
+            <h1 className="settings-title">Settings</h1>
+            <FontPicker
+                defaultValue={currentFont}
+                value={handleFontChange}
+                autoLoad={true}
+            />
             <div className="settings-section">
-                <h2 className="section-title">Value Mode (Click to Select)</h2>
+                <h3 className="section-title">Value Mode (Click to Select)</h3>
                 <ValueModeSelector
                     currentMode={currentMode}
                     setCurrentMode={setCurrentMode}
@@ -107,7 +140,7 @@ const SettingsPanel = ({
             </div>
 
             <div className="settings-section">
-                <h2 className="section-title">Change Rare Value Mode</h2>
+                <h3 className="section-title">Change Rare Value Mode</h3>
                 <div className="theme-control">
                     <label className="sswitch">
                         <input
@@ -149,7 +182,7 @@ const SettingsPanel = ({
             </div>
 
             <div className="settings-section">
-                <h2 className="section-title">Value Set Selector (Click to Select)</h2>
+                <h3 className="section-title">Value Set Selector (Click to Select)</h3>
                 <p>Pick from one of two value sets maintained by the two current largest traders, or feel free to use your custom values!</p>
                 <ValueButtons
                     valueMode={valueMode}
@@ -163,7 +196,7 @@ const SettingsPanel = ({
             </div>
 
             <div className="settings-section">
-                <h2 className="section-title">Miscellaneous Settings</h2>
+                <h3 className="section-title">Miscellaneous Settings</h3>
                 <h3>Show More Stats in Quick Summary</h3>
                 <div className="theme-control">
                     <label className="sswitch">
@@ -210,7 +243,7 @@ const SettingsPanel = ({
             </div>
 
             <div className="settings-section">
-                <h2 className="section-title">Keyboard Shortcuts</h2>
+                <h3 className="section-title">Keyboard Shortcuts</h3>
                 <h3>Toggle Hotkeys</h3>
                 <div className="theme-control">
                     <label className="sswitch">
@@ -243,7 +276,7 @@ const SettingsPanel = ({
             </div>
 
             <div className="settings-section">
-                <h2 className="section-title">Theme</h2>
+                <h3 className="section-title">Theme</h3>
                 <div className="theme-control">
                     <span style={{fontSize: "22px"}}>🔆Dark/Light Mode Toggle</span>
                     <ThemeSwitch />
@@ -251,7 +284,7 @@ const SettingsPanel = ({
             </div>
 
             <div className="settings-section">
-                <h2 className="section-title">Background</h2>
+                <h3 className="section-title">Background</h3>
                 <div className="opacity-control">
                     <label className="opacity-label">
                         Background Opacity: {Math.round(opacity * 100)}%

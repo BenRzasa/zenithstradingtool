@@ -84,7 +84,7 @@ function ValueChart() {
         }
     }, [getCurrentCSV]);
 
-    let formatter = Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 3 });
+    let formatter = Intl.NumberFormat('en', { notation: 'standard', maximumFractionDigits: 3 });
 
     const toggleValueMode = (mode) => {
         if (mode === "custom") {
@@ -282,7 +282,7 @@ function ValueChart() {
             >
                 <h2>
                     Quick Summary &nbsp;{" "}
-                    <i className="fas fa-hand-pointer"></i>
+                    <i class="fa-solid fa-arrow-pointer"></i>
                 </h2>
             </button>
             <div className={`quick-summary ${isSummaryOpen ? "open" : ""}`}>
@@ -512,7 +512,9 @@ function ValueChart() {
                                                 <td
                                                     className={`name-column ${getOreClassName(ore.name)}`}
                                                     data-text={ore.name}
-                                                    style={{borderRight: "2px solid var(--switch-outline)"}}
+                                                    style={{
+                                                        borderRight: "2px solid var(--switch-outline)"
+                                                    }}
                                                 >
                                                     {OreIcons[ore.name.replace(/ /g, "_")] ? (
                                                         <img
@@ -536,7 +538,7 @@ function ValueChart() {
                                                     {ore.name}
                                                 </td>
                                             <td>
-                                                <div className="progress-wrapper" style={{paddingLeft: "5px"}}>
+                                                <div className="progress-wrapper" style={{paddingLeft: "5px", paddingRight: "5px"}}>
                                                     <div className="progress-bar" >
                                                         <span 
                                                             className="progress-bar-fill" 
@@ -545,8 +547,15 @@ function ValueChart() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td style={{textAlign: "left", paddingLeft: "0.5em"}}>
-                                                {formatter.format(ore.remaining)} / <span className="accent">{formatter.format(ore.required)}</span>
+                                            <td 
+                                                style={{
+                                                    textAlign: "left", 
+                                                    paddingLeft: "0.5em",
+                                                    borderLeft: "2px solid var(--switch-outline)",
+                                                    borderBottom: "2px solid var(--switch-outline)",
+                                                    
+                                                }}>
+                                                {formatter.format(Math.floor(ore.required - (csvData[ore.name] || 0)))} / <span className="accent">{formatter.format(Math.floor(ore.required))}</span>
                                             </td>
                                         </tr>
                                     ))}

@@ -354,7 +354,6 @@ export const MiscProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("hotkeysEnabled", JSON.stringify(hotkeysEnabled));
     }, [hotkeysEnabled]);
-
     useEffect(() => {
         localStorage.setItem("secondaryCSVData", JSON.stringify(secondaryCSVData));
     }, [secondaryCSVData]);
