@@ -110,11 +110,66 @@ const SettingsPanel = ({
             className={`settings-panel ${isOpen ? 'open' : ''}`}
         >
             <h1 className="settings-title">Settings</h1>
-            <FontPicker
-                defaultValue={currentFont}
-                value={handleFontChange}
-                autoLoad={true}
-            />
+
+            <div className="settings-section">
+                <h3 className="section-title">Theme</h3>
+                <span className="accent">Font Selector</span>
+                <FontPicker
+                    defaultValue={currentFont}
+                    value={handleFontChange}
+                    autoLoad={true}
+                />
+                <br></br>
+                <div className="theme-control">
+                    <span style={{fontSize: "22px"}}>🔆Dark/Light Mode Toggle</span>
+                    <ThemeSwitch />
+                </div>
+            </div>
+
+            <div className="settings-section">
+                <h3 className="section-title">Background</h3>
+                <div className="opacity-control">
+                    <label className="opacity-label">
+                        Background Opacity: {Math.round(opacity * 100)}%
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={opacity}
+                            onChange={onOpacityChange}
+                            className="opacity-slider"
+                        />
+                    </label>
+                </div>
+
+                <div className="settings-section">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={onBgChange}
+                        className="file-input"
+                        id="bg-upload"
+                    />
+                    <label htmlFor="bg-upload" className="upload-button">
+                        📁 Upload Background Image (or GIF!)
+                    </label>
+                    {customBg && (
+                        <button
+                            onClick={onApplyBg}
+                            className="apply-button"
+                        >
+                            Apply Background
+                        </button>
+                    )}
+                    <button
+                        onClick={onResetBg}
+                        className="reset-button"
+                    >
+                        Reset Background
+                    </button>
+                </div>
+            </div>
             <div className="settings-section">
                 <h3 className="section-title">Value Mode (Click to Select)</h3>
                 <ValueModeSelector
@@ -273,59 +328,6 @@ const SettingsPanel = ({
                         <p><strong>E</strong> - Credits</p>
                     </div>
                 )}
-            </div>
-
-            <div className="settings-section">
-                <h3 className="section-title">Theme</h3>
-                <div className="theme-control">
-                    <span style={{fontSize: "22px"}}>🔆Dark/Light Mode Toggle</span>
-                    <ThemeSwitch />
-                </div>
-            </div>
-
-            <div className="settings-section">
-                <h3 className="section-title">Background</h3>
-                <div className="opacity-control">
-                    <label className="opacity-label">
-                        Background Opacity: {Math.round(opacity * 100)}%
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            value={opacity}
-                            onChange={onOpacityChange}
-                            className="opacity-slider"
-                        />
-                    </label>
-                </div>
-
-                <div className="settings-section">
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={onBgChange}
-                        className="file-input"
-                        id="bg-upload"
-                    />
-                    <label htmlFor="bg-upload" className="upload-button">
-                        📁 Upload Background Image (or GIF!)
-                    </label>
-                    {customBg && (
-                        <button
-                            onClick={onApplyBg}
-                            className="apply-button"
-                        >
-                            Apply Background
-                        </button>
-                    )}
-                    <button
-                        onClick={onResetBg}
-                        className="reset-button"
-                    >
-                        Reset Background
-                    </button>
-                </div>
             </div>
         </div>
     );
