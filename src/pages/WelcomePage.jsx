@@ -29,10 +29,10 @@ Soulscape is here! Also I revamped the entire site UI
 
 return (
     <div 
-        className="page-wrapper"
+        className="page-wrapper" style={{textAlign: "center"}}
     >
-        <h1 className="page-name">
-            Welcome to ZenithFlare's Trading Tool v{version}!
+        <h1 style={{justifySelf: "center", alignSelf: "center"}}>
+            Welcome to ZenithFlare's Trading Tool v{version} <br></br>[DEPRECATED INDEFINITELY]
         </h1>
         <img
             src={logo}
@@ -44,6 +44,7 @@ return (
                 boxShadow: "10px 10px 10px 0px rgba(0, 0, 0, 0.8)",
             }}
         />
+        <h2>That's All, Folks! Thanks for everything and I hope you all are doing well👋</h2>
         <h2>Created by ZenithFlare for Celestial Caverns</h2>
         <div className="button-container">
             <button onClick={() => navigate("/valuechart")}>

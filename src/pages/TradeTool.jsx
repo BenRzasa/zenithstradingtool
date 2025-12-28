@@ -769,6 +769,25 @@ batchMode === "quantity"
                             </button>
                         </>
                     )}
+
+                    {allOresAvailable ? (
+                        <div className="box" style={{backgroundColor: "var(--green)"}}>
+                            ✓ All ores available in inventory
+                        </div>
+                    ) : (
+                            missingOres.length > 0 && (
+                                <div className="box" style={{backgroundColor: "var(--red)"}}>
+                                    <h3>✖  Missing:</h3>
+                                    <ul classname="search-results">
+                                        {missingOres.map((oreObj, index) => (
+                                            <li key={index} className="search-result-item">
+                                                {oreObj.name}: {oreObj.missing}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )
+                        )}
                     {tradeState.tradeOres.length > 0 ? (
                         <div className="table-wrapper"
                             style={{

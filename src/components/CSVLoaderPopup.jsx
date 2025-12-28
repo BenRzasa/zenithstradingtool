@@ -325,10 +325,10 @@ function CSVLoaderPopup({ onClose, isOpen }) {
                 <p>
                     ⛏ Click "Update" button to load your CSV data into the website.
                 </p>
-                <h2 className="accent">
+                <h3 className="accent">
                     ⛏ Last Updated:{" "}
                     {lastUpdated ? lastUpdated.toLocaleString() : "Never"}
-                </h2>
+                </h3>
 
                 <div className="row-container-center">
                     <button
@@ -409,7 +409,7 @@ calculateValueChanges().netChange >= 0
 
                             <div className="box">
                                 <h3>Changed Ores:</h3>
-                                <div className="search-results" style={{width: "100%"}}>
+                                <div className="search-results" style={{width: "100%", maxHeight: "128px"}}>
                                         {calculateValueChanges()
                                             .changedOres.sort((a, b) => b.valueChange - a.valueChange)
                                             .map(({ ore, valueChange }) => (
@@ -431,7 +431,7 @@ calculateValueChanges().netChange >= 0
                                 </div>
                             </div>
                             {/* Summary details since last update */}
-                            <div className="box">
+                            <div className="box" id="csv">
                                 <h3>
                                     ⛏ {modeStr} %{" "}
                                     {completionChange === 0
