@@ -244,7 +244,7 @@ const SettingsPanel = ({
                     setValueMode={setValueMode}
                 />
                 <ul>
-                    <li><span className="accent">Zenith:</span> ZenithFlare, an active grinder and one of the main traders in TCC. </li>
+                    <li><span className="accent">Zenith:</span> ZenithFlare, a former SV grinder (passed 96-97% at one point before losing motivation) and one of the former main traders in TCC. Created this pretty cool tool.</li>
                     <li><span className="accent">Random:</span> Randomwastaken, an active player, maintainer of a new value set modeled after NAN's</li>
                     <li><span className="accent">Custom:</span> Your custom values, modified from the Value Chart page or the "Custom Values" page.</li>
                 </ul>
