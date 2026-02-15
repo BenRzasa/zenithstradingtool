@@ -22,8 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "generate-ore-icons": "node scripts/generateOreImports.js",
+    "generate-charm-icons": "node scripts/generateCharmImports",
+    "dev": "generate-ore-icons && generate-charm-icons && vite",
+    "build": "generate-ore-icons && generate-charm-icons && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "bump:page": "npm version major --no-git-tag-version",

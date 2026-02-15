@@ -10,6 +10,7 @@ import SecondaryCSVPopup from "../components/SecondaryCSVPopup";
 import { OreIcons } from "../data/OreIcons";
 import { useSearchFilters } from "../data/SearchFilters";
 import bubby from "../images/misc/bubby.gif";
+import missingIcon from "../images/ore-icons/Missing_Texture.png";
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
@@ -537,28 +538,28 @@ function ValueChart() {
                                                         )}
                                                     {ore.name}
                                                 </td>
-                                            <td>
-                                                <div className="progress-wrapper" style={{paddingLeft: "5px", paddingRight: "5px"}}>
-                                                    <div className="progress-bar" >
-                                                        <span 
-                                                            className="progress-bar-fill" 
-                                                            style={{width: `${ore.completion}%`
-                                                        }}>{ore.completion}%</span>
+                                                <td>
+                                                    <div className="progress-wrapper" style={{paddingLeft: "5px", paddingRight: "5px"}}>
+                                                        <div className="progress-bar" >
+                                                            <span 
+                                                                className="progress-bar-fill" 
+                                                                style={{width: `${ore.completion}%`
+                                                                }}>{ore.completion}%</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td 
-                                                style={{
-                                                    textAlign: "left", 
-                                                    paddingLeft: "0.5em",
-                                                    borderLeft: "2px solid var(--switch-outline)",
-                                                    borderBottom: "2px solid var(--switch-outline)",
-                                                    
-                                                }}>
-                                                {formatter.format(Math.floor(ore.required - (csvData[ore.name] || 0)))} / <span className="accent">{formatter.format(Math.floor(ore.required))}</span>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                                </td>
+                                                <td 
+                                                    style={{
+                                                        textAlign: "left", 
+                                                        paddingLeft: "0.5em",
+                                                        borderLeft: "2px solid var(--switch-outline)",
+                                                        borderBottom: "2px solid var(--switch-outline)",
+
+                                                    }}>
+                                                    {formatter.format(Math.floor(ore.required - (csvData[ore.name] || 0)))} / <span className="accent">{formatter.format(Math.floor(ore.required))}</span>
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
@@ -591,23 +592,25 @@ function ValueChart() {
             )}
 
             {/* Dropdown navigation */}
-                <select
-                    id="table-select"
-                    title="table-select"
-                    value={tableSelected}
-                    onChange={handleTableSelect}
-                    style={{ appearance: "none" }}
-                >
-                    <option value="" disabled>
-                        Jump to layer table... &nbsp; ▼
-                    </option>
+            <select
+                id="table-select"
+                title="table-select"
+                value={tableSelected}
+                onChange={handleTableSelect}
+                style={{ appearance: "none" }}
+            >
+                <option value="" disabled>
+                    Jump to layer table... &nbsp; ▼
+                </option>
 
-                    {tableNames.filter(name => !name.includes("Essences")).map((name) => (
+                {tableNames.filter(
+                    name => !name.includes("Essences")).map((name) => (
                         <option key={name} value={name}>
                             {name}
                         </option>
-                    ))}
-                </select>
+                    )
+                )}
+            </select>
 
             {/* Custom mode starting overlay for empty data */}
             {showCustomModal && (
@@ -642,8 +645,7 @@ function ValueChart() {
                         const layerData = layer.layerOres;
 
                         const gradientStyle =
-                            layer.background ||
-                                "linear-gradient(90deg,rgb(255, 0, 0) 0%,rgb(238, 255, 0) 100%)";
+                            layer.background || "red"
 
                         const tableModeStr = getCurrentModeStr(layerName);
 

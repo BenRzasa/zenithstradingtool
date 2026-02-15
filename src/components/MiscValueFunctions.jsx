@@ -378,8 +378,9 @@ export const MiscValueFunctions = ({
         const effectiveMode = useRareMode ? rareValueMode : currentMode;
         const effectiveMultiplier = useRareMode ? rareCustomMultiplier : customMultiplier;
 
-        const isNV = effectiveMultiplier % 100 === 0;
-        const isSV = effectiveMultiplier % 1000 === 0;
+        let isNV = effectiveMultiplier % 100 === 0 && effectiveMultiplier <= 999;
+        const isSV = effectiveMultiplier % 1000 === 0 && effectiveMultiplier >= 999;
+        if(isSV) isNV = false;
 
         switch (effectiveMode) {
             case 1:

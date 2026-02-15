@@ -34,6 +34,7 @@ import HotkeyHandler from "./components/HotkeyHandler";
 import packageJson from "../package.json";
 
 const MIRAHEZE_URL = "https://celestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
+const STYLES_URL = "";
 const SUCCESSFUL_PROXY = "https://corsproxy.io/?";
 const BACKUP_PROXY = "http://alloworigin.com/get?";
 
