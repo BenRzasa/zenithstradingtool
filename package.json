@@ -24,8 +24,8 @@
   "scripts": {
     "generate-ore-icons": "node scripts/generateOreImports.js",
     "generate-charm-icons": "node scripts/generateCharmImports",
-    "dev": "generate-ore-icons && generate-charm-icons && vite",
-    "build": "generate-ore-icons && generate-charm-icons && vite build",
+    "dev": "npm run generate-ore-icons && npm run generate-charm-icons && vite",
+    "build": "npm run generate-ore-icons && npm run generate-charm-icons && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "bump:page": "npm version major --no-git-tag-version",
