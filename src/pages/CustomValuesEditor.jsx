@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MiscContext } from "../context/MiscContext";
+import { IconContext } from "../App"
 import NavBar from "../components/NavBar";
 
-import { OreIcons } from "../data/OreIcons";
-
-import "../styles/AllGradients.css";
+import missingIcon from "../images/misc/Missing_Texture.png";
 import "../styles/LayerTable.css";
 
 function CustomValuesEditor() {
@@ -18,6 +17,8 @@ function CustomValuesEditor() {
         resetCustomValues,
         getOreClassName
     } = useContext(MiscContext);
+
+    const { getImageSource } = useContext(IconContext);
 
     const formatter = new Intl.NumberFormat('en-US', {
         style:'decimal',
@@ -206,22 +207,16 @@ function CustomValuesEditor() {
                                                         className={`name-column ${getOreClassName(ore.name)}`}
                                                         data-text={ore.name}
                                                     >
-                                                        {OreIcons[ore.name.replace(/ /g, "_")] ? (
-                                                            <img
-                                                                src={OreIcons[ore.name.replace(/ /g, "_")]}
-                                                                alt={`${ore.name} icon`}
-                                                                className="ore-icon"
-                                                                loading="lazy"
-                                                                onError={(e) => {
-                                                                    console.error(
-                                                                        `Missing icon for: ${ore.name}`
-                                                                    );
-                                                                    e.target.style.display = "none";
-                                                                }}
-                                                            />
-                                                        ) : (
-                                                                <span>🖼️</span>
-                                                            )}
+                                                        <img
+                                                            src={getImageSource(ore.name)}
+                                                            loading="lazy"
+                                                            alt={`${ore.name} icon`}
+                                                            className="ore-icon"
+                                                            onError={(e) => {
+                                                                console.warn(`Missing icon for: ${ore.name}`);
+                                                                e.target.src = missingIcon;
+                                                            }}
+                                                        />
                                                         {ore.name}
                                                     </td>
                                                     <td>

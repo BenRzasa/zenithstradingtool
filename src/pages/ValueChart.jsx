@@ -7,14 +7,12 @@ import LayerTable from "../components/LayerTable";
 import CSVLoaderPopup from "../components/CSVLoaderPopup";
 import SecondaryCSVPopup from "../components/SecondaryCSVPopup";
 
-import { OreIcons } from "../data/OreIcons";
 import { useSearchFilters } from "../data/SearchFilters";
 import bubby from "../images/misc/bubby.gif";
-import missingIcon from "../images/ore-icons/Missing_Texture.png";
+import missingIcon from "../images/misc/Missing_Texture.png";
 
 import "../styles/ValueChart.css";
 import "../styles/LayerTable.css";
-import "../styles/AllGradients.css";
 
 function ValueChart() {
     const {

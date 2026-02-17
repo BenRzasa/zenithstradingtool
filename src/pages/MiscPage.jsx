@@ -7,9 +7,8 @@ import { useSearchFilters } from "../data/SearchFilters";
 import { CharmIcons } from "../data/CharmIcons";
 
 import charmPerks from "../data/CharmPerks";
-import missingIcon from "../images/ore-icons/Missing_Texture.png";
+import missingIcon from "../images/misc/Missing_Texture.png";
 
-import "../styles/AllGradients.css";
 import "../styles/MiscPage.css";
 
 function MiscPage() {

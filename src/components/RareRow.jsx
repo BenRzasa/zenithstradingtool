@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { OreIcons } from "../data/OreIcons";
+import { IconContext} from "../App";
 import { MiscContext } from "../context/MiscContext";
 
-import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
 import "../styles/ValueChart.css";
 
@@ -26,6 +25,7 @@ const RareRow = ({
     formatDate,
 }) => {
     const { getValueForMode } = useContext(MiscContext);
+    const { getImageSource } = useContext(IconContext);
 
     return (
         <tr>
@@ -35,21 +35,17 @@ const RareRow = ({
                 style={{fontSize: "20px", textWrap: "nowrap"}}
                 data-text={ore.name}
             >
-                {OreIcons[ore.name.replace(/ /g, "_")] ? (
-                    <img
-                        src={OreIcons[ore.name.replace(/ /g, "_")]}
-                        alt={`${ore.name} icon`}
-                        className="ore-icon"
-                        loading="lazy"
-                        onError={(e) => {
-                            console.error(`Missing icon for: ${ore.name}`);
-                            e.target.style.display = "none";
-                        }}
-                        style={{marginRight: "5px"}}
-                    />
-                ) : (
-                        <span>🖼️</span>
-                    )}
+                <img
+                    src={getImageSource(ore.name)}
+                    loading="lazy"
+                    alt={`${ore.name} icon`}
+                    className="ore-icon"
+                    onError={(e) => {
+                        console.warn(`Missing icon for: ${ore.name}`);
+                        e.target.src = missingIcon;
+                    }}
+                    style={{marginRight: "7px"}}
+                />
                 {ore.name}
             </td>
 

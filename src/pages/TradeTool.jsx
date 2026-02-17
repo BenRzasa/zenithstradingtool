@@ -1,11 +1,10 @@
 import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
 import { MiscContext } from "../context/MiscContext";
 import { TradeContext } from "../context/TradeContext";
-import { OreIcons } from "../data/OreIcons";
-import missingIcon from "../images/ore-icons/Missing_Texture.png";
+import { IconContext } from "../App";
+import missingIcon from "../images/misc/Missing_Texture.png";
 
 import patic from "../images/misc/patic.png";
-import "../styles/AllGradients.css";
 import "../styles/LayerTable.css";
 import "../styles/ValueChart.css";
 
@@ -16,6 +15,8 @@ function TradeTool() {
 
     const { getCurrentCSV, getValueForMode, oreValsDict } =
     useContext(MiscContext);
+
+    const { getImageSource } = useContext(IconContext);
 
     const csvData = getCurrentCSV();
 
@@ -378,21 +379,21 @@ function TradeTool() {
         const resultsContainer = resultsRef.current;
         if (!resultsContainer) return;
 
-        const selectedItem = resultsContainer.children[index];
-        if (!selectedItem) return;
+        const selectedore = resultsContainer.children[index];
+        if (!selectedore) return;
 
         const containerHeight = resultsContainer.clientHeight - 100;
-        const itemOffsetTop = selectedItem.offsetTop - 150;
-        const itemHeight = selectedItem.clientHeight - 10;
+        const oreOffsetTop = selectedore.offsetTop - 150;
+        const oreHeight = selectedore.clientHeight - 10;
 
         const scrollTop = resultsContainer.scrollTop;
-        const itemTop = itemOffsetTop - scrollTop;
-        const itemBottom = itemTop + itemHeight;
+        const oreTop = oreOffsetTop - scrollTop;
+        const oreBottom = oreTop + oreHeight;
 
-        if (itemBottom > containerHeight) {
-            resultsContainer.scrollTop = itemOffsetTop - containerHeight + itemHeight;
-        } else if (itemTop < 0) {
-            resultsContainer.scrollTop = itemOffsetTop;
+        if (oreBottom > containerHeight) {
+            resultsContainer.scrollTop = oreOffsetTop - containerHeight + oreHeight;
+        } else if (oreTop < 0) {
+            resultsContainer.scrollTop = oreOffsetTop;
         }
     };
 
@@ -537,7 +538,7 @@ function TradeTool() {
                 <div className="box">
                     <div className="col-container"
                         style={{
-                            alignItems: "start",
+                            alignores: "start",
                             gap: "0.5em"
                         }}>
                         <h2>Search and Add Discount</h2>
@@ -571,7 +572,7 @@ function TradeTool() {
                                             e.preventDefault();
                                             handleAddOre(ore);
                                         }}
-                                        className={`search-result-item ${index === selectedIndex ? "selected" : ""}`}
+                                        className={`search-result-ore ${index === selectedIndex ? "selected" : ""}`}
                                     >
                                         {ore.name}
                                     </li>
@@ -780,7 +781,7 @@ batchMode === "quantity"
                                     <h3>✖  Missing:</h3>
                                     <ul classname="search-results">
                                         {missingOres.map((oreObj, index) => (
-                                            <li key={index} className="search-result-item">
+                                            <li key={index} className="search-result-ore">
                                                 {oreObj.name}: {oreObj.missing}
                                             </li>
                                         ))}
@@ -818,26 +819,17 @@ batchMode === "quantity"
                                                         whiteSpace: "nowrap",
                                                     }}
                                                 >
-                                                    {OreIcons[ore.name.replace(/ /g, "_")] ? (
-                                                        <img
-                                                            src={OreIcons[ore.name.replace(/ /g, "_")]}
-                                                            alt={`${ore.name} icon`}
-                                                            className="ore-icon"
-                                                            onError={(e) => {
-                                                                console.error(`Missing icon for: ${ore.name}`);
-                                                                e.target.style.display = "none";
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                            // Missing icon
-                                                            <span>
-                                                                <img
-                                                                    src={missingIcon}
-                                                                    alt={"Missing icon"}
-                                                                    className="ore-icon"
-                                                                ></img>
-                                                            </span>
-                                                        )}
+                                                    <img
+                                                        src={getImageSource(ore.name)}
+                                                        loading="lazy"
+                                                        alt={`${ore.name} icon`}
+                                                        className="ore-icon"
+                                                        onError={(e) => {
+                                                            console.warn(`Missing icon for: ${ore.name}`);
+                                                            e.target.src = missingIcon;
+                                                        }}
+                                                    />
+
                                                     {ore.name}
                                                 </td>
                                                 <td>

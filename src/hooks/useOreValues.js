@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { oreValuesStructure } from '../data/oreValuesStructure';
+import { oreValuesStructure } from '../data/oreValuesStructure.js';
 
 export const useOreValues = () => {
     const [oreValsDict, setOreValsDict] = useState(oreValuesStructure);

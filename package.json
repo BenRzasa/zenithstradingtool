@@ -1,15 +1,17 @@
 {
   "name": "zenithstradingtool",
-  "version": "9.13.3",
+  "version": "9.14.0",
   "private": true,
   "type": "module",
   "homepage": "https://benrzasa.github.io/zenithstradingtool",
   "dependencies": {
+    "@educandu/node-jsx-loader": "^2.3.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "framer-motion": "^12.23.11",
+    "md5": "^2.3.0",
     "react": "^18.2.0",
     "react-custom-roulette": "^1.4.1",
     "react-dom": "^18.2.0",
@@ -22,10 +24,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "generate-ore-icons": "node scripts/generateOreImports.js",
-    "generate-charm-icons": "node scripts/generateCharmImports",
-    "dev": "npm run generate-ore-icons && npm run generate-charm-icons && vite",
-    "build": "npm run generate-ore-icons && npm run generate-charm-icons && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "bump:page": "npm version major --no-git-tag-version",

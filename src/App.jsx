@@ -1,5 +1,5 @@
 // Main app routing
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback, createContext } from "react";
 import {
     HashRouter,
     Routes,
@@ -26,16 +26,110 @@ import BackgroundManager from "./components/BackgroundManager";
 import NavBar from "./components/NavBar";
 import SettingsPanel from "./components/SettingsPanel";
 import SettingsToggle from "./components/SettingsToggle";
+import IconRefreshButton from "./components/IconRefreshButton";
 
 import CustomPinList from "./components/CustomPinList";
 import PinlistToggle from "./components/PinlistToggle";
 
 import HotkeyHandler from "./components/HotkeyHandler";
 import packageJson from "../package.json";
+import md5 from 'md5';
 
-const MIRAHEZE_URL = "https://celestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
-const STYLES_URL = "";
-const SUCCESSFUL_PROXY = "https://corsproxy.io/?";
+export const IconContext = createContext();
+
+// Constants
+const STATIC_URL = "https://static.wikitide.net/celestialcavernswiki";
+const PROXIES = [
+    "https://corsproxy.io/?url=",
+    "http://alloworigin.com/get?url=",
+];
+const CACHE_KEY = "ore-icons-cache";
+const CACHE_TIMESTAMP_KEY = "ore-icons-timestamp";
+const BATCH_SIZE = 25;
+const REQUEST_DELAY = 25;
+// Icon cache manager
+class IconCacheManager {
+    constructor() {
+        this.cache = new Map();
+        this.loadFromStorage();
+    }
+
+    loadFromStorage() {
+        try {
+            const stored = localStorage.getItem(CACHE_KEY);
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                this.cache = new Map(Object.entries(parsed));
+                console.log(`Loaded ${this.cache.size} icons from cache`);
+            }
+        } catch (error) {
+            console.error("Failed to load icon cache:", error);
+            this.cache = new Map();
+        }
+    }
+
+    saveToStorage() {
+        try {
+            const obj = Object.fromEntries(this.cache);
+            localStorage.setItem(CACHE_KEY, JSON.stringify(obj));
+            localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+            console.log(`Saved ${this.cache.size} icons to cache`);
+        } catch (error) {
+            console.error("Failed to save icon cache:", error);
+        }
+    }
+
+    get(oreName) {
+        return this.cache.get(oreName);
+    }
+
+    set(oreName, dataUrl) {
+        this.cache.set(oreName, dataUrl);
+    }
+
+    has(oreName) {
+        return this.cache.has(oreName);
+    }
+
+    clear() {
+        this.cache.clear();
+        this.saveToStorage();
+    }
+
+    getAllOreNames() {
+        return Array.from(this.cache.keys());
+    }
+
+    size() {
+        return this.cache.size;
+    }
+}
+
+// Create singleton instance
+const iconCache = new IconCacheManager();
+
+// Helper function to convert image to data URL
+const imageToDataURL = (url) => {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.blob();
+        })
+        .then(blob => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        });
+};
+
+// Sleep utility
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const VALUES_URL = "https://celestialcaverns.miraheze.org/w/index.php?title=Module:OreValuesData.json&action=raw";
+const SUCCESSFUL_PROXY = "https://corsproxy.io/?url=";
 const BACKUP_PROXY = "http://alloworigin.com/get?";
 
 // IndexedDB setup
@@ -111,6 +205,32 @@ function App() {
     const [customBg, setCustomBg] = useState("");
     const [opacity, setOpacity] = useState(0.5);
 
+    // Generate the image path
+    const generateImagePath = useCallback((oreName) => {
+        const fileName = oreName.replace(/ /g, '_') + '_Icon.png';
+        const hashHex = md5(fileName);
+        const trimmedHash1 = hashHex.charAt(0);
+        const trimmedHash2 = hashHex.charAt(0) + hashHex.charAt(1);
+        return `${STATIC_URL}/${trimmedHash1}/${trimmedHash2}/${fileName}`;
+    }, []);
+
+    // Get image source (from cache or generate path)
+    const getImageSource = useCallback((oreName) => {
+        // Check cache first
+        const cached = iconCache.get(oreName);
+        if (cached) {
+            return cached;
+        }
+
+        // Fall back to generated path
+        return generateImagePath(oreName);
+    }, [generateImagePath]);
+
+    // Load cache on component mount
+    useEffect(() => {
+        iconCache.loadFromStorage();
+    }, []);
+
     function checkResource (url) {
         var req = new XMLHttpRequest();
         req.open('HEAD', url, true);
@@ -123,85 +243,154 @@ function App() {
         }
     };
 
-    useEffect(() => {
-        const fetchAndStoreOreValues = async () => {
-            const proxyTemplates = [
-                'https://corsproxy.io/?',
-                'https://api.allorigins.win/raw?url=',
-                'https://api.codetabs.com/v1/proxy?quest=',
-                'https://cors-anywhere.herokuapp.com/',
-                SUCCESSFUL_PROXY,
-                BACKUP_PROXY
-            ];
+    const fetchAndStoreOreValues = useCallback(async () => {
+        // Use the raw action parameter to get just the CSS
+        const GRADIENTS_URL = "https://celestialcaverns.miraheze.org/w/index.php?title=Template:Color/styles.css&action=raw&ctype=text/css";
 
-            const targetURL = encodeURIComponent(MIRAHEZE_URL);
+        const gradientTargetURL = encodeURIComponent(GRADIENTS_URL);
+        const gradientProxyURL = SUCCESSFUL_PROXY + gradientTargetURL;
 
-            // Create full URLs from templates
-            const proxyURLs = proxyTemplates.map(proxy => {
-                if (proxy === SUCCESSFUL_PROXY || proxy === BACKUP_PROXY) {
-                    return proxy + targetURL; // Your proxies already handle encoding
+        try {
+            console.log('Fetching raw gradients CSS...');
+            const gradientController = new AbortController();
+            const gradientTimeoutId = setTimeout(() => gradientController.abort(), 8000);
+
+            const gradientResponse = await fetch(gradientProxyURL, {
+                signal: gradientController.signal,
+                headers: {
+                    'Accept': 'text/css',
                 }
-                return proxy + targetURL;
             });
 
-            console.log(`Trying ${proxyURLs.length} proxy URLs for: ${MIRAHEZE_URL}`);
+            clearTimeout(gradientTimeoutId);
 
-            for (let i = 0; i < proxyURLs.length; i++) {
-                try {
-                    console.log(`Attempt ${i + 1}/${proxyURLs.length}: ${new URL(proxyURLs[i]).hostname}`);
+            if (gradientResponse.ok) {
+                const gradientCSS = await gradientResponse.text();
+                const convertedCSS = gradientCSS.replace(/color:/g, 'background:');
 
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 8000);
+                localStorage.setItem('gradientsCSS', convertedCSS);
 
-                    const response = await fetch(proxyURLs[i], {
-                        signal: controller.signal,
-                        headers: {
-                            // Some proxies require specific headers
-                            'Accept': 'application/json',
-                        }
-                    });
+                // Create and inject a style element with the converted CSS
+                let styleElement = document.getElementById('dynamic-gradients-styles');
+                if (!styleElement) {
+                    styleElement = document.createElement('style');
+                    styleElement.id = 'dynamic-gradients-styles';
+                    document.head.appendChild(styleElement);
+                }
+                styleElement.textContent = convertedCSS;
 
-                    clearTimeout(timeoutId);
-
-                    if (response.ok) {
-                        const oresJSON = await response.json();
-                        console.log(`Proxy ${i + 1} succeeded!`);
-
-                        // Store data
-                        localStorage.setItem('oreValuesData', JSON.stringify(oresJSON));
-                        localStorage.setItem('lastSuccessfulProxy', proxyURLs[i]);
-                        localStorage.setItem('lastFetchTime', Date.now().toString());
-
-                        window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
-                            detail: oresJSON 
-                        }));
-                        return;
+                console.log('Gradients CSS fetched, converted color→background, and applied successfully');
+            } else {
+                console.error('Failed to fetch gradients CSS:', gradientResponse.status);
+                // Try to load from cache if fetch fails
+                const cachedGradients = localStorage.getItem('gradientsCSS');
+                if (cachedGradients) {
+                    let styleElement = document.getElementById('dynamic-gradients-styles');
+                    if (!styleElement) {
+                        styleElement = document.createElement('style');
+                        styleElement.id = 'dynamic-gradients-styles';
+                        document.head.appendChild(styleElement);
                     }
-
-                    console.log(`Proxy ${i + 1} failed with status: ${response.status}`);
-
-                } catch (error) {
-                    console.log(`Proxy ${i + 1} error:`, error.name === 'AbortError' ? 'Timeout' : error.message);
+                    styleElement.textContent = cachedGradients;
+                    console.log('Loaded gradients CSS from cache');
                 }
             }
-
-            // All proxies failed - use cache as fallback
-            const cachedData = localStorage.getItem('oreValuesData');
-            if (cachedData) {
-                console.warn("All proxies failed, using cached data");
-                window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
-                    detail: JSON.parse(cachedData) 
-                }));
-            } else {
-                console.error("All proxies failed and no cached data available!");
-                window.dispatchEvent(new CustomEvent('oreValuesError', { 
-                    detail: 'Failed to fetch data' 
-                }));
+        } catch (error) {
+            console.log('Gradient fetch error:', error.name === 'AbortError' ? 'Timeout' : error.message);
+            // Try to load from cache on error
+            const cachedGradients = localStorage.getItem('gradientsCSS');
+            if (cachedGradients) {
+                let styleElement = document.getElementById('dynamic-gradients-styles');
+                if (!styleElement) {
+                    styleElement = document.createElement('style');
+                    styleElement.id = 'dynamic-gradients-styles';
+                    document.head.appendChild(styleElement);
+                }
+                styleElement.textContent = cachedGradients;
+                console.log('Loaded gradients CSS from cache after error');
             }
-        };
+        }
 
-        fetchAndStoreOreValues();
+        // Continue with the original proxy loop for ore values
+        const proxyTemplates = [
+            'https://corsproxy.io/?',
+            'https://api.allorigins.win/raw?url=',
+            'https://api.codetabs.com/v1/proxy?quest=',
+            'https://cors-anywhere.herokuapp.com/',
+            SUCCESSFUL_PROXY,
+            BACKUP_PROXY
+        ];
+
+        const targetURL = encodeURIComponent(VALUES_URL);
+
+        // Create full URLs from templates
+        const proxyURLs = proxyTemplates.map(proxy => {
+            if (proxy === SUCCESSFUL_PROXY || proxy === BACKUP_PROXY) {
+                return proxy + targetURL;                
+            }
+            return proxy + targetURL;
+        });
+
+        console.log(`Trying ${proxyURLs.length} proxy URLs for: ${VALUES_URL}`);
+
+        for (let i = 0; i < proxyURLs.length; i++) {
+            try {
+                console.log(`Attempt ${i + 1}/${proxyURLs.length}: ${new URL(proxyURLs[i]).hostname}`);
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+                const response = await fetch(proxyURLs[i], {
+                    signal: controller.signal,
+                    headers: {
+                        // Some proxies require specific headers
+                        'Accept': 'application/json',
+                    }
+                });
+
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    const oresJSON = await response.json();
+                    console.log(`Proxy ${i + 1} succeeded!`);
+
+                    // Store data
+                    localStorage.setItem('oreValuesData', JSON.stringify(oresJSON));
+                    localStorage.setItem('lastSuccessfulProxy', proxyURLs[i]);
+                    localStorage.setItem('lastFetchTime', Date.now().toString());
+
+                    window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
+                        detail: oresJSON 
+                    }));
+                    return;
+                }
+
+                console.log(`Proxy ${i + 1} failed with status: ${response.status}`);
+
+            } catch (error) {
+                console.log(`Proxy ${i + 1} error:`, error.name === 'AbortError' ? 'Timeout' : error.message);
+            }
+        }
+
+        // All proxies failed - use cache as fallback
+        const cachedData = localStorage.getItem('oreValuesData');
+        if (cachedData) {
+            console.warn("All proxies failed, using cached data");
+            window.dispatchEvent(new CustomEvent('oreValuesUpdated', { 
+                detail: JSON.parse(cachedData) 
+            }));
+        } else {
+            console.error("All proxies failed and no cached data available!");
+            window.dispatchEvent(new CustomEvent('oreValuesError', { 
+                detail: 'Failed to fetch data' 
+            }));
+        }
     }, []);
+
+    // Call fetchAndStoreOreValues on mount
+    useEffect(() => {
+        fetchAndStoreOreValues();
+    }, [fetchAndStoreOreValues]);
 
     useEffect(() => {
         document.title = `Zenith's Trading Tool v${packageJson.version}`;
@@ -342,25 +531,32 @@ function App() {
         localStorage.removeItem("ztt-bg-opacity");
     };
 
+    const iconContextValue = {
+        getImageSource,
+    };
+
     return (
         <HashRouter>
             <MiscProvider>
                 <PinListProvider>
                     <TradeProvider>
-                        <PathRedirectHandler />
-                        <AppWithHotkeys
-                            settingsOpen={settingsOpen}
-                            setSettingsOpen={setSettingsOpen}
-                            background={background}
-                            customBg={customBg}
-                            opacity={opacity}
-                            handleOpacityChange={handleOpacityChange}
-                            handleBgChange={handleBgChange}
-                            applyBackground={applyBackground}
-                            resetBackground={resetBackground}
-                            pinlistOpen={pinlistOpen}
-                            setPinlistOpen={setPinlistOpen}
-                        />
+                        <IconContext.Provider value={iconContextValue}>
+                            <PathRedirectHandler />
+                            <AppWithHotkeys
+                                settingsOpen={settingsOpen}
+                                setSettingsOpen={setSettingsOpen}
+                                background={background}
+                                customBg={customBg}
+                                opacity={opacity}
+                                handleOpacityChange={handleOpacityChange}
+                                handleBgChange={handleBgChange}
+                                applyBackground={applyBackground}
+                                resetBackground={resetBackground}
+                                pinlistOpen={pinlistOpen}
+                                setPinlistOpen={setPinlistOpen}
+                                fetchAndStoreOreValues={fetchAndStoreOreValues}
+                            />
+                        </IconContext.Provider>
                     </TradeProvider>
                 </PinListProvider>
             </MiscProvider>
@@ -395,8 +591,45 @@ function AppWithHotkeys({
     handleBgChange,
     applyBackground,
     resetBackground,
+    iconRefreshStatus,
+    fetchAndStoreOreValues
 }) {
     const { hotkeysEnabled } = useContext(MiscContext);
+    const [oreNames, setOreNames] = useState([]);
+
+    // Load ore names from localStorage when available
+    useEffect(() => {
+        const loadOreNames = () => {
+            const storedData = localStorage.getItem('oreValuesData');
+            if (storedData) {
+                try {
+                    const data = JSON.parse(storedData);
+                    // Extract ore names from the data structure
+                    // Adjust this based on your actual data structure
+                    const names = Object.keys(data).filter(key => 
+                        data[key] && typeof data[key] === 'object' && data[key].name
+                    ).map(key => data[key].name);
+                    setOreNames(names);
+                } catch (error) {
+                    console.error('Failed to parse ore names:', error);
+                }
+            }
+        };
+
+        loadOreNames();
+
+        // Listen for ore values updates
+        const handleOreValuesUpdated = (event) => {
+            const data = event.detail;
+            const names = Object.keys(data).filter(key => 
+                data[key] && typeof data[key] === 'object' && data[key].name
+            ).map(key => data[key].name);
+            setOreNames(names);
+        };
+
+        window.addEventListener('oreValuesUpdated', handleOreValuesUpdated);
+        return () => window.removeEventListener('oreValuesUpdated', handleOreValuesUpdated);
+    }, []);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -422,11 +655,17 @@ function AppWithHotkeys({
                 e.preventDefault();
                 setPinlistOpen((prev) => !prev);
             }
+
+            if (e.key.toLowerCase() === "i") {
+                e.preventDefault();
+                console.log("'I' detected - reloading values, icons, gradients");
+                fetchAndStoreOreValues();
+            }
         };
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [hotkeysEnabled, setSettingsOpen, setPinlistOpen]);
+    }, [hotkeysEnabled, setSettingsOpen, setPinlistOpen, fetchAndStoreOreValues, oreNames]);
 
     return (
         <HotkeyHandler>

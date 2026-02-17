@@ -315,9 +315,10 @@ const SettingsPanel = ({
                 </div>
                 {hotkeysEnabled && (
                     <div className="hotkey-list">
-                        <p><strong>S</strong> - Toggle Settings</p>
+                        <p><strong>S</strong> - Settings</p>
                         <p><strong>H</strong> - Home</p>
                         <p><strong>V</strong> - Value Chart</p>
+                        <p><strong>I</strong> - Reload Icons and Gradients</p>
                         <p><strong>C</strong> - CSV Loader Popup</p>
                         <p><strong>T</strong> - Trade Tool</p>
                         <p><strong>U</strong> - Custom Values</p>

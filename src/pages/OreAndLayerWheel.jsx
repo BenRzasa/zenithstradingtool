@@ -1,11 +1,10 @@
 import React, { useState, useContext, useMemo, useCallback, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
 import { MiscContext } from "../context/MiscContext";
+import { IconContext } from "../App";
 import { useWheel } from "../context/WheelContext";
 import NavBar from "../components/NavBar";
-import { OreIcons } from "../data/OreIcons";
-import missingIcon from "../images/ore-icons/Missing_Texture.png";
-import "../styles/AllGradients.css";
+import missingIcon from "../images/misc/Missing_Texture.png";
 import "../styles/LayerTable.css";
 import { MiscValueFunctions } from "../components/MiscValueFunctions";
 
@@ -22,6 +21,8 @@ const OreAndLayerWheel = () => {
         rareValueMode,
         rareCustomMultiplier,
     } = useContext(MiscContext);
+
+    const { getImageSource } = useContext(IconContext);
 
     const { settings, updateSetting } = useWheel();
 
@@ -707,11 +708,13 @@ const OreAndLayerWheel = () => {
                                 >
                                 <div className="row-container">
                                     <img
-                                        src={
-                                            OreIcons[selectedOre.name.replace(/ /g, "_")] ||
-                                                missingIcon
-                                        }
+                                    src={getImageSource(selectedOre.name)}
+                                        loading="lazy"
                                         alt={`${selectedOre.name} icon`}
+                                        onError={(e) => {
+                                            console.warn(`Missing icon for: ${selectedOre.name}`);
+                                            e.target.src = missingIcon;
+                                        }}
                                         className="ore-icon"
                                         id="wheel"
                                     />

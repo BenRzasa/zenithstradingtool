@@ -1,9 +1,9 @@
 import React, { useContext, useRef, useState } from "react";
 import { MiscContext } from "../context/MiscContext";
 import { PinListContext } from "../context/PinListContext";
+import { IconContext } from "../App";
 
-import { OreIcons } from "../data/OreIcons";
-import missingIcon from "../images/ore-icons/Missing_Texture.png";
+import missingIcon from "../images/misc/Missing_Texture.png";
 
 import "../styles/CustomPinList.css";
 
@@ -24,6 +24,8 @@ const CustomPinList = ({ isOpen, onClose }) => {
         // useAVMode,
         // setUseAVMode
     } = useContext(PinListContext);
+
+    const { getImageSource } = useContext(IconContext);
 
     // Get user's inventory data
     const csvData = getCurrentCSV();
@@ -315,26 +317,16 @@ const CustomPinList = ({ isOpen, onClose }) => {
                                             className={`name-column ${getOreClassName(ore.name)}`}
                                             data-text={ore.name}
                                         >
-                                            {OreIcons[ore.name.replace(/ /g, "_")] ? (
-                                                <img
-                                                    src={OreIcons[ore.name.replace(/ /g, "_")]}
-                                                    alt={`${ore.name} icon`}
-                                                    className="ore-icon"
-                                                    onError={(e) => {
-                                                        console.error(`Missing icon for: ${ore.name}`);
-                                                        e.target.style.display = "none";
-                                                    }}
-                                                />
-                                            ) : (
-                                                    // Missing icon
-                                                    <span>
-                                                        <img
-                                                            src={missingIcon}
-                                                            alt={"Missing icon"}
-                                                            className="ore-icon"
-                                                        ></img>
-                                                    </span>
-                                                )}
+                                            <img
+                                                src={getImageSource(ore.name)}
+                                                loading="lazy"
+                                                alt={`${ore.name} icon`}
+                                                className="ore-icon"
+                                                onError={(e) => {
+                                                    console.warn(`Missing icon for: ${ore.name}`);
+                                                    e.target.src = missingIcon;
+                                                }}
+                                            />
                                             {ore.name}
                                         </td>
                                         <td>
