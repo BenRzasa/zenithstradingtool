@@ -111,7 +111,7 @@ const OreAndLayerWheel = () => {
             );
 
             if(!foundOre) return 100.00;
-            else if(foundOre) return foundOre.completion;
+                else if(foundOre) return foundOre.completion;
         },
         [allValues.incompleteOres]
     );
@@ -123,7 +123,7 @@ const OreAndLayerWheel = () => {
             );
 
             if(!foundOre) return 0;
-            else if(foundOre) return foundOre.remaining;
+                else if(foundOre) return foundOre.remaining;
         },
         [allValues.incompleteOres]
     );
@@ -135,7 +135,7 @@ const OreAndLayerWheel = () => {
             );
 
             if(!foundOre) return 0;
-            else if(foundOre) return foundOre.required;
+                else if(foundOre) return foundOre.required;
         },
         [allValues.incompleteOres]
     );
@@ -308,6 +308,7 @@ const OreAndLayerWheel = () => {
         rareCustomMultiplier,
     ]);
 
+
     const getOreColor = useCallback((oreName) => {
         const tempEl = document.createElement("div");
         const className = `color-template-${oreName
@@ -316,42 +317,66 @@ const OreAndLayerWheel = () => {
         tempEl.className = className;
         document.body.appendChild(tempEl);
 
-        const wheelColor = getComputedStyle(tempEl)
-        .getPropertyValue("--wheel-color")
-        .trim();
-        if (wheelColor && wheelColor !== "") {
+        const computedStyle = getComputedStyle(tempEl);
+
+        // Check for gradient in --gradient variable (for gradient ores)
+        const gradient = computedStyle.getPropertyValue("--gradient").trim();
+        if (gradient && gradient.startsWith("linear-gradient")) {
+            // Extract first color from gradient
+            const colorMatch = gradient.match(/#[A-Fa-f0-9]{3,8}|rgba?\([^)]+\)/g);
+            if (colorMatch && colorMatch.length > 0) {
+                document.body.removeChild(tempEl);
+                return colorMatch[0];
+            }
+        }
+
+        // For solid colors, get the background-color
+        const backgroundColor = computedStyle.backgroundColor;
+        if (backgroundColor && backgroundColor !== "rgba(0, 0, 0, 0)" && backgroundColor !== "transparent") {
             document.body.removeChild(tempEl);
-            return wheelColor;
+            return backgroundColor;
         }
 
-        const bgColor = getComputedStyle(tempEl).backgroundColor;
         document.body.removeChild(tempEl);
-
-        if (
-            !bgColor ||
-                bgColor === "rgba(0, 0, 0, 0)" ||
-                bgColor === "transparent"
-        ) {
-            return "#cccccc";
-        }
-        return bgColor;
+        return "#ffffff";
     }, []);
 
     const getLayerColor = useCallback(
         (layerName) => {
+            const tempEl = document.createElement("div");
+            const className = `color-template-${layerName.toLowerCase()}`;
+            tempEl.className = className;
+            document.body.appendChild(tempEl);
+
+            const computedStyle = getComputedStyle(tempEl);
+
+            const gradient = computedStyle.getPropertyValue("--gradient").trim();
+            if (gradient && gradient.startsWith("linear-gradient")) {
+                const colorMatch = gradient.match(/#[A-Fa-f0-9]{3,8}|rgba?\([^)]+\)/g);
+                if (colorMatch && colorMatch.length > 0) {
+                    document.body.removeChild(tempEl);
+                    return colorMatch[0];
+                }
+            }
+
+            const backgroundColor = computedStyle.backgroundColor;
+            if (backgroundColor && backgroundColor !== "rgba(0, 0, 0, 0)" && backgroundColor !== "transparent") {
+                document.body.removeChild(tempEl);
+                return backgroundColor;
+            }
+
+            document.body.removeChild(tempEl);
+
             const layer = Object.values(oreValsDict).find(
                 (l) => l.layerName === layerName
             );
             const background = layer?.background || "#333333";
 
-            // If it's a gradient, extract the first color
             if (background.includes("linear-gradient")) {
-                // Match the first color in the gradient (hex or rgb)
                 const colorMatch = background.match(/#[0-9a-fA-F]{3,6}|rgba?\([^)]+\)/);
                 return colorMatch ? colorMatch[0] : "#333333";
             }
 
-            // If it's already a solid color, return it as-is
             return background;
         },
         [oreValsDict]
@@ -613,102 +638,102 @@ const OreAndLayerWheel = () => {
                             gap: "0.25em",
                             marginTop: "1em"
                         }}>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={settings.useCustomList}
-                            onChange={(e) =>
-                                updateSetting("useCustomList", e.target.checked)
-                            }
-                        />
-                        Use Custom Ore List
-                    </label>
-                    {settings.useCustomList && (
-                        <textarea
-                            value={settings.customOreList}
-                            onChange={(e) => updateSetting("customOreList", e.target.value)}
-                            onBlur={handleCustomListBlur}
-                            placeholder="Enter ores separated by commas"
-                            style={{
-                                width: "350px",
-                                height: "100px",
-                                padding: "5px",
-                                marginRight: "15px",
-                                textAlign: "left",
-                                resize: "none",
-                                overflow: "auto",
-                                direction: "rtl",
-                                unicodeBidi: "plaintext",
-                                boxSizing: "border-box",
-                            }}
-                        />
-                    )}
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={settings.includeOver100Completion}
-                            onChange={(e) =>
-                                updateSetting("includeOver100Completion", e.target.checked)
-                            }
-                        />
-                        Include Over 100% Completion
-                    </label>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={settings.includeRareOres}
-                            onChange={(e) =>
-                                updateSetting(
-                                    "includeRareOres",
-                                    e.target.checked
-                                )
-                            }
-                        />
-                        Include Rares & True Rares
-                        {!settings.includeOver100Completion && (
-                            <>
-                                <br></br>
-                                <br></br>Ores Remaining for {getModeString()} 
-                                <br></br>{(useSeparateRareMode && settings.includeRareOres) ? " + Custom Rare" : ""} Completion:{" "}
-                                <span className="accent">{allOres.length}</span>
-                            </>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={settings.useCustomList}
+                                onChange={(e) =>
+                                    updateSetting("useCustomList", e.target.checked)
+                                }
+                            />
+                            Use Custom Ore List
+                        </label>
+                        {settings.useCustomList && (
+                            <textarea
+                                value={settings.customOreList}
+                                onChange={(e) => updateSetting("customOreList", e.target.value)}
+                                onBlur={handleCustomListBlur}
+                                placeholder="Enter ores separated by commas"
+                                style={{
+                                    width: "350px",
+                                    height: "100px",
+                                    padding: "5px",
+                                    marginRight: "15px",
+                                    textAlign: "left",
+                                    resize: "none",
+                                    overflow: "auto",
+                                    direction: "rtl",
+                                    unicodeBidi: "plaintext",
+                                    boxSizing: "border-box",
+                                }}
+                            />
                         )}
-                        {settings.includeOver100Completion && (
-                            <>
-                                <br></br>
-                                <br></br>Ores in Wheel: <span className="accent">{allOres.length}</span>
-                            </>
-                        )}
-                    </label>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={settings.includeOver100Completion}
+                                onChange={(e) =>
+                                    updateSetting("includeOver100Completion", e.target.checked)
+                                }
+                            />
+                            Include Over 100% Completion
+                        </label>
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={settings.includeRareOres}
+                                onChange={(e) =>
+                                    updateSetting(
+                                        "includeRareOres",
+                                        e.target.checked
+                                    )
+                                }
+                            />
+                            Include Rares & True Rares
+                            {!settings.includeOver100Completion && (
+                                <>
+                                    <br></br>
+                                    <br></br>Ores Remaining for {getModeString()} 
+                                    <br></br>{(useSeparateRareMode && settings.includeRareOres) ? " + Custom Rare" : ""} Completion:{" "}
+                                    <span className="accent">{allOres.length}</span>
+                                </>
+                            )}
+                            {settings.includeOver100Completion && (
+                                <>
+                                    <br></br>
+                                    <br></br>Ores in Wheel: <span className="accent">{allOres.length}</span>
+                                </>
+                            )}
+                        </label>
                     </div>
                 </div>
-                    {selectedOre && (
-                        <div className="popup-overlay" onClick={() => setSelectedOre(null)}>
-                            <div className="box" id="wheel">
-                                <button
-                                    className="close-button"
-                                    onClick={() => setSelectedOre(null)}
-                                >✖</button>
-                                <h3>Selected Ore:</h3>
-                                <div
-                                    className={`box ${getOreClassName(selectedOre.name)}`}
-                                    data-text={selectedOre.name}
-                                    style={{
-                                        fontSize: "18px",
-                                        WebkitTextStroke: "5px black",
-                                        textStroke: "5px black",
-                                        paintOrder: "stroke fill",
-                                        width: "fit-content",
-                                        textAlign: "left",
-                                        paddingLeft: "1em",
-                                        justifyContent: "space-evenly"
-                                    }}
-                                >
+                {selectedOre && (
+                    <div className="popup-overlay" onClick={() => setSelectedOre(null)}>
+                        <div className="box" id="wheel">
+                            <button
+                                className="close-button"
+                                onClick={() => setSelectedOre(null)}
+                            >✖</button>
+                            <h3>Selected Ore:</h3>
+                            <div
+                                className={`box ${getOreClassName(selectedOre.name)}`}
+                                data-text={selectedOre.name}
+                                style={{
+                                    fontSize: "18px",
+                                    WebkitTextStroke: "5px black",
+                                    textStroke: "5px black",
+                                    paintOrder: "stroke fill",
+                                    width: "fit-content",
+                                    textAlign: "left",
+                                    paddingLeft: "1em",
+                                    justifyContent: "space-evenly"
+                                }}
+                            >
                                 <div className="row-container">
                                     <img
-                                    src={getImageSource(selectedOre.name)}
+                                        src={getImageSource(selectedOre.name)}
                                         loading="lazy"
                                         alt={`${selectedOre.name} icon`}
                                         onError={(e) => {
@@ -745,7 +770,7 @@ const OreAndLayerWheel = () => {
                             </div>
                         </div>
                     </div>
-                    )}
+                )}
             </div>
             <div className="row-container">
                 {/* Layer wheel section */}
@@ -819,43 +844,43 @@ const OreAndLayerWheel = () => {
                         </label>
                     </div>
                 </div>
-                    {selectedLayer && (
-                        <div className="popup-overlay" onClick={() => setSelectedLayer(null)}>
-                            <div className="box" id="wheel">
-                                <button
-                                    className="close-button"
-                                    onClick={() => setSelectedLayer(null)}
-                                >
-                                    ✖
-                                </button>
-                                <h3>Selected Layer:</h3>
-                                <div
-                                    className="box"
-                                    style={{
-                                        background: getLayerColor(selectedLayer),
-                                        width: "fit-content",
-                                        textAlign: "center",
-                                        fontSize: "20px",
-                                        textStroke: "5px black",
-                                        WebkitTextStroke: "5px black",
-                                        paintOrder: "stroke fill"
-                                    }}
-                                >
-                                    <span>{getMatchingLayerName(selectedLayer)}</span>
-                                </div>
-                                <div className="box" id="selected">
-                                    <p>
-                                        {getModeString(selectedLayer)} Completion:{" "}
-                                        <span className="accent">{calculateLayerCompletion(selectedLayer).toFixed(3)}%</span>
-                                    </p>
-                                    <p>
-                                        Total {getModeString(selectedLayer)}s:{" "}
-                                        <span className="accent">{calculateLayerValue(selectedLayer).toFixed(3)}</span>
-                                    </p>
-                                </div>
+                {selectedLayer && (
+                    <div className="popup-overlay" onClick={() => setSelectedLayer(null)}>
+                        <div className="box" id="wheel">
+                            <button
+                                className="close-button"
+                                onClick={() => setSelectedLayer(null)}
+                            >
+                                ✖
+                            </button>
+                            <h3>Selected Layer:</h3>
+                            <div
+                                className="box"
+                                style={{
+                                    background: getLayerColor(selectedLayer),
+                                    width: "fit-content",
+                                    textAlign: "center",
+                                    fontSize: "20px",
+                                    textStroke: "5px black",
+                                    WebkitTextStroke: "5px black",
+                                    paintOrder: "stroke fill"
+                                }}
+                            >
+                                <span>{getMatchingLayerName(selectedLayer)}</span>
+                            </div>
+                            <div className="box" id="selected">
+                                <p>
+                                    {getModeString(selectedLayer)} Completion:{" "}
+                                    <span className="accent">{calculateLayerCompletion(selectedLayer).toFixed(3)}%</span>
+                                </p>
+                                <p>
+                                    Total {getModeString(selectedLayer)}s:{" "}
+                                    <span className="accent">{calculateLayerValue(selectedLayer).toFixed(3)}</span>
+                                </p>
                             </div>
                         </div>
-                    )}
+                    </div>
+                )}
             </div>
         </div>
     );
