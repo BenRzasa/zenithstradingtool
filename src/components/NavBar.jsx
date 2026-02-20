@@ -70,6 +70,16 @@ const NavBar = () => {
                     </a><span>Wiki</span>
                 </div>
             </div>
+            <div className="nav-bar-item">
+                <div className="hide">
+                    <a
+                        href="https://discord.gg/M2F3vA5spz"
+                        target="_blank"
+                        rel="noreferrer"
+                    ><i class="fa fa-discord"></i>
+                    </a><span>CC Server</span>
+                </div>
+            </div>
         </div>
     );
 };

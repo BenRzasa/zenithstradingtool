@@ -345,7 +345,7 @@ const OreAndLayerWheel = () => {
             const background = layer?.background || "#333333";
 
             // If it's a gradient, extract the first color
-            if (background.includes("gradient")) {
+            if (background.includes("linear-gradient")) {
                 // Match the first color in the gradient (hex or rgb)
                 const colorMatch = background.match(/#[0-9a-fA-F]{3,6}|rgba?\([^)]+\)/);
                 return colorMatch ? colorMatch[0] : "#333333";

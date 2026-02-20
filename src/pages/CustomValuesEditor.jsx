@@ -137,13 +137,13 @@ function CustomValuesEditor() {
                 <div className="button-container-full-row">
                         <button
                             onClick={() => handleReset("zenith")}
-                            className="color-template-torn-fabric"
+                            className="color-template-stygian-ooze"
                         >
                             Reset: Zenith's
                         </button>
                         <button
                             onClick={() => handleReset("random")}
-                            className="color-template-verglazium-custom"
+                            className="color-template-ozirolyte"
                             style={{ 
                                 color: "white", 
                                 textShadow: "1px 2px 2px black"

@@ -3,12 +3,12 @@ const ValueButtons = ({ valueMode, setValueMode }) => {
     const valueButtons = [
         {
             mode: "zenith",
-            className: "color-template-torn-fabric",
+            className: "color-template-stygian-ooze",
             label: "Zenith's Values",
         },
         {
             mode: "random",
-            className: "color-template-verglazium-custom",
+            className: "color-template-ozirolyte",
             label: "Random's Values",
         },
         {

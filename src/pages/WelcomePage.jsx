@@ -1,3 +1,25 @@
+/*
+Zenith's Trading Tool, an interactive website built for Celestial Caverns
+Copyright (C) 2026 Ben Rzasa
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+SOFTWARE.
+*/
 import React, { useState } from "react";
 import { GetVersion } from "../utils/GetVersion";
 import { useNavigate } from "react-router-dom";
@@ -34,16 +56,28 @@ return (
         <h1 style={{justifySelf: "center", alignSelf: "center"}}>
             Welcome to ZenithFlare's Trading Tool v{version}
         </h1>
-        <img
-            src={logo}
-            alt="tcc logo"
-            style={{
-                width: "20em",
-                height: "20em",
-                border: "5px solid var(--switch-outline)",
-                boxShadow: "10px 10px 10px 0px rgba(0, 0, 0, 0.8)",
-            }}
-            />
+        <h5 style={{justifySelf: "center", alignSelf: "center"}}>
+            Strangifier, for you to insinuate that I somehow "manipulated you and water" into leaving is a complete and blatant lie. 
+            <br></br><br></br>Also, fuck you for calling ZTT a "cesspool of piss" and making up bullshit about how I "used it to manipulate people" ???
+            <br></br><br></br>Framing me as some evil manipulator in the first place is genuine schizo shit. 
+            <br></br><br></br>I don't know what you heard or where that info came from. Truly insane. 
+            <br></br><br></br>You two left fully of your own accord, it was your choice. Told me yourselves that you were fed up with staff and geo.
+            <br></br><br></br>Your raving paragraphs half consisting of complaints about me wanting tester chat to not be a complete cesspool of unproductive brainrot are ridiculous. I cannot believe how fragile you are when it comes to any criticism, no matter how kindly or politely it's stated, even in a joking way. Really unbelievable :(
+            <br></br><br></br>Hope everyone is doing well in CC server, feel free to join my new one using the button below
+        </h5>
+            <div className="row-container">
+                <img
+                    src={logo}
+                    alt="tcc logo"
+                    style={{
+                        width: "20em",
+                        height: "20em",
+                        border: "5px solid var(--switch-outline)",
+                        boxShadow: "10px 10px 10px 0px rgba(0, 0, 0, 0.8)",
+                    }}
+                />
+                <iframe src="https://discord.com/widget?id=1473823354552058028&theme=dark" width="350" height="350" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            </div>
             <h2>Created by ZenithFlare for Celestial Caverns</h2>
         <div className="button-container">
             <button onClick={() => navigate("/valuechart")}>
@@ -79,10 +113,10 @@ return (
             </button>
             <button
                 onClick={() =>
-                    window.open("https://discord.gg/rDgqKpJyP9", "_blank")
+                    window.open("https://discord.gg/M2F3vA5spz", "_blank")
                 }
             >
-                My Achievements!
+                My New CC Server
             </button>
             <button
                 onClick={() =>
@@ -116,7 +150,7 @@ return (
                 </div>
             </div>
         )}
-        <h3>--- Copyright <i class="fas fa-copyright"></i>2025 ---</h3>
+        <h3>--- Copyright <i class="fas fa-copyright"></i>2026 ---</h3>
     </div>
 );
 }

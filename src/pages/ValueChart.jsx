@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { MiscContext } from "../context/MiscContext";
+import { IconContext } from "../App";
 
 import { MiscValueFunctions } from "../components/MiscValueFunctions";
 import LayerTable from "../components/LayerTable";
@@ -66,6 +67,8 @@ function ValueChart() {
         calculateDisplayValue,
     } = allValues;
 
+    const { getImageSource } = useContext(IconContext);
+
     const navigate = useNavigate();
     const csvData = getCurrentCSV();
     const searchFilters = useSearchFilters(oreValsDict);
@@ -102,8 +105,8 @@ function ValueChart() {
 
     // eslint-disable-next-line
     const [lastUpdatedDates, setLastUpdatedDates] = useState({
-        zenith: "Dec 2025",
-        random: "Nov 2025",
+        zenith: "Feb 2026",
+        random: "Jan 2026",
     });
 
     // UI control states
@@ -363,7 +366,7 @@ function ValueChart() {
                         toggleValueMode("zenith");
                     }}
                     className={
-                        valueMode === "zenith" ? "color-template-torn-fabric" : ""
+                        valueMode === "zenith" ? "color-template-stygian-ooze" : ""
                     }
                 >
                     <span>Zenith's Vals</span>
@@ -376,13 +379,8 @@ function ValueChart() {
                         toggleValueMode("random");
                     }}
                     className={
-                        valueMode === "random" ? "color-template-verglazium-custom" : ""
+                        valueMode === "random" ? "color-template-ozirolyte" : ""
                     }
-                    style={{ 
-                        color: valueMode === "random" ? "white" : "black", 
-                        textShadow: 
-                        valueMode === "random" ? "1px 2px 2px black" : "" 
-                    }}
                 >
                     <span>Random's Vals</span>
                     <div className="v-last-updated">
@@ -515,25 +513,16 @@ function ValueChart() {
                                                         borderRight: "2px solid var(--switch-outline)"
                                                     }}
                                                 >
-                                                    {OreIcons[ore.name.replace(/ /g, "_")] ? (
-                                                        <img
-                                                            src={OreIcons[ore.name.replace(/ /g, "_")]}
-                                                            alt={`${ore.name} icon`}
-                                                            className="ore-icon"
-                                                            onError={(e) => {
-                                                                console.error(`Missing icon for: ${ore.name}`);
-                                                                e.target.style.display = "none";
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                            <span>
-                                                                <img
-                                                                    src={missingIcon}
-                                                                    alt={"Missing icon"}
-                                                                    className="ore-icon"
-                                                                ></img>
-                                                            </span>
-                                                        )}
+                                                    <img
+                                                        src={getImageSource(ore.name)}
+                                                        loading="lazy"
+                                                        alt={`${ore.name} icon`}
+                                                        className="ore-icon"
+                                                        onError={(e) => {
+                                                            console.warn(`Missing icon for: ${ore.name}`);
+                                                            e.target.src = missingIcon;
+                                                        }}
+                                                    />
                                                     {ore.name}
                                                 </td>
                                                 <td>
