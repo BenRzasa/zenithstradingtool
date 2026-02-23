@@ -416,7 +416,7 @@ function App() {
     }, [fetchAndStoreOreValues]);
 
     useEffect(() => {
-        document.title = `Zenith's EVIL MANIPULATOR Tool v${packageJson.version}`;
+        document.title = `Zenith's Trading Tool v${packageJson.version}`;
 
         const loadBackground = async () => {
             const savedOpacity = localStorage.getItem("ztt-bg-opacity");
