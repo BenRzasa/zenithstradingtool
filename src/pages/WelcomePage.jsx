@@ -1,4 +1,27 @@
 /*
+ * Zenith's Trading Tool - An external website created for Celestial Caverns
+ * Copyright (C) 2026 - Ben Rzasa
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the 'Software'), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+ * SOFTWARE.
+*/
+
+/*
 Zenith's Trading Tool, an interactive website built for Celestial Caverns
 Copyright (C) 2026 Ben Rzasa
 
@@ -35,7 +58,7 @@ function WelcomePage() {
     const currentChangelog = `
 ## Current Version: v${version}
 
-## Last Major Version: v9.13.0
+## Last Major Version: v9.14.0
 \`\`\`diff
 Soulscape is here! Also I revamped the entire site UI
 + ZTT UI is now fully mobile-compatible and 100% responsive to monitor size!
@@ -57,12 +80,6 @@ return (
             Welcome to ZenithFlare's Trading Tool v{version}
         </h1>
         <h5 style={{justifySelf: "center", alignSelf: "center"}}>
-            Strangifier, for you to insinuate that I somehow "manipulated you and water" into leaving is a complete and blatant lie. 
-            <br></br><br></br>Also, fuck you for calling ZTT a "cesspool of piss" and making up bullshit about how I "used it to manipulate people" ???
-            <br></br><br></br>Framing me as some evil manipulator in the first place is genuine schizo shit. 
-            <br></br><br></br>I don't know what you heard or where that info came from. Truly insane. 
-            <br></br><br></br>You two left fully of your own accord, it was your choice. Told me yourselves that you were fed up with staff and geo.
-            <br></br><br></br>Your raving paragraphs half consisting of complaints about me wanting tester chat to not be a complete cesspool of unproductive brainrot are ridiculous. I cannot believe how fragile you are when it comes to any criticism, no matter how kindly or politely it's stated, even in a joking way. Really unbelievable :(
             <br></br><br></br>Hope everyone is doing well in CC server, feel free to join my new one using the button below
         </h5>
             <div className="row-container">

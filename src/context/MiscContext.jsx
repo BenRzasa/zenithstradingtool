@@ -1,3 +1,49 @@
+/*
+ * Zenith's Trading Tool - An external website created for Celestial Caverns
+ * Copyright (C) 2026 - Ben Rzasa
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the 'Software'), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+ * SOFTWARE.
+*/
+
+/*
+ * Zenith's Trading Tool - An external website created for Celestial Caverns
+ * Copyright (C) 2026 - Ben Rzasa
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+ * SOFTWARE.
+*/
+
 import React, { createContext, useState, useEffect, useRef, useMemo } from "react";
 import { useOreValues } from "../hooks/useOreValues";
 import { getOreNames } from "../data/OreNames";
@@ -6,7 +52,6 @@ export const MiscContext = createContext();
 
 // ==================== UTILITY FUNCTIONS (DEFINE FIRST) ====================
 
-// Initialize custom values (default to zenithVal)
 const initializeCustomValues = (oreData) => {
     return oreData.map(layer => ({
         ...layer,
@@ -17,7 +62,6 @@ const initializeCustomValues = (oreData) => {
     }));
 };
 
-// Find matching layer by name (flexible matching)
 const findMatchingLayer = (layerName, dataArray) => {
     const baseName = layerName.split('\n')[0].trim();
     return dataArray.find(savedLayer => {
@@ -71,26 +115,22 @@ const mergeOreValues = (hookData, savedData) => {
 
 export const MiscProvider = ({ children }) => {
     // ==================== STATE INITIALIZATION ====================
-    // Get ore values from hook - now it returns an array directly
     const oreValuesFromHook = useOreValues();
 
     const [oreValsDict, setOreValsDict] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Effect to initialize oreValsDict when hook data is ready
     useEffect(() => {
         if (oreValuesFromHook && oreValuesFromHook.length > 0) {
             const savedDict = localStorage.getItem("oreValsDict");
 
             if (!savedDict) {
-                // No saved data, use hook data and initialize custom values
                 setOreValsDict(initializeCustomValues(oreValuesFromHook));
             } else {
                 try {
                     const savedData = JSON.parse(savedDict);
 
                     if (Array.isArray(savedData)) {
-                        // Already in new format, merge with hook data
                         setOreValsDict(mergeOreValues(oreValuesFromHook, savedData));
                     }
                 } catch (e) {
@@ -102,7 +142,6 @@ export const MiscProvider = ({ children }) => {
         }
     }, [oreValuesFromHook]);
 
-    // Compute oreNames from oreValsDict
     const oreNames = useMemo(() => {
         return getOreNames(oreValsDict);
     }, [oreValsDict]);
@@ -146,7 +185,6 @@ export const MiscProvider = ({ children }) => {
         return savedTime ? new Date(savedTime) : null;
     });
 
-    // Value Calculation States
     const [capCompletion, setCapCompletion] = useState(() => {
         const savedCapComp = localStorage.getItem("capCompletion");
         return savedCapComp !== null ? JSON.parse(savedCapComp) : true;
@@ -172,7 +210,6 @@ export const MiscProvider = ({ children }) => {
         return savedCustomMult !== null ? JSON.parse(savedCustomMult) : 100;
     });
 
-    // Rare Finds States
     const [rareFindsData, setRareFindsData] = useState(() => {
         const savedRareFinds = localStorage.getItem("rareFindsData");
         return savedRareFinds ? JSON.parse(savedRareFinds) : {};
@@ -193,12 +230,10 @@ export const MiscProvider = ({ children }) => {
         return savedRareMultiplier ? JSON.parse(savedRareMultiplier) : 100;
     });
 
-    // Use a ref to track initial values
     const initialDictRef = useRef(oreValuesFromHook);
 
     // ==================== COMPONENT FUNCTIONS ====================
 
-    // Reset custom values to a specific source
     const resetCustomValues = (source) => {
         const resetData = {};
         
@@ -233,7 +268,6 @@ export const MiscProvider = ({ children }) => {
         return resetData;
     };
 
-    // Get ore value based on current mode
     const getValueForMode = (oreData) => {
         if (!oreData || !oreData.name || oreData.name.includes("Essence")) return 0;
 
@@ -255,7 +289,6 @@ export const MiscProvider = ({ children }) => {
         }
     };
 
-    // Calculate total AV from CSV data
     const calculateTotalAV = (data, useHistoricalOreVals = null) => {
         if (!data) return 0;
 
@@ -268,7 +301,6 @@ export const MiscProvider = ({ children }) => {
             const amount = data[oreName] || 0;
             let baseValue = 1;
 
-            // Search through all layers for the ore
             oreValuesToUse.some((layer) => {
                 const oreData = layer.layerOres.find((item) => item.name === oreName);
                 if (oreData) {
@@ -313,19 +345,16 @@ export const MiscProvider = ({ children }) => {
         console.log("All CSV data cleared");
     };
 
-    // Helper function for CSS classes
     const getOreClassName = (oreName) => {
         return `color-template-${oreName.toLowerCase().replace(/ /g, "-")}`;
     };
 
-    // Get current CSV (primary or secondary)
     const getCurrentCSV = () => {
         return useSecondaryCSV ? secondaryCSVData : csvData;
     };
 
     // ==================== EFFECTS ====================
 
-    // Update ore values when hook data changes
     useEffect(() => {
         if (initialDictRef.current !== oreValuesFromHook) {
             const merged = mergeOreValues(oreValuesFromHook, oreValsDict);
@@ -334,7 +363,6 @@ export const MiscProvider = ({ children }) => {
         }
     }, [oreValuesFromHook]);
 
-    // Persist states to localStorage
     useEffect(() => {
         localStorage.setItem("csvData", JSON.stringify(csvData));
     }, [csvData]);
@@ -354,6 +382,7 @@ export const MiscProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem("hotkeysEnabled", JSON.stringify(hotkeysEnabled));
     }, [hotkeysEnabled]);
+
     useEffect(() => {
         localStorage.setItem("secondaryCSVData", JSON.stringify(secondaryCSVData));
     }, [secondaryCSVData]);
@@ -405,7 +434,6 @@ export const MiscProvider = ({ children }) => {
     // ==================== CONTEXT VALUE ====================
 
     const contextValue = useMemo(() => ({
-        // UI States
         settingsOpen,
         setSettingsOpen,
         hotkeysEnabled,
@@ -413,7 +441,6 @@ export const MiscProvider = ({ children }) => {
         moreStats,
         setMoreStats,
 
-        // CSV Operations
         csvData,
         secondaryCSVData,
         setSecondaryCSVData,
@@ -425,8 +452,6 @@ export const MiscProvider = ({ children }) => {
         lastUpdated,
         clearCSVData,
 
-
-        // Value Calculation
         capCompletion,
         setCapCompletion,
         valueMode,
@@ -440,7 +465,6 @@ export const MiscProvider = ({ children }) => {
         getValueForMode,
         calculateTotalAV,
 
-        // Rare Finds
         rareFindsData,
         setRareFindsData,
         useSeparateRareMode,
@@ -450,13 +474,11 @@ export const MiscProvider = ({ children }) => {
         rareCustomMultiplier,
         setRareCustomMultiplier,
 
-        // Ore Values
         oreValsDict,
         setOreValsDict,
         oreNames,
         resetCustomValues,
 
-        // Utilities
         getOreClassName,
     }), [
             settingsOpen, hotkeysEnabled, moreStats, csvData, secondaryCSVData, useSecondaryCSV,
