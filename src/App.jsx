@@ -416,7 +416,7 @@ function App() {
     }, [fetchAndStoreOreValues]);
 
     useEffect(() => {
-        document.title = `Zenith's Trading Tool v${packageJson.version}`;
+        document.title = `Test (Name got stuck) v${packageJson.version}`;
 
         const loadBackground = async () => {
             const savedOpacity = localStorage.getItem("ztt-bg-opacity");
