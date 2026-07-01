@@ -115,21 +115,7 @@ Soulscape is here! Also I revamped the entire site UI
                 >
                     CC Wiki
                 </button>
-                <button
-                    onClick={() =>
-                        window.open("https://discord.gg/M2F3vA5spz", "_blank")
-                    }
-                >
-                    My New CC Server
-                </button>
-                <button
-                    onClick={() =>
-                        window.open("https://ko-fi.com/zenithflare", "_blank")
-                    }
-                >
-                    Buy Me a Coffee
-                </button>
-                <button 
+                                <button 
                     onClick={() => setShowChangelog(!showChangelog)}
                     className={showChangelog ? "active" : ""}
                 >
