@@ -73,89 +73,90 @@ Soulscape is here! Also I revamped the entire site UI
 \`\`\`
 `;
 
-return (
-    <div 
-        className="page-wrapper" style={{textAlign: "center"}}
-    >
-        <h1 style={{justifySelf: "center", alignSelf: "center"}}>
-            Welcome to ZenithFlare's Trading Tool v{version}
-        </h1>
+    return (
+        <div 
+            className="page-wrapper" style={{textAlign: "center"}}
+        >
+            <>
+                <h1 style={{justifySelf: "center", alignSelf: "center"}}>
+                    Welcome to ZenithFlare's Trading Tool v{version}
+                </h1>
+                <h2>Created by ZenithFlare for Celestial Caverns</h2>
+            </>
+            <div className="button-container">
+                <button onClick={() => navigate("/valuechart")}>
+                    Value Chart
+                </button>
+                <button onClick={() => navigate("/tradetool")}>
+                    Trade Tool
+                </button>
+                <button onClick={() => navigate("/customvalues")}>
+                    Custom Values
+                </button>
+                <button onClick={() => navigate("/misc")}>
+                    Miscellaneous
+                </button>
+                <button onClick={() => navigate("/findtracker")}>
+                    Rare Tracker
+                </button>
+                <button onClick={() => navigate("/wheelspage")}>
+                    Spin the Wheel!
+                </button>
+                <button onClick={() => navigate("/credits")}>
+                    Credits
+                </button>
+                <button
+                    onClick={() =>
+                        window.open(
+                            "https://celestialcaverns.miraheze.org/wiki/Celestial_Caverns_Wiki",
+                            "_blank"
+                        )
+                    }
+                >
+                    CC Wiki
+                </button>
+                <button
+                    onClick={() =>
+                        window.open("https://discord.gg/M2F3vA5spz", "_blank")
+                    }
+                >
+                    My New CC Server
+                </button>
+                <button
+                    onClick={() =>
+                        window.open("https://ko-fi.com/zenithflare", "_blank")
+                    }
+                >
+                    Buy Me a Coffee
+                </button>
+                <button 
+                    onClick={() => setShowChangelog(!showChangelog)}
+                    className={showChangelog ? "active" : ""}
+                >
+                    {showChangelog ? "▼  Hide Changelog" : "▲  Show Changelog"}
+                </button>
             </div>
-            <h2>Created by ZenithFlare for Celestial Caverns</h2>
-        <div className="button-container">
-            <button onClick={() => navigate("/valuechart")}>
-                Value Chart
-            </button>
-            <button onClick={() => navigate("/tradetool")}>
-                Trade Tool
-            </button>
-            <button onClick={() => navigate("/customvalues")}>
-                Custom Values
-            </button>
-            <button onClick={() => navigate("/misc")}>
-                Miscellaneous
-            </button>
-            <button onClick={() => navigate("/findtracker")}>
-                Rare Tracker
-            </button>
-            <button onClick={() => navigate("/wheelspage")}>
-                Spin the Wheel!
-            </button>
-            <button onClick={() => navigate("/credits")}>
-                Credits
-            </button>
-            <button
-                onClick={() =>
-                    window.open(
-                        "https://celestialcaverns.miraheze.org/wiki/Celestial_Caverns_Wiki",
-                        "_blank"
-                    )
-                }
-            >
-                CC Wiki
-            </button>
-            <button
-                onClick={() =>
-                    window.open("https://discord.gg/M2F3vA5spz", "_blank")
-                }
-            >
-                My New CC Server
-            </button>
-            <button
-                onClick={() =>
-                    window.open("https://ko-fi.com/zenithflare", "_blank")
-                }
-            >
-                Buy Me a Coffee
-            </button>
-            <button 
-                onClick={() => setShowChangelog(!showChangelog)}
-                className={showChangelog ? "active" : ""}
-            >
-                {showChangelog ? "▼  Hide Changelog" : "▲  Show Changelog"}
-            </button>
-        </div>
-        {showChangelog && (
-            <div 
-                className="popup-overlay" 
-                onClick={() => setShowChangelog(false)}
-            >
-                <div className="box">
-                    <button 
-                        className="close-button"
-                        onClick={() => setShowChangelog(false)}
-                    >
-                        ✖
-                    </button>
-                    <ReactMarkdown>
-                        {currentChangelog}
-                    </ReactMarkdown>
+            {showChangelog && (
+                <div 
+                    className="popup-overlay" 
+                    onClick={() => setShowChangelog(false)}
+                >
+                    <div className="box">
+                        <button 
+                            className="close-button"
+                            onClick={() => setShowChangelog(false)}
+                        >
+                            ✖
+                        </button>
+                        <ReactMarkdown>
+                            {currentChangelog}
+                        </ReactMarkdown>
+                    </div>
                 </div>
-            </div>
-        )}
-        <h3>--- Copyright <i class="fas fa-copyright"></i>2026 ---</h3>
-    </div>
-);
+            )}
+            <h3>--- Copyright <i class="fas fa-copyright"></i>2026 ---</h3>
+        </div>
+    );
 }
 
 export default WelcomePage;
