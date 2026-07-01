@@ -80,33 +80,6 @@ return (
         <h1 style={{justifySelf: "center", alignSelf: "center"}}>
             Welcome to ZenithFlare's Trading Tool v{version}
         </h1>
-            <h5 style={{justifySelf: "left", alignSelf: "left", textAlign: "left"}}>
-                <ul>
-                    <li>Text jumpscare (would appreciate a thorough read without a nonsense reply of "bro crying over chicken", thanks - really doesn't help the situation or make you be taken more seriously, at all, by anyone).</li>
-                    <li>Oh and to whoever was randomly clowning on the tab name of ZTT, it was a joke, due to reasons stated in the below text, and got stuck. Genuine bug lol</li>
-                    <li>Context-specific bits are in reply to ChillyCheepCheep joining up and us discussing the doc and reasons for the ban.</li>
-                    <li>For full context to exactly what I'm responding to as he typed, hop in my server and check the points he began with. Should be open to anyone. Sorry if it's unclear in some places</li>
-                    <li>I don't expect full redemption or anything. From sentiments expressed at the end of the *one hundred twenty five page* doc, seems like a decent amount of people genuinely really disliked me and want me permanently gone. And that's understandable, to some extent. </li>
-                    <li>Besides, eventually if I was allowed back, I have no doubt this same group would nonstop hound me about the ban until the end of time. Taste of my own medicine, I guess lol. </li>
-                    <li>Anyway, have fun reading! You are free to form your own opinions on the whole situation. If you choose not to believe anything I say here and move on, well, I can't prevent that. But it's as genuine as I can make it.</li>
-                </ul>
-            </h5>
-            <iframe src="cc apology thingymajig.txt" width="500" height="300"></iframe>
-            <h5 style={{justifySelf: "center", alignSelf: "center"}}>
-                <br></br><br></br>Hope everyone is doing well in CC server, feel free to join my new one using the button below
-            </h5>
-            <div className="row-container">
-                <img
-                    src={logo}
-                    alt="tcc logo"
-                    style={{
-                        width: "20em",
-                        height: "20em",
-                        border: "5px solid var(--switch-outline)",
-                        boxShadow: "10px 10px 10px 0px rgba(0, 0, 0, 0.8)",
-                    }}
-                />
-                <iframe src="https://discord.com/widget?id=1473823354552058028&theme=dark" width="350" height="350" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
             <h2>Created by ZenithFlare for Celestial Caverns</h2>
         <div className="button-container">
